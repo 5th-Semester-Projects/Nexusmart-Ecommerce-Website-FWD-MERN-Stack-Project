@@ -1,0 +1,45 @@
+{
+  "name": "nexusmart-ecommerce",
+  "version": "1.0.0",
+  "description": "NexusMart - AI + AR Powered MERN Stack Ecommerce Platform",
+  "main": "server/server.js",
+  "scripts": {
+    "install-all": "cd server && npm install && cd ../client && npm install",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd server && npm run dev",
+    "client": "cd client && npm run dev",
+    "build": "cd client && npm run build",
+    "start": "cd server && npm start",
+    "test": "cd server && npm test && cd ../client && npm test",
+    "setup": "npm run install-all && echo '\n✅ Dependencies installed! Next steps:\n1. Copy server/.env.example to server/.env\n2. Copy client/.env.example to client/.env\n3. Update environment variables\n4. Run: npm run dev'"
+  },
+  "keywords": [
+    "ecommerce",
+    "mern",
+    "react",
+    "mongodb",
+    "express",
+    "nodejs",
+    "redux",
+    "ai",
+    "ar",
+    "tailwind"
+  ],
+  "author": "NexusMart Team",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/nexusmart-ecommerce"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/nexusmart-ecommerce/issues"
+  },
+  "homepage": "https://github.com/yourusername/nexusmart-ecommerce#readme"
+}

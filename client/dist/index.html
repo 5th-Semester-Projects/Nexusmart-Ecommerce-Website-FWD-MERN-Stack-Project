@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="NexusMart - AI + AR Powered Ecommerce Platform. Shop with AI recommendations and AR try-on features." />
+  <meta name="keywords" content="ecommerce, shopping, AI, AR, virtual try-on, online store" />
+  <meta name="author" content="NexusMart Team" />
+
+  <!-- PWA Meta Tags -->
+  <meta name="theme-color" content="#6366f1" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="NexusMart" />
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="NexusMart - AI + AR Powered Ecommerce" />
+  <meta property="og:description" content="Shop with AI recommendations and AR try-on features" />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:title" content="NexusMart - AI + AR Powered Ecommerce" />
+  <meta property="twitter:description" content="Shop with AI recommendations and AR try-on features" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+
+  <title>NexusMart - AI + AR Powered Ecommerce</title>
+  <script type="module" crossorigin src="/js/index-CCYBg9KT.js"></script>
+  <link rel="modulepreload" crossorigin href="/js/react-vendor-takh9Jyk.js">
+  <link rel="modulepreload" crossorigin href="/js/three-vendor-B3gp6cmk.js">
+  <link rel="modulepreload" crossorigin href="/js/redux-vendor-D_jwlZfB.js">
+  <link rel="modulepreload" crossorigin href="/js/ui-vendor-CWlZ5n2I.js">
+  <link rel="modulepreload" crossorigin href="/js/web3-vendor-OVZtbIUx.js">
+  <link rel="stylesheet" crossorigin href="/assets/index-DvmYqqkQ.css">
+</head>
+
+<body>
+  <noscript>
+    <div style="font-family: system-ui; padding: 20px; text-align: center;">
+      <h1>JavaScript Required</h1>
+      <p>You need to enable JavaScript to run NexusMart.</p>
+    </div>
+  </noscript>
+  <div id="root"></div>
+
+  <!-- Service Worker Registration (disabled on localhost to avoid dev caching issues) -->
+  <script>
+    if ('serviceWorker' in navigator && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker
+          .register('/service-worker.js')
+          .then((registration) => {
+            console.log('Service Worker registered successfully:', registration.scope);
+
+            // Check for updates
+            registration.addEventListener('updatefound', () => {
+              const newWorker = registration.installing;
+              newWorker.addEventListener('statechange', () => {
+                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                  // New version available
+                  if (confirm('New version available! Reload to update?')) {
+                    newWorker.postMessage({ type: 'SKIP_WAITING' });
+                    window.location.reload();
+                  }
+                }
+              });
+            });
+          })
+          .catch((error) => {
+            console.error('Service Worker registration failed:', error);
+          });
+      });
+
+      // Reload page when new service worker takes control
+      let refreshing;
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (refreshing) return;
+        refreshing = true;
+        window.location.reload();
+      });
+    }
+  </script>
+</body>
+
+</html>

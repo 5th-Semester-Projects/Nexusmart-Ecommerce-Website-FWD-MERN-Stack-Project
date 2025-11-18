@@ -1,0 +1,35 @@
+{
+  "name": "NexusMart - AI Powered Ecommerce",
+  "short_name": "NexusMart",
+  "description": "Shop with AI recommendations, AR try-on, and crypto payments",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#6366f1",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/vite.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["shopping", "lifestyle"],
+  "shortcuts": [
+    {
+      "name": "Browse Products",
+      "short_name": "Products",
+      "description": "View all products",
+      "url": "/products"
+    },
+    {
+      "name": "My Cart",
+      "short_name": "Cart",
+      "description": "View shopping cart",
+      "url": "/cart"
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
+}

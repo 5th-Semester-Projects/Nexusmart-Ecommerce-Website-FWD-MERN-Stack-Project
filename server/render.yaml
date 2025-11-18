@@ -1,0 +1,85 @@
+# Render Configuration for Backend Deployment
+
+services:
+  - type: web
+    name: nexusmart-api
+    env: node
+    region: oregon
+    plan: starter
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+
+    envVars:
+      - key: NODE_VERSION
+        value: 18
+
+      - key: NODE_ENV
+        value: production
+
+      - key: PORT
+        value: 5000
+
+      - key: MONGODB_URI
+        sync: false
+
+      - key: JWT_SECRET
+        generateValue: true
+
+      - key: JWT_EXPIRE
+        value: 30d
+
+      - key: STRIPE_SECRET_KEY
+        sync: false
+
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+
+      - key: RAZORPAY_KEY_ID
+        sync: false
+
+      - key: RAZORPAY_KEY_SECRET
+        sync: false
+
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+
+      - key: CLOUDINARY_API_KEY
+        sync: false
+
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+
+      - key: EMAIL_HOST
+        sync: false
+
+      - key: EMAIL_PORT
+        value: 587
+
+      - key: EMAIL_USER
+        sync: false
+
+      - key: EMAIL_PASS
+        sync: false
+
+      - key: CLIENT_URL
+        value: https://nexusmart.vercel.app
+
+    autoDeploy: true
+
+    scaling:
+      minInstances: 1
+      maxInstances: 3
+      targetMemoryPercent: 80
+      targetCPUPercent: 80
+
+databases:
+  - name: nexusmart-redis
+    plan: starter
+    ipAllowList: []
+
+  - name: nexusmart-postgres
+    plan: starter
+    databaseName: nexusmart
+    user: nexusmart_user
+    ipAllowList: []

@@ -121,7 +121,9 @@ app.use(errorMiddleware);
 
 // Start server
 const PORT = process.env.PORT || 5000;
-server.listen(PORT, () => {
+const HOST = '0.0.0.0'; // Important for Render deployment
+
+server.listen(PORT, HOST, () => {
   console.log(`
 ╔═══════════════════════════════════════════════════════════╗
 ║                                                           ║

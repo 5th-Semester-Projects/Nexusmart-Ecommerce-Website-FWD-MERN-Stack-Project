@@ -95,9 +95,23 @@ export const getAllProducts = catchAsyncErrors(async (req, res, next) => {
     query.$text = { $search: req.query.keyword };
   }
 
-  // Filter by category
+  // Filter by category (supports name, slug, or ObjectId)
   if (req.query.category) {
-    query.category = req.query.category;
+    const Category = (await import('../models/Category.js')).default;
+    // Try to find category by name or slug (case-insensitive)
+    const category = await Category.findOne({
+      $or: [
+        { name: new RegExp(`^${req.query.category}$`, 'i') },
+        { slug: req.query.category.toLowerCase() }
+      ]
+    });
+
+    if (category) {
+      query.category = category._id;
+    } else {
+      // If not found, try as ObjectId
+      query.category = req.query.category;
+    }
   }
 
   // Filter by price range

@@ -17,14 +17,16 @@ const ProductFilters = ({ filters, onFilterChange, onClearFilters, products = []
     products.forEach(product => {
       const categoryName = typeof product.category === 'object' ? product.category?.name : product.category;
       if (categoryName) {
-        categoryCounts[categoryName] = (categoryCounts[categoryName] || 0) + 1;
+        // Store with lowercase key for consistent counting
+        const catLower = categoryName.toLowerCase();
+        categoryCounts[catLower] = (categoryCounts[catLower] || 0) + 1;
       }
     });
 
     return [
-      { value: 'Men', label: '👔 Men', count: categoryCounts['Men'] || 0 },
-      { value: 'Women', label: '👗 Women', count: categoryCounts['Women'] || 0 },
-      { value: 'Electronics', label: '📱 Electronics', count: categoryCounts['Electronics'] || 0 },
+      { value: 'men', label: '👔 Men', count: categoryCounts['men'] || 0 },
+      { value: 'women', label: '👗 Women', count: categoryCounts['women'] || 0 },
+      { value: 'electronics', label: '📱 Electronics', count: categoryCounts['electronics'] || 0 },
     ];
   }, [products]);
 

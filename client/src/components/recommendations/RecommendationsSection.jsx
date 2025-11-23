@@ -20,13 +20,13 @@ const RecommendationsSection = () => {
 
   const loadRecommendations = async () => {
     try {
-      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
       if (isAuthenticated && user?._id) {
-        const { data } = await axios.get(`${API_URL}/recommendations/personalized/${user._id}`);
+        const { data } = await axios.get(`${API_URL}/api/recommendations/personalized/${user._id}`);
         setRecommendations(data.recommendations || []);
       } else {
         // Load popular products for non-authenticated users
-        const { data } = await axios.get(`${API_URL}/products?sort=popular&limit=8`);
+        const { data } = await axios.get(`${API_URL}/api/products?sort=popular&limit=8`);
         setRecommendations(data.products || []);
       }
     } catch (error) {
@@ -38,8 +38,8 @@ const RecommendationsSection = () => {
 
   const loadTrending = async () => {
     try {
-      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
-      const { data } = await axios.get(`${API_URL}/products/trending`);
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const { data } = await axios.get(`${API_URL}/api/products/trending`);
       setTrending(data.products || []);
     } catch (error) {
       console.error('Failed to load trending products:', error);

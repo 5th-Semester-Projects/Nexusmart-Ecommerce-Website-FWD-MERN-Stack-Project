@@ -29,8 +29,8 @@ const IntelligentSearch = ({ isMobile = false }) => {
   // Load trending searches
   const loadTrendingSearches = async () => {
     try {
-      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
-      const { data } = await axios.get(`${API_URL}/ai/search-trends`).catch(() => ({ data: { trends: [] } }));
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const { data } = await axios.get(`${API_URL}/api/ai/search-trends`).catch(() => ({ data: { trends: [] } }));
       setTrendingSearches((data.trends || []).slice(0, 5));
     } catch (error) {
       console.error('Failed to load trending searches:', error);
@@ -46,9 +46,9 @@ const IntelligentSearch = ({ isMobile = false }) => {
       debounceTimer.current = setTimeout(async () => {
         setIsLoading(true);
         try {
-          const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+          const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
           // Get autocomplete suggestions
-          const { data } = await axios.get(`${API_URL}/products/suggestions?query=${query}`).catch(() => ({ data: { suggestions: [] } }));
+          const { data } = await axios.get(`${API_URL}/api/products/suggestions?query=${query}`).catch(() => ({ data: { suggestions: [] } }));
           setSuggestions(data.suggestions || []);
 
           // Check for spelling errors (optional, don't break if it fails)

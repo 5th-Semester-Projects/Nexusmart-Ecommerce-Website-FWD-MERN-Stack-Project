@@ -13,10 +13,8 @@
   <!-- PWA Meta Tags -->
   <meta name="theme-color" content="#6366f1" />
   <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="NexusMart" />
-  <link rel="manifest" href="/manifest.json" />
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
 
   <!-- Open Graph / Facebook -->
@@ -33,17 +31,16 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Russo+One&family=Share+Tech+Mono&family=Audiowide&family=Exo+2:wght@100;200;300;400;500;600;700;800;900&family=Electrolize&display=swap"
     rel="stylesheet" />
 
   <title>NexusMart - AI + AR Powered Ecommerce</title>
-  <script type="module" crossorigin src="/js/index-CCYBg9KT.js"></script>
-  <link rel="modulepreload" crossorigin href="/js/react-vendor-takh9Jyk.js">
-  <link rel="modulepreload" crossorigin href="/js/three-vendor-B3gp6cmk.js">
-  <link rel="modulepreload" crossorigin href="/js/redux-vendor-D_jwlZfB.js">
-  <link rel="modulepreload" crossorigin href="/js/ui-vendor-CWlZ5n2I.js">
-  <link rel="modulepreload" crossorigin href="/js/web3-vendor-OVZtbIUx.js">
-  <link rel="stylesheet" crossorigin href="/assets/index-DvmYqqkQ.css">
+  <script type="module" crossorigin src="/js/index-D4fnEueO.js"></script>
+  <link rel="modulepreload" crossorigin href="/js/react-vendor-CEWkFM1H.js">
+  <link rel="modulepreload" crossorigin href="/js/three-vendor-CzW0C-3o.js">
+  <link rel="modulepreload" crossorigin href="/js/redux-vendor-DwxIzyaR.js">
+  <link rel="modulepreload" crossorigin href="/js/ui-vendor-CDnMNP0Y.js">
+  <link rel="stylesheet" crossorigin href="/assets/index-BEIg1IDL.css">
 </head>
 
 <body>
@@ -54,44 +51,6 @@
     </div>
   </noscript>
   <div id="root"></div>
-
-  <!-- Service Worker Registration (disabled on localhost to avoid dev caching issues) -->
-  <script>
-    if ('serviceWorker' in navigator && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker
-          .register('/service-worker.js')
-          .then((registration) => {
-            console.log('Service Worker registered successfully:', registration.scope);
-
-            // Check for updates
-            registration.addEventListener('updatefound', () => {
-              const newWorker = registration.installing;
-              newWorker.addEventListener('statechange', () => {
-                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                  // New version available
-                  if (confirm('New version available! Reload to update?')) {
-                    newWorker.postMessage({ type: 'SKIP_WAITING' });
-                    window.location.reload();
-                  }
-                }
-              });
-            });
-          })
-          .catch((error) => {
-            console.error('Service Worker registration failed:', error);
-          });
-      });
-
-      // Reload page when new service worker takes control
-      let refreshing;
-      navigator.serviceWorker.addEventListener('controllerchange', () => {
-        if (refreshing) return;
-        refreshing = true;
-        window.location.reload();
-      });
-    }
-  </script>
 </body>
 
 </html>

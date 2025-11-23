@@ -13,7 +13,7 @@ import ProductGrid from '../components/products/ProductGrid';
 import { PageLoader } from '../components/common/Loader';
 import Button from '../components/common/Button';
 import api from '../utils/api';
-import UltimateHomeMagic from '../components/3d/UltimateHomeMagic';
+// import UltimateHomeMagic from '../components/3d/UltimateHomeMagic';
 import MagicalGenie from '../components/common/MagicalGenie';
 
 const HomePage = () => {
@@ -112,10 +112,7 @@ const HomePage = () => {
         {/* Circuit Background - Reduced Opacity */}
         <div className="circuit-bg" style={{ opacity: 0.15 }}></div>
 
-        {/* Ultimate Home Magic Background - Reduced Opacity */}
-        <div className="fixed inset-0 -z-10 opacity-20">
-          <UltimateHomeMagic intensity="high" />
-        </div>
+        {/* 3D Background disabled for performance */}
 
         {/* Magical Genie */}
         <MagicalGenie />

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiGrid, FiList, FiX, FiFilter, FiChevronDown, FiSearch } from 'react-icons/fi';
@@ -10,7 +10,7 @@ import ProductFilters from '../components/products/ProductFilters';
 import ProductQuickView from '../components/products/ProductQuickView';
 import Button from '../components/common/Button';
 import { PageLoader } from '../components/common/Loader';
-import MagicalParticles from '../components/3d/MagicalParticles';
+// Removed MagicalParticles import for performance
 import MagicalGenie from '../components/common/MagicalGenie';
 
 const ProductsPage = () => {
@@ -20,11 +20,10 @@ const ProductsPage = () => {
 
   const [viewMode, setViewMode] = useState('grid');
   const [showFilters, setShowFilters] = useState(false);
-  const [displayProducts, setDisplayProducts] = useState([]);
   const [quickViewProduct, setQuickViewProduct] = useState(null);
 
   const getFiltersFromURL = () => ({
-    category: searchParams.get('category') || '',
+    category: (searchParams.get('category') || '').toLowerCase(),
     minPrice: searchParams.get('minPrice') ? Number(searchParams.get('minPrice')) : '',
     maxPrice: searchParams.get('maxPrice') ? Number(searchParams.get('maxPrice')) : '',
     rating: parseFloat(searchParams.get('rating')) || 0,
@@ -36,14 +35,21 @@ const ProductsPage = () => {
 
   // Fetch products from API
   useEffect(() => {
-    dispatch(fetchProducts());
+    console.log('🚀 Fetching products...');
+    dispatch(fetchProducts()).then((result) => {
+      console.log('✅ Products fetched:', result);
+    }).catch((error) => {
+      console.error('❌ Products fetch failed:', error);
+    });
   }, [dispatch]);
 
-  // Apply filters whenever filters or products change
-  useEffect(() => {
+  // Memoized filtered products for better performance
+  const displayProducts = useMemo(() => {
+    console.log('🔄 Filtering products - count:', products.length);
+    
     if (products.length === 0) {
-      setDisplayProducts([]);
-      return;
+      console.log('⚠️ No products available');
+      return [];
     }
 
     let filtered = [...products];
@@ -68,7 +74,6 @@ const ProductsPage = () => {
     if (filters.rating > 0) {
       filtered = filtered.filter(p => {
         const productRating = p.ratings || p.rating || 0;
-        // Exact star rating: only show products in that star range
         return Math.floor(productRating) === filters.rating;
       });
     }
@@ -85,24 +90,25 @@ const ProductsPage = () => {
     }
 
     // Sort
+    const sorted = [...filtered];
     switch (filters.sort) {
       case 'price-low':
-        filtered.sort((a, b) => a.price - b.price);
+        sorted.sort((a, b) => a.price - b.price);
         break;
       case 'price-high':
-        filtered.sort((a, b) => b.price - a.price);
+        sorted.sort((a, b) => b.price - a.price);
         break;
       case 'rating':
-        filtered.sort((a, b) => b.rating - a.rating);
+        sorted.sort((a, b) => b.rating - a.rating);
         break;
       case 'popular':
-        filtered.sort((a, b) => (b.reviews || 0) - (a.reviews || 0));
+        sorted.sort((a, b) => (b.reviews || 0) - (a.reviews || 0));
         break;
-      default: // newest
+      default:
         break;
     }
 
-    setDisplayProducts(filtered);
+    return sorted;
   }, [filters, products]);
 
   const handleFilterChange = (newFilters) => {
@@ -151,10 +157,8 @@ const ProductsPage = () => {
       </Helmet>
 
       <div className="min-h-screen relative">
-        {/* Magical Particles Background */}
-        <div className="fixed inset-0 -z-10">
-          <MagicalParticles intensity="medium" />
-        </div>
+        {/* Lightweight CSS Background - Removed heavy MagicalParticles */}
+        <div className="fixed inset-0 -z-10 bg-gradient-to-br from-gray-950 via-purple-950/20 to-gray-950"></div>
 
         {/* Magical Genie */}
         <MagicalGenie />

@@ -9,7 +9,7 @@ import { addItemToCart } from '../../redux/slices/cartSlice';
 import { addItemToWishlist, removeItemFromWishlist } from '../../redux/slices/wishlistSlice';
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
-import Enhanced3DBackground from '../3d/Enhanced3DBackground';
+// Removed Enhanced3DBackground for performance
 
 const ProductQuickView = ({ product, onClose, relatedProducts = [] }) => {
   const dispatch = useDispatch();
@@ -82,10 +82,8 @@ const ProductQuickView = ({ product, onClose, relatedProducts = [] }) => {
           onClick={(e) => e.stopPropagation()}
           className="relative w-full max-w-7xl max-h-[95vh] overflow-y-auto bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 rounded-3xl shadow-2xl border border-purple-500/30"
         >
-          {/* Enhanced 3D Background */}
-          <div className="absolute inset-0 overflow-hidden rounded-3xl">
-            <Enhanced3DBackground intensity="medium" colorScheme="gradient" />
-          </div>
+          {/* Lightweight CSS Background */}
+          <div className="absolute inset-0 overflow-hidden rounded-3xl bg-gradient-to-br from-purple-950/30 via-gray-900 to-cyan-950/30"></div>
 
           {/* Content */}
           <div className="relative z-10">

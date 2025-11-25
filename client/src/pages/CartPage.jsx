@@ -8,7 +8,7 @@ import { fetchCart, removeItemFromCart, updateItemQuantity } from '../redux/slic
 import Button from '../components/common/Button';
 import { PageLoader } from '../components/common/Loader';
 import toast from 'react-hot-toast';
-import RoboticBackground from '../components/3d/RoboticBackground';
+// Removed RoboticBackground for performance
 import MagicalGenie from '../components/common/MagicalGenie';
 
 const CartPage = () => {
@@ -139,10 +139,8 @@ const CartPage = () => {
         <title>{`Shopping Cart (${normalizedCartItems?.length || 0}) - NexusMart`}</title>
       </Helmet>
       
-      {/* Robotic Background Animation */}
-      <div className="fixed inset-0 -z-10">
-        <RoboticBackground intensity="low" theme="neon" />
-      </div>
+      {/* Lightweight CSS Background */}
+      <div className="fixed inset-0 -z-10 bg-gradient-to-br from-gray-950 via-cyan-950/10 to-gray-950"></div>
 
       {/* Magical Genie */}
       <MagicalGenie />

@@ -11,7 +11,7 @@ import { addItemToWishlist, removeItemFromWishlist } from '../redux/slices/wishl
 import { addItemToCart } from '../redux/slices/cartSlice';
 import toast from 'react-hot-toast';
 import api from '../utils/api';
-import EnergyParticles from '../components/3d/EnergyParticles';
+// Removed EnergyParticles for performance
 import MagicalGenie from '../components/common/MagicalGenie';
 
 const DealsPage = () => {
@@ -187,11 +187,9 @@ const DealsPage = () => {
         <meta name="description" content="Best deals and discounts on NexusMart" />
       </Helmet>
 
-      <div className="min-h-screen relative py-12">
-        {/* Energy Particles Background */}
-        <div className="fixed inset-0 -z-10">
-          <EnergyParticles intensity="medium" />
-        </div>
+      <div className="min-h-screen relative">
+        {/* Lightweight CSS Background */}
+        <div className="fixed inset-0 -z-10 bg-gradient-to-br from-gray-950 via-orange-950/10 to-gray-950"></div>
 
         {/* Magical Genie */}
         <MagicalGenie />

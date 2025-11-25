@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../components/common/Button';
 import { PageLoader } from '../components/common/Loader';
 import toast from 'react-hot-toast';
-import RoboticBackground from '../components/3d/RoboticBackground';
+// Removed RoboticBackground for performance
 import MagicalGenie from '../components/common/MagicalGenie';
 
 const CheckoutPage = () => {
@@ -111,10 +111,8 @@ const CheckoutPage = () => {
         <title>Checkout - NexusMart</title>
       </Helmet>
 
-      {/* Robotic Background Animation */}
-      <div className="fixed inset-0 -z-10">
-        <RoboticBackground intensity="medium" theme="cyber" />
-      </div>
+      {/* Lightweight CSS Background */}
+      <div className="fixed inset-0 -z-10 bg-gradient-to-br from-gray-950 via-purple-950/10 to-gray-950"></div>
 
       {/* Magical Genie */}
       <MagicalGenie />

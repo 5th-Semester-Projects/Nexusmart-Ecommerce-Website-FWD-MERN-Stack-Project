@@ -52,7 +52,7 @@ jobs:
     name: Build Frontend
     runs-on: ubuntu-latest
     needs: test
-    if: always()  # Run even if tests fail
+    if: always() # Run even if tests fail
 
     steps:
       - name: Checkout code
@@ -114,7 +114,7 @@ jobs:
     name: Build Backend
     runs-on: ubuntu-latest
     needs: test
-    if: always()  # Run even if tests fail
+    if: always() # Run even if tests fail
 
     steps:
       - name: Checkout code

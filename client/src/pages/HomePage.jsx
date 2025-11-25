@@ -125,83 +125,74 @@ const HomePage = () => {
           {/* Scan Lines Effect */}
           <div className="scan-lines"></div>
 
-          {/* Energy Orbs - Reduced Opacity */}
-          <motion.div
-            className="absolute top-20 left-20 w-64 h-64 rounded-full blur-3xl"
+          {/* Energy Orbs - CSS-only animations for performance */}
+          <div
+            className="absolute top-20 left-20 w-64 h-64 rounded-full blur-3xl energy-orb"
             style={{
-              background: 'radial-gradient(circle, rgba(0, 212, 255, 0.15) 0%, transparent 70%)',
-            }}
-            animate={{
-              scale: [1, 1.2, 1],
-              opacity: [0.1, 0.2, 0.1],
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              ease: 'easeInOut',
+              background: 'radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, transparent 70%)',
+              animationDuration: '4s'
             }}
           />
-          <motion.div
-            className="absolute bottom-20 right-20 w-80 h-80 rounded-full blur-3xl"
+          <div
+            className="absolute bottom-20 right-20 w-80 h-80 rounded-full blur-3xl energy-orb"
             style={{
-              background: 'radial-gradient(circle, rgba(136, 0, 255, 0.15) 0%, transparent 70%)',
-            }}
-            animate={{
-              scale: [1.2, 1, 1.2],
-              opacity: [0.2, 0.1, 0.2],
-            }}
-            transition={{
-              duration: 5,
-              repeat: Infinity,
-              ease: 'easeInOut',
+              background: 'radial-gradient(circle, rgba(136, 0, 255, 0.1) 0%, transparent 70%)',
+              animationDuration: '5s',
+              animationDelay: '0.5s'
             }}
           />
 
-          {/* Hero Content with Carousel */}
+          {/* Hero Content with Carousel - Optimized */}
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentSlide}
-                initial={{ opacity: 0, x: 100 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -100 }}
-                transition={{ duration: 0.5 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.4 }}
               >
                 {/* Glitch Logo */}
                 <motion.div
-                  initial={{ opacity: 0, y: -50 }}
+                  initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3 }}
                   className="mb-8 inline-flex items-center gap-3"
                 >
-                  <motion.div
-                    className="energy-core w-20 h-20 flex items-center justify-center"
-                    animate={{ rotate: [0, 360] }}
-                    transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-                  >
+                  <div className="energy-core w-20 h-20 flex items-center justify-center">
                     {currentSlide === 0 && <FiCpu className="text-5xl text-cyan-400" />}
                     {currentSlide === 1 && <FiZap className="text-5xl text-red-400" />}
                     {currentSlide === 2 && <FiGift className="text-5xl text-purple-400" />}
-                  </motion.div>
+                  </div>
                 </motion.div>
 
-                {/* Main Heading */}
+                {/* Main Heading - Simplified animation */}
                 <motion.h1
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: 0.1 }}
                   className="text-6xl md:text-8xl font-display mb-6 glitch"
                   style={{
                     fontFamily: 'Audiowide, Orbitron, sans-serif',
-                    textShadow: `0 0 30px rgba(${heroSlides[currentSlide].color === 'cyan' ? '0, 212, 255' : heroSlides[currentSlide].color === 'red' ? '255, 0, 0' : '136, 0, 255'}, 0.8)`,
+                    textShadow: `0 0 20px rgba(${heroSlides[currentSlide].color === 'cyan' ? '0, 212, 255' : heroSlides[currentSlide].color === 'red' ? '255, 0, 0' : '136, 0, 255'}, 0.6)`,
                   }}
                 >
                   <span className="gradient-text-robotic">{heroSlides[currentSlide].title}</span>
                 </motion.h1>
 
                 <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.3, delay: 0.2 }}
                   className="text-xl md:text-3xl text-cyan-300 mb-4 font-body tracking-wide"
                 >
                   {heroSlides[currentSlide].subtitle}
                 </motion.p>
 
                 <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.3, delay: 0.3 }}
                   className="text-base md:text-lg text-gray-400 mb-12 max-w-3xl mx-auto font-tech"
                 >
                   {heroSlides[currentSlide].description}

@@ -1,6 +1,9 @@
 /* Import Robotic Theme */
 @import './robotic-theme.css';
 
+/* Import Performance Optimizations */
+@import './performance-optimizations.css';
+
 /* Import Google Fonts - UPGRADED */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Russo+One&family=Share+Tech+Mono&family=Audiowide&family=Exo+2:wght@100;200;300;400;500;600;700;800;900&family=Electrolize&display=swap');
 
@@ -1314,4 +1317,87 @@
     rgba(233, 213, 255, 0.5) 100%
   );
   border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+/* ==================== Z-INDEX LAYERS FOR PROPER STACKING ==================== */
+@layer utilities {
+  /* Background layers */
+  .z-background {
+    z-index: -10;
+  }
+  .z-background-overlay {
+    z-index: -5;
+  }
+
+  /* Content layers */
+  .z-content {
+    z-index: 1;
+  }
+  .z-card {
+    z-index: 10;
+  }
+  .z-dropdown {
+    z-index: 50;
+  }
+  .z-sticky {
+    z-index: 100;
+  }
+
+  /* Navigation layers */
+  .z-header {
+    z-index: 500;
+  }
+  .z-sidebar {
+    z-index: 400;
+  }
+
+  /* Overlay layers */
+  .z-overlay {
+    z-index: 1000;
+  }
+  .z-modal {
+    z-index: 1050;
+  }
+  .z-popover {
+    z-index: 1100;
+  }
+  .z-tooltip {
+    z-index: 1200;
+  }
+
+  /* Top-most layers */
+  .z-notification {
+    z-index: 2000;
+  }
+  .z-toast {
+    z-index: 3000;
+  }
+
+  /* Ensure clickable elements are always accessible */
+  .clickable {
+    position: relative;
+    z-index: 10;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .clickable:active {
+    transform: scale(0.98);
+  }
+
+  /* Mobile touch optimization */
+  @media (hover: none) and (pointer: coarse) {
+    .clickable {
+      min-height: 44px;
+      min-width: 44px;
+      touch-action: manipulation;
+    }
+
+    button,
+    a,
+    [role='button'] {
+      -webkit-tap-highlight-color: rgba(139, 92, 246, 0.2);
+      touch-action: manipulation;
+    }
+  }
 }

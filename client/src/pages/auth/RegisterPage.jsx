@@ -7,7 +7,6 @@ import { FiMail, FiLock, FiEye, FiEyeOff, FiUser, FiPhone, FiShield, FiCheckCirc
 import { FaGoogle, FaGithub } from 'react-icons/fa';
 import { register } from '../../redux/slices/authSlice';
 import toast from 'react-hot-toast';
-import MagicalParticles, { FloatingOrbs, ShootingStars } from '../../components/common/MagicalParticles';
 import Button from '../../components/common/Button';
 
 const RegisterPage = () => {
@@ -183,12 +182,8 @@ const RegisterPage = () => {
         <meta name="description" content="Create your NexusMart account and start your magical shopping journey." />
       </Helmet>
 
-      {/* Background Effects */}
-      <div className="fixed inset-0 bg-gray-950 overflow-hidden">
-        <MagicalParticles density={40} />
-        <FloatingOrbs />
-        <ShootingStars />
-        
+      {/* Background Effects - Pure CSS */}
+      <div className="fixed inset-0 bg-gradient-to-br from-gray-950 via-purple-950/20 to-gray-950 overflow-hidden">
         {/* Cyber Grid */}
         <div className="absolute inset-0 cyber-grid opacity-30" />
         

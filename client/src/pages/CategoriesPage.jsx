@@ -9,7 +9,7 @@ import {
 import { FaTshirt, FaLaptop, FaMobileAlt, FaCamera, FaGamepad } from 'react-icons/fa';
 import { GiRunningShoe, GiLipstick, GiClothes } from 'react-icons/gi';
 import api from '../utils/api';
-import DarkMagicalParticles from '../components/3d/DarkMagicalParticles';
+// Removed DarkMagicalParticles for performance
 import MagicalGenie from '../components/common/MagicalGenie';
 
 const CategoriesPage = () => {
@@ -18,117 +18,88 @@ const CategoriesPage = () => {
   const [loading, setLoading] = useState(true);
   const [hoveredCategory, setHoveredCategory] = useState(null);
 
-  // Default categories with icons and colors
-  const defaultCategories = [
-    {
-      name: 'Electronics',
-      slug: 'electronics',
+  // Icon and color mapping for dynamic categories
+  const categoryConfig = {
+    electronics: {
       icon: FiMonitor,
       color: 'from-blue-500 to-cyan-500',
       bgGlow: 'bg-blue-500/20',
-      description: 'Latest gadgets and electronics',
-      count: 30
+      description: 'Latest gadgets and electronics'
     },
-    {
-      name: 'Men',
-      slug: 'men',
+    men: {
       icon: FaTshirt,
       color: 'from-purple-500 to-pink-500',
       bgGlow: 'bg-purple-500/20',
-      description: 'Fashion for modern men',
-      count: 30
+      description: 'Fashion for modern men'
     },
-    {
-      name: 'Women',
-      slug: 'women',
+    women: {
       icon: GiClothes,
       color: 'from-pink-500 to-rose-500',
       bgGlow: 'bg-pink-500/20',
-      description: 'Trendy women\'s fashion',
-      count: 30
+      description: 'Trendy women\'s fashion'
     },
-    {
-      name: 'Accessories',
-      slug: 'accessories',
+    accessories: {
       icon: FiWatch,
       color: 'from-cyan-500 to-teal-500',
       bgGlow: 'bg-cyan-500/20',
-      description: 'Complete your look',
-      count: 15
+      description: 'Complete your look'
     },
-    {
-      name: 'Audio',
-      slug: 'audio',
+    audio: {
       icon: FiHeadphones,
       color: 'from-indigo-500 to-purple-500',
       bgGlow: 'bg-indigo-500/20',
-      description: 'Premium sound experience',
-      count: 12
+      description: 'Premium sound experience'
     },
-    {
-      name: 'Smartphones',
-      slug: 'smartphones',
+    smartphones: {
       icon: FiSmartphone,
       color: 'from-green-500 to-emerald-500',
       bgGlow: 'bg-green-500/20',
-      description: 'Latest mobile technology',
-      count: 18
+      description: 'Latest mobile technology'
     },
-    {
-      name: 'Footwear',
-      slug: 'footwear',
+    footwear: {
       icon: GiRunningShoe,
       color: 'from-orange-500 to-red-500',
       bgGlow: 'bg-orange-500/20',
-      description: 'Step up your style',
-      count: 20
+      description: 'Step up your style'
     },
-    {
-      name: 'Beauty',
-      slug: 'beauty',
+    beauty: {
       icon: GiLipstick,
       color: 'from-pink-500 to-fuchsia-500',
       bgGlow: 'bg-pink-500/20',
-      description: 'Beauty essentials',
-      count: 10
+      description: 'Beauty essentials'
     },
-    {
-      name: 'Gaming',
-      slug: 'gaming',
+    gaming: {
       icon: FaGamepad,
       color: 'from-red-500 to-orange-500',
       bgGlow: 'bg-red-500/20',
-      description: 'Gaming gear & accessories',
-      count: 14
+      description: 'Gaming gear & accessories'
     },
-    {
-      name: 'Cameras',
-      slug: 'cameras',
+    cameras: {
       icon: FaCamera,
       color: 'from-yellow-500 to-orange-500',
       bgGlow: 'bg-yellow-500/20',
-      description: 'Capture every moment',
-      count: 8
+      description: 'Capture every moment'
     },
-    {
-      name: 'Laptops',
-      slug: 'laptops',
+    laptops: {
       icon: FaLaptop,
       color: 'from-gray-500 to-slate-500',
       bgGlow: 'bg-gray-500/20',
-      description: 'Powerful computing',
-      count: 16
+      description: 'Powerful computing'
     },
-    {
-      name: 'Trending',
-      slug: 'trending',
+    trending: {
       icon: FiTrendingUp,
       color: 'from-violet-500 to-purple-500',
       bgGlow: 'bg-violet-500/20',
-      description: 'What\'s hot right now',
-      count: 25
+      description: 'What\'s hot right now'
+    },
+    // Default fallback
+    default: {
+      icon: FiPackage,
+      color: 'from-gray-500 to-slate-500',
+      bgGlow: 'bg-gray-500/20',
+      description: 'Explore this category'
     }
-  ];
+  };
 
   useEffect(() => {
     fetchCategoriesWithCounts();
@@ -140,7 +111,7 @@ const CategoriesPage = () => {
       const productsResponse = await api.get('/products', { params: { limit: 1000 } });
       const allProducts = productsResponse.data?.products || [];
       
-      // Count products per category
+      // Count products per category and build dynamic categories
       const categoryCounts = {};
       allProducts.forEach(product => {
         const categoryName = typeof product.category === 'object' 
@@ -153,16 +124,27 @@ const CategoriesPage = () => {
         }
       });
 
-      // Update default categories with actual counts
-      const updatedCategories = defaultCategories.map(cat => ({
-        ...cat,
-        count: categoryCounts[cat.slug.toLowerCase()] || categoryCounts[cat.name.toLowerCase()] || 0
-      }));
+      // Build categories from actual data with icon/color mapping
+      const dynamicCategories = Object.keys(categoryCounts).map(slug => {
+        const config = categoryConfig[slug] || categoryConfig.default;
+        return {
+          name: slug.charAt(0).toUpperCase() + slug.slice(1),
+          slug: slug,
+          icon: config.icon,
+          color: config.color,
+          bgGlow: config.bgGlow,
+          description: config.description,
+          count: categoryCounts[slug]
+        };
+      });
 
-      setCategories(updatedCategories);
+      // Sort by count (highest first)
+      dynamicCategories.sort((a, b) => b.count - a.count);
+      
+      setCategories(dynamicCategories);
     } catch (error) {
       console.error('Error fetching categories:', error);
-      setCategories(defaultCategories);
+      setCategories([]);
     } finally {
       setLoading(false);
     }
@@ -180,10 +162,8 @@ const CategoriesPage = () => {
       </Helmet>
 
       <div className="min-h-screen relative py-12">
-        {/* Dark Magical Particles Background */}
-        <div className="fixed inset-0 -z-10">
-          <DarkMagicalParticles intensity="medium" />
-        </div>
+        {/* Lightweight CSS Background */}
+        <div className="fixed inset-0 -z-10 bg-gradient-to-br from-gray-950 via-purple-950/20 to-gray-950"></div>
 
         {/* Magical Genie */}
         <MagicalGenie />

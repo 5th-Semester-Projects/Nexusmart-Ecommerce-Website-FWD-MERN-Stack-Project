@@ -8,9 +8,10 @@ const MagicalParticles = ({ density = 50, className = '' }) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', { alpha: true });
     let animationFrameId;
     let particles = [];
+    let frameCount = 0;
 
     // Set canvas size
     const resizeCanvas = () => {
@@ -18,19 +19,26 @@ const MagicalParticles = ({ density = 50, className = '' }) => {
       canvas.height = window.innerHeight;
     };
     resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
+    
+    // Throttle resize
+    let resizeTimeout;
+    const handleResize = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(resizeCanvas, 200);
+    };
+    window.addEventListener('resize', handleResize);
 
-    // Particle class
+    // Particle class with reduced calculations
     class Particle {
       constructor() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 3 + 1;
-        this.speedX = Math.random() * 0.5 - 0.25;
-        this.speedY = Math.random() * 0.5 - 0.25;
+        this.size = Math.random() * 2 + 0.5; // Smaller particles
+        this.speedX = Math.random() * 0.3 - 0.15; // Slower movement
+        this.speedY = Math.random() * 0.3 - 0.15;
         this.color = this.getRandomColor();
-        this.opacity = Math.random() * 0.5 + 0.2;
-        this.pulseSpeed = Math.random() * 0.02 + 0.01;
+        this.opacity = Math.random() * 0.4 + 0.1; // Lower opacity
+        this.pulseSpeed = Math.random() * 0.01 + 0.005;
         this.pulsePhase = Math.random() * Math.PI * 2;
       }
 
@@ -39,8 +47,6 @@ const MagicalParticles = ({ density = 50, className = '' }) => {
           '139, 92, 246',  // Purple
           '59, 130, 246',  // Blue
           '236, 72, 153',  // Pink
-          '6, 182, 212',   // Cyan
-          '168, 85, 247',  // Violet
         ];
         return colors[Math.floor(Math.random() * colors.length)];
       }
@@ -81,30 +87,38 @@ const MagicalParticles = ({ density = 50, className = '' }) => {
     };
     initParticles();
 
-    // Animation loop
+    // Animation loop with frame skipping for performance
     const animate = () => {
+      frameCount++;
+      
+      // Clear canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      particles.forEach((particle, index) => {
+      particles.forEach((particle) => {
         particle.update();
         particle.draw();
-
-        // Connect nearby particles
-        for (let j = index + 1; j < particles.length; j++) {
-          const dx = particles[j].x - particle.x;
-          const dy = particles[j].y - particle.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-
-          if (distance < 150) {
-            ctx.strokeStyle = `rgba(${particle.color}, ${0.1 * (1 - distance / 150)})`;
-            ctx.lineWidth = 0.5;
-            ctx.beginPath();
-            ctx.moveTo(particle.x, particle.y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.stroke();
-          }
-        }
       });
+
+      // Only draw connections every 3rd frame to reduce load
+      if (frameCount % 3 === 0) {
+        particles.forEach((particle, index) => {
+          // Limit connection checks to nearby particles only
+          for (let j = index + 1; j < Math.min(index + 5, particles.length); j++) {
+            const dx = particles[j].x - particle.x;
+            const dy = particles[j].y - particle.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance < 100) { // Reduced connection distance
+              ctx.strokeStyle = `rgba(${particle.color}, ${0.05 * (1 - distance / 100)})`;
+              ctx.lineWidth = 0.3;
+              ctx.beginPath();
+              ctx.moveTo(particle.x, particle.y);
+              ctx.lineTo(particles[j].x, particles[j].y);
+              ctx.stroke();
+            }
+          }
+        });
+      }
 
       animationFrameId = requestAnimationFrame(animate);
     };
@@ -112,7 +126,8 @@ const MagicalParticles = ({ density = 50, className = '' }) => {
     animate();
 
     return () => {
-      window.removeEventListener('resize', resizeCanvas);
+      window.removeEventListener('resize', handleResize);
+      clearTimeout(resizeTimeout);
       cancelAnimationFrame(animationFrameId);
     };
   }, [density]);

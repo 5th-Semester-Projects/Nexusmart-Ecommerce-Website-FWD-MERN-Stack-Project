@@ -15,7 +15,7 @@ import Button from '../components/common/Button';
 import { PageLoader } from '../components/common/Loader';
 import toast from 'react-hot-toast';
 import { mockProducts } from '../utils/mockData';
-import Enhanced3DBackground from '../components/3d/Enhanced3DBackground';
+// Removed Enhanced3DBackground for performance optimization
 
 const ProductDetailPage = () => {
   const { id } = useParams();
@@ -127,10 +127,8 @@ const ProductDetailPage = () => {
       </Helmet>
 
       <div className="min-h-screen relative">
-        {/* Enhanced 3D Background */}
-        <div className="fixed inset-0 overflow-hidden -z-10">
-          <Enhanced3DBackground intensity="high" colorScheme="purple" />
-        </div>
+        {/* Lightweight CSS Background */}
+        <div className="fixed inset-0 overflow-hidden -z-10 bg-gradient-to-br from-purple-950 via-gray-950 to-purple-950/50"></div>
 
         {/* Breadcrumb */}
         <div className="relative py-6 border-b border-purple-500/20">

@@ -11,7 +11,6 @@ import { cleanAllStorage } from './utils/cleanStorage';
 // Common Components
 import ErrorBoundary from './components/common/ErrorBoundary';
 import { PageLoader } from './components/common/Loader';
-import MagicalParticles, { FloatingOrbs } from './components/common/MagicalParticles';
 import RoboticWelcome from './components/common/RoboticWelcome';
 
 // Layout Components - Import directly
@@ -63,9 +62,7 @@ function App() {
         {showWelcome && <RoboticWelcome onComplete={handleWelcomeComplete} />}
         
         <div className="App min-h-screen flex flex-col relative">
-          {/* Global Magical Background */}
-          <MagicalParticles density={30} />
-          <FloatingOrbs />
+          {/* Lightweight CSS Background - Zero JS overhead */}
           
           <Navbar />
           

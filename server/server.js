@@ -8,6 +8,11 @@ import compression from 'compression';
 import morgan from 'morgan';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Load environment variables
 dotenv.config();
@@ -116,27 +121,43 @@ setupSocketHandlers(io);
 // Make io accessible to routes
 app.set('io', io);
 
-// Root route
-app.get('/', (req, res) => {
-  res.json({
-    success: true,
-    message: 'NexusMart API - AI + AR Powered Ecommerce Platform',
-    version: '1.0.0',
-    endpoints: {
-      auth: '/api/auth',
-      products: '/api/products',
-      health: '/health',
-    },
+// Serve static files from React build in production
+if (process.env.NODE_ENV === 'production') {
+  const clientDistPath = path.join(__dirname, '../client/dist');
+  
+  // Serve static files
+  app.use(express.static(clientDistPath));
+  
+  // API routes come first
+  // (already defined above)
+  
+  // Handle React routing - send all non-API requests to index.html
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(clientDistPath, 'index.html'));
   });
-});
+} else {
+  // Development mode - API root
+  app.get('/', (req, res) => {
+    res.json({
+      success: true,
+      message: 'NexusMart API - AI + AR Powered Ecommerce Platform',
+      version: '1.0.0',
+      endpoints: {
+        auth: '/api/auth',
+        products: '/api/products',
+        health: '/health',
+      },
+    });
+  });
 
-// 404 handler
-app.all('*', (req, res) => {
-  res.status(404).json({
-    success: false,
-    message: `Route ${req.originalUrl} not found`,
+  // 404 handler for development
+  app.all('*', (req, res) => {
+    res.status(404).json({
+      success: false,
+      message: `Route ${req.originalUrl} not found`,
+    });
   });
-});
+}
 
 // Error middleware (must be last)
 app.use(errorMiddleware);

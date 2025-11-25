@@ -41,7 +41,9 @@ const io = new Server(server, {
     origin: [
       'http://localhost:5173',
       'http://localhost:5174',
-      'https://nexusmart-frontend-3db70d50e139.herokuapp.com'
+      'https://nexusmart-frontend-3db70d50e139.herokuapp.com',
+      'https://nexusmart-d0c174bae61e.herokuapp.com',
+      'https://nexusmart-ecom-944322862c43.herokuapp.com'
     ],
     credentials: true,
   },
@@ -58,7 +60,9 @@ app.use(mongoSanitize());
 const allowedOrigins = [
   'http://localhost:5173',
   'http://localhost:5174',
-  'https://nexusmart-frontend-3db70d50e139.herokuapp.com'
+  'https://nexusmart-frontend-3db70d50e139.herokuapp.com',
+  'https://nexusmart-d0c174bae61e.herokuapp.com',
+  'https://nexusmart-ecom-944322862c43.herokuapp.com'
 ];
 
 app.use(
@@ -124,13 +128,13 @@ app.set('io', io);
 // Serve static files from React build in production
 if (process.env.NODE_ENV === 'production') {
   const clientDistPath = path.join(__dirname, '../client/dist');
-  
+
   // Serve static files
   app.use(express.static(clientDistPath));
-  
+
   // API routes come first
   // (already defined above)
-  
+
   // Handle React routing - send all non-API requests to index.html
   app.get('*', (req, res) => {
     res.sendFile(path.join(clientDistPath, 'index.html'));

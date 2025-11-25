@@ -111,6 +111,15 @@ app.get('/health', (req, res) => {
   });
 });
 
+// Runtime config endpoint for frontend
+app.get('/api/config', (req, res) => {
+  res.json({
+    apiUrl: process.env.NODE_ENV === 'production'
+      ? `${req.protocol}://${req.get('host')}`
+      : 'http://localhost:5000'
+  });
+});
+
 // API routes
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);

@@ -1,21 +1,44 @@
 import axios from 'axios';
 
-// API Configuration
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-const API_URL = `${API_BASE}/api`;
+// Dynamic API URL configuration
+let API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+let configFetched = false;
+
+// Function to fetch runtime config
+const fetchConfig = async () => {
+  if (configFetched || !import.meta.env.PROD) return;
+
+  try {
+    const response = await fetch('/api/config');
+    const config = await response.json();
+    API_BASE = config.apiUrl;
+    configFetched = true;
+    console.log('Runtime API URL:', API_BASE);
+  } catch (error) {
+    console.error('Failed to fetch API config:', error);
+  }
+};
+
+// Fetch config immediately in production
+if (import.meta.env.PROD) {
+  fetchConfig();
+}
+
+const getApiUrl = () => `${API_BASE}/api`;
 
 // Create axios instance
 const api = axios.create({
-  baseURL: API_URL,
+  baseURL: getApiUrl(),
   timeout: 30000,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
-// Request interceptor to add auth token
+// Update baseURL dynamically when config changes
 api.interceptors.request.use(
   (config) => {
+    config.baseURL = getApiUrl();
     const token = localStorage.getItem('token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;

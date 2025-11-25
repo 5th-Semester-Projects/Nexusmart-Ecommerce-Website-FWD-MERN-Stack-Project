@@ -45,14 +45,8 @@ export default defineConfig({
     chunkSizeWarningLimit: 1000,
     rollupOptions: {
       output: {
-        manualChunks: {
-          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'redux-vendor': ['@reduxjs/toolkit', 'react-redux'],
-          'three-vendor': ['three', '@react-three/fiber', '@react-three/drei'],
-          'web3-vendor': ['ethers', 'web3'],
-          'ui-vendor': ['framer-motion', 'react-hot-toast'],
-          'chart-vendor': ['recharts'],
-        },
+        entryFileNames: `js/[name]-[hash]-${Date.now()}.js`,
+        chunkFileNames: `js/[name]-[hash]-${Date.now()}.js`,
         assetFileNames: (assetInfo) => {
           const info = assetInfo.name.split('.');
           const ext = info[info.length - 1];
@@ -64,8 +58,14 @@ export default defineConfig({
           }
           return `assets/[name]-[hash][extname]`;
         },
-        chunkFileNames: 'js/[name]-[hash].js',
-        entryFileNames: 'js/[name]-[hash].js',
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+          'redux-vendor': ['@reduxjs/toolkit', 'react-redux'],
+          'three-vendor': ['three', '@react-three/fiber', '@react-three/drei'],
+          'web3-vendor': ['ethers', 'web3'],
+          'ui-vendor': ['framer-motion', 'react-hot-toast'],
+          'chart-vendor': ['recharts'],
+        },
       },
     },
   },

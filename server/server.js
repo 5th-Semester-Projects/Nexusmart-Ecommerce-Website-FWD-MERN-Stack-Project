@@ -52,8 +52,40 @@ const io = new Server(server, {
 // Connect to database
 connectDatabase();
 
-// Security middleware
-app.use(helmet());
+// Security middleware - Configure helmet with proper CSP for external images
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+        styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+        fontSrc: ["'self'", "https://fonts.gstatic.com"],
+        imgSrc: [
+          "'self'",
+          "data:",
+          "blob:",
+          "https://images.unsplash.com",
+          "https://res.cloudinary.com",
+          "https://*.cloudinary.com",
+          "https://via.placeholder.com",
+          "https://placehold.co",
+        ],
+        connectSrc: [
+          "'self'",
+          "https://api.stripe.com",
+          "https://*.herokuapp.com",
+          "wss://*.herokuapp.com",
+        ],
+        frameSrc: ["'self'", "https://js.stripe.com"],
+        objectSrc: ["'none'"],
+        upgradeInsecureRequests: [],
+      },
+    },
+    crossOriginEmbedderPolicy: false,
+    crossOriginResourcePolicy: { policy: "cross-origin" },
+  })
+);
 app.use(mongoSanitize());
 
 // CORS configuration - Allow multiple origins

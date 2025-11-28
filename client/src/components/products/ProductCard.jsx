@@ -7,7 +7,7 @@ import { addItemToWishlist, removeItemFromWishlist } from '../../redux/slices/wi
 import { addItemToCart } from '../../redux/slices/cartSlice';
 import toast from 'react-hot-toast';
 
-const ProductCard = ({ product, onQuickView }) => {
+const ProductCard = ({ product, onQuickView, eager = false }) => {
   const dispatch = useDispatch();
   const { items: wishlistItems } = useSelector((state) => state.wishlist);
   const [isHovered, setIsHovered] = useState(false);
@@ -142,15 +142,14 @@ const ProductCard = ({ product, onQuickView }) => {
           <img
             src={product.images?.[0]?.url || `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Crect fill='%23667eea' width='400' height='400'/%3E%3Ctext fill='%23ffffff' font-family='Arial' font-size='20' x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle'%3E${encodeURIComponent(product.name.substring(0, 20))}%3C/text%3E%3C/svg%3E`}
             alt={product.name}
-            loading="lazy"
+            loading={eager ? "eager" : "lazy"}
             decoding="async"
+            fetchPriority={eager ? "high" : "auto"}
             onLoad={() => {
-              console.log(`✅ Image loaded: ${product.name}`);
               setImageLoaded(true);
             }}
             onError={(e) => {
               e.target.onerror = null;
-              console.error(`❌ Image failed for: ${product.name}`, product.images?.[0]?.url);
               setImageLoaded(true);
               setImageError(true);
               // Use simple data URL SVG fallback

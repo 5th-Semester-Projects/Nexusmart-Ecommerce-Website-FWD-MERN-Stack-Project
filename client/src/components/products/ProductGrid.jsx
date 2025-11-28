@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import ProductCard from './ProductCard';
 import { ProductCardSkeleton } from '../common/Loader';
 
-const ProductGrid = ({ products = [], loading = false, onQuickView }) => {
+const ProductGrid = ({ products = [], loading = false, onQuickView, eager = false }) => {
   if (loading) {
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -47,7 +47,7 @@ const ProductGrid = ({ products = [], loading = false, onQuickView }) => {
       }}
       className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
     >
-      {products.map((product) => (
+      {products.map((product, index) => (
         <motion.div
           key={product._id}
           variants={{
@@ -55,7 +55,7 @@ const ProductGrid = ({ products = [], loading = false, onQuickView }) => {
             visible: { opacity: 1, y: 0 },
           }}
         >
-          <ProductCard product={product} onQuickView={onQuickView} />
+          <ProductCard product={product} onQuickView={onQuickView} eager={eager && index < 8} />
         </motion.div>
       ))}
     </motion.div>

@@ -8,6 +8,8 @@ const initialState = {
   newArrivals: [],
   recommendations: [],
   loading: false,
+  trendingLoading: false,
+  newArrivalsLoading: false,
   error: null,
   pagination: {
     current: 1,
@@ -144,28 +146,28 @@ const productSlice = createSlice({
     // Fetch trending
     builder
       .addCase(fetchTrendingProducts.pending, (state) => {
-        state.loading = true;
+        state.trendingLoading = true;
       })
       .addCase(fetchTrendingProducts.fulfilled, (state, action) => {
-        state.loading = false;
+        state.trendingLoading = false;
         state.trending = action.payload.products || [];
       })
       .addCase(fetchTrendingProducts.rejected, (state, action) => {
-        state.loading = false;
+        state.trendingLoading = false;
         state.error = action.payload;
       });
 
     // Fetch new arrivals
     builder
       .addCase(fetchNewArrivals.pending, (state) => {
-        state.loading = true;
+        state.newArrivalsLoading = true;
       })
       .addCase(fetchNewArrivals.fulfilled, (state, action) => {
-        state.loading = false;
+        state.newArrivalsLoading = false;
         state.newArrivals = action.payload.products || [];
       })
       .addCase(fetchNewArrivals.rejected, (state, action) => {
-        state.loading = false;
+        state.newArrivalsLoading = false;
         state.error = action.payload;
       });
 

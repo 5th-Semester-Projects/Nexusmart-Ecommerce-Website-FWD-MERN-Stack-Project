@@ -19,7 +19,7 @@ import MagicalGenie from '../components/common/MagicalGenie';
 const HomePage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { trending = [], newArrivals = [], loading, products = [] } = useSelector((state) => state.products);
+  const { trending = [], newArrivals = [], loading, trendingLoading, newArrivalsLoading, products = [] } = useSelector((state) => state.products);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [categoryCounts, setCategoryCounts] = useState({
     Men: 0,
@@ -97,7 +97,7 @@ const HomePage = () => {
     }
   };
 
-  if (loading && trending.length === 0 && newArrivals.length === 0) {
+  if (loading && trending.length === 0 && newArrivals.length === 0 && trendingLoading && newArrivalsLoading) {
     return <PageLoader />;
   }
 
@@ -363,7 +363,7 @@ const HomePage = () => {
               </Link>
             </motion.div>
             
-            <ProductGrid products={trending} loading={loading && trending.length === 0} />
+            <ProductGrid products={trending} loading={trendingLoading} eager={true} />
           </div>
         </section>
 

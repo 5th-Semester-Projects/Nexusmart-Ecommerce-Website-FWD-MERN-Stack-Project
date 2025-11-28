@@ -65,11 +65,8 @@ app.use(
           "'self'",
           "data:",
           "blob:",
-          "https://images.unsplash.com",
-          "https://res.cloudinary.com",
-          "https://*.cloudinary.com",
-          "https://via.placeholder.com",
-          "https://placehold.co",
+          "https:",
+          "http:",
         ],
         connectSrc: [
           "'self'",
@@ -83,7 +80,8 @@ app.use(
       },
     },
     crossOriginEmbedderPolicy: false,
-    crossOriginResourcePolicy: { policy: "cross-origin" },
+    crossOriginResourcePolicy: false,
+    referrerPolicy: { policy: "no-referrer-when-downgrade" },
   })
 );
 app.use(mongoSanitize());

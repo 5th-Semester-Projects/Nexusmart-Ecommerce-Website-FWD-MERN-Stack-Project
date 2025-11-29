@@ -11,6 +11,12 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ==================== GLOBAL FIX - Ensure pseudo-elements don't block clicks ==================== */
+*::before,
+*::after {
+  pointer-events: none;
+}
+
 /* ==================== MAGICAL DARK THEME FOUNDATION ==================== */
 
 :root {
@@ -293,6 +299,8 @@
     );
     opacity: 0;
     transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 0;
   }
 
   /* 3D Perspective Container */

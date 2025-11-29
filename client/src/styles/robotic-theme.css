@@ -164,6 +164,7 @@ h6 {
     transparent 70%
   );
   animation: hologramScan 3s linear infinite;
+  pointer-events: none;
 }
 
 @keyframes hologramScan {

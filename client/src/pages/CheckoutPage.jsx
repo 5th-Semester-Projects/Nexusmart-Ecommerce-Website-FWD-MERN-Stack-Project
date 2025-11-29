@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../components/common/Button';
 import { PageLoader } from '../components/common/Loader';
 import toast from 'react-hot-toast';
+import { createOrder } from '../redux/slices/orderSlice';
+import { clearCart } from '../redux/slices/cartSlice';
 // Removed RoboticBackground for performance
 import MagicalGenie from '../components/common/MagicalGenie';
 
@@ -79,26 +81,69 @@ const CheckoutPage = () => {
   const handlePlaceOrder = async () => {
     setLoading(true);
     
-    // Prepare order data
-    const orderData = {
-      orderId: `NXS${Date.now().toString().slice(-8)}`,
-      shippingInfo,
-      items,
-      subtotal,
-      shipping,
-      tax,
-      total
-    };
-    
-    // Simulate API call
-    setTimeout(() => {
-      setLoading(false);
+    try {
+      // Prepare order data for API
+      const orderData = {
+        orderItems: items.map(item => ({
+          product: item.product?._id || item._id,
+          name: item.product?.name || item.name,
+          price: item.price,
+          quantity: item.quantity,
+          image: item.product?.images?.[0] || item.image
+        })),
+        shippingInfo: {
+          firstName: shippingInfo.fullName.split(' ')[0] || '',
+          lastName: shippingInfo.fullName.split(' ').slice(1).join(' ') || '',
+          email: shippingInfo.email,
+          phone: shippingInfo.phone,
+          address: shippingInfo.address,
+          city: shippingInfo.city,
+          state: shippingInfo.state,
+          zipCode: shippingInfo.zipCode,
+          country: shippingInfo.country
+        },
+        paymentInfo: {
+          id: `pay_${Date.now()}`,
+          status: 'paid',
+          method: 'card'
+        },
+        itemsPrice: subtotal,
+        taxPrice: tax,
+        shippingPrice: shipping,
+        totalPrice: total
+      };
+
+      // Create order via API
+      const result = await dispatch(createOrder(orderData)).unwrap();
+      
+      // Clear cart after successful order
+      dispatch(clearCart());
+      
       toast.success('🎉 Order placed successfully!', {
         style: { background: 'linear-gradient(135deg, rgb(34, 197, 94), rgb(21, 128, 61))', color: '#fff', borderRadius: '12px' }
       });
+      
       // Navigate to order confirmation with order data
-      navigate('/order-confirmation', { state: { orderData } });
-    }, 2000);
+      navigate('/order-confirmation', { 
+        state: { 
+          orderData: {
+            orderId: result.order._id,
+            ...result.order,
+            shippingInfo,
+            items,
+            subtotal,
+            shipping,
+            tax,
+            total
+          } 
+        } 
+      });
+    } catch (error) {
+      console.error('Order creation failed:', error);
+      toast.error(error || 'Failed to place order. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (!items || items.length === 0) {

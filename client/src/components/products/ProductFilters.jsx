@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { FiChevronDown, FiChevronUp, FiStar } from 'react-icons/fi';
 import Button from '../common/Button';
 
@@ -78,9 +78,14 @@ const ProductFilters = ({ filters, onFilterChange, onClearFilters, products = []
   const FilterSection = ({ title, sectionKey, children }) => (
     <div className="mb-6">
       <button
-        onClick={() => toggleSection(sectionKey)}
+        type="button"
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleSection(sectionKey);
+        }}
         className="w-full flex items-center justify-between mb-4 text-purple-300 hover:text-cyan-400
-                 transition-colors duration-300"
+                 transition-colors duration-300 cursor-pointer"
       >
         <h3 className="text-lg font-bold" style={{ fontFamily: 'Orbitron, sans-serif' }}>
           {title}
@@ -92,16 +97,20 @@ const ProductFilters = ({ filters, onFilterChange, onClearFilters, products = []
         )}
       </button>
       
-      {expandedSections[sectionKey] && (
-        <motion.div
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: 'auto' }}
-          exit={{ opacity: 0, height: 0 }}
-          className="space-y-3"
-        >
-          {children}
-        </motion.div>
-      )}
+      <AnimatePresence initial={false}>
+        {expandedSections[sectionKey] && (
+          <motion.div
+            key={sectionKey}
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="space-y-3 overflow-hidden"
+          >
+            {children}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 

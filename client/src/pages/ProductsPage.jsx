@@ -350,7 +350,7 @@ const ProductsPage = () => {
               animate={{ opacity: 1, x: 0 }}
               className="hidden lg:block"
             >
-              <div className="glass-card p-6 rounded-2xl sticky top-24">
+              <div className="glass-card p-6 rounded-2xl sticky top-24 max-h-[calc(100vh-120px)] overflow-y-auto filter-scroll">
                 <h3 className="text-xl font-bold gradient-text mb-6" style={{ fontFamily: 'Orbitron, sans-serif' }}>
                   Filters
                 </h3>

@@ -92,6 +92,24 @@
     0 0 30px rgba(59, 130, 246, 0.6);
 }
 
+/* Thin scrollbar for filter sidebar */
+.filter-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.filter-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.filter-scroll::-webkit-scrollbar-thumb {
+  background: rgba(139, 92, 246, 0.5);
+  border-radius: 10px;
+}
+
+.filter-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 92, 246, 0.8);
+}
+
 /* ==================== BASE STYLES - ROBOTIC THEME ==================== */
 @layer base {
   * {

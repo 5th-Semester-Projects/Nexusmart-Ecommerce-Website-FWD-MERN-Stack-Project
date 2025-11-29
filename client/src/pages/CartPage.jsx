@@ -4,9 +4,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FiShoppingBag, FiArrowRight, FiTrash2, FiMinus, FiPlus } from 'react-icons/fi';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { fetchCart, removeItemFromCart, updateItemQuantity } from '../redux/slices/cartSlice';
+import { removeItemFromCart, updateItemQuantity } from '../redux/slices/cartSlice';
 import Button from '../components/common/Button';
-import { PageLoader } from '../components/common/Loader';
 import toast from 'react-hot-toast';
 // Removed RoboticBackground for performance
 import MagicalGenie from '../components/common/MagicalGenie';
@@ -14,14 +13,8 @@ import MagicalGenie from '../components/common/MagicalGenie';
 const CartPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { items, loading, error } = useSelector((state) => state.cart);
+  const { items } = useSelector((state) => state.cart);
   const { isAuthenticated } = useSelector((state) => state.auth);
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      dispatch(fetchCart());
-    }
-  }, [dispatch, isAuthenticated]);
 
   const handleCheckout = () => {
     if (!isAuthenticated) {
@@ -31,70 +24,27 @@ const CartPage = () => {
     }
   };
 
+  const cartItems = items || [];
+
   const handleRemoveItem = (productId) => {
-    // Find the cart item to remove
-    const itemToRemove = cartItems.find(item => {
-      const itemProduct = typeof item.product === 'object' ? item.product._id : item.product;
-      return itemProduct === productId;
+    dispatch(removeItemFromCart(productId));
+    toast.success('✨ Item removed from cart', {
+      style: { background: 'linear-gradient(135deg, rgb(220, 38, 38), rgb(190, 24, 93))', color: '#fff', borderRadius: '12px' }
     });
-    
-    if (itemToRemove) {
-      dispatch(removeItemFromCart(itemToRemove._id));
-      toast.success('✨ Item removed from cart', {
-        style: { background: 'linear-gradient(135deg, rgb(220, 38, 38), rgb(190, 24, 93))', color: '#fff', borderRadius: '12px' }
-      });
-    }
   };
 
   const handleUpdateQuantity = (productId, quantity) => {
     if (quantity < 1) return;
-    
-    // Find the cart item to update
-    const itemToUpdate = cartItems.find(item => {
-      const itemProduct = typeof item.product === 'object' ? item.product._id : item.product;
-      return itemProduct === productId;
+    dispatch(updateItemQuantity({ itemId: productId, quantity }));
+    toast.success('📦 Quantity updated!', {
+      style: { background: 'linear-gradient(135deg, rgb(139, 92, 246), rgb(59, 130, 246))', color: '#fff', borderRadius: '12px' }
     });
-    
-    if (itemToUpdate) {
-      dispatch(updateItemQuantity({ itemId: itemToUpdate._id, quantity }));
-      toast.success('📦 Quantity updated!', {
-        style: { background: 'linear-gradient(135deg, rgb(139, 92, 246), rgb(59, 130, 246))', color: '#fff', borderRadius: '12px' }
-      });
-    }
   };
 
-  const cartItems = items || [];
-
-  // Normalize cart items - ensure no nested objects are rendered
-  const normalizedCartItems = cartItems.map(item => ({
-    ...item,
-    product: typeof item.product === 'object' ? item.product._id : item.product,
-    category: typeof item.category === 'object' ? item.category.name : item.category
-  }));
-
-  const subtotal = normalizedCartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  const subtotal = cartItems.reduce((sum, item) => sum + ((item.price || 0) * (item.quantity || 1)), 0);
   const shipping = subtotal > 100 ? 0 : 15;
   const tax = subtotal * 0.1;
   const total = subtotal + shipping + tax;
-
-  if (loading) {
-    return <PageLoader text="Loading your magical cart..." />;
-  }
-
-  if (error && !cartItems.length) {
-    return (
-      <div className="min-h-screen py-20">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="glass-card p-8 text-center rounded-2xl">
-            <div className="text-red-500 text-xl mb-4">⚠️</div>
-            <h3 className="text-xl font-bold gradient-text mb-2">Error Loading Cart</h3>
-            <p className="text-purple-300/70 mb-4">{error}</p>
-            <Button variant="neon" onClick={() => dispatch(fetchCart())}>Retry</Button>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   if (cartItems.length === 0) {
     return (
@@ -161,9 +111,16 @@ const CartPage = () => {
             {/* Cart Items */}
             <div className="lg:col-span-2 space-y-4">
               <AnimatePresence mode="popLayout">
-                {normalizedCartItems.map((item, index) => (
+                {cartItems.map((item, index) => {
+                  const productId = item._id || item.product?._id || item.product;
+                  const itemImage = item.image || item.images?.[0]?.url || '/placeholder.jpg';
+                  const itemName = item.name || 'Product';
+                  const itemPrice = item.price || 0;
+                  const itemQuantity = item.quantity || 1;
+                  
+                  return (
                   <motion.div
-                    key={item._id || item.product || index}
+                    key={productId || index}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: 20 }}
@@ -174,8 +131,8 @@ const CartPage = () => {
                       {/* Product Image */}
                       <div className="w-full sm:w-32 h-32 flex-shrink-0">
                         <img
-                          src={item.image}
-                          alt={item.name}
+                          src={itemImage}
+                          alt={itemName}
                           className="w-full h-full object-cover rounded-xl"
                         />
                       </div>
@@ -183,17 +140,17 @@ const CartPage = () => {
                       {/* Product Info */}
                       <div className="flex-grow">
                         <h3 className="text-xl font-bold text-purple-300 mb-2">
-                          {item.name}
+                          {itemName}
                         </h3>
                         <p className="text-2xl font-bold gradient-text mb-4">
-                          ${item.price}
+                          ${itemPrice.toFixed(2)}
                         </p>
 
                         {/* Quantity Controls */}
                         <div className="flex items-center space-x-4 relative z-10">
                           <div className="flex items-center space-x-3 bg-purple-500/10 border border-purple-500/30 rounded-xl p-2">
                             <button
-                              onClick={() => handleUpdateQuantity(item.product, item.quantity - 1)}
+                              onClick={() => handleUpdateQuantity(productId, itemQuantity - 1)}
                               className="w-8 h-8 bg-purple-500/20 hover:bg-purple-500/30 rounded-lg
                                        text-purple-300 hover:text-cyan-400 transition-all duration-300
                                        flex items-center justify-center cursor-pointer relative z-20"
@@ -202,10 +159,10 @@ const CartPage = () => {
                               <FiMinus />
                             </button>
                             <span className="text-lg font-bold text-purple-300 w-8 text-center">
-                              {item.quantity}
+                              {itemQuantity}
                             </span>
                             <button
-                              onClick={() => handleUpdateQuantity(item.product, item.quantity + 1)}
+                              onClick={() => handleUpdateQuantity(productId, itemQuantity + 1)}
                               className="w-8 h-8 bg-purple-500/20 hover:bg-purple-500/30 rounded-lg
                                        text-purple-300 hover:text-cyan-400 transition-all duration-300
                                        flex items-center justify-center cursor-pointer relative z-20"
@@ -216,7 +173,7 @@ const CartPage = () => {
                           </div>
 
                           <button
-                            onClick={() => handleRemoveItem(item.product)}
+                            onClick={() => handleRemoveItem(productId)}
                             className="p-2 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg
                                      transition-all duration-300 cursor-pointer relative z-20"
                             style={{ pointerEvents: 'auto' }}
@@ -230,12 +187,13 @@ const CartPage = () => {
                       <div className="text-right">
                         <p className="text-purple-300/50 text-sm mb-1">Item Total</p>
                         <p className="text-2xl font-bold gradient-text">
-                          ${(item.price * item.quantity).toFixed(2)}
+                          ${(itemPrice * itemQuantity).toFixed(2)}
                         </p>
                       </div>
                     </div>
                   </motion.div>
-                ))}
+                  );
+                })}
               </AnimatePresence>
 
               {/* Continue Shopping */}

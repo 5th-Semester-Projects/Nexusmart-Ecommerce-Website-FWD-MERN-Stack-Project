@@ -87,11 +87,15 @@ const cartSlice = createSlice({
       localStorage.setItem('cart', JSON.stringify(state));
     },
     removeItemFromCart: (state, action) => {
-      state.items = state.items.filter((item) => item._id !== action.payload);
+      const productId = action.payload;
+      state.items = state.items.filter((item) => {
+        const itemProductId = item._id || item.product?._id || item.product;
+        return itemProductId !== productId;
+      });
 
       // Recalculate totals
       state.subtotal = state.items.reduce(
-        (total, item) => total + item.price * item.quantity,
+        (total, item) => total + (item.price || 0) * (item.quantity || 1),
         0
       );
       state.tax = state.subtotal * 0.1;
@@ -101,13 +105,16 @@ const cartSlice = createSlice({
     },
     updateItemQuantity: (state, action) => {
       const { itemId, quantity } = action.payload;
-      const item = state.items.find((i) => i._id === itemId);
+      const item = state.items.find((i) => {
+        const itemProductId = i._id || i.product?._id || i.product;
+        return itemProductId === itemId;
+      });
       if (item) {
         item.quantity = quantity;
 
         // Recalculate totals
         state.subtotal = state.items.reduce(
-          (total, item) => total + item.price * item.quantity,
+          (total, item) => total + (item.price || 0) * (item.quantity || 1),
           0
         );
         state.tax = state.subtotal * 0.1;

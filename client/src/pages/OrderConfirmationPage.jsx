@@ -184,7 +184,7 @@ const OrderConfirmationPage = () => {
             <Button
               variant="3d"
               fullWidth
-              onClick={() => navigate('/user/orders')}
+              onClick={() => navigate('/dashboard/orders')}
               icon={FiPackage}
             >
               Track Order

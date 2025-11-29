@@ -130,7 +130,7 @@ export const cartAPI = {
 // =============== ORDERS API ===============
 export const ordersAPI = {
   create: (orderData) => api.post('/orders', orderData),
-  getAll: (params) => api.get('/orders', { params }),
+  getAll: (params) => api.get('/orders/my-orders', { params }),
   getById: (id) => api.get(`/orders/${id}`),
   cancel: (id) => api.put(`/orders/${id}/cancel`),
   // Admin only

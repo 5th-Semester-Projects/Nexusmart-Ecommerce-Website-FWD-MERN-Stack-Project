@@ -142,9 +142,10 @@ const ProductCard = ({ product, onQuickView, eager = false }) => {
           <img
             src={product.images?.[0]?.url || `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Crect fill='%23667eea' width='400' height='400'/%3E%3Ctext fill='%23ffffff' font-family='Arial' font-size='20' x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle'%3E${encodeURIComponent(product.name.substring(0, 20))}%3C/text%3E%3C/svg%3E`}
             alt={product.name}
-            loading={eager ? "eager" : "lazy"}
+            loading="eager"
             decoding="async"
-            fetchPriority={eager ? "high" : "auto"}
+            crossOrigin="anonymous"
+            referrerPolicy="no-referrer"
             onLoad={() => {
               setImageLoaded(true);
             }}
@@ -155,7 +156,7 @@ const ProductCard = ({ product, onQuickView, eager = false }) => {
               // Use simple data URL SVG fallback
               e.target.src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Crect fill='%23667eea' width='400' height='400'/%3E%3Ctext fill='%23ffffff' font-family='Arial' font-size='18' x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle'%3E${encodeURIComponent(product.name.substring(0, 25))}%3C/text%3E%3C/svg%3E`;
             }}
-            className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-110 ${!imageLoaded ? 'opacity-0' : 'opacity-100'}`}
+            className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
           />
           
           {/* Overlay gradient on hover */}

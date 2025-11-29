@@ -54,10 +54,15 @@ export const registerUser = catchAsyncErrors(async (req, res, next) => {
     isVerified: !isSmtpConfigured, // Auto-verify if SMTP not configured
   });
 
-  // If SMTP is not configured, skip email verification and directly log user in
+  // If SMTP is not configured, skip email verification but DON'T auto-login
+  // User should manually login after registration
   if (!isSmtpConfigured) {
     console.log('⚠️ SMTP not configured - skipping email verification for:', user.email);
-    return sendToken(user, 201, res, 'Account created successfully! Welcome to NexusMart.');
+    return res.status(201).json({
+      success: true,
+      message: 'Account created successfully! Please login to continue.',
+      requiresLogin: true
+    });
   }
 
   // Generate email verification token

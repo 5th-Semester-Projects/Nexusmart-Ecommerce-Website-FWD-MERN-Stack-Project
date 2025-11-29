@@ -131,16 +131,18 @@ const RegisterPage = () => {
         phone: formData.phone.trim(),
       })).unwrap();
       
-      // Only show success if registration was actually successful
-      if (result && result.user) {
-        toast.success('🎉 Account created successfully!', {
+      // Check if registration successful - now user needs to login manually
+      if (result && result.success) {
+        toast.success('🎉 Account created successfully! Please login.', {
           style: {
             background: 'linear-gradient(135deg, rgb(34, 197, 94), rgb(16, 185, 129))',
             color: '#fff',
             borderRadius: '12px',
           },
+          duration: 3000,
         });
-        navigate('/');
+        // Redirect to login page, not home
+        navigate('/login');
       }
     } catch (err) {
       // Clear passwords on failed registration

@@ -143,11 +143,17 @@ const authSlice = createSlice({
       })
       .addCase(register.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload.user;
-        state.token = action.payload.accessToken;
-        state.isAuthenticated = true;
-        localStorage.setItem('user', JSON.stringify(action.payload.user));
-        localStorage.setItem('token', action.payload.accessToken);
+        // If requiresLogin is true, don't auto-login, user must login manually
+        if (action.payload.requiresLogin) {
+          // Don't set user/token, keep isAuthenticated false
+          state.isAuthenticated = false;
+        } else if (action.payload.user) {
+          state.user = action.payload.user;
+          state.token = action.payload.accessToken;
+          state.isAuthenticated = true;
+          localStorage.setItem('user', JSON.stringify(action.payload.user));
+          localStorage.setItem('token', action.payload.accessToken);
+        }
       })
       .addCase(register.rejected, (state, action) => {
         state.loading = false;

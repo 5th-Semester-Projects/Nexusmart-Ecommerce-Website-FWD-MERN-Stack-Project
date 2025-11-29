@@ -181,28 +181,27 @@ const Navbar = () => {
 
               {/* User Menu or Login */}
               {isAuthenticated ? (
-                <div className="relative group">
+                <div className="relative group z-[100]">
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     className="flex items-center space-x-2 px-4 py-2 rounded-xl
                              bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500
-                             border border-purple-500/30 transition-all duration-300"
+                             border border-purple-500/30 transition-all duration-300 cursor-pointer"
                   >
                     <div className="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-400 to-purple-400 
                                   flex items-center justify-center text-white text-sm font-bold">
-                      {user?.name?.[0] || 'U'}
+                      {user?.name?.[0] || user?.firstName?.[0] || 'U'}
                     </div>
                     <span className="hidden md:block text-white font-medium">
-                      {user?.name?.split(' ')[0] || 'User'}
+                      {user?.name?.split(' ')[0] || user?.firstName || 'User'}
                     </span>
                   </motion.button>
 
                   {/* Dropdown */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    whileHover={{ opacity: 1, y: 0 }}
-                    className="absolute right-0 mt-2 w-56 glass-card opacity-0 invisible 
-                             group-hover:opacity-100 group-hover:visible transition-all duration-300"
+                  <div
+                    className="absolute right-0 top-full mt-2 w-56 glass-card opacity-0 invisible 
+                             group-hover:opacity-100 group-hover:visible transition-all duration-300
+                             z-[100] pointer-events-none group-hover:pointer-events-auto"
                   >
                     <div className="p-2 space-y-1">
                       <Link
@@ -243,7 +242,7 @@ const Navbar = () => {
                         <span>Logout</span>
                       </button>
                     </div>
-                  </motion.div>
+                  </div>
                 </div>
               ) : (
                 <Link to="/login">

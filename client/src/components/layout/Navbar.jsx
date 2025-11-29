@@ -15,6 +15,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
   
   const { isAuthenticated, user } = useSelector((state) => state?.auth || {});
   const { theme, mobileMenuOpen } = useSelector((state) => state?.ui || { theme: 'dark' });
@@ -22,6 +23,7 @@ const Navbar = () => {
   const { items: wishlistItems = [] } = useSelector((state) => state?.wishlist || {});
 
   const handleLogout = () => {
+    setUserMenuOpen(false);
     dispatch(logout());
     navigate('/');
   };
@@ -181,9 +183,11 @@ const Navbar = () => {
 
               {/* User Menu or Login */}
               {isAuthenticated ? (
-                <div className="relative group z-[100]">
+                <div className="relative z-[100]">
                   <motion.button
                     whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => setUserMenuOpen(!userMenuOpen)}
                     className="flex items-center space-x-2 px-4 py-2 rounded-xl
                              bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500
                              border border-purple-500/30 transition-all duration-300 cursor-pointer"
@@ -197,52 +201,70 @@ const Navbar = () => {
                     </span>
                   </motion.button>
 
-                  {/* Dropdown */}
-                  <div
-                    className="absolute right-0 top-full mt-2 w-56 glass-card opacity-0 invisible 
-                             group-hover:opacity-100 group-hover:visible transition-all duration-300
-                             z-[100] pointer-events-none group-hover:pointer-events-auto"
-                  >
-                    <div className="p-2 space-y-1">
-                      <Link
-                        to="/dashboard"
-                        className="flex items-center space-x-3 px-4 py-3 rounded-lg
-                                 text-purple-300 hover:text-cyan-400 hover:bg-purple-500/10
-                                 transition-all duration-300 group/item"
-                      >
-                        <FiUser className="text-lg" />
-                        <span>Dashboard</span>
-                      </Link>
-                      <Link
-                        to="/dashboard/orders"
-                        className="flex items-center space-x-3 px-4 py-3 rounded-lg
-                                 text-purple-300 hover:text-cyan-400 hover:bg-purple-500/10
-                                 transition-all duration-300"
-                      >
-                        <FiPackage className="text-lg" />
-                        <span>My Orders</span>
-                      </Link>
-                      <Link
-                        to="/dashboard/settings"
-                        className="flex items-center space-x-3 px-4 py-3 rounded-lg
-                                 text-purple-300 hover:text-cyan-400 hover:bg-purple-500/10
-                                 transition-all duration-300"
-                      >
-                        <FiSettings className="text-lg" />
-                        <span>Settings</span>
-                      </Link>
-                      <div className="border-t border-purple-500/20 my-2"></div>
-                      <button
-                        onClick={handleLogout}
-                        className="w-full flex items-center space-x-3 px-4 py-3 rounded-lg
-                                 text-red-400 hover:text-red-300 hover:bg-red-500/10
-                                 transition-all duration-300"
-                      >
-                        <FiLogOut className="text-lg" />
-                        <span>Logout</span>
-                      </button>
-                    </div>
-                  </div>
+                  {/* Dropdown - Click based */}
+                  <AnimatePresence>
+                    {userMenuOpen && (
+                      <>
+                        {/* Backdrop to close menu */}
+                        <div 
+                          className="fixed inset-0 z-[99]" 
+                          onClick={() => setUserMenuOpen(false)}
+                        />
+                        <motion.div
+                          initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                          transition={{ duration: 0.2 }}
+                          className="absolute right-0 top-full mt-2 w-56 z-[100]
+                                   bg-gray-900/95 backdrop-blur-xl border border-purple-500/30 
+                                   rounded-xl shadow-2xl shadow-purple-500/20"
+                        >
+                          <div className="p-2 space-y-1">
+                            <Link
+                              to="/dashboard"
+                              onClick={() => setUserMenuOpen(false)}
+                              className="flex items-center space-x-3 px-4 py-3 rounded-lg
+                                       text-purple-300 hover:text-cyan-400 hover:bg-purple-500/10
+                                       transition-all duration-300"
+                            >
+                              <FiUser className="text-lg" />
+                              <span>Dashboard</span>
+                            </Link>
+                            <Link
+                              to="/dashboard/orders"
+                              onClick={() => setUserMenuOpen(false)}
+                              className="flex items-center space-x-3 px-4 py-3 rounded-lg
+                                       text-purple-300 hover:text-cyan-400 hover:bg-purple-500/10
+                                       transition-all duration-300"
+                            >
+                              <FiPackage className="text-lg" />
+                              <span>My Orders</span>
+                            </Link>
+                            <Link
+                              to="/dashboard/settings"
+                              onClick={() => setUserMenuOpen(false)}
+                              className="flex items-center space-x-3 px-4 py-3 rounded-lg
+                                       text-purple-300 hover:text-cyan-400 hover:bg-purple-500/10
+                                       transition-all duration-300"
+                            >
+                              <FiSettings className="text-lg" />
+                              <span>Settings</span>
+                            </Link>
+                            <div className="border-t border-purple-500/20 my-2"></div>
+                            <button
+                              onClick={handleLogout}
+                              className="w-full flex items-center space-x-3 px-4 py-3 rounded-lg
+                                       text-red-400 hover:text-red-300 hover:bg-red-500/10
+                                       transition-all duration-300"
+                            >
+                              <FiLogOut className="text-lg" />
+                              <span>Logout</span>
+                            </button>
+                          </div>
+                        </motion.div>
+                      </>
+                    )}
+                  </AnimatePresence>
                 </div>
               ) : (
                 <Link to="/login">

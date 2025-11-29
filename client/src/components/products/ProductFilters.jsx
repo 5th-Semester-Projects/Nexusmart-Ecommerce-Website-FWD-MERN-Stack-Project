@@ -77,25 +77,30 @@ const ProductFilters = ({ filters, onFilterChange, onClearFilters, products = []
 
   const FilterSection = ({ title, sectionKey, children }) => (
     <div className="mb-6">
-      <button
-        type="button"
-        onClick={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          toggleSection(sectionKey);
+      <div
+        role="button"
+        tabIndex={0}
+        onClick={() => toggleSection(sectionKey)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            toggleSection(sectionKey);
+          }
         }}
         className="w-full flex items-center justify-between mb-4 text-purple-300 hover:text-cyan-400
-                 transition-colors duration-300 cursor-pointer"
+                 transition-colors duration-300 cursor-pointer select-none"
+        style={{ pointerEvents: 'auto', zIndex: 50, position: 'relative' }}
       >
-        <h3 className="text-lg font-bold" style={{ fontFamily: 'Orbitron, sans-serif' }}>
+        <h3 className="text-lg font-bold pointer-events-none" style={{ fontFamily: 'Orbitron, sans-serif' }}>
           {title}
         </h3>
-        {expandedSections[sectionKey] ? (
-          <FiChevronUp className="text-xl" />
-        ) : (
-          <FiChevronDown className="text-xl" />
-        )}
-      </button>
+        <span className="pointer-events-none">
+          {expandedSections[sectionKey] ? (
+            <FiChevronUp className="text-xl" />
+          ) : (
+            <FiChevronDown className="text-xl" />
+          )}
+        </span>
+      </div>
       
       <AnimatePresence initial={false}>
         {expandedSections[sectionKey] && (

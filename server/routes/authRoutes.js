@@ -9,6 +9,8 @@ import {
   getUserProfile,
   updatePassword,
   updateProfile,
+  updateAvatar,
+  changePassword,
   enableTwoFactor,
   verifyTwoFactorSetup,
   verifyTwoFactor,
@@ -16,6 +18,7 @@ import {
 } from '../controllers/authController.js';
 import { isAuthenticatedUser } from '../middleware/auth.js';
 import { authLimiter, passwordResetLimiter } from '../middleware/rateLimiter.js';
+import { upload } from '../middleware/upload.js';
 
 const router = express.Router();
 
@@ -32,6 +35,8 @@ router.get('/me', isAuthenticatedUser, getUserProfile);
 router.get('/logout', isAuthenticatedUser, logoutUser);
 router.put('/update-password', isAuthenticatedUser, updatePassword);
 router.put('/update-profile', isAuthenticatedUser, updateProfile);
+router.put('/update-avatar', isAuthenticatedUser, upload.single('avatar'), updateAvatar);
+router.put('/change-password', isAuthenticatedUser, changePassword);
 
 // Two-Factor Authentication routes
 router.post('/enable-2fa', isAuthenticatedUser, enableTwoFactor);

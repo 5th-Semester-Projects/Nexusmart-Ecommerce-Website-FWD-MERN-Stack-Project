@@ -94,7 +94,11 @@ export const authAPI = {
   login: (credentials) => api.post('/auth/login', credentials),
   logout: () => api.post('/auth/logout'),
   getCurrentUser: () => api.get('/auth/me'),
-  updateProfile: (userData) => api.put('/auth/profile', userData),
+  updateProfile: (userData) => api.put('/auth/update-profile', userData),
+  updateAvatar: (formData) => api.put('/auth/update-avatar', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' }
+  }),
+  changePassword: (passwords) => api.put('/auth/change-password', passwords),
   updatePassword: (passwords) => api.put('/auth/password', passwords),
   forgotPassword: (email) => api.post('/auth/forgot-password', { email }),
   resetPassword: (token, password) => api.post(`/auth/reset-password/${token}`, { password }),

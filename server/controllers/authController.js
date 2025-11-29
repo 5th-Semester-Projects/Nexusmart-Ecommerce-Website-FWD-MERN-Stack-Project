@@ -515,3 +515,78 @@ export const updateProfile = catchAsyncErrors(async (req, res, next) => {
     user,
   });
 });
+
+/**
+ * Upload/Update user avatar
+ * @route PUT /api/auth/update-avatar
+ * @access Private
+ */
+export const updateAvatar = catchAsyncErrors(async (req, res, next) => {
+  if (!req.file) {
+    return next(new ErrorHandler('Please upload an image', 400));
+  }
+
+  const user = await User.findById(req.user._id);
+
+  // Delete old avatar from cloudinary if exists (not default)
+  if (user.avatar?.public_id && !user.avatar.public_id.includes('default')) {
+    try {
+      const { deleteFromCloudinary } = await import('../utils/cloudinary.js');
+      await deleteFromCloudinary(user.avatar.public_id);
+    } catch (err) {
+      console.log('Could not delete old avatar:', err.message);
+    }
+  }
+
+  // Upload new avatar to cloudinary
+  const { uploadToCloudinary } = await import('../utils/cloudinary.js');
+  const result = await uploadToCloudinary(req.file.buffer, 'nexusmart/avatars', 'image');
+
+  // Update user avatar
+  user.avatar = {
+    public_id: result.public_id,
+    url: result.secure_url,
+  };
+
+  await user.save();
+
+  res.status(200).json({
+    success: true,
+    message: 'Avatar updated successfully',
+    user,
+  });
+});
+
+/**
+ * Change password
+ * @route PUT /api/auth/change-password  
+ * @access Private
+ */
+export const changePassword = catchAsyncErrors(async (req, res, next) => {
+  const { currentPassword, newPassword } = req.body;
+
+  if (!currentPassword || !newPassword) {
+    return next(new ErrorHandler('Please provide current and new password', 400));
+  }
+
+  if (newPassword.length < 8) {
+    return next(new ErrorHandler('New password must be at least 8 characters', 400));
+  }
+
+  const user = await User.findById(req.user._id).select('+password');
+
+  // Check current password
+  const isMatch = await user.comparePassword(currentPassword);
+  if (!isMatch) {
+    return next(new ErrorHandler('Current password is incorrect', 400));
+  }
+
+  // Update password
+  user.password = newPassword;
+  await user.save();
+
+  res.status(200).json({
+    success: true,
+    message: 'Password changed successfully',
+  });
+});

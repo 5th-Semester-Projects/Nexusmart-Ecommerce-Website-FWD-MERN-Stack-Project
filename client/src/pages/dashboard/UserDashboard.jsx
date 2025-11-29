@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Link, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiUser, FiPackage, FiHeart, FiSettings, FiShoppingBag, FiCreditCard, FiTrash2, FiEye, FiShoppingCart, FiArrowRight, FiCheck, FiClock, FiTruck, FiX } from 'react-icons/fi';
+import { FiUser, FiPackage, FiHeart, FiSettings, FiShoppingBag, FiCreditCard, FiTrash2, FiEye, FiShoppingCart, FiArrowRight, FiCheck, FiClock, FiTruck, FiX, FiCamera, FiUpload, FiSave, FiLock } from 'react-icons/fi';
 import { fetchOrders } from '../../redux/slices/orderSlice';
 import { removeFromWishlist } from '../../redux/slices/wishlistSlice';
 import { addToCart } from '../../redux/slices/cartSlice';
+import { setCredentials } from '../../redux/slices/authSlice';
+import { authAPI } from '../../utils/api';
 import toast from 'react-hot-toast';
 
 // Dashboard Overview Component
@@ -310,108 +312,324 @@ const WishlistPage = ({ wishlistItems, dispatch }) => {
 };
 
 // Settings Page Component
-const SettingsPage = ({ user }) => {
+const SettingsPage = ({ user, onUserUpdate }) => {
   const [formData, setFormData] = useState({
     firstName: user?.firstName || '',
     lastName: user?.lastName || '',
     email: user?.email || '',
     phone: user?.phone || '',
   });
+  const [passwordData, setPasswordData] = useState({
+    currentPassword: '',
+    newPassword: '',
+    confirmPassword: '',
+  });
+  const [avatar, setAvatar] = useState(user?.avatar?.url || null);
+  const [avatarFile, setAvatarFile] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [passwordLoading, setPasswordLoading] = useState(false);
+  const fileInputRef = useRef(null);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handlePasswordChange = (e) => {
+    setPasswordData({ ...passwordData, [e.target.name]: e.target.value });
+  };
+
+  const handleAvatarClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleAvatarChange = (e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        toast.error('Image size should be less than 5MB');
+        return;
+      }
+      if (!file.type.startsWith('image/')) {
+        toast.error('Please select an image file');
+        return;
+      }
+      setAvatarFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setAvatar(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    toast.success('Profile update feature coming soon!');
+    setLoading(true);
+    
+    try {
+      // Update profile info
+      const { authAPI } = await import('../../utils/api');
+      const profileResponse = await authAPI.updateProfile({
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        phone: formData.phone,
+      });
+      
+      // Update avatar if changed
+      if (avatarFile) {
+        const avatarFormData = new FormData();
+        avatarFormData.append('avatar', avatarFile);
+        await authAPI.updateAvatar(avatarFormData);
+        setAvatarFile(null);
+      }
+      
+      toast.success('Profile updated successfully! 🎉');
+      
+      // Refresh user data
+      if (onUserUpdate) onUserUpdate();
+      
+    } catch (error) {
+      console.error('Profile update error:', error);
+      toast.error(error.response?.data?.message || 'Failed to update profile');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handlePasswordSubmit = async (e) => {
+    e.preventDefault();
+    
+    if (passwordData.newPassword !== passwordData.confirmPassword) {
+      toast.error('New passwords do not match');
+      return;
+    }
+    
+    if (passwordData.newPassword.length < 8) {
+      toast.error('Password must be at least 8 characters');
+      return;
+    }
+    
+    setPasswordLoading(true);
+    
+    try {
+      const { authAPI } = await import('../../utils/api');
+      await authAPI.changePassword({
+        currentPassword: passwordData.currentPassword,
+        newPassword: passwordData.newPassword,
+      });
+      
+      toast.success('Password changed successfully! 🔐');
+      setPasswordData({ currentPassword: '', newPassword: '', confirmPassword: '' });
+      
+    } catch (error) {
+      console.error('Password change error:', error);
+      toast.error(error.response?.data?.message || 'Failed to change password');
+    } finally {
+      setPasswordLoading(false);
+    }
   };
 
   return (
-    <div className="glass-card p-6 rounded-2xl">
-      <h2 className="text-2xl font-bold text-white mb-6">Account Settings</h2>
-      
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="grid sm:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-purple-300/70 text-sm mb-2">First Name</label>
-            <input
-              type="text"
-              name="firstName"
-              value={formData.firstName}
-              onChange={handleChange}
-              className="w-full px-4 py-3 bg-purple-900/30 border border-purple-500/30 rounded-xl text-white focus:border-cyan-400 focus:outline-none transition-colors"
-            />
+    <div className="space-y-6">
+      {/* Profile Picture Section */}
+      <div className="glass-card p-6 rounded-2xl">
+        <h2 className="text-2xl font-bold text-white mb-6">Profile Picture</h2>
+        
+        <div className="flex items-center gap-6">
+          <div className="relative group">
+            <div 
+              onClick={handleAvatarClick}
+              className="w-28 h-28 rounded-full overflow-hidden border-4 border-purple-500/50 cursor-pointer 
+                        hover:border-cyan-400 transition-all group-hover:shadow-lg group-hover:shadow-cyan-500/30"
+            >
+              {avatar ? (
+                <img 
+                  src={avatar} 
+                  alt="Profile" 
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <div className="w-full h-full bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center">
+                  <span className="text-4xl font-bold text-white">
+                    {user?.firstName?.charAt(0)?.toUpperCase() || 'U'}
+                  </span>
+                </div>
+              )}
+            </div>
+            <div 
+              onClick={handleAvatarClick}
+              className="absolute bottom-0 right-0 w-9 h-9 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full 
+                        flex items-center justify-center cursor-pointer hover:scale-110 transition-transform
+                        border-2 border-gray-900"
+            >
+              <FiCamera className="text-white text-lg" />
+            </div>
           </div>
+          
           <div>
-            <label className="block text-purple-300/70 text-sm mb-2">Last Name</label>
-            <input
-              type="text"
-              name="lastName"
-              value={formData.lastName}
-              onChange={handleChange}
-              className="w-full px-4 py-3 bg-purple-900/30 border border-purple-500/30 rounded-xl text-white focus:border-cyan-400 focus:outline-none transition-colors"
-            />
+            <h3 className="text-white font-semibold text-lg">{user?.firstName} {user?.lastName}</h3>
+            <p className="text-purple-300/70 text-sm">{user?.email}</p>
+            <button
+              onClick={handleAvatarClick}
+              className="mt-3 px-4 py-2 text-sm bg-purple-500/20 text-purple-300 rounded-lg 
+                        hover:bg-purple-500/30 transition-all flex items-center gap-2"
+            >
+              <FiUpload className="text-sm" /> Upload New Photo
+            </button>
           </div>
-        </div>
-        
-        <div>
-          <label className="block text-purple-300/70 text-sm mb-2">Email Address</label>
+          
           <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            disabled
-            className="w-full px-4 py-3 bg-purple-900/30 border border-purple-500/30 rounded-xl text-purple-300/50 cursor-not-allowed"
-          />
-          <p className="text-purple-300/40 text-xs mt-1">Email cannot be changed</p>
-        </div>
-        
-        <div>
-          <label className="block text-purple-300/70 text-sm mb-2">Phone Number</label>
-          <input
-            type="tel"
-            name="phone"
-            value={formData.phone}
-            onChange={handleChange}
-            placeholder="Enter your phone number"
-            className="w-full px-4 py-3 bg-purple-900/30 border border-purple-500/30 rounded-xl text-white focus:border-cyan-400 focus:outline-none transition-colors"
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            onChange={handleAvatarChange}
+            className="hidden"
           />
         </div>
         
-        <div className="border-t border-purple-500/20 pt-6">
-          <h3 className="text-lg font-bold text-white mb-4">Change Password</h3>
-          <div className="space-y-4">
+        {avatarFile && (
+          <p className="mt-4 text-cyan-400 text-sm flex items-center gap-2">
+            <FiCheck /> New photo selected. Click "Save Profile" to apply changes.
+          </p>
+        )}
+      </div>
+
+      {/* Profile Information Section */}
+      <div className="glass-card p-6 rounded-2xl">
+        <h2 className="text-2xl font-bold text-white mb-6">Profile Information</h2>
+        
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="grid sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-purple-300/70 text-sm mb-2">Current Password</label>
+              <label className="block text-purple-300/70 text-sm mb-2">First Name</label>
               <input
-                type="password"
-                placeholder="Enter current password"
+                type="text"
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleChange}
                 className="w-full px-4 py-3 bg-purple-900/30 border border-purple-500/30 rounded-xl text-white focus:border-cyan-400 focus:outline-none transition-colors"
               />
             </div>
             <div>
-              <label className="block text-purple-300/70 text-sm mb-2">New Password</label>
+              <label className="block text-purple-300/70 text-sm mb-2">Last Name</label>
               <input
-                type="password"
-                placeholder="Enter new password"
+                type="text"
+                name="lastName"
+                value={formData.lastName}
+                onChange={handleChange}
                 className="w-full px-4 py-3 bg-purple-900/30 border border-purple-500/30 rounded-xl text-white focus:border-cyan-400 focus:outline-none transition-colors"
               />
             </div>
           </div>
-        </div>
+          
+          <div>
+            <label className="block text-purple-300/70 text-sm mb-2">Email Address</label>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              disabled
+              className="w-full px-4 py-3 bg-purple-900/30 border border-purple-500/30 rounded-xl text-purple-300/50 cursor-not-allowed"
+            />
+            <p className="text-purple-300/40 text-xs mt-1">Email cannot be changed</p>
+          </div>
+          
+          <div>
+            <label className="block text-purple-300/70 text-sm mb-2">Phone Number</label>
+            <input
+              type="tel"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              placeholder="Enter your phone number"
+              className="w-full px-4 py-3 bg-purple-900/30 border border-purple-500/30 rounded-xl text-white focus:border-cyan-400 focus:outline-none transition-colors"
+            />
+          </div>
+          
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-bold rounded-xl 
+                      hover:shadow-lg hover:shadow-purple-500/30 transition-all disabled:opacity-50 disabled:cursor-not-allowed
+                      flex items-center justify-center gap-2"
+          >
+            {loading ? (
+              <>
+                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                Saving...
+              </>
+            ) : (
+              <>
+                <FiSave /> Save Profile
+              </>
+            )}
+          </button>
+        </form>
+      </div>
+
+      {/* Change Password Section */}
+      <div className="glass-card p-6 rounded-2xl">
+        <h2 className="text-2xl font-bold text-white mb-6">Change Password</h2>
         
-        <button
-          type="submit"
-          className="w-full py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-purple-500/30 transition-all"
-        >
-          Save Changes
-        </button>
-      </form>
+        <form onSubmit={handlePasswordSubmit} className="space-y-4">
+          <div>
+            <label className="block text-purple-300/70 text-sm mb-2">Current Password</label>
+            <input
+              type="password"
+              name="currentPassword"
+              value={passwordData.currentPassword}
+              onChange={handlePasswordChange}
+              placeholder="Enter current password"
+              className="w-full px-4 py-3 bg-purple-900/30 border border-purple-500/30 rounded-xl text-white focus:border-cyan-400 focus:outline-none transition-colors"
+            />
+          </div>
+          <div>
+            <label className="block text-purple-300/70 text-sm mb-2">New Password</label>
+            <input
+              type="password"
+              name="newPassword"
+              value={passwordData.newPassword}
+              onChange={handlePasswordChange}
+              placeholder="Enter new password (min 8 characters)"
+              className="w-full px-4 py-3 bg-purple-900/30 border border-purple-500/30 rounded-xl text-white focus:border-cyan-400 focus:outline-none transition-colors"
+            />
+          </div>
+          <div>
+            <label className="block text-purple-300/70 text-sm mb-2">Confirm New Password</label>
+            <input
+              type="password"
+              name="confirmPassword"
+              value={passwordData.confirmPassword}
+              onChange={handlePasswordChange}
+              placeholder="Confirm new password"
+              className="w-full px-4 py-3 bg-purple-900/30 border border-purple-500/30 rounded-xl text-white focus:border-cyan-400 focus:outline-none transition-colors"
+            />
+          </div>
+          
+          <button
+            type="submit"
+            disabled={passwordLoading || !passwordData.currentPassword || !passwordData.newPassword}
+            className="w-full py-3 bg-gradient-to-r from-orange-600 to-red-600 text-white font-bold rounded-xl 
+                      hover:shadow-lg hover:shadow-orange-500/30 transition-all disabled:opacity-50 disabled:cursor-not-allowed
+                      flex items-center justify-center gap-2"
+          >
+            {passwordLoading ? (
+              <>
+                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                Changing...
+              </>
+            ) : (
+              <>
+                <FiLock /> Change Password
+              </>
+            )}
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
+
 
 // Main UserDashboard Component
 const UserDashboard = () => {
@@ -425,6 +643,18 @@ const UserDashboard = () => {
   useEffect(() => {
     dispatch(fetchOrders());
   }, [dispatch]);
+
+  // Refresh user data after profile update
+  const handleUserUpdate = async () => {
+    try {
+      const response = await authAPI.getCurrentUser();
+      if (response.data?.user) {
+        dispatch(setCredentials(response.data.user));
+      }
+    } catch (error) {
+      console.error('Failed to refresh user data:', error);
+    }
+  };
 
   // Calculate total spent - handle both old and new schema
   const totalSpent = orders?.reduce((sum, order) => sum + (order.pricing?.totalPrice || order.totalPrice || 0), 0) || 0;
@@ -466,8 +696,18 @@ const UserDashboard = () => {
             >
               {/* User Info */}
               <div className="flex items-center gap-4 mb-6 pb-6 border-b border-purple-500/20">
-                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-white text-xl font-bold">
-                  {user?.firstName?.[0] || 'U'}
+                <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-purple-500/50">
+                  {user?.avatar?.url ? (
+                    <img 
+                      src={user.avatar.url} 
+                      alt={user.firstName}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-white text-xl font-bold">
+                      {user?.firstName?.[0]?.toUpperCase() || 'U'}
+                    </div>
+                  )}
                 </div>
                 <div>
                   <p className="font-bold text-white">{user?.firstName} {user?.lastName}</p>
@@ -526,7 +766,7 @@ const UserDashboard = () => {
                   <WishlistPage wishlistItems={wishlistItems} dispatch={dispatch} />
                 } />
                 <Route path="settings" element={
-                  <SettingsPage user={user} />
+                  <SettingsPage user={user} onUserUpdate={handleUserUpdate} />
                 } />
               </Routes>
             </motion.div>

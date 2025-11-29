@@ -85,17 +85,17 @@ const DashboardOverview = ({ orders, wishlistItems, totalSpent }) => {
             {orders.slice(0, 3).map((order) => (
               <div key={order._id} className="flex items-center justify-between p-4 bg-purple-900/20 rounded-xl">
                 <div>
-                  <p className="text-white font-medium">Order #{order._id?.slice(-8)}</p>
+                  <p className="text-white font-medium">Order #{order.orderNumber || order._id?.slice(-8)}</p>
                   <p className="text-purple-300/50 text-sm">{new Date(order.createdAt).toLocaleDateString()}</p>
                 </div>
                 <div className="text-right">
-                  <p className="text-cyan-400 font-bold">${order.totalPrice?.toFixed(2)}</p>
+                  <p className="text-cyan-400 font-bold">${(order.pricing?.totalPrice || order.totalPrice || 0).toFixed(2)}</p>
                   <span className={`text-xs px-2 py-1 rounded-full ${
                     order.orderStatus === 'Delivered' ? 'bg-green-500/20 text-green-400' :
                     order.orderStatus === 'Processing' ? 'bg-yellow-500/20 text-yellow-400' :
                     order.orderStatus === 'Shipped' ? 'bg-blue-500/20 text-blue-400' :
                     'bg-purple-500/20 text-purple-400'
-                  }`}>{order.orderStatus}</span>
+                  }`}>{order.orderStatus || 'Pending'}</span>
                 </div>
               </div>
             ))}
@@ -162,7 +162,7 @@ const OrdersPage = ({ orders, loading }) => {
           <div className="flex flex-wrap justify-between items-start gap-4 mb-4">
             <div>
               <p className="text-purple-300/50 text-sm">Order ID</p>
-              <p className="text-white font-mono">#{order._id}</p>
+              <p className="text-white font-mono">#{order.orderNumber || order._id?.slice(-8)}</p>
             </div>
             <div>
               <p className="text-purple-300/50 text-sm">Date</p>
@@ -172,7 +172,7 @@ const OrdersPage = ({ orders, loading }) => {
             </div>
             <div>
               <p className="text-purple-300/50 text-sm">Total</p>
-              <p className="text-cyan-400 font-bold text-lg">${order.totalPrice?.toFixed(2)}</p>
+              <p className="text-cyan-400 font-bold text-lg">${(order.pricing?.totalPrice || order.totalPrice || 0).toFixed(2)}</p>
             </div>
             <div>
               <p className="text-purple-300/50 text-sm">Status</p>
@@ -215,7 +215,8 @@ const OrdersPage = ({ orders, loading }) => {
             <div className="border-t border-purple-500/20 pt-4 mt-4">
               <p className="text-purple-300/50 text-sm mb-2">Shipping Address</p>
               <p className="text-white">
-                {order.shippingInfo.address}, {order.shippingInfo.city}, {order.shippingInfo.state} {order.shippingInfo.postalCode}, {order.shippingInfo.country}
+                {order.shippingInfo.firstName} {order.shippingInfo.lastName}<br/>
+                {order.shippingInfo.address?.street || order.shippingInfo.address}, {order.shippingInfo.address?.city || order.shippingInfo.city}, {order.shippingInfo.address?.state || order.shippingInfo.state} {order.shippingInfo.address?.zipCode || order.shippingInfo.postalCode}, {order.shippingInfo.address?.country || order.shippingInfo.country}
               </p>
             </div>
           )}
@@ -425,8 +426,8 @@ const UserDashboard = () => {
     dispatch(fetchOrders());
   }, [dispatch]);
 
-  // Calculate total spent
-  const totalSpent = orders?.reduce((sum, order) => sum + (order.totalPrice || 0), 0) || 0;
+  // Calculate total spent - handle both old and new schema
+  const totalSpent = orders?.reduce((sum, order) => sum + (order.pricing?.totalPrice || order.totalPrice || 0), 0) || 0;
   
   const menuItems = [
     { path: '/dashboard', name: 'Overview', icon: FiUser, end: true },

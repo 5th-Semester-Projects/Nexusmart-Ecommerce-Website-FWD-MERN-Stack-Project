@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   FiShoppingCart, FiHeart, FiUser, FiSearch, FiMenu, FiX, 
-  FiMoon, FiSun, FiPackage, FiSettings, FiLogOut, FiZap 
+  FiMoon, FiSun, FiPackage, FiSettings, FiLogOut, FiZap, FiShield 
 } from 'react-icons/fi';
 import { toggleTheme, toggleMobileMenu } from '../../redux/slices/uiSlice';
 import { clearCredentials } from '../../redux/slices/authSlice';
@@ -24,8 +24,15 @@ const Navbar = () => {
 
   const handleLogout = () => {
     setUserMenuOpen(false);
+    // Clear all auth data
     dispatch(clearCredentials());
-    navigate('/');
+    // Clear any cached data
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    sessionStorage.clear();
+    // Navigate and force reload to clear any stale state
+    navigate('/login');
+    window.location.reload();
   };
 
   const handleSearch = (e) => {
@@ -188,16 +195,23 @@ const Navbar = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => setUserMenuOpen(!userMenuOpen)}
-                    className="flex items-center space-x-2 px-4 py-2 rounded-xl
-                             bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500
-                             border border-purple-500/30 transition-all duration-300 cursor-pointer"
+                    className={`flex items-center space-x-2 px-4 py-2 rounded-xl
+                             ${user?.role === 'admin' 
+                               ? 'bg-gradient-to-r from-yellow-600 to-orange-600 hover:from-yellow-500 hover:to-orange-500 border-yellow-500/30' 
+                               : 'bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 border-purple-500/30'}
+                             border transition-all duration-300 cursor-pointer`}
                   >
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-400 to-purple-400 
-                                  flex items-center justify-center text-white text-sm font-bold">
-                      {user?.name?.[0] || user?.firstName?.[0] || 'U'}
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold
+                                  ${user?.role === 'admin' 
+                                    ? 'bg-gradient-to-br from-yellow-400 to-red-500' 
+                                    : 'bg-gradient-to-br from-cyan-400 to-purple-400'}`}>
+                      {user?.role === 'admin' ? <FiShield className="text-sm" /> : (user?.name?.[0] || user?.firstName?.[0] || 'U')}
                     </div>
-                    <span className="hidden md:block text-white font-medium">
+                    <span className="hidden md:flex items-center gap-2 text-white font-medium">
                       {user?.name?.split(' ')[0] || user?.firstName || 'User'}
+                      {user?.role === 'admin' && (
+                        <span className="text-xs bg-white/20 px-2 py-0.5 rounded-full">Admin</span>
+                      )}
                     </span>
                   </motion.button>
 
@@ -250,6 +264,21 @@ const Navbar = () => {
                               <FiSettings className="text-lg" />
                               <span>Settings</span>
                             </Link>
+                            
+                            {/* Admin Panel Link - Only for admins */}
+                            {user?.role === 'admin' && (
+                              <Link
+                                to="/admin"
+                                onClick={() => setUserMenuOpen(false)}
+                                className="flex items-center space-x-3 px-4 py-3 rounded-lg
+                                         text-yellow-400 hover:text-yellow-300 hover:bg-yellow-500/10
+                                         transition-all duration-300"
+                              >
+                                <FiShield className="text-lg" />
+                                <span>Admin Panel</span>
+                              </Link>
+                            )}
+                            
                             <div className="border-t border-purple-500/20 my-2"></div>
                             <button
                               onClick={handleLogout}

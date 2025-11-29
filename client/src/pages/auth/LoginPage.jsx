@@ -5,7 +5,7 @@ import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiMail, FiLock, FiEye, FiEyeOff, FiZap, FiShield, FiUser } from 'react-icons/fi';
 import { FaGoogle, FaGithub } from 'react-icons/fa';
-import { login } from '../../redux/slices/authSlice';
+import { login, clearError, clearCredentials } from '../../redux/slices/authSlice';
 import toast from 'react-hot-toast';
 import Button from '../../components/common/Button';
 
@@ -21,6 +21,12 @@ const LoginPage = () => {
   });
   const [showPassword, setShowPassword] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+
+  // Clear any stale auth state on component mount
+  useEffect(() => {
+    // Clear any previous errors
+    dispatch(clearError());
+  }, [dispatch]);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -77,7 +83,13 @@ const LoginPage = () => {
             borderRadius: '12px',
           },
         });
-        navigate('/');
+        
+        // Redirect admin to admin panel, users to home
+        if (result.user.role === 'admin') {
+          navigate('/admin');
+        } else {
+          navigate('/');
+        }
       }
     } catch (err) {
       // Clear password on failed login to prevent browser from saving

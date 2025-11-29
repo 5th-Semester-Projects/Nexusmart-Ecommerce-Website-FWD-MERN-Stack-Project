@@ -83,14 +83,33 @@ const CheckoutPage = () => {
     
     try {
       // Prepare order data for API
+      // Handle different cart item structures
       const orderData = {
-        orderItems: items.map(item => ({
-          product: item.product?._id || item._id,
-          name: item.product?.name || item.name,
-          price: item.price,
-          quantity: item.quantity,
-          image: item.product?.images?.[0] || item.image
-        })),
+        orderItems: items.map(item => {
+          // Get product ID - handle nested product object or direct properties
+          let productId = null;
+          if (item.product && typeof item.product === 'object') {
+            productId = item.product._id;
+          } else if (item.product && typeof item.product === 'string') {
+            productId = item.product;
+          } else if (item._id) {
+            productId = item._id;
+          }
+          
+          // Get product name
+          const productName = item.product?.name || item.name || 'Unknown Product';
+          
+          // Get product image
+          const productImage = item.product?.images?.[0] || item.image || '';
+          
+          return {
+            product: productId,
+            name: productName,
+            price: item.price,
+            quantity: item.quantity,
+            image: productImage
+          };
+        }),
         shippingInfo: {
           firstName: shippingInfo.fullName.split(' ')[0] || '',
           lastName: shippingInfo.fullName.split(' ').slice(1).join(' ') || '',

@@ -10,9 +10,12 @@ import { sendEmail, getOrderConfirmationTemplate } from '../utils/sendEmail.js';
 // @access  Private
 export const createOrder = catchAsyncErrors(async (req, res, next) => {
   const {
+    orderNumber,
     orderItems,
     shippingInfo,
     paymentInfo,
+    pricing,
+    // Legacy fields (for backwards compatibility)
     itemsPrice,
     taxPrice,
     shippingPrice,
@@ -46,19 +49,28 @@ export const createOrder = catchAsyncErrors(async (req, res, next) => {
     await product.save();
   }
 
+  // Generate order number if not provided
+  const finalOrderNumber = orderNumber || `NXS${Date.now().toString().slice(-8)}`;
+
+  // Use pricing object or legacy fields
+  const finalPricing = pricing || {
+    itemsPrice: itemsPrice || 0,
+    taxPrice: taxPrice || 0,
+    shippingPrice: shippingPrice || 0,
+    discountPrice: discountPrice || 0,
+    totalPrice: totalPrice || 0,
+  };
+
   // Create order
   const order = await Order.create({
+    orderNumber: finalOrderNumber,
     user: req.user._id,
     orderItems,
     shippingInfo,
     paymentInfo,
-    itemsPrice,
-    taxPrice,
-    shippingPrice,
-    totalPrice,
+    pricing: finalPricing,
     couponApplied,
-    discountPrice,
-    paidAt: paymentInfo.status === 'paid' ? Date.now() : null,
+    paidAt: paymentInfo?.status === 'completed' || paymentInfo?.status === 'paid' ? Date.now() : null,
   });
 
   // Clear user's cart after successful order

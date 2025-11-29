@@ -82,9 +82,9 @@ const CheckoutPage = () => {
     setLoading(true);
     
     try {
-      // Prepare order data for API
-      // Handle different cart item structures
+      // Prepare order data for API matching server Order model
       const orderData = {
+        orderNumber: `NXS${Date.now().toString().slice(-8)}`,
         orderItems: items.map(item => {
           // Get product ID - handle nested product object or direct properties
           let productId = null;
@@ -96,40 +96,44 @@ const CheckoutPage = () => {
             productId = item._id;
           }
           
-          // Get product name
-          const productName = item.product?.name || item.name || 'Unknown Product';
-          
-          // Get product image
-          const productImage = item.product?.images?.[0] || item.image || '';
+          const itemPrice = item.price || 0;
+          const itemQty = item.quantity || 1;
           
           return {
             product: productId,
-            name: productName,
-            price: item.price,
-            quantity: item.quantity,
-            image: productImage
+            name: item.product?.name || item.name || 'Product',
+            price: itemPrice,
+            quantity: itemQty,
+            image: item.product?.images?.[0] || item.image || '',
+            finalPrice: itemPrice * itemQty
           };
         }),
         shippingInfo: {
-          firstName: shippingInfo.fullName.split(' ')[0] || '',
-          lastName: shippingInfo.fullName.split(' ').slice(1).join(' ') || '',
+          firstName: shippingInfo.fullName.split(' ')[0] || 'Customer',
+          lastName: shippingInfo.fullName.split(' ').slice(1).join(' ') || 'User',
           email: shippingInfo.email,
-          phone: shippingInfo.phone,
-          address: shippingInfo.address,
-          city: shippingInfo.city,
-          state: shippingInfo.state,
-          zipCode: shippingInfo.zipCode,
-          country: shippingInfo.country
+          phone: shippingInfo.phone || '0000000000',
+          address: {
+            street: shippingInfo.address || 'N/A',
+            city: shippingInfo.city || 'N/A',
+            state: shippingInfo.state || 'N/A',
+            country: shippingInfo.country || 'United States',
+            zipCode: shippingInfo.zipCode || '00000'
+          }
         },
         paymentInfo: {
-          id: `pay_${Date.now()}`,
-          status: 'paid',
-          method: 'card'
+          method: 'card',
+          provider: 'stripe',
+          transactionId: `txn_${Date.now()}`,
+          status: 'completed'
         },
-        itemsPrice: subtotal,
-        taxPrice: tax,
-        shippingPrice: shipping,
-        totalPrice: total
+        pricing: {
+          itemsPrice: subtotal,
+          taxPrice: tax,
+          shippingPrice: shipping,
+          discountPrice: 0,
+          totalPrice: total
+        }
       };
 
       // Create order via API

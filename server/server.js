@@ -36,6 +36,11 @@ import adminRoutes from './routes/adminRoutes.js';
 const app = express();
 const server = createServer(app);
 
+// Trust proxy for Heroku/production (required for rate limiting behind reverse proxy)
+if (process.env.NODE_ENV === 'production') {
+  app.set('trust proxy', 1);
+}
+
 // Initialize Socket.IO
 const io = new Server(server, {
   cors: {

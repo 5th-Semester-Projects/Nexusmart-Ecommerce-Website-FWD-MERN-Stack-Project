@@ -7,7 +7,7 @@ import {
   FiMoon, FiSun, FiPackage, FiSettings, FiLogOut, FiZap 
 } from 'react-icons/fi';
 import { toggleTheme, toggleMobileMenu } from '../../redux/slices/uiSlice';
-import { logout } from '../../redux/slices/authSlice';
+import { clearCredentials } from '../../redux/slices/authSlice';
 import Button from '../common/Button';
 
 const Navbar = () => {
@@ -24,7 +24,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     setUserMenuOpen(false);
-    dispatch(logout());
+    dispatch(clearCredentials());
     navigate('/');
   };
 

@@ -123,7 +123,7 @@ const RegisterPage = () => {
     }
 
     try {
-      await dispatch(register({
+      const result = await dispatch(register({
         firstName: formData.firstName.trim(),
         lastName: formData.lastName.trim(),
         email: formData.email.trim().toLowerCase(),
@@ -131,15 +131,21 @@ const RegisterPage = () => {
         phone: formData.phone.trim(),
       })).unwrap();
       
-      toast.success('🎉 Account created successfully!', {
-        style: {
-          background: 'linear-gradient(135deg, rgb(34, 197, 94), rgb(16, 185, 129))',
-          color: '#fff',
-          borderRadius: '12px',
-        },
-      });
-      navigate('/');
+      // Only show success if registration was actually successful
+      if (result && result.user) {
+        toast.success('🎉 Account created successfully!', {
+          style: {
+            background: 'linear-gradient(135deg, rgb(34, 197, 94), rgb(16, 185, 129))',
+            color: '#fff',
+            borderRadius: '12px',
+          },
+        });
+        navigate('/');
+      }
     } catch (err) {
+      // Clear passwords on failed registration
+      setFormData(prev => ({ ...prev, password: '', confirmPassword: '' }));
+      
       toast.error(err || 'Registration failed', {
         style: {
           background: 'linear-gradient(135deg, rgb(220, 38, 38), rgb(190, 24, 93))',
@@ -245,7 +251,7 @@ const RegisterPage = () => {
               <p className="text-purple-300/70">Join the digital revolution</p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6" autoComplete="off" data-form-type="other">
               {/* First Name & Last Name Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* First Name Field */}
@@ -265,11 +271,12 @@ const RegisterPage = () => {
                       value={formData.firstName}
                       onChange={handleChange}
                       required
-                      className="w-full pl-12 pr-4 py-3 bg-gray-900/50 border-2 border-purple-500/30 rounded-xl
+                      className="w-full pl-12 pr-4 py-3.5 bg-gray-900/60 border-2 border-purple-500/30 rounded-xl
                                text-white placeholder-purple-400/50
-                               focus:border-cyan-500 focus:outline-none
+                               focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/20
+                               focus:shadow-[0_0_20px_rgba(6,182,212,0.3)]
                                transition-all duration-300
-                               hover:border-purple-400/50
+                               hover:border-purple-400/60 hover:bg-gray-900/70
                                backdrop-blur-sm"
                       placeholder="John"
                     />
@@ -294,11 +301,12 @@ const RegisterPage = () => {
                       value={formData.lastName}
                       onChange={handleChange}
                       required
-                      className="w-full pl-12 pr-4 py-3 bg-gray-900/50 border-2 border-purple-500/30 rounded-xl
+                      className="w-full pl-12 pr-4 py-3.5 bg-gray-900/60 border-2 border-purple-500/30 rounded-xl
                                text-white placeholder-purple-400/50
-                               focus:border-cyan-500 focus:outline-none
+                               focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/20
+                               focus:shadow-[0_0_20px_rgba(6,182,212,0.3)]
                                transition-all duration-300
-                               hover:border-purple-400/50
+                               hover:border-purple-400/60 hover:bg-gray-900/70
                                backdrop-blur-sm"
                       placeholder="Doe"
                     />
@@ -326,11 +334,12 @@ const RegisterPage = () => {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="w-full pl-12 pr-4 py-3 bg-gray-900/50 border-2 border-purple-500/30 rounded-xl
+                      className="w-full pl-12 pr-4 py-3.5 bg-gray-900/60 border-2 border-purple-500/30 rounded-xl
                                text-white placeholder-purple-400/50
-                               focus:border-cyan-500 focus:outline-none
+                               focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/20
+                               focus:shadow-[0_0_20px_rgba(6,182,212,0.3)]
                                transition-all duration-300
-                               hover:border-purple-400/50
+                               hover:border-purple-400/60 hover:bg-gray-900/70
                                backdrop-blur-sm"
                       placeholder="your@email.com"
                     />
@@ -354,11 +363,12 @@ const RegisterPage = () => {
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                      className="w-full pl-12 pr-4 py-3 bg-gray-900/50 border-2 border-purple-500/30 rounded-xl
+                      className="w-full pl-12 pr-4 py-3.5 bg-gray-900/60 border-2 border-purple-500/30 rounded-xl
                                text-white placeholder-purple-400/50
-                               focus:border-cyan-500 focus:outline-none
+                               focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/20
+                               focus:shadow-[0_0_20px_rgba(6,182,212,0.3)]
                                transition-all duration-300
-                               hover:border-purple-400/50
+                               hover:border-purple-400/60 hover:bg-gray-900/70
                                backdrop-blur-sm"
                       placeholder="+1 234 567 8900"
                     />
@@ -384,11 +394,12 @@ const RegisterPage = () => {
                     value={formData.password}
                     onChange={handleChange}
                     required
-                    className="w-full pl-12 pr-12 py-3 bg-gray-900/50 border-2 border-purple-500/30 rounded-xl
+                    className="w-full pl-12 pr-12 py-3.5 bg-gray-900/60 border-2 border-purple-500/30 rounded-xl
                              text-white placeholder-purple-400/50
-                             focus:border-cyan-500 focus:outline-none
+                             focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/20
+                             focus:shadow-[0_0_20px_rgba(6,182,212,0.3)]
                              transition-all duration-300
-                             hover:border-purple-400/50
+                             hover:border-purple-400/60 hover:bg-gray-900/70
                              backdrop-blur-sm"
                     placeholder="••••••••"
                   />
@@ -444,11 +455,12 @@ const RegisterPage = () => {
                     value={formData.confirmPassword}
                     onChange={handleChange}
                     required
-                    className="w-full pl-12 pr-12 py-3 bg-gray-900/50 border-2 border-purple-500/30 rounded-xl
+                    className="w-full pl-12 pr-20 py-3.5 bg-gray-900/60 border-2 border-purple-500/30 rounded-xl
                              text-white placeholder-purple-400/50
-                             focus:border-cyan-500 focus:outline-none
+                             focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/20
+                             focus:shadow-[0_0_20px_rgba(6,182,212,0.3)]
                              transition-all duration-300
-                             hover:border-purple-400/50
+                             hover:border-purple-400/60 hover:bg-gray-900/70
                              backdrop-blur-sm"
                     placeholder="••••••••"
                   />
@@ -473,21 +485,30 @@ const RegisterPage = () => {
                 transition={{ delay: 0.7 }}
               >
                 <label className="flex items-start space-x-3 cursor-pointer group">
-                  <input
-                    type="checkbox"
-                    name="agreeToTerms"
-                    checked={formData.agreeToTerms}
-                    onChange={handleChange}
-                    className="mt-1 w-5 h-5 rounded border-purple-500/30 bg-gray-900/50 text-purple-600 
-                             focus:ring-2 focus:ring-purple-500/50 transition-all"
-                  />
-                  <span className="text-sm text-purple-300/70 group-hover:text-purple-300">
+                  <div className="relative mt-0.5">
+                    <input
+                      type="checkbox"
+                      name="agreeToTerms"
+                      checked={formData.agreeToTerms}
+                      onChange={handleChange}
+                      className="peer w-5 h-5 rounded-md border-2 border-purple-500/50 bg-gray-900/60 
+                               text-transparent cursor-pointer
+                               checked:bg-gradient-to-br checked:from-purple-600 checked:to-cyan-600
+                               checked:border-transparent
+                               focus:ring-2 focus:ring-cyan-400/30 focus:outline-none
+                               hover:border-purple-400
+                               transition-all duration-300
+                               appearance-none"
+                    />
+                    <FiCheckCircle className="absolute top-0.5 left-0.5 w-4 h-4 text-white pointer-events-none opacity-0 peer-checked:opacity-100 transition-opacity" />
+                  </div>
+                  <span className="text-sm text-purple-300/70 group-hover:text-purple-300 transition-colors">
                     I agree to the{' '}
-                    <Link to="/terms" className="text-cyan-400 hover:text-cyan-300">
+                    <Link to="/terms" className="text-cyan-400 hover:text-cyan-300 hover:underline transition-all">
                       Terms of Service
                     </Link>
                     {' '}and{' '}
-                    <Link to="/privacy" className="text-cyan-400 hover:text-cyan-300">
+                    <Link to="/privacy" className="text-cyan-400 hover:text-cyan-300 hover:underline transition-all">
                       Privacy Policy
                     </Link>
                   </span>
@@ -536,24 +557,30 @@ const RegisterPage = () => {
                 <button
                   type="button"
                   onClick={() => handleSocialSignup('Google')}
-                  className="flex items-center justify-center space-x-2 px-4 py-3 
-                           bg-gray-900/50 border-2 border-purple-500/30 rounded-xl
-                           text-purple-300 hover:border-purple-400 hover:bg-gray-900/70
+                  className="flex items-center justify-center space-x-2 px-4 py-3.5 
+                           bg-gray-900/60 border-2 border-purple-500/30 rounded-xl
+                           text-purple-300 
+                           hover:border-cyan-400/60 hover:bg-purple-900/40 hover:text-cyan-300
+                           hover:shadow-[0_0_20px_rgba(139,92,246,0.3)]
+                           active:scale-95
                            transition-all duration-300 group"
                 >
-                  <FaGoogle className="text-xl group-hover:scale-110 transition-transform" />
-                  <span>Google</span>
+                  <FaGoogle className="text-xl group-hover:scale-110 group-hover:text-red-400 transition-all" />
+                  <span className="font-semibold">Google</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => handleSocialSignup('GitHub')}
-                  className="flex items-center justify-center space-x-2 px-4 py-3 
-                           bg-gray-900/50 border-2 border-purple-500/30 rounded-xl
-                           text-purple-300 hover:border-purple-400 hover:bg-gray-900/70
+                  className="flex items-center justify-center space-x-2 px-4 py-3.5 
+                           bg-gray-900/60 border-2 border-purple-500/30 rounded-xl
+                           text-purple-300 
+                           hover:border-cyan-400/60 hover:bg-purple-900/40 hover:text-cyan-300
+                           hover:shadow-[0_0_20px_rgba(139,92,246,0.3)]
+                           active:scale-95
                            transition-all duration-300 group"
                 >
-                  <FaGithub className="text-xl group-hover:scale-110 transition-transform" />
-                  <span>GitHub</span>
+                  <FaGithub className="text-xl group-hover:scale-110 group-hover:rotate-12 transition-all" />
+                  <span className="font-semibold">GitHub</span>
                 </button>
               </motion.div>
             </form>
@@ -569,7 +596,9 @@ const RegisterPage = () => {
                 Already have an account?{' '}
                 <Link
                   to="/login"
-                  className="text-cyan-400 hover:text-cyan-300 font-semibold transition-colors"
+                  className="text-cyan-400 hover:text-cyan-300 font-semibold transition-all
+                           hover:underline hover:underline-offset-4
+                           hover:drop-shadow-[0_0_8px_rgba(6,182,212,0.5)]"
                 >
                   Sign in here
                 </Link>

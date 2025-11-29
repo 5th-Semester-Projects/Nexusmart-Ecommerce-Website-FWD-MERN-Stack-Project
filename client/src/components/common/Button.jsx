@@ -34,12 +34,14 @@ const Button = ({
     
     '3d': `
       px-8 py-4 rounded-xl
-      bg-gradient-to-br from-purple-600 to-blue-600
+      bg-gradient-to-br from-purple-600 via-violet-600 to-blue-600
       text-white font-black
-      shadow-[0_5px_0_rgb(88,28,135),0_10px_20px_rgba(139,92,246,0.4)]
-      hover:shadow-[0_7px_0_rgb(88,28,135),0_15px_30px_rgba(139,92,246,0.6)]
-      hover:translate-y-[-2px]
-      active:translate-y-[4px] active:shadow-[0_1px_0_rgb(88,28,135),0_5px_10px_rgba(139,92,246,0.3)]
+      shadow-[0_6px_0_rgb(88,28,135),0_10px_20px_rgba(139,92,246,0.4)]
+      hover:shadow-[0_8px_0_rgb(88,28,135),0_15px_30px_rgba(139,92,246,0.6),0_0_40px_rgba(139,92,246,0.3)]
+      hover:translate-y-[-3px]
+      hover:from-purple-500 hover:via-violet-500 hover:to-blue-500
+      active:translate-y-[5px] active:shadow-[0_1px_0_rgb(88,28,135),0_5px_10px_rgba(139,92,246,0.3)]
+      transition-all duration-200
     `,
     
     holographic: `

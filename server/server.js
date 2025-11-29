@@ -30,6 +30,7 @@ import orderRoutes from './routes/orderRoutes.js';
 import categoryRoutes from './routes/categoryRoutes.js';
 import reviewRoutes from './routes/reviewRoutes.js';
 import paymentRoutes from './routes/paymentRoutes.js';
+import adminRoutes from './routes/adminRoutes.js';
 
 // Initialize express app
 const app = express();
@@ -157,6 +158,7 @@ app.use('/api/orders', orderRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/reviews', reviewRoutes);
 app.use('/api/payments', paymentRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Setup Socket.IO event handlers
 setupSocketHandlers(io);

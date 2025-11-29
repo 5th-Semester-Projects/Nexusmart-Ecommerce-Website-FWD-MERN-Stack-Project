@@ -63,20 +63,27 @@ const LoginPage = () => {
     }
 
     try {
-      await dispatch(login({
+      const result = await dispatch(login({
         email: formData.email.trim().toLowerCase(),
         password: formData.password,
       })).unwrap();
-      toast.success('🎉 Welcome back to NexusMart!', {
-        style: {
-          background: 'linear-gradient(135deg, rgb(139, 92, 246), rgb(59, 130, 246))',
-          color: '#fff',
-          borderRadius: '12px',
-        },
-      });
-      navigate('/');
+      
+      // Only show success and navigate if login was actually successful
+      if (result && result.user) {
+        toast.success('🎉 Welcome back to NexusMart!', {
+          style: {
+            background: 'linear-gradient(135deg, rgb(139, 92, 246), rgb(59, 130, 246))',
+            color: '#fff',
+            borderRadius: '12px',
+          },
+        });
+        navigate('/');
+      }
     } catch (err) {
-      toast.error(err || 'Login failed', {
+      // Clear password on failed login to prevent browser from saving
+      setFormData(prev => ({ ...prev, password: '' }));
+      
+      toast.error(err || 'Invalid email or password', {
         style: {
           background: 'linear-gradient(135deg, rgb(220, 38, 38), rgb(190, 24, 93))',
           color: '#fff',
@@ -169,7 +176,7 @@ const LoginPage = () => {
               <p className="text-purple-300/70">Access your account</p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6" autoComplete="off" data-form-type="other">
               {/* Email Field */}
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
@@ -187,11 +194,13 @@ const LoginPage = () => {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full pl-12 pr-4 py-3 bg-gray-900/50 border-2 border-purple-500/30 rounded-xl
+                    autoComplete="username"
+                    className="w-full pl-12 pr-4 py-3.5 bg-gray-900/60 border-2 border-purple-500/30 rounded-xl
                              text-white placeholder-purple-400/50
-                             focus:border-cyan-500 focus:outline-none
+                             focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/20
+                             focus:shadow-[0_0_20px_rgba(6,182,212,0.3)]
                              transition-all duration-300
-                             hover:border-purple-400/50
+                             hover:border-purple-400/60 hover:bg-gray-900/70
                              backdrop-blur-sm"
                     placeholder="your@email.com"
                   />
@@ -216,11 +225,13 @@ const LoginPage = () => {
                     value={formData.password}
                     onChange={handleChange}
                     required
-                    className="w-full pl-12 pr-12 py-3 bg-gray-900/50 border-2 border-purple-500/30 rounded-xl
+                    autoComplete="current-password"
+                    className="w-full pl-12 pr-12 py-3.5 bg-gray-900/60 border-2 border-purple-500/30 rounded-xl
                              text-white placeholder-purple-400/50
-                             focus:border-cyan-500 focus:outline-none
+                             focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/20
+                             focus:shadow-[0_0_20px_rgba(6,182,212,0.3)]
                              transition-all duration-300
-                             hover:border-purple-400/50
+                             hover:border-purple-400/60 hover:bg-gray-900/70
                              backdrop-blur-sm"
                     placeholder="••••••••"
                   />
@@ -305,24 +316,30 @@ const LoginPage = () => {
                 <button
                   type="button"
                   onClick={() => handleSocialLogin('Google')}
-                  className="flex items-center justify-center space-x-2 px-4 py-3 
-                           bg-gray-900/50 border-2 border-purple-500/30 rounded-xl
-                           text-purple-300 hover:border-purple-400 hover:bg-gray-900/70
+                  className="flex items-center justify-center space-x-2 px-4 py-3.5 
+                           bg-gray-900/60 border-2 border-purple-500/30 rounded-xl
+                           text-purple-300 
+                           hover:border-cyan-400/60 hover:bg-purple-900/40 hover:text-cyan-300
+                           hover:shadow-[0_0_20px_rgba(139,92,246,0.3)]
+                           active:scale-95
                            transition-all duration-300 group"
                 >
-                  <FaGoogle className="text-xl group-hover:scale-110 transition-transform" />
-                  <span>Google</span>
+                  <FaGoogle className="text-xl group-hover:scale-110 group-hover:text-red-400 transition-all" />
+                  <span className="font-semibold">Google</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => handleSocialLogin('GitHub')}
-                  className="flex items-center justify-center space-x-2 px-4 py-3 
-                           bg-gray-900/50 border-2 border-purple-500/30 rounded-xl
-                           text-purple-300 hover:border-purple-400 hover:bg-gray-900/70
+                  className="flex items-center justify-center space-x-2 px-4 py-3.5 
+                           bg-gray-900/60 border-2 border-purple-500/30 rounded-xl
+                           text-purple-300 
+                           hover:border-cyan-400/60 hover:bg-purple-900/40 hover:text-cyan-300
+                           hover:shadow-[0_0_20px_rgba(139,92,246,0.3)]
+                           active:scale-95
                            transition-all duration-300 group"
                 >
-                  <FaGithub className="text-xl group-hover:scale-110 transition-transform" />
-                  <span>GitHub</span>
+                  <FaGithub className="text-xl group-hover:scale-110 group-hover:rotate-12 transition-all" />
+                  <span className="font-semibold">GitHub</span>
                 </button>
               </motion.div>
             </form>
@@ -338,7 +355,9 @@ const LoginPage = () => {
                 Don't have an account?{' '}
                 <Link
                   to="/register"
-                  className="text-cyan-400 hover:text-cyan-300 font-semibold transition-colors"
+                  className="text-cyan-400 hover:text-cyan-300 font-semibold transition-all
+                           hover:underline hover:underline-offset-4
+                           hover:drop-shadow-[0_0_8px_rgba(6,182,212,0.5)]"
                 >
                   Create one now
                 </Link>

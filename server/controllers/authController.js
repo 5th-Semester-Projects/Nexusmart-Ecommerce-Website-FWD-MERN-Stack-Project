@@ -38,6 +38,12 @@ export const registerUser = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler('User already exists with this email', 400));
   }
 
+  // Check if SMTP is configured (skip email verification if not)
+  const isSmtpConfigured = process.env.SMTP_MAIL &&
+    process.env.SMTP_PASSWORD &&
+    !process.env.SMTP_MAIL.includes('your_email') &&
+    !process.env.SMTP_PASSWORD.includes('your_');
+
   // Create user
   const user = await User.create({
     firstName: firstName.trim(),
@@ -45,7 +51,14 @@ export const registerUser = catchAsyncErrors(async (req, res, next) => {
     email: email.toLowerCase().trim(),
     password,
     phone: phone ? phone.trim() : undefined,
+    isVerified: !isSmtpConfigured, // Auto-verify if SMTP not configured
   });
+
+  // If SMTP is not configured, skip email verification and directly log user in
+  if (!isSmtpConfigured) {
+    console.log('⚠️ SMTP not configured - skipping email verification for:', user.email);
+    return sendToken(user, 201, res, 'Account created successfully! Welcome to NexusMart.');
+  }
 
   // Generate email verification token
   const verificationToken = user.generateEmailVerificationToken();
@@ -62,17 +75,21 @@ export const registerUser = catchAsyncErrors(async (req, res, next) => {
       message: getVerificationEmailTemplate(user.firstName, verificationUrl),
     });
 
-    // Send welcome email
-    await sendEmail({
-      email: user.email,
-      subject: 'Welcome to NexusMart! 🎉',
-      message: getWelcomeEmailTemplate(user.firstName),
-    });
+    // Send welcome email (don't fail if this one fails)
+    try {
+      await sendEmail({
+        email: user.email,
+        subject: 'Welcome to NexusMart! 🎉',
+        message: getWelcomeEmailTemplate(user.firstName),
+      });
+    } catch (welcomeError) {
+      console.log('Welcome email failed but user is created:', welcomeError.message);
+    }
   } catch (error) {
-    user.emailVerificationToken = undefined;
-    user.emailVerificationExpire = undefined;
-    await user.save({ validateBeforeSave: false });
-    return next(new ErrorHandler('Email could not be sent', 500));
+    // DELETE the user if email verification fails - user shouldn't exist without verified email
+    await User.findByIdAndDelete(user._id);
+    console.error('Email send error:', error.message);
+    return next(new ErrorHandler('Registration failed - could not send verification email. Please try again.', 500));
   }
 
   sendToken(user, 201, res, 'User registered successfully. Please verify your email.');

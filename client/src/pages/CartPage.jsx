@@ -86,7 +86,7 @@ const CartPage = () => {
   return (
     <>
       <Helmet>
-        <title>{`Shopping Cart (${normalizedCartItems?.length || 0}) - NexusMart`}</title>
+        <title>{`Shopping Cart (${cartItems?.length || 0}) - NexusMart`}</title>
       </Helmet>
       
       {/* Lightweight CSS Background */}
@@ -217,7 +217,7 @@ const CartPage = () => {
 
                 <div className="space-y-4 mb-6">
                   <div className="flex justify-between text-purple-300">
-                    <span>Subtotal ({normalizedCartItems.length} items)</span>
+                    <span>Subtotal ({cartItems.length} items)</span>
                     <span className="font-semibold">${subtotal.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between text-purple-300">

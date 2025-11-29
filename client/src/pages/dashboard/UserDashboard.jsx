@@ -52,7 +52,8 @@ const DashboardOverview = ({ orders, wishlistItems, totalSpent }) => {
             whileHover={{ scale: 1.02 }} 
             whileTap={{ scale: 0.98 }}
             onClick={() => navigate(stat.path)}
-            className="glass-card p-6 rounded-2xl cursor-pointer hover:border-purple-500/50 border border-transparent transition-all"
+            className="glass-card p-6 rounded-2xl cursor-pointer hover:border-purple-500/50 border border-transparent transition-all relative z-10"
+            style={{ pointerEvents: 'auto' }}
           >
             <div className="flex items-center gap-4">
               <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${stat.gradient} flex items-center justify-center`}>
@@ -460,7 +461,7 @@ const UserDashboard = () => {
             <motion.aside 
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="glass-card p-6 rounded-2xl h-fit"
+              className="glass-card p-6 rounded-2xl h-fit relative z-10"
             >
               {/* User Info */}
               <div className="flex items-center gap-4 mb-6 pb-6 border-b border-purple-500/20">
@@ -507,23 +508,23 @@ const UserDashboard = () => {
             <motion.div 
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="lg:col-span-3"
+              className="lg:col-span-3 relative z-10"
             >
               <Routes>
-                <Route path="/" element={
+                <Route index element={
                   <DashboardOverview 
                     orders={orders} 
                     wishlistItems={wishlistItems} 
                     totalSpent={totalSpent} 
                   />
                 } />
-                <Route path="/orders" element={
+                <Route path="orders" element={
                   <OrdersPage orders={orders} loading={ordersLoading} />
                 } />
-                <Route path="/wishlist" element={
+                <Route path="wishlist" element={
                   <WishlistPage wishlistItems={wishlistItems} dispatch={dispatch} />
                 } />
-                <Route path="/settings" element={
+                <Route path="settings" element={
                   <SettingsPage user={user} />
                 } />
               </Routes>

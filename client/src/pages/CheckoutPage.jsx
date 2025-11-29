@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiCreditCard, FiMapPin, FiTruck, FiCheck, FiLock, FiChevronRight } from 'react-icons/fi';
+import { FiCreditCard, FiMapPin, FiTruck, FiCheck, FiLock, FiChevronRight, FiDollarSign, FiAlertCircle } from 'react-icons/fi';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Button from '../components/common/Button';
@@ -20,6 +20,8 @@ const CheckoutPage = () => {
 
   const [currentStep, setCurrentStep] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState('card'); // 'card' or 'cod'
+  const [errors, setErrors] = useState({});
 
   const [shippingInfo, setShippingInfo] = useState({
     fullName: user?.name || '',
@@ -29,7 +31,7 @@ const CheckoutPage = () => {
     city: '',
     state: '',
     zipCode: '',
-    country: 'United States',
+    country: 'Pakistan',
   });
 
   const [paymentInfo, setPaymentInfo] = useState({
@@ -39,6 +41,136 @@ const CheckoutPage = () => {
     cvv: '',
     saveCard: false,
   });
+
+  // Validation patterns
+  const patterns = {
+    fullName: /^[a-zA-Z\s]{3,50}$/,
+    email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+    phone: /^(\+92|0)?[0-9]{10}$/,
+    address: /^.{10,100}$/,
+    city: /^[a-zA-Z\s]{2,30}$/,
+    state: /^[a-zA-Z\s]{2,30}$/,
+    zipCode: /^[0-9]{5}$/,
+    cardNumber: /^[0-9]{16}$/,
+    cardName: /^[a-zA-Z\s]{3,50}$/,
+    expiryDate: /^(0[1-9]|1[0-2])\/([0-9]{2})$/,
+    cvv: /^[0-9]{3,4}$/,
+  };
+
+  // Format phone number
+  const formatPhoneNumber = (value) => {
+    const numbers = value.replace(/\D/g, '');
+    if (numbers.length <= 4) return numbers;
+    if (numbers.length <= 7) return `${numbers.slice(0, 4)}-${numbers.slice(4)}`;
+    return `${numbers.slice(0, 4)}-${numbers.slice(4, 11)}`;
+  };
+
+  // Format card number with spaces
+  const formatCardNumber = (value) => {
+    const numbers = value.replace(/\D/g, '');
+    const groups = numbers.match(/.{1,4}/g);
+    return groups ? groups.join(' ') : numbers;
+  };
+
+  // Format expiry date
+  const formatExpiryDate = (value) => {
+    const numbers = value.replace(/\D/g, '');
+    if (numbers.length >= 2) {
+      return `${numbers.slice(0, 2)}/${numbers.slice(2, 4)}`;
+    }
+    return numbers;
+  };
+
+  // Validate single field
+  const validateField = (name, value) => {
+    let cleanValue = value;
+    
+    // Clean values for validation
+    if (name === 'phone') cleanValue = value.replace(/[-\s]/g, '');
+    if (name === 'cardNumber') cleanValue = value.replace(/\s/g, '');
+    
+    if (!cleanValue || cleanValue.trim() === '') {
+      return 'This field is required';
+    }
+    
+    if (patterns[name] && !patterns[name].test(cleanValue)) {
+      switch (name) {
+        case 'fullName': return 'Enter valid name (3-50 letters only)';
+        case 'email': return 'Enter valid email (e.g., name@example.com)';
+        case 'phone': return 'Enter valid Pakistani phone (e.g., 0300-1234567)';
+        case 'address': return 'Address must be 10-100 characters';
+        case 'city': return 'Enter valid city name';
+        case 'state': return 'Enter valid state/province name';
+        case 'zipCode': return 'Enter 5-digit ZIP code (e.g., 54000)';
+        case 'cardNumber': return 'Enter 16-digit card number';
+        case 'cardName': return 'Enter cardholder name as on card';
+        case 'expiryDate': return 'Enter valid date (MM/YY)';
+        case 'cvv': return 'Enter 3 or 4 digit CVV';
+        default: return 'Invalid format';
+      }
+    }
+    
+    // Additional validation for expiry date
+    if (name === 'expiryDate' && patterns[name].test(cleanValue)) {
+      const [month, year] = cleanValue.split('/');
+      const expiry = new Date(2000 + parseInt(year), parseInt(month) - 1);
+      if (expiry < new Date()) {
+        return 'Card has expired';
+      }
+    }
+    
+    return '';
+  };
+
+  // Handle shipping input change with formatting
+  const handleShippingChange = (e) => {
+    const { name, value } = e.target;
+    let formattedValue = value;
+    
+    if (name === 'phone') {
+      formattedValue = formatPhoneNumber(value);
+    }
+    if (name === 'zipCode') {
+      formattedValue = value.replace(/\D/g, '').slice(0, 5);
+    }
+    if (name === 'fullName' || name === 'city' || name === 'state') {
+      formattedValue = value.replace(/[^a-zA-Z\s]/g, '');
+    }
+    
+    setShippingInfo({ ...shippingInfo, [name]: formattedValue });
+    
+    // Clear error when user starts typing
+    if (errors[name]) {
+      setErrors({ ...errors, [name]: '' });
+    }
+  };
+
+  // Handle payment input change with formatting
+  const handlePaymentChange = (e) => {
+    const { name, value } = e.target;
+    let formattedValue = value;
+    
+    if (name === 'cardNumber') {
+      formattedValue = formatCardNumber(value);
+      if (formattedValue.replace(/\s/g, '').length > 16) return;
+    }
+    if (name === 'expiryDate') {
+      formattedValue = formatExpiryDate(value);
+      if (formattedValue.length > 5) return;
+    }
+    if (name === 'cvv') {
+      formattedValue = value.replace(/\D/g, '').slice(0, 4);
+    }
+    if (name === 'cardName') {
+      formattedValue = value.replace(/[^a-zA-Z\s]/g, '');
+    }
+    
+    setPaymentInfo({ ...paymentInfo, [name]: formattedValue });
+    
+    if (errors[name]) {
+      setErrors({ ...errors, [name]: '' });
+    }
+  };
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -62,20 +194,50 @@ const CheckoutPage = () => {
 
   const handleShippingSubmit = (e) => {
     e.preventDefault();
-    if (Object.values(shippingInfo).every(val => val)) {
-      setCurrentStep(2);
-    } else {
-      toast.error('Please fill all shipping details');
+    
+    // Validate all shipping fields
+    const newErrors = {};
+    const shippingFields = ['fullName', 'email', 'phone', 'address', 'city', 'state', 'zipCode'];
+    
+    shippingFields.forEach(field => {
+      const error = validateField(field, shippingInfo[field]);
+      if (error) newErrors[field] = error;
+    });
+    
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      toast.error('Please fix the errors in the form');
+      return;
     }
+    
+    setCurrentStep(2);
   };
 
   const handlePaymentSubmit = (e) => {
     e.preventDefault();
-    if (paymentInfo.cardNumber && paymentInfo.cardName && paymentInfo.expiryDate && paymentInfo.cvv) {
+    
+    // If COD, skip card validation
+    if (paymentMethod === 'cod') {
       setCurrentStep(3);
-    } else {
-      toast.error('Please fill all payment details');
+      return;
     }
+    
+    // Validate card fields
+    const newErrors = {};
+    const paymentFields = ['cardNumber', 'cardName', 'expiryDate', 'cvv'];
+    
+    paymentFields.forEach(field => {
+      const error = validateField(field, paymentInfo[field]);
+      if (error) newErrors[field] = error;
+    });
+    
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      toast.error('Please fix the errors in the form');
+      return;
+    }
+    
+    setCurrentStep(3);
   };
 
   const handlePlaceOrder = async () => {
@@ -112,20 +274,20 @@ const CheckoutPage = () => {
           firstName: shippingInfo.fullName.split(' ')[0] || 'Customer',
           lastName: shippingInfo.fullName.split(' ').slice(1).join(' ') || 'User',
           email: shippingInfo.email,
-          phone: shippingInfo.phone || '0000000000',
+          phone: shippingInfo.phone.replace(/-/g, '') || '0000000000',
           address: {
             street: shippingInfo.address || 'N/A',
             city: shippingInfo.city || 'N/A',
             state: shippingInfo.state || 'N/A',
-            country: shippingInfo.country || 'United States',
+            country: shippingInfo.country || 'Pakistan',
             zipCode: shippingInfo.zipCode || '00000'
           }
         },
         paymentInfo: {
-          method: 'card',
-          provider: 'stripe',
-          transactionId: `txn_${Date.now()}`,
-          status: 'completed'
+          method: paymentMethod === 'cod' ? 'cash' : 'card',
+          provider: paymentMethod === 'cod' ? 'cod' : 'stripe',
+          transactionId: paymentMethod === 'cod' ? `cod_${Date.now()}` : `txn_${Date.now()}`,
+          status: paymentMethod === 'cod' ? 'pending' : 'completed'
         },
         pricing: {
           itemsPrice: subtotal,
@@ -266,29 +428,28 @@ const CheckoutPage = () => {
                           <label className="block text-purple-300 font-semibold mb-2">Full Name *</label>
                           <input
                             type="text"
+                            name="fullName"
                             value={shippingInfo.fullName}
-                            onChange={(e) => setShippingInfo({ ...shippingInfo, fullName: e.target.value })}
-                            required
-                            className="w-full px-4 py-3 bg-gray-900/50 border-2 border-purple-500/30 rounded-xl
-                                     text-white focus:border-cyan-500 focus:outline-none transition-all duration-300
-                                     relative z-10 cursor-text"
+                            onChange={handleShippingChange}
+                            className={`w-full px-4 py-3 bg-gray-900/50 border-2 rounded-xl text-white focus:outline-none transition-all duration-300 relative z-10 cursor-text ${errors.fullName ? 'border-red-500' : 'border-purple-500/30 focus:border-cyan-500'}`}
                             style={{ pointerEvents: 'auto' }}
-                            placeholder="John Doe"
+                            placeholder="e.g., Ahmed Khan"
                           />
+                          {errors.fullName && <p className="text-red-400 text-sm mt-1 flex items-center gap-1"><FiAlertCircle /> {errors.fullName}</p>}
+                          <p className="text-purple-400/50 text-xs mt-1">Only letters and spaces allowed</p>
                         </div>
                         <div>
                           <label className="block text-purple-300 font-semibold mb-2">Email *</label>
                           <input
                             type="email"
+                            name="email"
                             value={shippingInfo.email}
-                            onChange={(e) => setShippingInfo({ ...shippingInfo, email: e.target.value })}
-                            required
-                            className="w-full px-4 py-3 bg-gray-900/50 border-2 border-purple-500/30 rounded-xl
-                                     text-white focus:border-cyan-500 focus:outline-none transition-all duration-300
-                                     relative z-10 cursor-text"
+                            onChange={handleShippingChange}
+                            className={`w-full px-4 py-3 bg-gray-900/50 border-2 rounded-xl text-white focus:outline-none transition-all duration-300 relative z-10 cursor-text ${errors.email ? 'border-red-500' : 'border-purple-500/30 focus:border-cyan-500'}`}
                             style={{ pointerEvents: 'auto' }}
-                            placeholder="john@example.com"
+                            placeholder="e.g., ahmed@email.com"
                           />
+                          {errors.email && <p className="text-red-400 text-sm mt-1 flex items-center gap-1"><FiAlertCircle /> {errors.email}</p>}
                         </div>
                       </div>
 
@@ -296,30 +457,31 @@ const CheckoutPage = () => {
                         <label className="block text-purple-300 font-semibold mb-2">Phone Number *</label>
                         <input
                           type="tel"
+                          name="phone"
                           value={shippingInfo.phone}
-                          onChange={(e) => setShippingInfo({ ...shippingInfo, phone: e.target.value })}
-                          required
-                          className="w-full px-4 py-3 bg-gray-900/50 border-2 border-purple-500/30 rounded-xl
-                                   text-white focus:border-cyan-500 focus:outline-none transition-all duration-300
-                                   relative z-10 cursor-text"
+                          onChange={handleShippingChange}
+                          className={`w-full px-4 py-3 bg-gray-900/50 border-2 rounded-xl text-white focus:outline-none transition-all duration-300 relative z-10 cursor-text ${errors.phone ? 'border-red-500' : 'border-purple-500/30 focus:border-cyan-500'}`}
                           style={{ pointerEvents: 'auto' }}
-                          placeholder="+1 (555) 123-4567"
+                          placeholder="e.g., 0300-1234567"
+                          maxLength="12"
                         />
+                        {errors.phone && <p className="text-red-400 text-sm mt-1 flex items-center gap-1"><FiAlertCircle /> {errors.phone}</p>}
+                        <p className="text-purple-400/50 text-xs mt-1">Pakistani format: 0300-1234567 or +923001234567</p>
                       </div>
 
                       <div>
                         <label className="block text-purple-300 font-semibold mb-2">Street Address *</label>
                         <input
                           type="text"
+                          name="address"
                           value={shippingInfo.address}
-                          onChange={(e) => setShippingInfo({ ...shippingInfo, address: e.target.value })}
-                          required
-                          className="w-full px-4 py-3 bg-gray-900/50 border-2 border-purple-500/30 rounded-xl
-                                   text-white focus:border-cyan-500 focus:outline-none transition-all duration-300
-                                   relative z-10 cursor-text"
+                          onChange={handleShippingChange}
+                          className={`w-full px-4 py-3 bg-gray-900/50 border-2 rounded-xl text-white focus:outline-none transition-all duration-300 relative z-10 cursor-text ${errors.address ? 'border-red-500' : 'border-purple-500/30 focus:border-cyan-500'}`}
                           style={{ pointerEvents: 'auto' }}
-                          placeholder="123 Main Street"
+                          placeholder="e.g., House 123, Street 45, Block A, DHA Phase 5"
                         />
+                        {errors.address && <p className="text-red-400 text-sm mt-1 flex items-center gap-1"><FiAlertCircle /> {errors.address}</p>}
+                        <p className="text-purple-400/50 text-xs mt-1">Complete address with house/flat number, street, block/sector</p>
                       </div>
 
                       <div className="grid md:grid-cols-3 gap-6">
@@ -327,43 +489,42 @@ const CheckoutPage = () => {
                           <label className="block text-purple-300 font-semibold mb-2">City *</label>
                           <input
                             type="text"
+                            name="city"
                             value={shippingInfo.city}
-                            onChange={(e) => setShippingInfo({ ...shippingInfo, city: e.target.value })}
-                            required
-                            className="w-full px-4 py-3 bg-gray-900/50 border-2 border-purple-500/30 rounded-xl
-                                     text-white focus:border-cyan-500 focus:outline-none transition-all duration-300
-                                     relative z-10 cursor-text"
+                            onChange={handleShippingChange}
+                            className={`w-full px-4 py-3 bg-gray-900/50 border-2 rounded-xl text-white focus:outline-none transition-all duration-300 relative z-10 cursor-text ${errors.city ? 'border-red-500' : 'border-purple-500/30 focus:border-cyan-500'}`}
                             style={{ pointerEvents: 'auto' }}
-                            placeholder="New York"
+                            placeholder="e.g., Lahore"
                           />
+                          {errors.city && <p className="text-red-400 text-sm mt-1 flex items-center gap-1"><FiAlertCircle /> {errors.city}</p>}
                         </div>
                         <div>
-                          <label className="block text-purple-300 font-semibold mb-2">State *</label>
+                          <label className="block text-purple-300 font-semibold mb-2">Province *</label>
                           <input
                             type="text"
+                            name="state"
                             value={shippingInfo.state}
-                            onChange={(e) => setShippingInfo({ ...shippingInfo, state: e.target.value })}
-                            required
-                            className="w-full px-4 py-3 bg-gray-900/50 border-2 border-purple-500/30 rounded-xl
-                                     text-white focus:border-cyan-500 focus:outline-none transition-all duration-300
-                                     relative z-10 cursor-text"
+                            onChange={handleShippingChange}
+                            className={`w-full px-4 py-3 bg-gray-900/50 border-2 rounded-xl text-white focus:outline-none transition-all duration-300 relative z-10 cursor-text ${errors.state ? 'border-red-500' : 'border-purple-500/30 focus:border-cyan-500'}`}
                             style={{ pointerEvents: 'auto' }}
-                            placeholder="NY"
+                            placeholder="e.g., Punjab"
                           />
+                          {errors.state && <p className="text-red-400 text-sm mt-1 flex items-center gap-1"><FiAlertCircle /> {errors.state}</p>}
                         </div>
                         <div>
                           <label className="block text-purple-300 font-semibold mb-2">ZIP Code *</label>
                           <input
                             type="text"
+                            name="zipCode"
                             value={shippingInfo.zipCode}
-                            onChange={(e) => setShippingInfo({ ...shippingInfo, zipCode: e.target.value })}
-                            required
-                            className="w-full px-4 py-3 bg-gray-900/50 border-2 border-purple-500/30 rounded-xl
-                                     text-white focus:border-cyan-500 focus:outline-none transition-all duration-300
-                                     relative z-10 cursor-text"
+                            onChange={handleShippingChange}
+                            className={`w-full px-4 py-3 bg-gray-900/50 border-2 rounded-xl text-white focus:outline-none transition-all duration-300 relative z-10 cursor-text ${errors.zipCode ? 'border-red-500' : 'border-purple-500/30 focus:border-cyan-500'}`}
                             style={{ pointerEvents: 'auto' }}
-                            placeholder="10001"
+                            placeholder="e.g., 54000"
+                            maxLength="5"
                           />
+                          {errors.zipCode && <p className="text-red-400 text-sm mt-1 flex items-center gap-1"><FiAlertCircle /> {errors.zipCode}</p>}
+                          <p className="text-purple-400/50 text-xs mt-1">5-digit postal code</p>
                         </div>
                       </div>
 
@@ -384,84 +545,152 @@ const CheckoutPage = () => {
                     className="glass-card p-8 rounded-2xl"
                   >
                     <h2 className="text-3xl font-bold gradient-text mb-6" style={{ fontFamily: 'Orbitron, sans-serif' }}>
-                      Payment Information
+                      Payment Method
                     </h2>
+                    
+                    {/* Payment Method Selection */}
+                    <div className="grid md:grid-cols-2 gap-4 mb-8">
+                      <div
+                        onClick={() => setPaymentMethod('card')}
+                        className={`p-6 rounded-xl cursor-pointer transition-all duration-300 border-2 ${
+                          paymentMethod === 'card'
+                            ? 'bg-gradient-to-r from-purple-600/30 to-blue-600/30 border-cyan-500 shadow-lg shadow-cyan-500/20'
+                            : 'bg-gray-900/30 border-purple-500/30 hover:border-purple-500/50'
+                        }`}
+                      >
+                        <div className="flex items-center gap-4">
+                          <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${
+                            paymentMethod === 'card' ? 'bg-cyan-500' : 'bg-purple-500/30'
+                          }`}>
+                            <FiCreditCard className="text-2xl text-white" />
+                          </div>
+                          <div>
+                            <h3 className="text-white font-bold">Credit/Debit Card</h3>
+                            <p className="text-purple-300/70 text-sm">Pay securely with card</p>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div
+                        onClick={() => setPaymentMethod('cod')}
+                        className={`p-6 rounded-xl cursor-pointer transition-all duration-300 border-2 ${
+                          paymentMethod === 'cod'
+                            ? 'bg-gradient-to-r from-green-600/30 to-emerald-600/30 border-green-500 shadow-lg shadow-green-500/20'
+                            : 'bg-gray-900/30 border-purple-500/30 hover:border-purple-500/50'
+                        }`}
+                      >
+                        <div className="flex items-center gap-4">
+                          <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${
+                            paymentMethod === 'cod' ? 'bg-green-500' : 'bg-purple-500/30'
+                          }`}>
+                            <FiDollarSign className="text-2xl text-white" />
+                          </div>
+                          <div>
+                            <h3 className="text-white font-bold">Cash on Delivery</h3>
+                            <p className="text-purple-300/70 text-sm">Pay when you receive</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
                     <form onSubmit={handlePaymentSubmit} className="space-y-6">
-                      <div>
-                        <label className="block text-purple-300 font-semibold mb-2">Card Number *</label>
-                        <input
-                          type="text"
-                          value={paymentInfo.cardNumber}
-                          onChange={(e) => setPaymentInfo({ ...paymentInfo, cardNumber: e.target.value })}
-                          required
-                          maxLength="19"
-                          className="w-full px-4 py-3 bg-gray-900/50 border-2 border-purple-500/30 rounded-xl
-                                   text-white focus:border-cyan-500 focus:outline-none transition-all duration-300
-                                   relative z-10 cursor-text"
-                          style={{ pointerEvents: 'auto' }}
-                          placeholder="1234 5678 9012 3456"
-                        />
-                      </div>
+                      {/* Card Form - Only show when card payment selected */}
+                      {paymentMethod === 'card' ? (
+                        <>
+                          <div>
+                            <label className="block text-purple-300 font-semibold mb-2">Card Number *</label>
+                            <input
+                              type="text"
+                              name="cardNumber"
+                              value={paymentInfo.cardNumber}
+                              onChange={handlePaymentChange}
+                              maxLength="19"
+                              className={`w-full px-4 py-3 bg-gray-900/50 border-2 rounded-xl text-white focus:outline-none transition-all duration-300 relative z-10 cursor-text ${errors.cardNumber ? 'border-red-500' : 'border-purple-500/30 focus:border-cyan-500'}`}
+                              style={{ pointerEvents: 'auto' }}
+                              placeholder="e.g., 4111 1111 1111 1111"
+                            />
+                            {errors.cardNumber && <p className="text-red-400 text-sm mt-1 flex items-center gap-1"><FiAlertCircle /> {errors.cardNumber}</p>}
+                            <p className="text-purple-400/50 text-xs mt-1">16 digits, spaces auto-added</p>
+                          </div>
 
-                      <div>
-                        <label className="block text-purple-300 font-semibold mb-2">Cardholder Name *</label>
-                        <input
-                          type="text"
-                          value={paymentInfo.cardName}
-                          onChange={(e) => setPaymentInfo({ ...paymentInfo, cardName: e.target.value })}
-                          required
-                          className="w-full px-4 py-3 bg-gray-900/50 border-2 border-purple-500/30 rounded-xl
-                                   text-white focus:border-cyan-500 focus:outline-none transition-all duration-300
-                                   relative z-10 cursor-text"
-                          style={{ pointerEvents: 'auto' }}
-                          placeholder="John Doe"
-                        />
-                      </div>
+                          <div>
+                            <label className="block text-purple-300 font-semibold mb-2">Cardholder Name *</label>
+                            <input
+                              type="text"
+                              name="cardName"
+                              value={paymentInfo.cardName}
+                              onChange={handlePaymentChange}
+                              className={`w-full px-4 py-3 bg-gray-900/50 border-2 rounded-xl text-white focus:outline-none transition-all duration-300 relative z-10 cursor-text ${errors.cardName ? 'border-red-500' : 'border-purple-500/30 focus:border-cyan-500'}`}
+                              style={{ pointerEvents: 'auto' }}
+                              placeholder="e.g., AHMED KHAN (as printed on card)"
+                            />
+                            {errors.cardName && <p className="text-red-400 text-sm mt-1 flex items-center gap-1"><FiAlertCircle /> {errors.cardName}</p>}
+                            <p className="text-purple-400/50 text-xs mt-1">Name exactly as on the card</p>
+                          </div>
 
-                      <div className="grid md:grid-cols-2 gap-6">
-                        <div>
-                          <label className="block text-purple-300 font-semibold mb-2">Expiry Date *</label>
-                          <input
-                            type="text"
-                            value={paymentInfo.expiryDate}
-                            onChange={(e) => setPaymentInfo({ ...paymentInfo, expiryDate: e.target.value })}
-                            required
-                            maxLength="5"
-                            className="w-full px-4 py-3 bg-gray-900/50 border-2 border-purple-500/30 rounded-xl
-                                     text-white focus:border-cyan-500 focus:outline-none transition-all duration-300
-                                     relative z-10 cursor-text"
-                            style={{ pointerEvents: 'auto' }}
-                            placeholder="MM/YY"
-                          />
+                          <div className="grid md:grid-cols-2 gap-6">
+                            <div>
+                              <label className="block text-purple-300 font-semibold mb-2">Expiry Date *</label>
+                              <input
+                                type="text"
+                                name="expiryDate"
+                                value={paymentInfo.expiryDate}
+                                onChange={handlePaymentChange}
+                                maxLength="5"
+                                className={`w-full px-4 py-3 bg-gray-900/50 border-2 rounded-xl text-white focus:outline-none transition-all duration-300 relative z-10 cursor-text ${errors.expiryDate ? 'border-red-500' : 'border-purple-500/30 focus:border-cyan-500'}`}
+                                style={{ pointerEvents: 'auto' }}
+                                placeholder="e.g., 12/25"
+                              />
+                              {errors.expiryDate && <p className="text-red-400 text-sm mt-1 flex items-center gap-1"><FiAlertCircle /> {errors.expiryDate}</p>}
+                              <p className="text-purple-400/50 text-xs mt-1">Month/Year format</p>
+                            </div>
+                            <div>
+                              <label className="block text-purple-300 font-semibold mb-2">CVV *</label>
+                              <input
+                                type="password"
+                                name="cvv"
+                                value={paymentInfo.cvv}
+                                onChange={handlePaymentChange}
+                                maxLength="4"
+                                className={`w-full px-4 py-3 bg-gray-900/50 border-2 rounded-xl text-white focus:outline-none transition-all duration-300 relative z-10 cursor-text ${errors.cvv ? 'border-red-500' : 'border-purple-500/30 focus:border-cyan-500'}`}
+                                style={{ pointerEvents: 'auto' }}
+                                placeholder="e.g., 123"
+                              />
+                              {errors.cvv && <p className="text-red-400 text-sm mt-1 flex items-center gap-1"><FiAlertCircle /> {errors.cvv}</p>}
+                              <p className="text-purple-400/50 text-xs mt-1">3-4 digits on back of card</p>
+                            </div>
+                          </div>
+
+                          <label className="flex items-center space-x-3 cursor-pointer">
+                            <input
+                              type="checkbox"
+                              checked={paymentInfo.saveCard}
+                              onChange={(e) => setPaymentInfo({ ...paymentInfo, saveCard: e.target.checked })}
+                              className="w-5 h-5 rounded border-2 border-purple-500/30 bg-gray-900/50 text-purple-600 focus:ring-2 focus:ring-purple-500/50"
+                            />
+                            <span className="text-purple-300">Save card for future purchases</span>
+                          </label>
+                        </>
+                      ) : (
+                        <div className="p-6 bg-green-500/10 border-2 border-green-500/30 rounded-xl">
+                          <div className="flex items-start gap-4">
+                            <div className="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center">
+                              <FiCheck className="text-2xl text-green-400" />
+                            </div>
+                            <div>
+                              <h3 className="text-green-400 font-bold text-lg mb-2">Cash on Delivery Selected</h3>
+                              <p className="text-green-300/70">
+                                You will pay <span className="font-bold text-white">${total.toFixed(2)}</span> in cash when your order is delivered.
+                              </p>
+                              <ul className="mt-3 space-y-1 text-green-300/70 text-sm">
+                                <li>✓ No advance payment required</li>
+                                <li>✓ Pay only when you receive the order</li>
+                                <li>✓ Inspect items before paying</li>
+                              </ul>
+                            </div>
+                          </div>
                         </div>
-                        <div>
-                          <label className="block text-purple-300 font-semibold mb-2">CVV *</label>
-                          <input
-                            type="text"
-                            value={paymentInfo.cvv}
-                            onChange={(e) => setPaymentInfo({ ...paymentInfo, cvv: e.target.value })}
-                            required
-                            maxLength="4"
-                            className="w-full px-4 py-3 bg-gray-900/50 border-2 border-purple-500/30 rounded-xl
-                                     text-white focus:border-cyan-500 focus:outline-none transition-all duration-300
-                                     relative z-10 cursor-text"
-                            style={{ pointerEvents: 'auto' }}
-                            placeholder="123"
-                          />
-                        </div>
-                      </div>
-
-                      <label className="flex items-center space-x-3 cursor-pointer">
-                        <input
-                          type="checkbox"
-                          checked={paymentInfo.saveCard}
-                          onChange={(e) => setPaymentInfo({ ...paymentInfo, saveCard: e.target.checked })}
-                          className="w-5 h-5 rounded border-2 border-purple-500/30 bg-gray-900/50
-                                   text-purple-600 focus:ring-2 focus:ring-purple-500/50"
-                        />
-                        <span className="text-purple-300">Save card for future purchases</span>
-                      </label>
-
+                      )}
                       <div className="flex gap-4">
                         <Button variant="glass" onClick={() => setCurrentStep(1)}>
                           Back
@@ -518,13 +747,25 @@ const CheckoutPage = () => {
                           Edit
                         </button>
                       </div>
-                      <div className="flex items-center space-x-3">
-                        <FiCreditCard className="text-3xl text-purple-400" />
-                        <div className="text-purple-300">
-                          <p className="font-semibold">**** **** **** {paymentInfo.cardNumber.slice(-4)}</p>
-                          <p className="text-sm">Expires {paymentInfo.expiryDate}</p>
+                      {paymentMethod === 'card' ? (
+                        <div className="flex items-center space-x-3">
+                          <FiCreditCard className="text-3xl text-purple-400" />
+                          <div className="text-purple-300">
+                            <p className="font-semibold">**** **** **** {paymentInfo.cardNumber.replace(/\s/g, '').slice(-4)}</p>
+                            <p className="text-sm">Expires {paymentInfo.expiryDate}</p>
+                          </div>
                         </div>
-                      </div>
+                      ) : (
+                        <div className="flex items-center space-x-3">
+                          <div className="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center">
+                            <FiDollarSign className="text-2xl text-green-400" />
+                          </div>
+                          <div className="text-purple-300">
+                            <p className="font-semibold text-green-400">Cash on Delivery</p>
+                            <p className="text-sm">Pay ${total.toFixed(2)} when delivered</p>
+                          </div>
+                        </div>
+                      )}
                     </div>
 
                     {/* Action Buttons */}

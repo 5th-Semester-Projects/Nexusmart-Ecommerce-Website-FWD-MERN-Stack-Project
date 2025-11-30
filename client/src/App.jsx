@@ -12,6 +12,7 @@ import { cleanAllStorage } from './utils/cleanStorage';
 import ErrorBoundary from './components/common/ErrorBoundary';
 import { PageLoader } from './components/common/Loader';
 import RoboticWelcome from './components/common/RoboticWelcome';
+import CursorTrail from './components/common/CursorTrail';
 
 // Layout Components - Import directly
 import Navbar from './components/layout/Navbar';
@@ -83,6 +84,9 @@ function App() {
   return (
     <ErrorBoundary>
       <Router>
+        {/* Magical Cursor Trail Effect ✨ */}
+        <CursorTrail />
+        
         {/* Robotic Welcome Animation - Only on non-admin routes */}
         {showWelcome && !isAdminRoute && <RoboticWelcome onComplete={handleWelcomeComplete} />}
         

@@ -8,7 +8,7 @@ import { uploadToCloudinary } from '../utils/cloudinary.js';
 // @route   POST /api/categories
 // @access  Private/Admin
 export const createCategory = catchAsyncErrors(async (req, res, next) => {
-  const { name, description, parentCategory, tags, metaTitle, metaDescription } = req.body;
+  const { name, description, parent, parentCategory, tags, metaTitle, metaDescription } = req.body;
 
   // Check if category already exists
   const existingCategory = await Category.findOne({
@@ -22,8 +22,8 @@ export const createCategory = catchAsyncErrors(async (req, res, next) => {
   const categoryData = {
     name,
     description,
-    parentCategory: parentCategory || null,
-    tags: tags ? tags.split(',').map(tag => tag.trim()) : [],
+    parent: parent || parentCategory || null, // Support both field names
+    tags: tags ? (typeof tags === 'string' ? tags.split(',').map(tag => tag.trim()) : tags) : [],
     metaTitle,
     metaDescription,
   };
@@ -54,9 +54,9 @@ export const getAllCategories = catchAsyncErrors(async (req, res, next) => {
 
   const query = {};
 
-  // Filter for parent categories only (no parent)
+  // @desc    Filter for parent categories only (no parent)
   if (parentOnly === 'true') {
-    query.parentCategory = null;
+    query.parent = null;
   }
 
   // Filter active categories
@@ -65,7 +65,7 @@ export const getAllCategories = catchAsyncErrors(async (req, res, next) => {
   }
 
   const categories = await Category.find(query)
-    .populate('parentCategory', 'name slug')
+    .populate('parent', 'name slug')
     .sort({ order: 1, name: 1 });
 
   res.status(200).json({
@@ -80,7 +80,7 @@ export const getAllCategories = catchAsyncErrors(async (req, res, next) => {
 // @access  Public
 export const getCategoryTree = catchAsyncErrors(async (req, res, next) => {
   const categories = await Category.find({ isActive: true })
-    .populate('parentCategory', 'name slug')
+    .populate('parent', 'name slug')
     .sort({ order: 1, name: 1 });
 
   // Build tree structure
@@ -97,10 +97,10 @@ export const getCategoryTree = catchAsyncErrors(async (req, res, next) => {
 
   // Second pass: build tree
   categories.forEach(category => {
-    if (category.parentCategory) {
-      const parent = categoryMap[category.parentCategory._id];
-      if (parent) {
-        parent.children.push(categoryMap[category._id]);
+    if (category.parent) {
+      const parentCat = categoryMap[category.parent._id];
+      if (parentCat) {
+        parentCat.children.push(categoryMap[category._id]);
       }
     } else {
       tree.push(categoryMap[category._id]);
@@ -118,7 +118,7 @@ export const getCategoryTree = catchAsyncErrors(async (req, res, next) => {
 // @access  Public
 export const getCategory = catchAsyncErrors(async (req, res, next) => {
   const category = await Category.findById(req.params.id)
-    .populate('parentCategory', 'name slug image');
+    .populate('parent', 'name slug image');
 
   if (!category) {
     return next(new ErrorHandler('Category not found', 404));
@@ -126,7 +126,7 @@ export const getCategory = catchAsyncErrors(async (req, res, next) => {
 
   // Get subcategories
   const subcategories = await Category.find({
-    parentCategory: category._id,
+    parent: category._id,
     isActive: true
   }).sort({ order: 1, name: 1 });
 
@@ -151,7 +151,7 @@ export const getCategory = catchAsyncErrors(async (req, res, next) => {
 // @access  Public
 export const getCategoryBySlug = catchAsyncErrors(async (req, res, next) => {
   const category = await Category.findOne({ slug: req.params.slug })
-    .populate('parentCategory', 'name slug image');
+    .populate('parent', 'name slug image');
 
   if (!category) {
     return next(new ErrorHandler('Category not found', 404));
@@ -159,7 +159,7 @@ export const getCategoryBySlug = catchAsyncErrors(async (req, res, next) => {
 
   // Get subcategories
   const subcategories = await Category.find({
-    parentCategory: category._id,
+    parent: category._id,
     isActive: true
   }).sort({ order: 1, name: 1 });
 
@@ -189,13 +189,13 @@ export const updateCategory = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler('Category not found', 404));
   }
 
-  const { name, description, parentCategory, tags, metaTitle, metaDescription, isActive, order } = req.body;
+  const { name, description, parent, parentCategory, tags, metaTitle, metaDescription, isActive, order } = req.body;
 
   const updateData = {
     name,
     description,
-    parentCategory: parentCategory || null,
-    tags: tags ? tags.split(',').map(tag => tag.trim()) : category.tags,
+    parent: parent || parentCategory || null, // Support both field names
+    tags: tags ? (typeof tags === 'string' ? tags.split(',').map(tag => tag.trim()) : tags) : category.tags,
     metaTitle,
     metaDescription,
     isActive,
@@ -236,7 +236,7 @@ export const deleteCategory = catchAsyncErrors(async (req, res, next) => {
 
   // Check if category has subcategories
   const subcategoriesCount = await Category.countDocuments({
-    parentCategory: category._id,
+    parent: category._id,
   });
 
   if (subcategoriesCount > 0) {

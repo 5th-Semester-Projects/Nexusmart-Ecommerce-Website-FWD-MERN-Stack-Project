@@ -33,27 +33,27 @@ import { Link } from 'react-router-dom';
 import { fetchDashboardStats, fetchAdminOrders, fetchAdminProducts } from '../../redux/slices/adminSlice';
 import { PageLoader } from '../../components/common/Loader';
 
-const COLORS = ['#6366f1', '#ec4899', '#f59e0b', '#10b981', '#8b5cf6'];
+const COLORS = ['#8b5cf6', '#ec4899', '#06b6d4', '#10b981', '#f59e0b'];
 
 const StatCard = ({ title, value, change, icon: Icon, color, isLoading }) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
-    className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow"
+    className="bg-gray-900/50 backdrop-blur-xl border border-purple-500/20 rounded-2xl p-6 hover:border-purple-500/40 hover:shadow-lg hover:shadow-purple-500/10 transition-all"
   >
     <div className="flex items-start justify-between">
       <div className={`p-3 rounded-xl ${color}`}>
         <Icon className="w-6 h-6 text-white" />
       </div>
       <div className={`flex items-center gap-1 text-sm font-semibold ${
-        change >= 0 ? 'text-green-500' : 'text-red-500'
+        change >= 0 ? 'text-green-400' : 'text-red-400'
       }`}>
         {change >= 0 ? <FiTrendingUp /> : <FiTrendingDown />}
         {Math.abs(change)}%
       </div>
     </div>
-    <h3 className="mt-4 text-gray-500 dark:text-gray-400 text-sm font-medium">{title}</h3>
-    <p className="mt-1 text-3xl font-bold text-gray-900 dark:text-white">
+    <h3 className="mt-4 text-purple-300 text-sm font-medium">{title}</h3>
+    <p className="mt-1 text-3xl font-bold text-white">
       {isLoading ? '...' : value}
     </p>
   </motion.div>
@@ -130,13 +130,13 @@ const AdminDashboardPage = () => {
 
   const getStatusColor = (status) => {
     const colors = {
-      processing: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400',
-      shipped: 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400',
-      delivered: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400',
-      cancelled: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400',
-      pending: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400',
+      processing: 'bg-blue-500/20 text-blue-400 border border-blue-500/30',
+      shipped: 'bg-purple-500/20 text-purple-400 border border-purple-500/30',
+      delivered: 'bg-green-500/20 text-green-400 border border-green-500/30',
+      cancelled: 'bg-red-500/20 text-red-400 border border-red-500/30',
+      pending: 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30',
     };
-    return colors[status] || 'bg-gray-100 text-gray-800';
+    return colors[status] || 'bg-gray-500/20 text-gray-400';
   };
 
   return (
@@ -149,13 +149,13 @@ const AdminDashboardPage = () => {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Dashboard Overview</h1>
-            <p className="text-gray-500 dark:text-gray-400">Monitor your store's performance</p>
+            <h1 className="text-2xl font-bold gradient-text" style={{ fontFamily: 'Orbitron, sans-serif' }}>Dashboard Overview</h1>
+            <p className="text-purple-300">Monitor your store's performance</p>
           </div>
           <button
             onClick={handleRefresh}
             disabled={refreshing}
-            className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors disabled:opacity-50"
+            className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-cyan-600 text-white rounded-xl hover:from-purple-500 hover:to-cyan-500 transition-all disabled:opacity-50 shadow-lg shadow-purple-500/30"
           >
             <FiRefreshCw className={`w-4 h-4 ${refreshing ? 'animate-spin' : ''}`} />
             Refresh
@@ -176,32 +176,32 @@ const AdminDashboardPage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg"
+            className="bg-gray-900/50 backdrop-blur-xl border border-purple-500/20 rounded-2xl p-6"
           >
-            <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6">Revenue Overview</h3>
+            <h3 className="text-lg font-bold text-white mb-6">Revenue Overview</h3>
             <ResponsiveContainer width="100%" height={300}>
               <AreaChart data={revenueData}>
                 <defs>
                   <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#6366f1" stopOpacity={0.3}/>
-                    <stop offset="95%" stopColor="#6366f1" stopOpacity={0}/>
+                    <stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.3}/>
+                    <stop offset="95%" stopColor="#8b5cf6" stopOpacity={0}/>
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#374151" opacity={0.1} />
-                <XAxis dataKey="month" stroke="#9CA3AF" />
-                <YAxis stroke="#9CA3AF" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#6b21a8" opacity={0.2} />
+                <XAxis dataKey="month" stroke="#a855f7" />
+                <YAxis stroke="#a855f7" />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: '#1F2937',
-                    border: 'none',
-                    borderRadius: '8px',
+                    backgroundColor: '#1e1b4b',
+                    border: '1px solid rgba(139, 92, 246, 0.3)',
+                    borderRadius: '12px',
                     color: '#fff',
                   }}
                 />
                 <Area
                   type="monotone"
                   dataKey="revenue"
-                  stroke="#6366f1"
+                  stroke="#8b5cf6"
                   strokeWidth={2}
                   fillOpacity={1}
                   fill="url(#colorRevenue)"
@@ -215,9 +215,9 @@ const AdminDashboardPage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg"
+            className="bg-gray-900/50 backdrop-blur-xl border border-purple-500/20 rounded-2xl p-6"
           >
-            <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6">Sales by Category</h3>
+            <h3 className="text-lg font-bold text-white mb-6">Sales by Category</h3>
             <ResponsiveContainer width="100%" height={300}>
               <PieChart>
                 <Pie
@@ -236,9 +236,9 @@ const AdminDashboardPage = () => {
                 </Pie>
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: '#1F2937',
-                    border: 'none',
-                    borderRadius: '8px',
+                    backgroundColor: '#1e1b4b',
+                    border: '1px solid rgba(139, 92, 246, 0.3)',
+                    borderRadius: '12px',
                     color: '#fff',
                   }}
                 />
@@ -254,13 +254,13 @@ const AdminDashboardPage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg"
+            className="bg-gray-900/50 backdrop-blur-xl border border-purple-500/20 rounded-2xl p-6"
           >
             <div className="flex items-center justify-between mb-6">
-              <h3 className="text-lg font-bold text-gray-900 dark:text-white">Recent Orders</h3>
+              <h3 className="text-lg font-bold text-white">Recent Orders</h3>
               <Link
                 to="/admin/orders"
-                className="flex items-center gap-1 text-primary-600 hover:text-primary-700 text-sm font-medium"
+                className="flex items-center gap-1 text-cyan-400 hover:text-cyan-300 text-sm font-medium"
               >
                 View All <FiArrowRight />
               </Link>
@@ -269,18 +269,18 @@ const AdminDashboardPage = () => {
               {orders.slice(0, 5).map((order) => (
                 <div
                   key={order._id}
-                  className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl"
+                  className="flex items-center justify-between p-4 bg-purple-500/10 border border-purple-500/20 rounded-xl"
                 >
                   <div>
-                    <p className="font-medium text-gray-900 dark:text-white">
+                    <p className="font-medium text-white">
                       {order.orderNumber || `#${order._id.slice(-6).toUpperCase()}`}
                     </p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                    <p className="text-sm text-purple-300">
                       {order.user?.firstName || 'Customer'} {order.user?.lastName || ''}
                     </p>
                   </div>
                   <div className="text-right">
-                    <p className="font-semibold text-gray-900 dark:text-white">
+                    <p className="font-semibold text-cyan-400">
                       ${order.totalPrice?.toFixed(2) || '0.00'}
                     </p>
                     <span className={`text-xs px-2 py-1 rounded-full capitalize ${getStatusColor(order.orderStatus)}`}>
@@ -290,7 +290,7 @@ const AdminDashboardPage = () => {
                 </div>
               ))}
               {orders.length === 0 && (
-                <p className="text-center text-gray-500 dark:text-gray-400 py-8">No recent orders</p>
+                <p className="text-center text-purple-300 py-8">No recent orders</p>
               )}
             </div>
           </motion.div>
@@ -300,13 +300,13 @@ const AdminDashboardPage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
-            className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg"
+            className="bg-gray-900/50 backdrop-blur-xl border border-purple-500/20 rounded-2xl p-6"
           >
             <div className="flex items-center justify-between mb-6">
-              <h3 className="text-lg font-bold text-gray-900 dark:text-white">Top Products</h3>
+              <h3 className="text-lg font-bold text-white">Top Products</h3>
               <Link
                 to="/admin/products"
-                className="flex items-center gap-1 text-primary-600 hover:text-primary-700 text-sm font-medium"
+                className="flex items-center gap-1 text-cyan-400 hover:text-cyan-300 text-sm font-medium"
               >
                 View All <FiArrowRight />
               </Link>
@@ -315,24 +315,24 @@ const AdminDashboardPage = () => {
               {products.slice(0, 5).map((product) => (
                 <div
                   key={product._id}
-                  className="flex items-center gap-4 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl"
+                  className="flex items-center gap-4 p-4 bg-purple-500/10 border border-purple-500/20 rounded-xl"
                 >
                   <img
                     src={product.images?.[0]?.url || '/placeholder-product.png'}
                     alt={product.name}
-                    className="w-12 h-12 rounded-lg object-cover"
+                    className="w-12 h-12 rounded-lg object-cover border border-purple-500/30"
                   />
                   <div className="flex-1 min-w-0">
-                    <p className="font-medium text-gray-900 dark:text-white truncate">{product.name}</p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                    <p className="font-medium text-white truncate">{product.name}</p>
+                    <p className="text-sm text-purple-300">
                       Stock: {product.stock} | Sold: {product.purchases || 0}
                     </p>
                   </div>
-                  <p className="font-bold text-primary-600 dark:text-primary-400">${product.price}</p>
+                  <p className="font-bold text-cyan-400">${product.price}</p>
                 </div>
               ))}
               {products.length === 0 && (
-                <p className="text-center text-gray-500 dark:text-gray-400 py-8">No products found</p>
+                <p className="text-center text-purple-300 py-8">No products found</p>
               )}
             </div>
           </motion.div>

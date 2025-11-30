@@ -90,7 +90,7 @@ const CategoryForm = ({ category, onSubmit, onClose, isLoading }) => {
       />
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
+        <label className="block text-sm font-medium text-purple-300 mb-1.5">
           Description
         </label>
         <textarea
@@ -99,13 +99,13 @@ const CategoryForm = ({ category, onSubmit, onClose, isLoading }) => {
           onChange={handleChange}
           placeholder="Enter category description"
           rows={3}
-          className="w-full px-4 py-2.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 resize-none"
+          className="w-full px-4 py-2.5 bg-gray-800/50 border border-purple-500/30 rounded-xl text-white placeholder-purple-400/50 focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none"
         />
       </div>
 
       {/* Image Upload */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+        <label className="block text-sm font-medium text-purple-300 mb-2">
           Category Image
         </label>
         <div className="flex items-center gap-4">
@@ -114,7 +114,7 @@ const CategoryForm = ({ category, onSubmit, onClose, isLoading }) => {
               <img
                 src={previewImage}
                 alt="Preview"
-                className="w-20 h-20 object-cover rounded-lg"
+                className="w-20 h-20 object-cover rounded-xl border border-purple-500/30"
               />
               <button
                 type="button"
@@ -128,8 +128,8 @@ const CategoryForm = ({ category, onSubmit, onClose, isLoading }) => {
               </button>
             </div>
           ) : (
-            <div className="w-20 h-20 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg flex items-center justify-center">
-              <FiImage className="w-8 h-8 text-gray-400" />
+            <div className="w-20 h-20 border-2 border-dashed border-purple-500/30 rounded-xl flex items-center justify-center bg-purple-500/5">
+              <FiImage className="w-8 h-8 text-purple-400" />
             </div>
           )}
           <label className="cursor-pointer">
@@ -139,7 +139,7 @@ const CategoryForm = ({ category, onSubmit, onClose, isLoading }) => {
               onChange={handleImageChange}
               className="hidden"
             />
-            <span className="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+            <span className="px-4 py-2 bg-purple-500/20 border border-purple-500/30 text-purple-300 rounded-xl hover:bg-purple-500/30 transition-colors">
               {previewImage ? 'Change Image' : 'Upload Image'}
             </span>
           </label>
@@ -153,13 +153,13 @@ const CategoryForm = ({ category, onSubmit, onClose, isLoading }) => {
           name="isActive"
           checked={formData.isActive}
           onChange={handleChange}
-          className="w-5 h-5 text-primary-600 rounded focus:ring-primary-500"
+          className="w-5 h-5 text-purple-600 rounded border-purple-500/30 bg-gray-800/50 focus:ring-purple-500"
         />
-        <span className="text-gray-700 dark:text-gray-300">Category is active</span>
+        <span className="text-purple-300">Category is active</span>
       </label>
 
       {/* Actions */}
-      <div className="flex gap-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+      <div className="flex gap-4 pt-4 border-t border-purple-500/20">
         <Button variant="outline" type="button" onClick={onClose} fullWidth>
           Cancel
         </Button>
@@ -240,8 +240,8 @@ const CategoriesPage = () => {
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Categories</h1>
-            <p className="text-gray-500 dark:text-gray-400">
+            <h1 className="text-2xl font-bold gradient-text" style={{ fontFamily: 'Orbitron, sans-serif' }}>Categories</h1>
+            <p className="text-purple-300">
               Organize your products into categories ({categories.length} total)
             </p>
           </div>
@@ -254,17 +254,17 @@ const CategoriesPage = () => {
         {categoriesLoading ? (
           <div className="flex items-center justify-center py-12">
             <div className="flex items-center gap-2">
-              <div className="w-5 h-5 border-2 border-primary-500 border-t-transparent rounded-full animate-spin" />
-              <span className="text-gray-500">Loading categories...</span>
+              <div className="w-5 h-5 border-2 border-purple-500 border-t-transparent rounded-full animate-spin" />
+              <span className="text-purple-300">Loading categories...</span>
             </div>
           </div>
         ) : categories.length === 0 ? (
-          <div className="text-center py-12 bg-white dark:bg-gray-800 rounded-xl">
-            <FiGrid className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+          <div className="text-center py-12 bg-gray-900/50 backdrop-blur-xl border border-purple-500/20 rounded-2xl">
+            <FiGrid className="w-16 h-16 text-purple-400 mx-auto mb-4" />
+            <h3 className="text-lg font-medium text-white mb-2">
               No categories yet
             </h3>
-            <p className="text-gray-500 dark:text-gray-400 mb-4">
+            <p className="text-purple-300 mb-4">
               Create your first category to organize products
             </p>
             <Button variant="primary" icon={FiPlus} onClick={openCreateModal}>
@@ -278,10 +278,10 @@ const CategoriesPage = () => {
                 key={category._id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden group hover:shadow-lg transition-shadow"
+                className="bg-gray-900/50 backdrop-blur-xl border border-purple-500/20 rounded-2xl overflow-hidden group hover:border-purple-500/40 hover:shadow-lg hover:shadow-purple-500/10 transition-all"
               >
                 {/* Category Image */}
-                <div className="h-40 bg-gradient-to-br from-primary-400 to-purple-500 relative overflow-hidden">
+                <div className="h-40 bg-gradient-to-br from-purple-600 to-cyan-600 relative overflow-hidden">
                   {category.image?.url ? (
                     <img
                       src={category.image.url}
@@ -298,24 +298,24 @@ const CategoriesPage = () => {
                     <span
                       className={`px-2.5 py-1 rounded-full text-xs font-medium ${
                         category.isActive
-                          ? 'bg-green-500 text-white'
-                          : 'bg-gray-500 text-white'
+                          ? 'bg-green-500/80 text-white'
+                          : 'bg-gray-500/80 text-white'
                       }`}
                     >
                       {category.isActive ? 'Active' : 'Inactive'}
                     </span>
                   </div>
                   {/* Actions Overlay */}
-                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
+                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
                     <button
                       onClick={() => openEditModal(category)}
-                      className="p-3 bg-white rounded-full text-gray-800 hover:bg-gray-100 transition-colors"
+                      className="p-3 bg-purple-500 rounded-full text-white hover:bg-purple-400 transition-colors"
                     >
                       <FiEdit2 className="w-5 h-5" />
                     </button>
                     <button
                       onClick={() => setDeleteConfirm(category)}
-                      className="p-3 bg-red-500 rounded-full text-white hover:bg-red-600 transition-colors"
+                      className="p-3 bg-red-500 rounded-full text-white hover:bg-red-400 transition-colors"
                     >
                       <FiTrash2 className="w-5 h-5" />
                     </button>
@@ -324,18 +324,18 @@ const CategoriesPage = () => {
 
                 {/* Category Info */}
                 <div className="p-5">
-                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">
+                  <h3 className="text-lg font-bold text-white mb-1">
                     {category.name}
                   </h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 mb-3 line-clamp-2">
+                  <p className="text-sm text-purple-300 mb-3 line-clamp-2">
                     {category.description || 'No description'}
                   </p>
                   <div className="flex items-center justify-between">
-                    <span className="flex items-center gap-1.5 text-sm text-gray-600 dark:text-gray-400">
+                    <span className="flex items-center gap-1.5 text-sm text-cyan-400">
                       <FiPackage className="w-4 h-4" />
                       {getProductCount(category._id)} Products
                     </span>
-                    <span className="text-xs text-gray-400 font-mono">
+                    <span className="text-xs text-purple-400 font-mono">
                       /{category.slug}
                     </span>
                   </div>
@@ -375,13 +375,13 @@ const CategoriesPage = () => {
         size="sm"
       >
         <div className="text-center py-4">
-          <div className="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
-            <FiTrash2 className="w-8 h-8 text-red-600" />
+          <div className="w-16 h-16 bg-red-500/20 border border-red-500/30 rounded-full flex items-center justify-center mx-auto mb-4">
+            <FiTrash2 className="w-8 h-8 text-red-400" />
           </div>
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+          <h3 className="text-lg font-semibold text-white mb-2">
             Delete "{deleteConfirm?.name}"?
           </h3>
-          <p className="text-gray-500 dark:text-gray-400 mb-6">
+          <p className="text-purple-300 mb-6">
             This will remove the category. Products in this category will be uncategorized.
           </p>
           <div className="flex gap-4">

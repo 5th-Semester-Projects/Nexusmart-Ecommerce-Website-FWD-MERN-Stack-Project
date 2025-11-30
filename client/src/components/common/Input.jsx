@@ -16,13 +16,14 @@ const Input = forwardRef(({
 }, ref) => {
   const inputClasses = `
     w-full px-4 py-2.5 
-    bg-white dark:bg-gray-800 
-    border ${error ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'}
-    rounded-lg 
-    text-gray-900 dark:text-white 
-    placeholder-gray-400 dark:placeholder-gray-500
+    bg-gray-800/50 
+    border ${error ? 'border-red-500' : 'border-purple-500/30'}
+    rounded-xl 
+    text-white 
+    placeholder-purple-400/50
     focus:outline-none focus:ring-2 
-    ${error ? 'focus:ring-red-500' : 'focus:ring-primary-500'}
+    ${error ? 'focus:ring-red-500' : 'focus:ring-purple-500'}
+    focus:border-transparent
     disabled:opacity-50 disabled:cursor-not-allowed
     transition-all duration-200
     ${Icon && iconPosition === 'left' ? 'pl-10' : ''}
@@ -33,15 +34,15 @@ const Input = forwardRef(({
   return (
     <div className={`relative ${containerClassName}`}>
       {label && (
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
+        <label className="block text-sm font-medium text-purple-300 mb-1.5">
           {label}
-          {required && <span className="text-red-500 ml-1">*</span>}
+          {required && <span className="text-red-400 ml-1">*</span>}
         </label>
       )}
       
       <div className="relative">
         {Icon && iconPosition === 'left' && (
-          <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+          <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-purple-400">
             <Icon size={18} />
           </div>
         )}
@@ -56,7 +57,7 @@ const Input = forwardRef(({
         />
         
         {Icon && iconPosition === 'right' && (
-          <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+          <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-purple-400">
             <Icon size={18} />
           </div>
         )}
@@ -68,7 +69,7 @@ const Input = forwardRef(({
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="mt-1.5 text-sm text-red-500"
+            className="mt-1.5 text-sm text-red-400"
           >
             {error}
           </motion.p>
@@ -76,7 +77,7 @@ const Input = forwardRef(({
       </AnimatePresence>
 
       {helperText && !error && (
-        <p className="mt-1.5 text-sm text-gray-500 dark:text-gray-400">
+        <p className="mt-1.5 text-sm text-purple-400/70">
           {helperText}
         </p>
       )}

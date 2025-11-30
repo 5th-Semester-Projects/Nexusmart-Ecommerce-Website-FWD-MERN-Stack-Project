@@ -67,17 +67,18 @@ const Modal = ({
               transition={{ duration: 0.2 }}
               className={`
                 relative w-full ${sizes[size]}
-                bg-white dark:bg-gray-800
-                rounded-2xl shadow-2xl
+                bg-gray-900/95 backdrop-blur-xl
+                border border-purple-500/30
+                rounded-2xl shadow-2xl shadow-purple-500/20
                 ${className}
               `}
               onClick={(e) => e.stopPropagation()}
             >
               {/* Header */}
               {(title || showCloseButton) && (
-                <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
+                <div className="flex items-center justify-between p-6 border-b border-purple-500/20">
                   {title && (
-                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
+                    <h3 className="text-2xl font-bold gradient-text" style={{ fontFamily: 'Orbitron, sans-serif' }}>
                       {title}
                     </h3>
                   )}
@@ -87,7 +88,7 @@ const Modal = ({
                       size="sm"
                       icon={FiX}
                       onClick={onClose}
-                      className="ml-auto"
+                      className="ml-auto text-purple-300 hover:text-white"
                     />
                   )}
                 </div>
@@ -100,7 +101,7 @@ const Modal = ({
 
               {/* Footer */}
               {footer && (
-                <div className="flex items-center justify-end gap-3 p-6 border-t border-gray-200 dark:border-gray-700">
+                <div className="flex items-center justify-end gap-3 p-6 border-t border-purple-500/20">
                   {footer}
                 </div>
               )}

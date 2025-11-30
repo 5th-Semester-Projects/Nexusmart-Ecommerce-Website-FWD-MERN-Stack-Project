@@ -14,6 +14,12 @@ import { PageLoader } from './components/common/Loader';
 import RoboticWelcome from './components/common/RoboticWelcome';
 import CursorTrail from './components/common/CursorTrail';
 
+// Product Comparison
+import ProductComparisonModal, { 
+  ComparisonProvider, 
+  CompareFloatingButton 
+} from './components/products/ProductComparison';
+
 // Layout Components - Import directly
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
@@ -48,6 +54,8 @@ function App() {
     // Show lightning welcome only once per session
     return !sessionStorage.getItem('welcomeShown');
   });
+  
+  const [showComparison, setShowComparison] = useState(false);
 
   useEffect(() => {
     // Clean localStorage on mount to fix category object issues
@@ -83,12 +91,22 @@ function App() {
 
   return (
     <ErrorBoundary>
-      <Router>
-        {/* Magical Cursor Trail Effect ✨ */}
-        <CursorTrail />
-        
-        {/* Robotic Welcome Animation - Only on non-admin routes */}
-        {showWelcome && !isAdminRoute && <RoboticWelcome onComplete={handleWelcomeComplete} />}
+      <ComparisonProvider>
+        <Router>
+          {/* Magical Cursor Trail Effect ✨ */}
+          <CursorTrail />
+          
+          {/* Product Comparison Modal */}
+          <ProductComparisonModal 
+            isOpen={showComparison} 
+            onClose={() => setShowComparison(false)} 
+          />
+          
+          {/* Floating Compare Button */}
+          <CompareFloatingButton onClick={() => setShowComparison(true)} />
+          
+          {/* Robotic Welcome Animation - Only on non-admin routes */}
+          {showWelcome && !isAdminRoute && <RoboticWelcome onComplete={handleWelcomeComplete} />}
         
         <Suspense fallback={<PageLoader />}>
           <Routes>
@@ -163,6 +181,7 @@ function App() {
           }}
         />
       </Router>
+    </ComparisonProvider>
     </ErrorBoundary>
   );
 }

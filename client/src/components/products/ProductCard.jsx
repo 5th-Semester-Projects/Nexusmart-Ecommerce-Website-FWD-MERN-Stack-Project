@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FiHeart, FiShoppingCart, FiEye, FiStar, FiZap } from 'react-icons/fi';
+import { HiOutlineScale } from 'react-icons/hi2';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItemToWishlist, removeItemFromWishlist } from '../../redux/slices/wishlistSlice';
 import { addItemToCart } from '../../redux/slices/cartSlice';
+import { useComparison } from './ProductComparison';
 import toast from 'react-hot-toast';
 
 const ProductCard = ({ product, onQuickView, eager = false }) => {
@@ -13,8 +15,31 @@ const ProductCard = ({ product, onQuickView, eager = false }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
+  
+  // Comparison hook
+  const { addToComparison, removeFromComparison, isInComparison } = useComparison();
+  const inComparison = isInComparison(product._id);
 
   const isInWishlist = wishlistItems.some((item) => item._id === product._id);
+
+  // Handle Compare Toggle
+  const handleCompareToggle = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (inComparison) {
+      removeFromComparison(product._id);
+      toast.success('Removed from comparison', {
+        icon: '⚖️',
+        style: {
+          borderRadius: '12px',
+          background: '#1f2937',
+          color: '#fff',
+        },
+      });
+    } else {
+      addToComparison(product);
+    }
+  };
 
   const handleWishlistToggle = (e) => {
     e.preventDefault();
@@ -174,8 +199,24 @@ const ProductCard = ({ product, onQuickView, eager = false }) => {
               whileTap={{ scale: 0.9 }}
               onClick={handleQuickView}
               className="p-3 bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl rounded-full text-purple-600 dark:text-purple-400 hover:bg-white dark:hover:bg-gray-900 transition-all shadow-lg"
+              title="Quick View"
             >
               <FiEye className="text-lg" />
+            </motion.button>
+            
+            {/* Compare Button */}
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={handleCompareToggle}
+              className={`p-3 backdrop-blur-xl rounded-full transition-all shadow-lg
+                ${inComparison 
+                  ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white' 
+                  : 'bg-white/90 dark:bg-gray-900/90 text-purple-600 dark:text-purple-400 hover:bg-white dark:hover:bg-gray-900'
+                }`}
+              title={inComparison ? 'Remove from Compare' : 'Add to Compare'}
+            >
+              <HiOutlineScale className="text-lg" />
             </motion.button>
             
             <motion.button

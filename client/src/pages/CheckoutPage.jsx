@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiCreditCard, FiMapPin, FiTruck, FiCheck, FiLock, FiChevronRight, FiDollarSign, FiAlertCircle } from 'react-icons/fi';
+import { FiCreditCard, FiMapPin, FiTruck, FiCheck, FiLock, FiChevronRight, FiDollarSign, FiAlertCircle, FiClock, FiCalendar } from 'react-icons/fi';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Button from '../components/common/Button';
@@ -11,6 +11,7 @@ import { createOrder } from '../redux/slices/orderSlice';
 import { clearCart } from '../redux/slices/cartSlice';
 // Removed RoboticBackground for performance
 import MagicalGenie from '../components/common/MagicalGenie';
+import { AddressManager, ShippingCalculator } from '../components/shipping';
 
 const CheckoutPage = () => {
   const dispatch = useDispatch();
@@ -22,6 +23,22 @@ const CheckoutPage = () => {
   const [loading, setLoading] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState('card'); // 'card' or 'cod'
   const [errors, setErrors] = useState({});
+  
+  // Shipping options state
+  const [shippingOptions, setShippingOptions] = useState({
+    method: 'standard',
+    methodName: 'Standard Delivery',
+    timeSlot: 'any',
+    slotLabel: 'Any Time',
+    date: null,
+    cost: 0,
+    zone: 'national',
+    freeShipping: false,
+  });
+  
+  // Use saved address state
+  const [useSavedAddress, setUseSavedAddress] = useState(false);
+  const [selectedAddress, setSelectedAddress] = useState(null);
 
   const [shippingInfo, setShippingInfo] = useState({
     fullName: user?.name || '',
@@ -182,14 +199,33 @@ const CheckoutPage = () => {
   }, [isAuthenticated, items, navigate]);
 
   const subtotal = items?.reduce((sum, item) => sum + (item.price * item.quantity), 0) || 0;
-  const shipping = subtotal > 100 ? 0 : 15;
+  const shipping = shippingOptions.cost || (subtotal > 100 ? 0 : 15);
   const tax = subtotal * 0.1;
   const total = subtotal + shipping + tax;
 
+  // Handle saved address selection
+  const handleAddressSelect = (address) => {
+    setSelectedAddress(address);
+    setShippingInfo({
+      ...shippingInfo,
+      address: address.street,
+      city: address.city,
+      state: address.state,
+      zipCode: address.zipCode,
+      country: address.country || 'Pakistan',
+    });
+  };
+
+  // Handle shipping options change from ShippingCalculator
+  const handleShippingOptionsChange = (options) => {
+    setShippingOptions(options);
+  };
+
   const steps = [
     { id: 1, name: 'Shipping', icon: FiMapPin },
-    { id: 2, name: 'Payment', icon: FiCreditCard },
-    { id: 3, name: 'Review', icon: FiCheck },
+    { id: 2, name: 'Delivery', icon: FiTruck },
+    { id: 3, name: 'Payment', icon: FiCreditCard },
+    { id: 4, name: 'Review', icon: FiCheck },
   ];
 
   const handleShippingSubmit = (e) => {
@@ -210,7 +246,12 @@ const CheckoutPage = () => {
       return;
     }
     
-    setCurrentStep(2);
+    setCurrentStep(2); // Go to Delivery step
+  };
+
+  const handleDeliverySubmit = (e) => {
+    e.preventDefault();
+    setCurrentStep(3); // Go to Payment step
   };
 
   const handlePaymentSubmit = (e) => {
@@ -218,7 +259,7 @@ const CheckoutPage = () => {
     
     // If COD, skip card validation
     if (paymentMethod === 'cod') {
-      setCurrentStep(3);
+      setCurrentStep(4); // Go to Review step
       return;
     }
     
@@ -237,7 +278,7 @@ const CheckoutPage = () => {
       return;
     }
     
-    setCurrentStep(3);
+    setCurrentStep(4); // Go to Review step
   };
 
   const handlePlaceOrder = async () => {
@@ -281,7 +322,22 @@ const CheckoutPage = () => {
             state: shippingInfo.state || 'N/A',
             country: shippingInfo.country || 'Pakistan',
             zipCode: shippingInfo.zipCode || '00000'
-          }
+          },
+          savedAddressId: selectedAddress?._id || null,
+        },
+        deliveryTimeSlot: {
+          date: shippingOptions.date,
+          slot: shippingOptions.timeSlot,
+          slotLabel: shippingOptions.slotLabel,
+        },
+        shippingMethod: {
+          type: shippingOptions.method,
+          name: shippingOptions.methodName,
+          cost: shippingOptions.cost,
+        },
+        shippingZone: {
+          zone: shippingOptions.zone,
+          city: shippingInfo.city,
         },
         paymentInfo: {
           method: paymentMethod === 'cod' ? 'cash' : 'card',
@@ -529,14 +585,52 @@ const CheckoutPage = () => {
                       </div>
 
                       <Button type="submit" variant="3d" fullWidth icon={FiChevronRight}>
-                        Continue to Payment
+                        Continue to Delivery Options
                       </Button>
                     </form>
                   </motion.div>
                 )}
 
-                {/* Step 2: Payment Information */}
+                {/* Step 2: Delivery Options */}
                 {currentStep === 2 && (
+                  <motion.div
+                    key="delivery"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 20 }}
+                    className="glass-card p-8 rounded-2xl"
+                  >
+                    <h2 className="text-3xl font-bold gradient-text mb-6" style={{ fontFamily: 'Orbitron, sans-serif' }}>
+                      <FiTruck className="inline mr-3" />
+                      Delivery Options
+                    </h2>
+                    
+                    <form onSubmit={handleDeliverySubmit} className="space-y-6">
+                      {/* Shipping Calculator */}
+                      <ShippingCalculator
+                        city={shippingInfo.city}
+                        country={shippingInfo.country}
+                        cartTotal={subtotal}
+                        onShippingChange={handleShippingOptionsChange}
+                        selectedMethod={shippingOptions.method}
+                        selectedSlot={shippingOptions.timeSlot}
+                        selectedDate={shippingOptions.date}
+                      />
+                      
+                      <div className="flex gap-4 pt-4">
+                        <Button variant="glass" onClick={() => setCurrentStep(1)}>
+                          Back
+                        </Button>
+                        <Button type="submit" variant="3d" fullWidth icon={FiChevronRight}>
+                          Continue to Payment
+                        </Button>
+                      </div>
+                    </form>
+                  </motion.div>
+                )}
+
+                {/* Step 3: Payment Information */}
+                {currentStep === 3 && (
                   <motion.div
                     key="payment"
                     initial={{ opacity: 0, x: -20 }}
@@ -692,7 +786,7 @@ const CheckoutPage = () => {
                         </div>
                       )}
                       <div className="flex gap-4">
-                        <Button variant="glass" onClick={() => setCurrentStep(1)}>
+                        <Button variant="glass" onClick={() => setCurrentStep(2)}>
                           Back
                         </Button>
                         <Button type="submit" variant="3d" fullWidth icon={FiChevronRight}>
@@ -703,8 +797,8 @@ const CheckoutPage = () => {
                   </motion.div>
                 )}
 
-                {/* Step 3: Review & Place Order */}
-                {currentStep === 3 && (
+                {/* Step 4: Review & Place Order */}
+                {currentStep === 4 && (
                   <motion.div
                     key="review"
                     initial={{ opacity: 0, x: -20 }}
@@ -734,6 +828,49 @@ const CheckoutPage = () => {
                       </div>
                     </div>
 
+                    {/* Delivery Options Review */}
+                    <div className="glass-card p-6 rounded-2xl">
+                      <div className="flex items-center justify-between mb-4">
+                        <h3 className="text-xl font-bold gradient-text" style={{ fontFamily: 'Orbitron, sans-serif' }}>
+                          <FiTruck className="inline mr-2" />
+                          Delivery Options
+                        </h3>
+                        <button
+                          onClick={() => setCurrentStep(2)}
+                          className="text-cyan-400 hover:text-cyan-300 text-sm font-semibold"
+                        >
+                          Edit
+                        </button>
+                      </div>
+                      <div className="text-purple-300 space-y-2">
+                        <div className="flex items-center gap-3">
+                          <FiTruck className="text-cyan-400" />
+                          <span>{shippingOptions.methodName}</span>
+                          <span className={`px-2 py-0.5 rounded-full text-xs ${
+                            shippingOptions.freeShipping ? 'bg-green-500/20 text-green-400' : 'bg-purple-500/20 text-purple-300'
+                          }`}>
+                            {shippingOptions.freeShipping ? 'FREE' : `Rs. ${shippingOptions.cost}`}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <FiClock className="text-cyan-400" />
+                          <span>{shippingOptions.slotLabel}</span>
+                        </div>
+                        {shippingOptions.date && (
+                          <div className="flex items-center gap-3">
+                            <FiCalendar className="text-cyan-400" />
+                            <span>
+                              {new Date(shippingOptions.date).toLocaleDateString('en-PK', {
+                                weekday: 'long',
+                                month: 'long',
+                                day: 'numeric',
+                              })}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
                     {/* Payment Info Review */}
                     <div className="glass-card p-6 rounded-2xl">
                       <div className="flex items-center justify-between mb-4">
@@ -741,7 +878,7 @@ const CheckoutPage = () => {
                           Payment Method
                         </h3>
                         <button
-                          onClick={() => setCurrentStep(2)}
+                          onClick={() => setCurrentStep(3)}
                           className="text-cyan-400 hover:text-cyan-300 text-sm font-semibold"
                         >
                           Edit
@@ -770,7 +907,7 @@ const CheckoutPage = () => {
 
                     {/* Action Buttons */}
                     <div className="flex gap-4">
-                      <Button variant="glass" onClick={() => setCurrentStep(2)}>
+                      <Button variant="glass" onClick={() => setCurrentStep(3)}>
                         Back
                       </Button>
                       <Button

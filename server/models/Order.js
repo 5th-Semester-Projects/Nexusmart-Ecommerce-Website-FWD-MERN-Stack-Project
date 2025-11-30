@@ -93,6 +93,58 @@ const orderSchema = new mongoose.Schema(
         latitude: Number,
         longitude: Number,
       },
+      // Saved address reference
+      savedAddressId: {
+        type: mongoose.Schema.Types.ObjectId,
+      },
+    },
+
+    // Delivery Time Slot
+    deliveryTimeSlot: {
+      date: {
+        type: Date,
+      },
+      slot: {
+        type: String,
+        enum: ['morning', 'afternoon', 'evening', 'any'],
+        default: 'any',
+      },
+      slotLabel: {
+        type: String, // e.g., "Morning (9AM - 12PM)"
+      },
+    },
+
+    // Shipping Method & Calculator
+    shippingMethod: {
+      type: {
+        type: String,
+        enum: ['standard', 'express', 'same-day', 'pickup'],
+        default: 'standard',
+      },
+      name: {
+        type: String,
+        default: 'Standard Delivery',
+      },
+      estimatedDays: {
+        min: { type: Number, default: 3 },
+        max: { type: Number, default: 7 },
+      },
+      cost: {
+        type: Number,
+        default: 0,
+      },
+    },
+
+    // Area-based shipping zone
+    shippingZone: {
+      zone: {
+        type: String,
+        enum: ['local', 'regional', 'national', 'international'],
+        default: 'national',
+      },
+      city: String,
+      baseRate: Number,
+      additionalRate: Number,
     },
 
     // Payment Information

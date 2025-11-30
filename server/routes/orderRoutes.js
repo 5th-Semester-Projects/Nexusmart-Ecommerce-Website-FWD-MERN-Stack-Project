@@ -11,10 +11,18 @@ import {
   updateTracking,
   getOrderStats,
   deleteOrder,
+  calculateShipping,
+  getShippingMethods,
+  getDeliveryDates,
 } from '../controllers/orderController.js';
 import { isAuthenticatedUser, authorizeRoles } from '../middleware/auth.js';
 
 const router = express.Router();
+
+// Public shipping routes (no auth required)
+router.route('/calculate-shipping').post(calculateShipping);
+router.route('/shipping-methods').get(getShippingMethods);
+router.route('/delivery-dates').get(getDeliveryDates);
 
 // User routes
 router.route('/').post(isAuthenticatedUser, createOrder);

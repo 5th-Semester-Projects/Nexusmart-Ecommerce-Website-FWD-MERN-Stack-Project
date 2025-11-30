@@ -4,6 +4,7 @@ import Cart from '../models/Cart.js';
 import { catchAsyncErrors } from '../middleware/catchAsyncErrors.js';
 import ErrorHandler from '../utils/errorHandler.js';
 import { sendEmail, getOrderConfirmationTemplate } from '../utils/sendEmail.js';
+import shippingService from '../services/shippingService.js';
 
 // @desc    Create new order
 // @route   POST /api/orders
@@ -530,5 +531,60 @@ export const deleteOrder = catchAsyncErrors(async (req, res, next) => {
   res.status(200).json({
     success: true,
     message: 'Order deleted successfully',
+  });
+});
+
+// @desc    Calculate shipping cost
+// @route   POST /api/orders/calculate-shipping
+// @access  Public
+export const calculateShipping = catchAsyncErrors(async (req, res, next) => {
+  const { city, country, cartTotal, cartWeight, shippingMethod, timeSlot } = req.body;
+
+  if (!city) {
+    return next(new ErrorHandler('City is required for shipping calculation', 400));
+  }
+
+  const result = shippingService.calculateShipping({
+    city,
+    country: country || 'Pakistan',
+    cartTotal: cartTotal || 0,
+    cartWeight: cartWeight || 1,
+    shippingMethod: shippingMethod || 'standard',
+    timeSlot: timeSlot || 'any',
+  });
+
+  res.status(200).json({
+    success: true,
+    ...result,
+  });
+});
+
+// @desc    Get available shipping methods
+// @route   GET /api/orders/shipping-methods
+// @access  Public
+export const getShippingMethods = catchAsyncErrors(async (req, res, next) => {
+  const { zone } = req.query;
+
+  const methods = shippingService.getAvailableShippingMethods(zone || 'national');
+  const timeSlots = shippingService.getTimeSlots();
+
+  res.status(200).json({
+    success: true,
+    methods,
+    timeSlots,
+  });
+});
+
+// @desc    Get available delivery dates
+// @route   GET /api/orders/delivery-dates
+// @access  Public
+export const getDeliveryDates = catchAsyncErrors(async (req, res, next) => {
+  const { zone, method } = req.query;
+
+  const dates = shippingService.getAvailableDeliveryDates(zone || 'national', method || 'standard');
+
+  res.status(200).json({
+    success: true,
+    dates,
   });
 });

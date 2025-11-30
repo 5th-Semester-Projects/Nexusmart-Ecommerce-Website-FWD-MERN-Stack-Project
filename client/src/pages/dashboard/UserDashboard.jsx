@@ -1,15 +1,16 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Link, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { Link, Routes, Route, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiUser, FiPackage, FiHeart, FiSettings, FiShoppingBag, FiCreditCard, FiTrash2, FiEye, FiShoppingCart, FiArrowRight, FiCheck, FiClock, FiTruck, FiX, FiCamera, FiUpload, FiSave, FiLock } from 'react-icons/fi';
+import { FiUser, FiPackage, FiHeart, FiSettings, FiShoppingBag, FiCreditCard, FiTrash2, FiEye, FiShoppingCart, FiArrowRight, FiCheck, FiClock, FiTruck, FiX, FiCamera, FiUpload, FiSave, FiLock, FiMapPin, FiNavigation } from 'react-icons/fi';
 import { fetchOrders } from '../../redux/slices/orderSlice';
 import { removeFromWishlist } from '../../redux/slices/wishlistSlice';
 import { addToCart } from '../../redux/slices/cartSlice';
 import { setCredentials } from '../../redux/slices/authSlice';
 import { authAPI } from '../../utils/api';
 import toast from 'react-hot-toast';
+import { OrderTracking, AddressManager } from '../../components/shipping';
 
 // Dashboard Overview Component
 const DashboardOverview = ({ orders, wishlistItems, totalSpent }) => {
@@ -222,8 +223,127 @@ const OrdersPage = ({ orders, loading }) => {
               </p>
             </div>
           )}
+          
+          {/* Track Order Button */}
+          <div className="border-t border-purple-500/20 pt-4 mt-4">
+            <button
+              onClick={() => navigate(`/dashboard/orders/${order._id}`)}
+              className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-cyan-600 to-blue-600 text-white rounded-xl hover:shadow-lg hover:shadow-cyan-500/30 transition-all"
+            >
+              <FiNavigation /> Track Order
+            </button>
+          </div>
         </motion.div>
       ))}
+    </div>
+  );
+};
+
+// Order Detail Page with Tracking
+const OrderDetailPage = ({ orders }) => {
+  const { orderId } = useParams();
+  const navigate = useNavigate();
+  
+  const order = orders?.find(o => o._id === orderId);
+  
+  if (!order) {
+    return (
+      <div className="glass-card p-8 rounded-2xl text-center">
+        <FiPackage className="w-16 h-16 mx-auto text-purple-500/50 mb-4" />
+        <h2 className="text-2xl font-bold text-white mb-2">Order Not Found</h2>
+        <p className="text-purple-300/70 mb-6">The order you're looking for doesn't exist.</p>
+        <button 
+          onClick={() => navigate('/dashboard/orders')}
+          className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl hover:shadow-lg hover:shadow-purple-500/30 transition-all"
+        >
+          <FiArrowRight className="rotate-180" /> Back to Orders
+        </button>
+      </div>
+    );
+  }
+  
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <button
+          onClick={() => navigate('/dashboard/orders')}
+          className="flex items-center gap-2 text-purple-300 hover:text-cyan-400 transition-colors"
+        >
+          <FiArrowRight className="rotate-180" /> Back to Orders
+        </button>
+      </div>
+      
+      {/* Order Tracking Component */}
+      <OrderTracking order={order} showDetails={true} />
+      
+      {/* Order Items */}
+      <div className="glass-card p-6 rounded-2xl">
+        <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+          <FiPackage className="text-cyan-400" />
+          Order Items ({order.orderItems?.length || 0})
+        </h3>
+        <div className="space-y-3">
+          {order.orderItems?.map((item, idx) => (
+            <div key={idx} className="flex items-center gap-4 p-4 bg-purple-900/20 rounded-xl">
+              <img 
+                src={item.image || '/placeholder.jpg'} 
+                alt={item.name}
+                className="w-20 h-20 object-cover rounded-lg"
+              />
+              <div className="flex-1">
+                <p className="text-white font-medium">{item.name}</p>
+                <p className="text-purple-300/50 text-sm">Qty: {item.quantity} × ${item.price?.toFixed(2)}</p>
+              </div>
+              <p className="text-cyan-400 font-bold text-lg">${(item.quantity * item.price)?.toFixed(2)}</p>
+            </div>
+          ))}
+        </div>
+        
+        {/* Order Total */}
+        <div className="mt-4 pt-4 border-t border-purple-500/20 flex justify-end">
+          <div className="text-right">
+            <p className="text-purple-300/50 text-sm">Order Total</p>
+            <p className="text-2xl font-bold text-cyan-400">${(order.pricing?.totalPrice || order.totalPrice || 0).toFixed(2)}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Address Management Page
+const AddressesPage = ({ user, onUserUpdate }) => {
+  const [addresses, setAddresses] = useState(user?.addresses || []);
+  
+  const handleAddressUpdate = async (updatedAddresses) => {
+    try {
+      // Update addresses via API
+      await authAPI.updateProfile({ addresses: updatedAddresses });
+      setAddresses(updatedAddresses);
+      if (onUserUpdate) onUserUpdate();
+      toast.success('Addresses updated!');
+    } catch (error) {
+      toast.error('Failed to update addresses');
+    }
+  };
+  
+  return (
+    <div className="space-y-6">
+      <div className="glass-card p-4 rounded-2xl">
+        <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+          <FiMapPin className="text-cyan-400" />
+          My Addresses
+        </h2>
+      </div>
+      
+      <div className="glass-card p-6 rounded-2xl">
+        <AddressManager
+          addresses={addresses}
+          onAddressUpdate={handleAddressUpdate}
+          mode="manage"
+          showTitle={false}
+        />
+      </div>
     </div>
   );
 };
@@ -662,6 +782,7 @@ const UserDashboard = () => {
   const menuItems = [
     { path: '/dashboard', name: 'Overview', icon: FiUser, end: true },
     { path: '/dashboard/orders', name: 'My Orders', icon: FiPackage, count: orders?.length || 0 },
+    { path: '/dashboard/addresses', name: 'Addresses', icon: FiMapPin, count: user?.addresses?.length || 0 },
     { path: '/dashboard/wishlist', name: 'Wishlist', icon: FiHeart, count: wishlistItems?.length || 0 },
     { path: '/dashboard/settings', name: 'Settings', icon: FiSettings },
   ];
@@ -761,6 +882,12 @@ const UserDashboard = () => {
                 } />
                 <Route path="orders" element={
                   <OrdersPage orders={orders} loading={ordersLoading} />
+                } />
+                <Route path="orders/:orderId" element={
+                  <OrderDetailPage orders={orders} />
+                } />
+                <Route path="addresses" element={
+                  <AddressesPage user={user} onUserUpdate={handleUserUpdate} />
                 } />
                 <Route path="wishlist" element={
                   <WishlistPage wishlistItems={wishlistItems} dispatch={dispatch} />

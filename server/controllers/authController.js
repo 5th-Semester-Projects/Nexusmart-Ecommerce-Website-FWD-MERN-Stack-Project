@@ -494,7 +494,7 @@ export const updatePassword = catchAsyncErrors(async (req, res, next) => {
  * @access Private
  */
 export const updateProfile = catchAsyncErrors(async (req, res, next) => {
-  const { firstName, lastName, phone, dateOfBirth, gender } = req.body;
+  const { firstName, lastName, phone, dateOfBirth, gender, addresses } = req.body;
 
   const updateData = {
     firstName,
@@ -503,6 +503,11 @@ export const updateProfile = catchAsyncErrors(async (req, res, next) => {
     dateOfBirth,
     gender,
   };
+
+  // Handle addresses update if provided
+  if (addresses !== undefined) {
+    updateData.addresses = addresses;
+  }
 
   const user = await User.findByIdAndUpdate(req.user._id, updateData, {
     new: true,

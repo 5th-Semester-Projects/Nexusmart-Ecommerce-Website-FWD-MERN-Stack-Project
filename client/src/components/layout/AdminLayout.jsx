@@ -18,7 +18,7 @@ import {
   FiMoon,
   FiSun,
 } from 'react-icons/fi';
-import { logout } from '../../redux/slices/authSlice';
+import { clearCredentials } from '../../redux/slices/authSlice';
 import toast from 'react-hot-toast';
 
 const menuItems = [
@@ -37,6 +37,7 @@ const AdminLayout = () => {
   const { user } = useSelector((state) => state.auth);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const [isDark, setIsDark] = useState(() => {
     return document.documentElement.classList.contains('dark');
   });
@@ -58,14 +59,17 @@ const AdminLayout = () => {
     localStorage.setItem('theme', isDark ? 'light' : 'dark');
   };
 
-  const handleLogout = async () => {
-    try {
-      await dispatch(logout()).unwrap();
-      toast.success('Logged out successfully');
-      navigate('/login');
-    } catch (error) {
-      toast.error('Logout failed');
-    }
+  const handleLogout = () => {
+    // Clear all auth data
+    dispatch(clearCredentials());
+    // Clear any cached data
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    sessionStorage.clear();
+    toast.success('Logged out successfully');
+    // Navigate and force reload to clear any stale state
+    navigate('/login');
+    window.location.reload();
   };
 
   const getPageTitle = () => {
@@ -231,9 +235,80 @@ const AdminLayout = () => {
               <span className="absolute top-1 right-1 w-2 h-2 bg-gradient-to-r from-pink-500 to-red-500 rounded-full animate-pulse"></span>
             </button>
 
-            {/* Profile */}
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center text-white font-bold cursor-pointer shadow-lg shadow-orange-500/30">
-              {user?.firstName?.[0] || 'A'}
+            {/* Profile Dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => setProfileMenuOpen(!profileMenuOpen)}
+                className="w-10 h-10 rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center text-white font-bold cursor-pointer shadow-lg shadow-orange-500/30 hover:scale-105 transition-transform"
+              >
+                {user?.firstName?.[0] || 'A'}
+              </button>
+              
+              {/* Profile Dropdown Menu */}
+              <AnimatePresence>
+                {profileMenuOpen && (
+                  <>
+                    {/* Backdrop */}
+                    <div 
+                      className="fixed inset-0 z-40" 
+                      onClick={() => setProfileMenuOpen(false)}
+                    />
+                    <motion.div
+                      initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute right-0 top-full mt-2 w-56 z-50
+                               bg-gray-900/95 backdrop-blur-xl border border-purple-500/30 
+                               rounded-xl shadow-2xl shadow-purple-500/20"
+                    >
+                      <div className="p-3 border-b border-purple-500/20">
+                        <p className="font-medium text-white">{user?.firstName} {user?.lastName}</p>
+                        <p className="text-sm text-yellow-400">{user?.email}</p>
+                      </div>
+                      <div className="p-2 space-y-1">
+                        <button
+                          onClick={() => {
+                            setProfileMenuOpen(false);
+                            navigate('/dashboard');
+                          }}
+                          className="flex items-center gap-3 w-full px-4 py-2 rounded-lg
+                                   text-purple-300 hover:text-cyan-400 hover:bg-purple-500/10
+                                   transition-all duration-300"
+                        >
+                          <FiHome className="text-lg" />
+                          <span>Back to Store</span>
+                        </button>
+                        <button
+                          onClick={() => {
+                            setProfileMenuOpen(false);
+                            navigate('/admin/settings');
+                          }}
+                          className="flex items-center gap-3 w-full px-4 py-2 rounded-lg
+                                   text-purple-300 hover:text-cyan-400 hover:bg-purple-500/10
+                                   transition-all duration-300"
+                        >
+                          <FiSettings className="text-lg" />
+                          <span>Settings</span>
+                        </button>
+                        <div className="border-t border-purple-500/20 my-2"></div>
+                        <button
+                          onClick={() => {
+                            setProfileMenuOpen(false);
+                            handleLogout();
+                          }}
+                          className="flex items-center gap-3 w-full px-4 py-2 rounded-lg
+                                   text-red-400 hover:text-red-300 hover:bg-red-500/10
+                                   transition-all duration-300"
+                        >
+                          <FiLogOut className="text-lg" />
+                          <span>Logout</span>
+                        </button>
+                      </div>
+                    </motion.div>
+                  </>
+                )}
+              </AnimatePresence>
             </div>
           </div>
         </header>

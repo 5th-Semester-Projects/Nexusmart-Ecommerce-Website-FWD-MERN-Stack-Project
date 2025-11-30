@@ -15,10 +15,9 @@ import {
   FiChevronRight,
   FiBell,
   FiSearch,
-  FiMoon,
-  FiSun,
 } from 'react-icons/fi';
 import { clearCredentials } from '../../redux/slices/authSlice';
+import ThemeSwitcher from '../common/ThemeSwitcher';
 import toast from 'react-hot-toast';
 
 const menuItems = [
@@ -38,9 +37,6 @@ const AdminLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
-  const [isDark, setIsDark] = useState(() => {
-    return document.documentElement.classList.contains('dark');
-  });
 
   // Check admin access
   useEffect(() => {
@@ -52,12 +48,6 @@ const AdminLayout = () => {
       navigate('/');
     }
   }, [user, navigate]);
-
-  const toggleTheme = () => {
-    setIsDark(!isDark);
-    document.documentElement.classList.toggle('dark');
-    localStorage.setItem('theme', isDark ? 'light' : 'dark');
-  };
 
   const handleLogout = () => {
     // Clear all auth data
@@ -217,17 +207,8 @@ const AdminLayout = () => {
               />
             </div>
 
-            {/* Theme Toggle */}
-            <button
-              onClick={toggleTheme}
-              className="p-2 rounded-xl hover:bg-purple-500/20 border border-purple-500/30 transition-all"
-            >
-              {isDark ? (
-                <FiSun className="w-5 h-5 text-yellow-400" />
-              ) : (
-                <FiMoon className="w-5 h-5 text-purple-300" />
-              )}
-            </button>
+            {/* Theme Switcher */}
+            <ThemeSwitcher variant="dropdown" />
 
             {/* Notifications */}
             <button className="relative p-2 rounded-xl hover:bg-purple-500/20 border border-purple-500/30 transition-all">

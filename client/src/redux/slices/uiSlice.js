@@ -1,13 +1,28 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+// Theme options: 'magical', 'light', 'dark'
+const THEMES = ['magical', 'light', 'dark'];
+
 const getInitialTheme = () => {
   const savedTheme = localStorage.getItem('theme');
-  if (savedTheme) return savedTheme;
+  if (savedTheme && THEMES.includes(savedTheme)) return savedTheme;
+  return 'magical'; // Default to magical theme
+};
 
-  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    return 'dark';
+const applyThemeToDOM = (theme) => {
+  // Remove all theme classes first
+  document.documentElement.classList.remove('theme-magical', 'theme-light', 'theme-dark', 'dark');
+
+  // Add the new theme class
+  document.documentElement.classList.add(`theme-${theme}`);
+
+  // Add 'dark' class for dark and magical themes (for Tailwind dark mode)
+  if (theme === 'dark' || theme === 'magical') {
+    document.documentElement.classList.add('dark');
   }
-  return 'light';
+
+  // Set body data attribute for CSS targeting
+  document.body.setAttribute('data-theme', theme);
 };
 
 const initialState = {
@@ -26,22 +41,20 @@ const uiSlice = createSlice({
   initialState,
   reducers: {
     setTheme: (state, action) => {
-      state.theme = action.payload;
-      localStorage.setItem('theme', action.payload);
-      if (action.payload === 'dark') {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
+      const newTheme = action.payload;
+      if (THEMES.includes(newTheme)) {
+        state.theme = newTheme;
+        localStorage.setItem('theme', newTheme);
+        applyThemeToDOM(newTheme);
       }
     },
     toggleTheme: (state) => {
-      state.theme = state.theme === 'light' ? 'dark' : 'light';
+      // Cycle through themes: magical -> light -> dark -> magical
+      const currentIndex = THEMES.indexOf(state.theme);
+      const nextIndex = (currentIndex + 1) % THEMES.length;
+      state.theme = THEMES[nextIndex];
       localStorage.setItem('theme', state.theme);
-      if (state.theme === 'dark') {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
+      applyThemeToDOM(state.theme);
     },
     toggleSidebar: (state) => {
       state.sidebarOpen = !state.sidebarOpen;

@@ -4,11 +4,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   FiShoppingCart, FiHeart, FiUser, FiSearch, FiMenu, FiX, 
-  FiMoon, FiSun, FiPackage, FiSettings, FiLogOut, FiZap, FiShield 
+  FiPackage, FiSettings, FiLogOut, FiZap, FiShield 
 } from 'react-icons/fi';
-import { toggleTheme, toggleMobileMenu } from '../../redux/slices/uiSlice';
+import { toggleMobileMenu } from '../../redux/slices/uiSlice';
 import { clearCredentials } from '../../redux/slices/authSlice';
 import Button from '../common/Button';
+import ThemeSwitcher from '../common/ThemeSwitcher';
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ const Navbar = () => {
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   
   const { isAuthenticated, user } = useSelector((state) => state?.auth || {});
-  const { theme, mobileMenuOpen } = useSelector((state) => state?.ui || { theme: 'dark' });
+  const { theme, mobileMenuOpen } = useSelector((state) => state?.ui || { theme: 'magical' });
   const { items: cartItems = [] } = useSelector((state) => state?.cart || {});
   const { items: wishlistItems = [] } = useSelector((state) => state?.wishlist || {});
 
@@ -128,17 +129,10 @@ const Navbar = () => {
                 <FiSearch className="text-xl" />
               </motion.button>
 
-              {/* Theme Toggle */}
-              <motion.button
-                whileHover={{ scale: 1.1, rotate: 180 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => dispatch(toggleTheme())}
-                className="hidden md:flex items-center justify-center w-10 h-10 rounded-xl
-                         bg-purple-500/10 hover:bg-purple-500/20 border border-purple-500/30
-                         text-purple-300 hover:text-cyan-400 transition-all duration-300"
-              >
-                {theme === 'light' ? <FiMoon className="text-xl" /> : <FiSun className="text-xl" />}
-              </motion.button>
+              {/* Theme Switcher */}
+              <div className="hidden md:block">
+                <ThemeSwitcher variant="dropdown" />
+              </div>
 
               {/* Wishlist */}
               <Link to="/wishlist">

@@ -53,10 +53,23 @@ function App() {
     cleanAllStorage();
     
     // Apply theme on mount
-    const theme = localStorage.getItem('theme') || 'light';
-    if (theme === 'dark') {
+    const theme = localStorage.getItem('theme') || 'magical';
+    const validThemes = ['magical', 'light', 'dark'];
+    const activeTheme = validThemes.includes(theme) ? theme : 'magical';
+    
+    // Remove all theme classes first
+    document.documentElement.classList.remove('theme-magical', 'theme-light', 'theme-dark', 'dark');
+    
+    // Add theme class
+    document.documentElement.classList.add(`theme-${activeTheme}`);
+    
+    // Add dark class for magical and dark themes
+    if (activeTheme === 'dark' || activeTheme === 'magical') {
       document.documentElement.classList.add('dark');
     }
+    
+    // Set body data attribute
+    document.body.setAttribute('data-theme', activeTheme);
   }, []);
 
   const handleWelcomeComplete = () => {

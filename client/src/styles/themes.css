@@ -1,0 +1,509 @@
+/* ==================== MULTI-THEME SYSTEM ==================== */
+/* 3 Themes: Magical ✨ | Light ☀️ | Dark 🌙 */
+
+/* ==================== THEME CSS VARIABLES ==================== */
+
+/* DEFAULT / MAGICAL THEME ✨ */
+:root,
+.theme-magical {
+  /* Background Colors */
+  --bg-primary: #0a0a1a;
+  --bg-secondary: #0d0d2b;
+  --bg-tertiary: #111133;
+  --bg-card: rgba(15, 15, 35, 0.8);
+  --bg-card-hover: rgba(20, 20, 45, 0.9);
+  --bg-input: rgba(15, 15, 35, 0.6);
+  --bg-navbar: rgba(10, 10, 26, 0.85);
+  --bg-footer: rgba(5, 5, 15, 0.95);
+
+  /* Text Colors */
+  --text-primary: #ffffff;
+  --text-secondary: #c4b5fd;
+  --text-tertiary: #a78bfa;
+  --text-muted: rgba(196, 181, 253, 0.7);
+  --text-inverse: #0a0a1a;
+
+  /* Border Colors */
+  --border-primary: rgba(139, 92, 246, 0.3);
+  --border-secondary: rgba(139, 92, 246, 0.15);
+  --border-hover: rgba(139, 92, 246, 0.5);
+
+  /* Accent Colors */
+  --accent-primary: #8b5cf6;
+  --accent-secondary: #3b82f6;
+  --accent-tertiary: #06b6d4;
+  --accent-gradient: linear-gradient(135deg, #8b5cf6, #3b82f6, #06b6d4);
+
+  /* Button Colors */
+  --btn-primary-bg: linear-gradient(135deg, #8b5cf6, #6366f1);
+  --btn-primary-hover: linear-gradient(135deg, #a78bfa, #818cf8);
+  --btn-primary-text: #ffffff;
+  --btn-secondary-bg: rgba(139, 92, 246, 0.15);
+  --btn-secondary-hover: rgba(139, 92, 246, 0.25);
+  --btn-secondary-text: #c4b5fd;
+
+  /* Glass Effect */
+  --glass-bg: rgba(15, 15, 35, 0.6);
+  --glass-border: rgba(139, 92, 246, 0.2);
+  --glass-shadow: 0 8px 32px rgba(139, 92, 246, 0.15);
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 20px rgba(139, 92, 246, 0.3);
+
+  /* Status Colors */
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --error: #ef4444;
+  --info: #3b82f6;
+
+  /* Show/Hide Theme Elements */
+  --show-stars: block;
+  --show-aurora: block;
+  --show-particles: block;
+}
+
+/* LIGHT THEME ☀️ */
+.theme-light {
+  /* Background Colors */
+  --bg-primary: #f8fafc;
+  --bg-secondary: #f1f5f9;
+  --bg-tertiary: #e2e8f0;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f8fafc;
+  --bg-input: #ffffff;
+  --bg-navbar: rgba(255, 255, 255, 0.9);
+  --bg-footer: #1e293b;
+
+  /* Text Colors */
+  --text-primary: #1e293b;
+  --text-secondary: #475569;
+  --text-tertiary: #64748b;
+  --text-muted: #94a3b8;
+  --text-inverse: #ffffff;
+
+  /* Border Colors */
+  --border-primary: rgba(100, 116, 139, 0.2);
+  --border-secondary: rgba(100, 116, 139, 0.1);
+  --border-hover: rgba(139, 92, 246, 0.4);
+
+  /* Accent Colors */
+  --accent-primary: #7c3aed;
+  --accent-secondary: #2563eb;
+  --accent-tertiary: #0891b2;
+  --accent-gradient: linear-gradient(135deg, #7c3aed, #2563eb, #0891b2);
+
+  /* Button Colors */
+  --btn-primary-bg: linear-gradient(135deg, #7c3aed, #6366f1);
+  --btn-primary-hover: linear-gradient(135deg, #8b5cf6, #818cf8);
+  --btn-primary-text: #ffffff;
+  --btn-secondary-bg: rgba(124, 58, 237, 0.1);
+  --btn-secondary-hover: rgba(124, 58, 237, 0.2);
+  --btn-secondary-text: #7c3aed;
+
+  /* Glass Effect */
+  --glass-bg: rgba(255, 255, 255, 0.8);
+  --glass-border: rgba(100, 116, 139, 0.15);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+  --shadow-glow: 0 0 20px rgba(124, 58, 237, 0.15);
+
+  /* Status Colors */
+  --success: #16a34a;
+  --warning: #d97706;
+  --error: #dc2626;
+  --info: #2563eb;
+
+  /* Hide Theme Elements */
+  --show-stars: none;
+  --show-aurora: none;
+  --show-particles: none;
+}
+
+/* DARK THEME 🌙 */
+.theme-dark {
+  /* Background Colors */
+  --bg-primary: #0f0f0f;
+  --bg-secondary: #171717;
+  --bg-tertiary: #1f1f1f;
+  --bg-card: rgba(23, 23, 23, 0.95);
+  --bg-card-hover: rgba(31, 31, 31, 0.95);
+  --bg-input: rgba(23, 23, 23, 0.8);
+  --bg-navbar: rgba(15, 15, 15, 0.9);
+  --bg-footer: rgba(10, 10, 10, 0.98);
+
+  /* Text Colors */
+  --text-primary: #fafafa;
+  --text-secondary: #a1a1aa;
+  --text-tertiary: #71717a;
+  --text-muted: rgba(161, 161, 170, 0.7);
+  --text-inverse: #0f0f0f;
+
+  /* Border Colors */
+  --border-primary: rgba(63, 63, 70, 0.5);
+  --border-secondary: rgba(63, 63, 70, 0.3);
+  --border-hover: rgba(139, 92, 246, 0.4);
+
+  /* Accent Colors */
+  --accent-primary: #a78bfa;
+  --accent-secondary: #60a5fa;
+  --accent-tertiary: #22d3ee;
+  --accent-gradient: linear-gradient(135deg, #a78bfa, #60a5fa, #22d3ee);
+
+  /* Button Colors */
+  --btn-primary-bg: linear-gradient(135deg, #8b5cf6, #6366f1);
+  --btn-primary-hover: linear-gradient(135deg, #a78bfa, #818cf8);
+  --btn-primary-text: #ffffff;
+  --btn-secondary-bg: rgba(139, 92, 246, 0.15);
+  --btn-secondary-hover: rgba(139, 92, 246, 0.25);
+  --btn-secondary-text: #a78bfa;
+
+  /* Glass Effect */
+  --glass-bg: rgba(23, 23, 23, 0.7);
+  --glass-border: rgba(63, 63, 70, 0.3);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.6);
+  --shadow-glow: 0 0 20px rgba(139, 92, 246, 0.2);
+
+  /* Status Colors */
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --error: #ef4444;
+  --info: #3b82f6;
+
+  /* Hide Theme Elements */
+  --show-stars: none;
+  --show-aurora: none;
+  --show-particles: none;
+}
+
+/* ==================== THEME-SPECIFIC BODY STYLES ==================== */
+
+/* Magical Theme Body */
+.theme-magical body,
+body[data-theme='magical'] {
+  background: linear-gradient(
+    to bottom,
+    var(--bg-primary) 0%,
+    var(--bg-secondary) 20%,
+    var(--bg-tertiary) 40%,
+    var(--bg-secondary) 70%,
+    var(--bg-primary) 100%
+  );
+  color: var(--text-primary);
+  background-attachment: fixed;
+}
+
+/* Light Theme Body */
+.theme-light body,
+body[data-theme='light'] {
+  background: linear-gradient(
+    135deg,
+    var(--bg-primary) 0%,
+    var(--bg-secondary) 50%,
+    var(--bg-tertiary) 100%
+  );
+  color: var(--text-primary);
+  background-attachment: fixed;
+}
+
+/* Dark Theme Body */
+.theme-dark body,
+body[data-theme='dark'] {
+  background: linear-gradient(
+    to bottom,
+    var(--bg-primary) 0%,
+    var(--bg-secondary) 50%,
+    var(--bg-tertiary) 100%
+  );
+  color: var(--text-primary);
+  background-attachment: fixed;
+}
+
+/* ==================== STARS & EFFECTS VISIBILITY ==================== */
+
+/* Stars - Only visible in Magical theme */
+.theme-magical body::before {
+  display: var(--show-stars) !important;
+}
+
+.theme-light body::before,
+.theme-dark body::before {
+  display: none !important;
+}
+
+/* Aurora - Only visible in Magical theme */
+.theme-magical .App::before {
+  display: var(--show-aurora) !important;
+}
+
+.theme-light .App::before,
+.theme-dark .App::before {
+  display: none !important;
+}
+
+/* Particles - Only visible in Magical theme */
+.theme-magical body::after {
+  display: var(--show-particles) !important;
+}
+
+.theme-light body::after,
+.theme-dark body::after {
+  display: none !important;
+}
+
+/* ==================== NAVBAR THEME STYLES ==================== */
+
+/* Light Theme Navbar */
+.theme-light nav,
+.theme-light .navbar {
+  background: var(--bg-navbar) !important;
+  border-color: var(--border-primary) !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+.theme-light nav a,
+.theme-light .navbar a {
+  color: var(--text-secondary) !important;
+}
+
+.theme-light nav a:hover,
+.theme-light .navbar a:hover {
+  color: var(--accent-primary) !important;
+}
+
+/* Dark Theme Navbar */
+.theme-dark nav,
+.theme-dark .navbar {
+  background: var(--bg-navbar) !important;
+  border-color: var(--border-primary) !important;
+}
+
+/* ==================== CARD THEME STYLES ==================== */
+
+/* Light Theme Cards */
+.theme-light .glass,
+.theme-light .glass-card,
+.theme-light .card {
+  background: var(--bg-card) !important;
+  border-color: var(--border-primary) !important;
+  box-shadow: var(--shadow-md) !important;
+  backdrop-filter: blur(10px);
+}
+
+.theme-light .glass:hover,
+.theme-light .glass-card:hover,
+.theme-light .card:hover {
+  background: var(--bg-card-hover) !important;
+  border-color: var(--border-hover) !important;
+  box-shadow: var(--shadow-lg) !important;
+}
+
+/* Dark Theme Cards */
+.theme-dark .glass,
+.theme-dark .glass-card,
+.theme-dark .card {
+  background: var(--bg-card) !important;
+  border-color: var(--border-primary) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+/* ==================== BUTTON THEME STYLES ==================== */
+
+/* Light Theme Buttons */
+.theme-light .btn-neon,
+.theme-light .btn-3d {
+  background: var(--btn-primary-bg) !important;
+  color: var(--btn-primary-text) !important;
+  border-color: transparent !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.theme-light .btn-neon:hover,
+.theme-light .btn-3d:hover {
+  background: var(--btn-primary-hover) !important;
+  box-shadow: var(--shadow-lg), var(--shadow-glow) !important;
+}
+
+/* ==================== INPUT THEME STYLES ==================== */
+
+/* Light Theme Inputs */
+.theme-light input,
+.theme-light textarea,
+.theme-light select {
+  background: var(--bg-input) !important;
+  border-color: var(--border-primary) !important;
+  color: var(--text-primary) !important;
+}
+
+.theme-light input::placeholder,
+.theme-light textarea::placeholder {
+  color: var(--text-muted) !important;
+}
+
+.theme-light input:focus,
+.theme-light textarea:focus,
+.theme-light select:focus {
+  border-color: var(--accent-primary) !important;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15) !important;
+}
+
+/* Dark Theme Inputs */
+.theme-dark input,
+.theme-dark textarea,
+.theme-dark select {
+  background: var(--bg-input) !important;
+  border-color: var(--border-primary) !important;
+  color: var(--text-primary) !important;
+}
+
+.theme-dark input::placeholder,
+.theme-dark textarea::placeholder {
+  color: var(--text-muted) !important;
+}
+
+/* ==================== TEXT COLOR OVERRIDES ==================== */
+
+/* Light Theme Text */
+.theme-light h1,
+.theme-light h2,
+.theme-light h3,
+.theme-light h4,
+.theme-light h5,
+.theme-light h6 {
+  color: var(--text-primary) !important;
+}
+
+.theme-light p,
+.theme-light span,
+.theme-light li {
+  color: var(--text-secondary);
+}
+
+/* Gradient text for all themes */
+.theme-light .gradient-text {
+  background: var(--accent-gradient) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+/* ==================== SCROLLBAR THEME STYLES ==================== */
+
+/* Light Theme Scrollbar */
+.theme-light ::-webkit-scrollbar-track {
+  background: var(--bg-secondary) !important;
+}
+
+.theme-light ::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    var(--accent-primary),
+    var(--accent-secondary)
+  ) !important;
+}
+
+/* Dark Theme Scrollbar */
+.theme-dark ::-webkit-scrollbar-track {
+  background: var(--bg-secondary) !important;
+}
+
+.theme-dark ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #3f3f46, #52525b) !important;
+}
+
+.theme-dark ::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #52525b, #71717a) !important;
+}
+
+/* ==================== FOOTER THEME STYLES ==================== */
+
+/* Light Theme Footer */
+.theme-light footer {
+  background: var(--bg-footer) !important;
+  color: var(--text-inverse) !important;
+}
+
+.theme-light footer a {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.theme-light footer a:hover {
+  color: var(--accent-tertiary) !important;
+}
+
+/* ==================== DROPDOWN & MODAL THEME STYLES ==================== */
+
+/* Light Theme Dropdowns */
+.theme-light [class*='dropdown'],
+.theme-light [class*='menu'] {
+  background: var(--bg-card) !important;
+  border-color: var(--border-primary) !important;
+  box-shadow: var(--shadow-lg) !important;
+}
+
+/* Light Theme Modals */
+.theme-light [class*='modal'] {
+  background: var(--bg-card) !important;
+}
+
+/* ==================== ADMIN PANEL THEME STYLES ==================== */
+
+/* Light Theme Admin */
+.theme-light aside,
+.theme-light .sidebar {
+  background: var(--bg-card) !important;
+  border-color: var(--border-primary) !important;
+}
+
+.theme-light .admin-card {
+  background: var(--bg-card) !important;
+}
+
+/* ==================== PRODUCT CARD THEME STYLES ==================== */
+
+/* Light Theme Product Cards */
+.theme-light .product-card {
+  background: var(--bg-card) !important;
+  border-color: var(--border-secondary) !important;
+}
+
+.theme-light .product-card:hover {
+  border-color: var(--border-hover) !important;
+  box-shadow: var(--shadow-lg), var(--shadow-glow) !important;
+}
+
+/* ==================== BADGE & TAG THEME STYLES ==================== */
+
+/* Light Theme Badges */
+.theme-light .badge {
+  background: var(--btn-secondary-bg) !important;
+  color: var(--btn-secondary-text) !important;
+}
+
+/* ==================== SPECIAL ELEMENTS ==================== */
+
+/* Neon Card Light Theme */
+.theme-light .neon-card {
+  background: var(--bg-card) !important;
+  border-color: var(--border-primary) !important;
+}
+
+.theme-light .neon-card::before {
+  opacity: 0.3 !important;
+}
+
+/* Holographic Effect - Reduce in Light Theme */
+.theme-light .holographic {
+  opacity: 0.6;
+}

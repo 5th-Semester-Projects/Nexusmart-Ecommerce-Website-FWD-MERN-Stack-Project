@@ -340,7 +340,7 @@ const CheckoutPage = () => {
           city: shippingInfo.city,
         },
         paymentInfo: {
-          method: paymentMethod === 'cod' ? 'cash' : 'card',
+          method: paymentMethod === 'cod' ? 'cod' : 'card',
           provider: paymentMethod === 'cod' ? 'cod' : 'stripe',
           transactionId: paymentMethod === 'cod' ? `cod_${Date.now()}` : `txn_${Date.now()}`,
           status: paymentMethod === 'cod' ? 'pending' : 'completed'

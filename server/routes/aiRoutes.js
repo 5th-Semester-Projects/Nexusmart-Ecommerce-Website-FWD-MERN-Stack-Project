@@ -4,10 +4,8 @@ import {
   getChatHistory,
   rateChatSession,
   visualSearch,
-  getPriceHistory,
   getPricePrediction,
   getRecommendations,
-  getPersonalizedDeals,
   createPriceAlert,
   getPriceAlerts,
   deletePriceAlert,
@@ -25,12 +23,10 @@ router.post('/chat/:sessionId/rate', rateChatSession);
 router.post('/visual-search', optionalAuth, visualSearch);
 
 // Price Features
-router.get('/price-history/:productId', getPriceHistory);
 router.get('/price-prediction/:productId', getPricePrediction);
 
 // Recommendations
 router.get('/recommendations', optionalAuth, getRecommendations);
-router.get('/personalized-deals', isAuthenticated, getPersonalizedDeals);
 
 // Price Alerts
 router.post('/price-alerts', isAuthenticated, createPriceAlert);

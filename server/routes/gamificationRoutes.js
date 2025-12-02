@@ -4,17 +4,13 @@ import {
   earnPoints,
   redeemPoints,
   getAchievements,
-  getUserAchievements,
   claimAchievement,
-  checkAchievementProgress,
+  checkAchievements,
   getSpinWheel,
   spinWheel,
   claimSpinPrize,
-  getSpinHistory,
-  createReferralCode,
+  getReferralInfo,
   applyReferralCode,
-  getReferralStats,
-  getGamificationSettings,
   updateGamificationSettings,
   getLeaderboard,
 } from '../controllers/gamificationController.js';
@@ -31,28 +27,25 @@ router.post('/redeem-points', isAuthenticated, redeemPoints);
 
 // Achievements Routes
 router.get('/achievements', getAchievements);
-router.get('/achievements/user', isAuthenticated, getUserAchievements);
+router.get('/achievements/user', isAuthenticated, getAchievements);
 router.post('/achievements/:id/claim', isAuthenticated, claimAchievement);
-router.post('/achievements/check', isAuthenticated, checkAchievementProgress);
 
 // Spin Wheel Routes
 router.get('/spin', isAuthenticated, getSpinWheel);
 router.post('/spin', isAuthenticated, spinWheel);
 router.post('/spin-wheel', isAuthenticated, spinWheel);
 router.post('/spin/:id/claim', isAuthenticated, claimSpinPrize);
-router.get('/spin/history', isAuthenticated, getSpinHistory);
 
 // Referral Routes
-router.post('/referral/create', isAuthenticated, createReferralCode);
+router.get('/referral', isAuthenticated, getReferralInfo);
 router.post('/referral/apply', isAuthenticated, applyReferralCode);
-router.get('/referral/stats', isAuthenticated, getReferralStats);
-router.get('/referral-stats', isAuthenticated, getReferralStats);
+router.get('/referral/stats', isAuthenticated, getReferralInfo);
+router.get('/referral-stats', isAuthenticated, getReferralInfo);
 
 // Leaderboard
 router.get('/leaderboard', getLeaderboard);
 
 // Admin Routes
-router.get('/settings', isAuthenticated, authorizeRoles('admin'), getGamificationSettings);
 router.put('/settings', isAuthenticated, authorizeRoles('admin'), updateGamificationSettings);
 
 export default router;

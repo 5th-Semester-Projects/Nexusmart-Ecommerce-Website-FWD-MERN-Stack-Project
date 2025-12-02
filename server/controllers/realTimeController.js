@@ -10,7 +10,7 @@ import Order from '../models/Order.js';
 import Product from '../models/Product.js';
 import User from '../models/User.js';
 import { catchAsyncErrors } from '../middleware/catchAsyncErrors.js';
-import { ErrorHandler } from '../utils/errorHandler.js';
+import ErrorHandler from '../utils/errorHandler.js';
 
 // ==================== LIVE CHAT SUPPORT ====================
 

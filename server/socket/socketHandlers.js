@@ -26,6 +26,86 @@ export const setupSocketHandlers = (io) => {
       console.log(`📦 Joined product room: ${productId}`);
     });
 
+    // View product - for live viewer count
+    socket.on('view-product', (data) => {
+      const { productId } = data;
+      socket.join(`viewers_${productId}`);
+
+      // Count viewers
+      const room = io.sockets.adapter.rooms.get(`viewers_${productId}`);
+      const viewerCount = room ? room.size : 1;
+
+      // Emit viewer count to all in room
+      io.to(`viewers_${productId}`).emit('viewer-count', { count: viewerCount });
+      console.log(`👁️ Product ${productId} now has ${viewerCount} viewers`);
+    });
+
+    // Leave product view
+    socket.on('leave-product', (data) => {
+      const { productId } = data;
+      socket.leave(`viewers_${productId}`);
+
+      const room = io.sockets.adapter.rooms.get(`viewers_${productId}`);
+      const viewerCount = room ? room.size : 0;
+      io.to(`viewers_${productId}`).emit('viewer-count', { count: viewerCount });
+    });
+
+    // Track order
+    socket.on('track-order', (data) => {
+      const { orderId } = data;
+      socket.join(`tracking_${orderId}`);
+      console.log(`🚚 Tracking order: ${orderId}`);
+    });
+
+    /**
+     * LIVE CHAT SUPPORT EVENTS
+     */
+
+    // Join support chat
+    socket.on('join-chat', (data) => {
+      const { userId, userName, chatType } = data;
+      socket.join(`chat_${userId}`);
+      socket.userData = { userId, userName };
+      console.log(`💬 ${userName} joined support chat`);
+
+      // Notify admins
+      io.to('admin_room').emit('support-chat-joined', {
+        userId,
+        userName,
+        timestamp: new Date()
+      });
+    });
+
+    // Send message in support chat
+    socket.on('send-message', (data) => {
+      const { userId, message, chatType } = data;
+
+      // Send to admins
+      io.to('admin_room').emit('support-message', {
+        userId,
+        userName: socket.userData?.userName || 'Guest',
+        message,
+        timestamp: new Date()
+      });
+    });
+
+    // Admin reply to support
+    socket.on('admin-reply', (data) => {
+      const { userId, message } = data;
+
+      io.to(`chat_${userId}`).emit('receive-message', {
+        sender: 'agent',
+        text: message,
+        time: new Date()
+      });
+    });
+
+    // Agent typing indicator
+    socket.on('agent-typing-start', (data) => {
+      const { userId } = data;
+      io.to(`chat_${userId}`).emit('agent-typing');
+    });
+
     /**
      * CHAT EVENTS
      */

@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { 
   FiHeart, FiShoppingCart, FiStar, FiTruck, FiShield, FiRotateCcw, 
   FiChevronLeft, FiChevronRight, FiZoomIn, FiShare2, FiCheck, FiX,
-  FiPackage, FiAward, FiCreditCard, FiLock
+  FiPackage, FiAward, FiCreditCard, FiLock, FiMessageCircle
 } from 'react-icons/fi';
 import { fetchProductById } from '../redux/slices/productSlice';
 import { addItemToCart } from '../redux/slices/cartSlice';
@@ -15,7 +15,19 @@ import Button from '../components/common/Button';
 import { PageLoader } from '../components/common/Loader';
 import toast from 'react-hot-toast';
 import { mockProducts } from '../utils/mockData';
-// Removed Enhanced3DBackground for performance optimization
+
+// New Feature Components
+import { 
+  RecentlyViewed, 
+  ProductImageZoom, 
+  SizeGuide, 
+  StockAlerts, 
+  ProductQA, 
+  EnhancedReviews 
+} from '../components/products';
+import { SocialShare } from '../components/social';
+import { LiveViewerCount } from '../components/realtime';
+import { PriceHistoryChart } from '../components/analytics';
 
 const ProductDetailPage = () => {
   const { id } = useParams();
@@ -31,6 +43,10 @@ const ProductDetailPage = () => {
   const [activeTab, setActiveTab] = useState('description');
   const [showImageModal, setShowImageModal] = useState(false);
   const [rotation, setRotation] = useState({ x: 0, y: 0 });
+  const [showSizeGuide, setShowSizeGuide] = useState(false);
+  const [showStockAlert, setShowStockAlert] = useState(false);
+  const [showSocialShare, setShowSocialShare] = useState(false);
+  const [showImageZoom, setShowImageZoom] = useState(false);
 
   // Create 3 images for display
   const displayImages = [
@@ -236,7 +252,7 @@ const ProductDetailPage = () => {
 
                 {/* Zoom Button */}
                 <button
-                  onClick={() => setShowImageModal(true)}
+                  onClick={() => setShowImageZoom(true)}
                   className="absolute bottom-8 right-8 z-20 p-4 bg-gray-900/80 hover:bg-gray-900
                            border-2 border-purple-500/30 hover:border-cyan-500
                            rounded-xl text-purple-300 hover:text-cyan-400
@@ -301,6 +317,9 @@ const ProductDetailPage = () => {
                   {product.rating || 4.5} ({product.reviews || 0} reviews)
                 </span>
               </div>
+
+              {/* Live Viewer Count */}
+              <LiveViewerCount productId={product._id} />
 
               {/* Price */}
               <div className="flex items-baseline space-x-4">
@@ -401,12 +420,38 @@ const ProductDetailPage = () => {
                 <Button
                   variant="glass"
                   fullWidth
-                  onClick={handleShare}
+                  onClick={() => setShowSocialShare(true)}
                   icon={FiShare2}
                 >
                   Share
                 </Button>
               </div>
+
+              {/* Size Guide Button (for clothing/shoes) */}
+              {['clothing', 'shoes', 'fashion'].some(cat => 
+                (typeof product.category === 'string' ? product.category : product.category?.name || '')
+                  .toLowerCase().includes(cat)
+              ) && (
+                <Button
+                  variant="glass"
+                  fullWidth
+                  onClick={() => setShowSizeGuide(true)}
+                >
+                  📏 View Size Guide
+                </Button>
+              )}
+
+              {/* Stock Alert for Out of Stock */}
+              {product.stock === 0 && (
+                <Button
+                  variant="neon"
+                  fullWidth
+                  onClick={() => setShowStockAlert(true)}
+                  icon={FiMessageCircle}
+                >
+                  🔔 Notify When Available
+                </Button>
+              )}
 
               {/* Features */}
               <div className="glass-card p-6 rounded-2xl">
@@ -444,7 +489,7 @@ const ProductDetailPage = () => {
             <div className="glass-card rounded-3xl overflow-hidden">
               {/* Tab Headers */}
               <div className="flex border-b border-purple-500/20 relative z-20">
-                {['description', 'specifications', 'reviews'].map((tab) => (
+                {['description', 'specifications', 'reviews', 'q&a'].map((tab) => (
                   <button
                     key={tab}
                     onClick={() => setActiveTab(tab)}
@@ -455,7 +500,7 @@ const ProductDetailPage = () => {
                     }`}
                     style={{ pointerEvents: 'auto' }}
                   >
-                    {tab}
+                    {tab === 'q&a' ? 'Q&A' : tab}
                   </button>
                 ))}
               </div>
@@ -508,13 +553,43 @@ const ProductDetailPage = () => {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -20 }}
                     >
-                      <h3 className="text-2xl font-bold gradient-text mb-4">Customer Reviews</h3>
-                      <p className="text-purple-300/70">No reviews yet. Be the first to review this product!</p>
+                      <EnhancedReviews productId={product._id} />
+                    </motion.div>
+                  )}
+
+                  {activeTab === 'q&a' && (
+                    <motion.div
+                      key="qa"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -20 }}
+                    >
+                      <ProductQA productId={product._id} productName={product.name} />
                     </motion.div>
                   )}
                 </AnimatePresence>
               </div>
             </div>
+          </motion.div>
+
+          {/* Recently Viewed Products */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="mt-16"
+          >
+            <RecentlyViewed currentProductId={product._id} />
+          </motion.div>
+
+          {/* Price History Chart */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="mt-8 max-w-xl"
+          >
+            <PriceHistoryChart productId={product._id} currentPrice={product.price} />
           </motion.div>
         </div>
       </div>
@@ -541,6 +616,37 @@ const ProductDetailPage = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Size Guide Modal */}
+      <SizeGuide 
+        isOpen={showSizeGuide} 
+        onClose={() => setShowSizeGuide(false)}
+        category={typeof product.category === 'string' ? product.category : product.category?.name}
+      />
+
+      {/* Stock Alert Modal */}
+      <StockAlerts
+        isOpen={showStockAlert}
+        onClose={() => setShowStockAlert(false)}
+        productId={product._id}
+        productName={product.name}
+      />
+
+      {/* Social Share Modal */}
+      <SocialShare
+        isOpen={showSocialShare}
+        onClose={() => setShowSocialShare(false)}
+        product={product}
+      />
+
+      {/* Image Zoom Modal */}
+      <ProductImageZoom
+        isOpen={showImageZoom}
+        onClose={() => setShowImageZoom(false)}
+        images={displayImages}
+        productName={product.name}
+        initialIndex={selectedImage}
+      />
     </>
   );
 };

@@ -31,6 +31,16 @@ import categoryRoutes from './routes/categoryRoutes.js';
 import reviewRoutes from './routes/reviewRoutes.js';
 import paymentRoutes from './routes/paymentRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
+import couponRoutes from './routes/couponRoutes.js';
+import stockAlertRoutes from './routes/stockAlertRoutes.js';
+import questionRoutes from './routes/questionRoutes.js';
+import newsletterRoutes from './routes/newsletterRoutes.js';
+import notificationRoutes from './routes/notificationRoutes.js';
+import securityRoutes from './routes/securityRoutes.js';
+import gamificationRoutes from './routes/gamificationRoutes.js';
+import aiRoutes from './routes/aiRoutes.js';
+import analyticsRoutes from './routes/analyticsRoutes.js';
+import realTimeRoutes from './routes/realTimeRoutes.js';
 
 // Initialize express app
 const app = express();
@@ -164,6 +174,16 @@ app.use('/api/categories', categoryRoutes);
 app.use('/api/reviews', reviewRoutes);
 app.use('/api/payments', paymentRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/coupons', couponRoutes);
+app.use('/api/stock-alerts', stockAlertRoutes);
+app.use('/api/questions', questionRoutes);
+app.use('/api/newsletter', newsletterRoutes);
+app.use('/api/notifications', notificationRoutes);
+app.use('/api/security', securityRoutes);
+app.use('/api/v1/gamification', gamificationRoutes);
+app.use('/api/v1/ai', aiRoutes);
+app.use('/api/v1/analytics', analyticsRoutes);
+app.use('/api/v1/realtime', realTimeRoutes);
 
 // Setup Socket.IO event handlers
 setupSocketHandlers(io);

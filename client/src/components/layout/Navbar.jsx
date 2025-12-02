@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   FiShoppingCart, FiHeart, FiUser, FiSearch, FiMenu, FiX, 
-  FiPackage, FiSettings, FiLogOut, FiZap, FiShield 
+  FiPackage, FiSettings, FiLogOut, FiZap, FiShield, FiBell 
 } from 'react-icons/fi';
 import { toggleMobileMenu } from '../../redux/slices/uiSlice';
 import { clearCredentials } from '../../redux/slices/authSlice';
 import Button from '../common/Button';
 import ThemeSwitcher from '../common/ThemeSwitcher';
+import { NotificationsCenter } from '../notifications';
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -17,6 +18,8 @@ const Navbar = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [unreadCount, setUnreadCount] = useState(0);
   
   const { isAuthenticated, user } = useSelector((state) => state?.auth || {});
   const { theme, mobileMenuOpen } = useSelector((state) => state?.ui || { theme: 'magical' });
@@ -112,6 +115,14 @@ const Navbar = () => {
                 Deals
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-cyan-500 group-hover:w-full transition-all duration-300"></span>
               </Link>
+
+              <Link
+                to="/rewards"
+                className="text-purple-300 hover:text-cyan-400 transition-colors duration-300 font-medium relative group flex items-center gap-1"
+              >
+                <span className="text-yellow-400">🎮</span> Rewards
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-yellow-500 to-orange-500 group-hover:w-full transition-all duration-300"></span>
+              </Link>
             </div>
 
             {/* Right Side Actions */}
@@ -157,6 +168,40 @@ const Navbar = () => {
                   )}
                 </motion.div>
               </Link>
+
+              {/* Notifications Bell */}
+              {isAuthenticated && (
+                <div className="relative">
+                  <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => setNotificationsOpen(!notificationsOpen)}
+                    className="relative flex items-center justify-center w-10 h-10 rounded-xl
+                             bg-purple-500/10 hover:bg-purple-500/20 border border-purple-500/30
+                             text-purple-300 hover:text-cyan-400 transition-all duration-300"
+                  >
+                    <FiBell className="text-xl" />
+                    {unreadCount > 0 && (
+                      <motion.span
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        className="absolute -top-1 -right-1 w-5 h-5 bg-gradient-to-br from-cyan-500 to-blue-500 
+                                 text-white text-xs rounded-full flex items-center justify-center font-bold
+                                 shadow-lg shadow-cyan-500/50"
+                      >
+                        {unreadCount > 9 ? '9+' : unreadCount}
+                      </motion.span>
+                    )}
+                  </motion.button>
+
+                  {/* Notifications Dropdown */}
+                  <NotificationsCenter 
+                    isOpen={notificationsOpen} 
+                    onClose={() => setNotificationsOpen(false)}
+                    onUnreadCountChange={setUnreadCount}
+                  />
+                </div>
+              )}
 
               {/* Cart */}
               <Link to="/cart">

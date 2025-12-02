@@ -208,5 +208,106 @@ export const analyticsAPI = {
   getStats: () => api.get('/analytics/stats'),
 };
 
+// =============== COUPONS API ===============
+export const couponsAPI = {
+  // Public
+  getPublic: () => api.get('/coupons/public'),
+  validate: (code, cartTotal) => api.post('/coupons/validate', { code, cartTotal }),
+  // User
+  apply: (code, cartTotal) => api.post('/coupons/apply', { code, cartTotal }),
+  getMyHistory: () => api.get('/coupons/my-history'),
+  // Admin
+  getAll: (params) => api.get('/coupons/admin', { params }),
+  getById: (id) => api.get(`/coupons/admin/${id}`),
+  create: (couponData) => api.post('/coupons/admin', couponData),
+  update: (id, couponData) => api.put(`/coupons/admin/${id}`, couponData),
+  delete: (id) => api.delete(`/coupons/admin/${id}`),
+  getStats: () => api.get('/coupons/admin/stats'),
+};
+
+// =============== STOCK ALERTS API ===============
+export const stockAlertsAPI = {
+  // User
+  subscribe: (productId, email) => api.post('/stock-alerts', { productId, email }),
+  getMyAlerts: () => api.get('/stock-alerts/my-alerts'),
+  checkSubscription: (productId) => api.get(`/stock-alerts/check/${productId}`),
+  unsubscribe: (alertId) => api.delete(`/stock-alerts/${alertId}`),
+  // Admin
+  getAll: (params) => api.get('/stock-alerts/admin/all', { params }),
+  getPopular: () => api.get('/stock-alerts/admin/popular'),
+  notifySubscribers: (productId) => api.post(`/stock-alerts/admin/notify/${productId}`),
+  cleanup: (daysOld) => api.delete('/stock-alerts/admin/cleanup', { params: { daysOld } }),
+};
+
+// =============== QUESTIONS API ===============
+export const questionsAPI = {
+  // Public
+  getProductQuestions: (productId, params) => api.get(`/questions/product/${productId}`, { params }),
+  // User
+  ask: (productId, question) => api.post('/questions', { productId, question }),
+  answer: (questionId, answer) => api.post(`/questions/${questionId}/answer`, { answer }),
+  voteQuestion: (questionId, voteType) => api.post(`/questions/${questionId}/vote`, { voteType }),
+  voteAnswer: (questionId, answerId, voteType) =>
+    api.post(`/questions/${questionId}/answer/${answerId}/vote`, { voteType }),
+  getMyQuestions: () => api.get('/questions/my-questions'),
+  deleteQuestion: (questionId) => api.delete(`/questions/${questionId}`),
+  // Admin
+  getAllQuestions: (params) => api.get('/questions/admin/all', { params }),
+  updateStatus: (questionId, status) => api.patch(`/questions/admin/${questionId}/status`, { status }),
+  getQAStats: () => api.get('/questions/admin/stats'),
+};
+
+// =============== NEWSLETTER API ===============
+export const newsletterAPI = {
+  // Public
+  subscribe: (email, name, preferences) => api.post('/newsletter/subscribe', { email, name, preferences }),
+  confirm: (token) => api.get(`/newsletter/confirm/${token}`),
+  unsubscribe: (email, token) => api.post('/newsletter/unsubscribe', { email, token }),
+  // User
+  getStatus: () => api.get('/newsletter/status'),
+  updatePreferences: (preferences) => api.patch('/newsletter/preferences', { preferences }),
+  // Admin
+  getSubscribers: (params) => api.get('/newsletter/admin/subscribers', { params }),
+  getStats: () => api.get('/newsletter/admin/stats'),
+  exportSubscribers: (params) => api.get('/newsletter/admin/export', { params }),
+  sendNewsletter: (data) => api.post('/newsletter/admin/send', data),
+  deleteSubscriber: (subscriberId) => api.delete(`/newsletter/admin/${subscriberId}`),
+};
+
+// =============== NOTIFICATIONS API ===============
+export const notificationsAPI = {
+  // User
+  getAll: (params) => api.get('/notifications', { params }),
+  getUnreadCount: () => api.get('/notifications/unread-count'),
+  markAsRead: (notificationId) => api.patch(`/notifications/${notificationId}/read`),
+  markAllAsRead: () => api.patch('/notifications/read-all'),
+  delete: (notificationId) => api.delete(`/notifications/${notificationId}`),
+  clearRead: () => api.delete('/notifications/clear-read'),
+  getPreferences: () => api.get('/notifications/preferences'),
+  updatePreferences: (preferences) => api.patch('/notifications/preferences', { preferences }),
+  // Admin
+  send: (data) => api.post('/notifications/admin/send', data),
+  getStats: () => api.get('/notifications/admin/stats'),
+  cleanup: (daysOld) => api.delete('/notifications/admin/cleanup', { params: { daysOld } }),
+};
+
+// =============== SECURITY API ===============
+export const securityAPI = {
+  // 2FA
+  get2FAStatus: () => api.get('/security/2fa/status'),
+  setup2FA: (method, phoneNumber) => api.post('/security/2fa/setup', { method, phoneNumber }),
+  verify2FA: (code) => api.post('/security/2fa/verify', { code }),
+  disable2FA: (password, code) => api.post('/security/2fa/disable', { password, code }),
+  generateBackupCodes: (password) => api.post('/security/2fa/backup-codes', { password }),
+  getTrustedDevices: () => api.get('/security/2fa/trusted-devices'),
+  removeTrustedDevice: (deviceId) => api.delete(`/security/2fa/trusted-devices/${deviceId}`),
+  // Login History & Sessions
+  getLoginHistory: (params) => api.get('/security/login-history', { params }),
+  getActiveSessions: () => api.get('/security/sessions'),
+  terminateSession: (sessionId) => api.delete(`/security/sessions/${sessionId}`),
+  terminateAllSessions: () => api.delete('/security/sessions'),
+  checkSuspiciousActivity: () => api.get('/security/suspicious-activity'),
+};
+
 // Export configured axios instance as default
 export default api;

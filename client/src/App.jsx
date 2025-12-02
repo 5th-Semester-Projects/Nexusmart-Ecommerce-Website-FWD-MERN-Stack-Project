@@ -20,6 +20,9 @@ import ProductComparisonModal, {
   CompareFloatingButton 
 } from './components/products/ProductComparison';
 
+// Real-time Features
+import { LiveChatSupport } from './components/realtime';
+
 // Layout Components - Import directly
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
@@ -38,8 +41,11 @@ const OrderConfirmationPage = lazy(() => import('./pages/OrderConfirmationPage')
 const LoginPage = lazy(() => import('./pages/auth/LoginPage'));
 const RegisterPage = lazy(() => import('./pages/auth/RegisterPage'));
 const UserDashboard = lazy(() => import('./pages/dashboard/UserDashboard'));
+const SecuritySettingsPage = lazy(() => import('./pages/SecuritySettingsPage'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 const TestAPIPage = lazy(() => import('./pages/TestAPIPage'));
+const GamificationPage = lazy(() => import('./pages/GamificationPage'));
+const AnalyticsPage = lazy(() => import('./pages/AnalyticsPage'));
 
 // Admin Pages
 const AdminDashboardPage = lazy(() => import('./pages/admin/AdminDashboardPage'));
@@ -134,6 +140,8 @@ function App() {
                     <Route path="/wishlist" element={<WishlistPage />} />
                     <Route path="/categories" element={<CategoriesPage />} />
                     <Route path="/deals" element={<DealsPage />} />
+                    <Route path="/rewards" element={<GamificationPage />} />
+                    <Route path="/analytics" element={<AnalyticsPage />} />
                     <Route path="/test-api" element={<TestAPIPage />} />
                     
                     {/* Auth Routes */}
@@ -144,12 +152,16 @@ function App() {
                     <Route path="/checkout" element={<CheckoutPage />} />
                     <Route path="/order-confirmation" element={<OrderConfirmationPage />} />
                     <Route path="/dashboard/*" element={<UserDashboard />} />
+                    <Route path="/security" element={<SecuritySettingsPage />} />
                     
                     {/* 404 */}
                     <Route path="*" element={<NotFoundPage />} />
                   </Routes>
                 </main>
                 <Footer />
+                
+                {/* Live Chat Support Button */}
+                <LiveChatSupport />
               </div>
             } />
           </Routes>

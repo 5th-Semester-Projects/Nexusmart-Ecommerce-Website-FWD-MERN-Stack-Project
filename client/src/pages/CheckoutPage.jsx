@@ -12,6 +12,7 @@ import { clearCart } from '../redux/slices/cartSlice';
 // Removed RoboticBackground for performance
 import MagicalGenie from '../components/common/MagicalGenie';
 import { AddressManager, ShippingCalculator } from '../components/shipping';
+import { CouponSystem } from '../components/checkout';
 
 const CheckoutPage = () => {
   const dispatch = useDispatch();
@@ -35,6 +36,10 @@ const CheckoutPage = () => {
     zone: 'national',
     freeShipping: false,
   });
+  
+  // Coupon state
+  const [appliedCoupon, setAppliedCoupon] = useState(null);
+  const [discount, setDiscount] = useState(0);
   
   // Use saved address state
   const [useSavedAddress, setUseSavedAddress] = useState(false);
@@ -200,8 +205,23 @@ const CheckoutPage = () => {
 
   const subtotal = items?.reduce((sum, item) => sum + (item.price * item.quantity), 0) || 0;
   const shipping = shippingOptions.cost || (subtotal > 100 ? 0 : 15);
-  const tax = subtotal * 0.1;
-  const total = subtotal + shipping + tax;
+  const tax = (subtotal - discount) * 0.1;
+  const total = subtotal - discount + shipping + tax;
+
+  // Handle coupon applied
+  const handleCouponApplied = (couponData) => {
+    setAppliedCoupon(couponData);
+    setDiscount(couponData.discount);
+    toast.success(`🎉 Coupon applied! You save $${couponData.discount.toFixed(2)}`, {
+      style: { background: 'linear-gradient(135deg, rgb(34, 197, 94), rgb(21, 128, 61))', color: '#fff', borderRadius: '12px' }
+    });
+  };
+
+  // Handle coupon removed
+  const handleCouponRemoved = () => {
+    setAppliedCoupon(null);
+    setDiscount(0);
+  };
 
   // Handle saved address selection
   const handleAddressSelect = (address) => {
@@ -349,7 +369,8 @@ const CheckoutPage = () => {
           itemsPrice: subtotal,
           taxPrice: tax,
           shippingPrice: shipping,
-          discountPrice: 0,
+          discountPrice: discount,
+          couponCode: appliedCoupon?.code || null,
           totalPrice: total
         }
       };
@@ -960,6 +981,29 @@ const CheckoutPage = () => {
                     <span>Subtotal</span>
                     <span className="font-semibold">${subtotal.toFixed(2)}</span>
                   </div>
+                  
+                  {/* Coupon System */}
+                  <CouponSystem 
+                    cartTotal={subtotal}
+                    onCouponApplied={handleCouponApplied}
+                    onCouponRemoved={handleCouponRemoved}
+                  />
+                  
+                  {/* Discount Display */}
+                  {discount > 0 && (
+                    <div className="flex justify-between text-green-400">
+                      <span className="flex items-center gap-2">
+                        Discount
+                        {appliedCoupon && (
+                          <span className="text-xs bg-green-500/20 px-2 py-0.5 rounded">
+                            {appliedCoupon.code}
+                          </span>
+                        )}
+                      </span>
+                      <span className="font-semibold">-${discount.toFixed(2)}</span>
+                    </div>
+                  )}
+                  
                   <div className="flex justify-between text-purple-300">
                     <span>Shipping</span>
                     <span className="font-semibold">
@@ -975,6 +1019,11 @@ const CheckoutPage = () => {
                       <span className="text-xl font-bold text-purple-300">Total</span>
                       <span className="text-3xl font-bold gradient-text">${total.toFixed(2)}</span>
                     </div>
+                    {discount > 0 && (
+                      <p className="text-green-400 text-sm mt-1 text-right">
+                        You're saving ${discount.toFixed(2)}! 🎉
+                      </p>
+                    )}
                   </div>
                 </div>
               </motion.div>

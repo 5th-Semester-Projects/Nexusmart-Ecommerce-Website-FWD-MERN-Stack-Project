@@ -15,6 +15,7 @@ import Button from '../components/common/Button';
 import api from '../utils/api';
 // import UltimateHomeMagic from '../components/3d/UltimateHomeMagic';
 import MagicalGenie from '../components/common/MagicalGenie';
+import { FlashSaleCountdown } from '../components/realtime';
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -283,6 +284,11 @@ const HomePage = () => {
 
         {/* FEATURED CATEGORIES SECTION */}
         <section className="py-20 px-4 sm:px-6 lg:px-8 relative">
+          {/* Flash Sale Countdown */}
+          <div className="max-w-5xl mx-auto mb-16">
+            <FlashSaleCountdown />
+          </div>
+          
           <div className="circuit-bg"></div>
           <div className="max-w-7xl mx-auto relative z-10">
             <motion.div

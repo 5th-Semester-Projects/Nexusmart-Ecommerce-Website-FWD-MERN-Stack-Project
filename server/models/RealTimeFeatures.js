@@ -402,6 +402,104 @@ userAnalyticsSchema.index({ user: 1, period: 1, date: -1 });
 
 export const UserAnalytics = mongoose.model('UserAnalytics', userAnalyticsSchema);
 
+// ==================== PRODUCT VIEWER SCHEMA ====================
+const productViewerSchema = new mongoose.Schema({
+  product: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Product',
+    required: true,
+    unique: true,
+  },
+  viewerCount: {
+    type: Number,
+    default: 0,
+  },
+  viewers: [{
+    sessionId: String,
+    userId: mongoose.Schema.Types.ObjectId,
+    joinedAt: { type: Date, default: Date.now },
+  }],
+  peakViewers: {
+    type: Number,
+    default: 0,
+  },
+}, { timestamps: true });
+
+export const ProductViewer = mongoose.model('ProductViewer', productViewerSchema);
+
+// ==================== PRODUCT ACTIVITY SCHEMA ====================
+const productActivitySchema = new mongoose.Schema({
+  product: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Product',
+    required: true,
+  },
+  type: {
+    type: String,
+    enum: ['view', 'cart', 'purchase', 'review', 'wishlist'],
+    required: true,
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
+  message: String,
+  location: String,
+}, { timestamps: true });
+
+productActivitySchema.index({ product: 1, createdAt: -1 });
+
+export const ProductActivity = mongoose.model('ProductActivity', productActivitySchema);
+
+// ==================== SUPPORT TICKET SCHEMA ====================
+const supportTicketSchema = new mongoose.Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  },
+  subject: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  category: {
+    type: String,
+    enum: ['order', 'payment', 'shipping', 'product', 'technical', 'other'],
+    default: 'other',
+  },
+  priority: {
+    type: String,
+    enum: ['low', 'medium', 'high', 'urgent'],
+    default: 'medium',
+  },
+  status: {
+    type: String,
+    enum: ['open', 'in-progress', 'resolved', 'closed'],
+    default: 'open',
+  },
+  assignedTo: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
+  messages: [{
+    sender: mongoose.Schema.Types.ObjectId,
+    message: String,
+    createdAt: { type: Date, default: Date.now },
+  }],
+  order: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Order',
+  },
+}, { timestamps: true });
+
+supportTicketSchema.index({ user: 1, status: 1 });
+
+export const SupportTicket = mongoose.model('SupportTicket', supportTicketSchema);
+
 export default {
   LiveChatSession,
   OrderTracking,
@@ -409,4 +507,7 @@ export default {
   ProductView,
   PersonalizedDeal,
   UserAnalytics,
+  ProductViewer,
+  ProductActivity,
+  SupportTicket,
 };

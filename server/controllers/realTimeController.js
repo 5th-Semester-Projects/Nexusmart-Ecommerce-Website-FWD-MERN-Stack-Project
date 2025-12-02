@@ -2,6 +2,7 @@ import {
   LiveChatSession,
   OrderTracking,
   FlashSale,
+  ProductView,
   ProductViewer,
   ProductActivity,
   SupportTicket,

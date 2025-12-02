@@ -3,7 +3,7 @@ import Product from '../models/Product.js';
 import User from '../models/User.js';
 import { PriceHistory } from '../models/AIFeatures.js';
 import { LoyaltyTransaction } from '../models/Gamification.js';
-import catchAsyncErrors from '../middleware/catchAsyncErrors.js';
+import { catchAsyncErrors } from '../middleware/catchAsyncErrors.js';
 import { ErrorHandler } from '../utils/errorHandler.js';
 
 // ==================== USER DASHBOARD ANALYTICS ====================

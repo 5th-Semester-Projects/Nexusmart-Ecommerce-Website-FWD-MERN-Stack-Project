@@ -9,7 +9,7 @@ import {
 } from '../models/Gamification.js';
 import User from '../models/User.js';
 import Order from '../models/Order.js';
-import catchAsyncErrors from '../middleware/catchAsyncErrors.js';
+import { catchAsyncErrors } from '../middleware/catchAsyncErrors.js';
 import { ErrorHandler } from '../utils/errorHandler.js';
 
 // ==================== LOYALTY POINTS ====================

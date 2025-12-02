@@ -1,6 +1,6 @@
 import Coupon from '../models/Coupon.js';
 import Order from '../models/Order.js';
-import catchAsyncErrors from '../middleware/catchAsyncErrors.js';
+import { catchAsyncErrors } from '../middleware/catchAsyncErrors.js';
 import ErrorHandler from '../utils/errorHandler.js';
 
 // Get all public coupons

@@ -1,5 +1,5 @@
 import Newsletter from '../models/Newsletter.js';
-import catchAsync from '../middleware/catchAsyncErrors.js';
+import { catchAsyncErrors as catchAsync } from '../middleware/catchAsyncErrors.js';
 import ErrorHandler from '../utils/errorHandler.js';
 
 // @desc    Subscribe to newsletter

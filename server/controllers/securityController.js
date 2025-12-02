@@ -2,7 +2,7 @@ import crypto from 'crypto';
 import TwoFactorAuth from '../models/TwoFactorAuth.js';
 import LoginHistory from '../models/LoginHistory.js';
 import User from '../models/User.js';
-import catchAsync from '../middleware/catchAsyncErrors.js';
+import { catchAsyncErrors as catchAsync } from '../middleware/catchAsyncErrors.js';
 import ErrorHandler from '../utils/errorHandler.js';
 
 // ==================== TWO-FACTOR AUTHENTICATION ====================

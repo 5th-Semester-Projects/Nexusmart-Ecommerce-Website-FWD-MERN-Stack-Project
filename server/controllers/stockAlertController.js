@@ -1,6 +1,6 @@
 import StockAlert from '../models/StockAlert.js';
 import Product from '../models/Product.js';
-import catchAsync from '../middleware/catchAsyncErrors.js';
+import { catchAsyncErrors as catchAsync } from '../middleware/catchAsyncErrors.js';
 import ErrorHandler from '../utils/errorHandler.js';
 
 // @desc    Subscribe to stock alerts for a product

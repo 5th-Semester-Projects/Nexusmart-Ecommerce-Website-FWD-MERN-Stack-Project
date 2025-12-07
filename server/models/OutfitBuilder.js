@@ -368,4 +368,6 @@ outfitBuilderSchema.pre('save', function (next) {
   next();
 });
 
-const OutfitBuilder = mongoose.model('OutfitBuilder', outfitBuilderSchema);`nexport default OutfitBuilder;`nexport { OutfitBuilder };
+const OutfitBuilder = mongoose.model('OutfitBuilder', outfitBuilderSchema);
+export default OutfitBuilder;
+export { OutfitBuilder };

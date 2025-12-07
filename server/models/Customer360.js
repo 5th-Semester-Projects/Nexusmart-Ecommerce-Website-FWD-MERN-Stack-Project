@@ -162,4 +162,6 @@ customer360Schema.index({ user: 1 });
 customer360Schema.index({ 'lifecycle.stage': 1 });
 customer360Schema.index({ 'scores.healthScore': -1 });
 
-const Customer360 = mongoose.model('Customer360', customer360Schema);`nexport default Customer360;`nexport { Customer360 };
+const Customer360 = mongoose.model('Customer360', customer360Schema);
+export default Customer360;
+export { Customer360 };

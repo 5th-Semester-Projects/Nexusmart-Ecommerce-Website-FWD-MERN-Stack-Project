@@ -467,4 +467,6 @@ realtimeInventorySyncSchema.statics.getPendingReorders = function () {
   }).populate('product');
 };
 
-const RealtimeInventorySync = mongoose.model('RealtimeInventorySync', realtimeInventorySyncSchema);`nexport default RealtimeInventorySync;`nexport { RealtimeInventorySync };
+const RealtimeInventorySync = mongoose.model('RealtimeInventorySync', realtimeInventorySyncSchema);
+export default RealtimeInventorySync;
+export { RealtimeInventorySync };

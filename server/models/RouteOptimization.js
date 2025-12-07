@@ -106,4 +106,6 @@ const routeOptimizationSchema = new mongoose.Schema({
 routeOptimizationSchema.index({ deliveryDate: 1, warehouse: 1 });
 routeOptimizationSchema.index({ driver: 1, status: 1 });
 
-const RouteOptimization = mongoose.model('RouteOptimization', routeOptimizationSchema);`nexport default RouteOptimization;`nexport { RouteOptimization };
+const RouteOptimization = mongoose.model('RouteOptimization', routeOptimizationSchema);
+export default RouteOptimization;
+export { RouteOptimization };

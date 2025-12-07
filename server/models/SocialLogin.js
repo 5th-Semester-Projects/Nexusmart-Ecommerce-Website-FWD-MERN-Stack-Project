@@ -52,4 +52,6 @@ const socialLoginSchema = new mongoose.Schema({
 socialLoginSchema.index({ user: 1, provider: 1 });
 socialLoginSchema.index({ providerId: 1, provider: 1 }, { unique: true });
 
-const SocialLogin = mongoose.model('SocialLogin', socialLoginSchema);`nexport default SocialLogin;`nexport { SocialLogin };
+const SocialLogin = mongoose.model('SocialLogin', socialLoginSchema);
+export default SocialLogin;
+export { SocialLogin };

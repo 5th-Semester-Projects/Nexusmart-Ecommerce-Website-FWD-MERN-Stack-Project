@@ -80,4 +80,6 @@ ugcSchema.index({ product: 1 });
 ugcSchema.index({ 'moderation.status': 1 });
 ugcSchema.index({ 'featured.isFeatured': 1 });
 
-const UGC = mongoose.model('UGC', ugcSchema);`nexport default UGC;`nexport { UGC };
+const UGC = mongoose.model('UGC', ugcSchema);
+export default UGC;
+export { UGC };

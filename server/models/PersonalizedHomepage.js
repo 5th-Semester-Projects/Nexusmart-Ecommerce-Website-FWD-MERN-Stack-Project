@@ -405,4 +405,6 @@ personalizedHomepageSchema.methods.trackInteraction = function (blockId, action)
   }
 };
 
-const PersonalizedHomepage = mongoose.model('PersonalizedHomepage', personalizedHomepageSchema);`nexport default PersonalizedHomepage;`nexport { PersonalizedHomepage };
+const PersonalizedHomepage = mongoose.model('PersonalizedHomepage', personalizedHomepageSchema);
+export default PersonalizedHomepage;
+export { PersonalizedHomepage };

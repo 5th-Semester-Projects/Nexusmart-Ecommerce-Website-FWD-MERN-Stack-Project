@@ -112,4 +112,6 @@ const pwaSchema = new mongoose.Schema({
 pwaSchema.index({ user: 1 });
 pwaSchema.index({ 'installation.isInstalled': 1 });
 
-const PWA = mongoose.model('PWA', pwaSchema);`nexport default PWA;`nexport { PWA };
+const PWA = mongoose.model('PWA', pwaSchema);
+export default PWA;
+export { PWA };

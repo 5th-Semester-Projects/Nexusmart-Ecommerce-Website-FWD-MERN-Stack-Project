@@ -427,4 +427,6 @@ loyaltyProgramSchema.statics.getLeaderboard = function (limit = 10) {
     .populate('user', 'name avatar');
 };
 
-const LoyaltyProgram = mongoose.model('LoyaltyProgram', loyaltyProgramSchema);`nexport default LoyaltyProgram;`nexport { LoyaltyProgram };
+const LoyaltyProgram = mongoose.model('LoyaltyProgram', loyaltyProgramSchema);
+export default LoyaltyProgram;
+export { LoyaltyProgram };

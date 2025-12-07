@@ -93,4 +93,6 @@ microMomentsSchema.index({ user: 1, createdAt: -1 });
 microMomentsSchema.index({ momentType: 1, createdAt: -1 });
 microMomentsSchema.index({ 'context.location.coordinates': '2dsphere' });
 
-const MicroMoments = mongoose.model('MicroMoments', microMomentsSchema);`nexport default MicroMoments;`nexport { MicroMoments };
+const MicroMoments = mongoose.model('MicroMoments', microMomentsSchema);
+export default MicroMoments;
+export { MicroMoments };

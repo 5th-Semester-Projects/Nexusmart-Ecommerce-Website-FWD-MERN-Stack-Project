@@ -110,4 +110,6 @@ imageRecognitionSchema.index({ product: 1 });
 imageRecognitionSchema.index({ 'analysis.tags.name': 1 });
 imageRecognitionSchema.index({ status: 1 });
 
-const ImageRecognition = mongoose.model('ImageRecognition', imageRecognitionSchema);`nexport default ImageRecognition;`nexport { ImageRecognition };
+const ImageRecognition = mongoose.model('ImageRecognition', imageRecognitionSchema);
+export default ImageRecognition;
+export { ImageRecognition };

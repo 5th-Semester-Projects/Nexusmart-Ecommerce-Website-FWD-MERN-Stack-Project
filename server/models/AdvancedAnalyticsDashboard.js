@@ -500,4 +500,6 @@ advancedAnalyticsDashboardSchema.statics.getDashboardByPeriod = function (busine
     .sort({ lastCalculated: -1 });
 };
 
-const AdvancedAnalyticsDashboard = mongoose.model('AdvancedAnalyticsDashboard', advancedAnalyticsDashboardSchema);`nexport default AdvancedAnalyticsDashboard;`nexport { AdvancedAnalyticsDashboard };
+const AdvancedAnalyticsDashboard = mongoose.model('AdvancedAnalyticsDashboard', advancedAnalyticsDashboardSchema);
+export default AdvancedAnalyticsDashboard;
+export { AdvancedAnalyticsDashboard };

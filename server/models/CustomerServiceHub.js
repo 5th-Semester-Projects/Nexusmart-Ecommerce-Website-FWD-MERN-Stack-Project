@@ -615,4 +615,6 @@ customerServiceHubSchema.statics.getAgentPerformance = function (businessId, age
   }).select('agentPerformance.$');
 };
 
-const CustomerServiceHub = mongoose.model('CustomerServiceHub', customerServiceHubSchema);`nexport default CustomerServiceHub;`nexport { CustomerServiceHub };
+const CustomerServiceHub = mongoose.model('CustomerServiceHub', customerServiceHubSchema);
+export default CustomerServiceHub;
+export { CustomerServiceHub };

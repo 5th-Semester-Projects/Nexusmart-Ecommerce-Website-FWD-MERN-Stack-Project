@@ -134,4 +134,6 @@ const churnPredictionSchema = new mongoose.Schema({
 churnPredictionSchema.index({ user: 1, createdAt: -1 });
 churnPredictionSchema.index({ riskLevel: 1, churnScore: -1 });
 
-const ChurnPrediction = mongoose.model('ChurnPrediction', churnPredictionSchema);`nexport default ChurnPrediction;`nexport { ChurnPrediction };
+const ChurnPrediction = mongoose.model('ChurnPrediction', churnPredictionSchema);
+export default ChurnPrediction;
+export { ChurnPrediction };

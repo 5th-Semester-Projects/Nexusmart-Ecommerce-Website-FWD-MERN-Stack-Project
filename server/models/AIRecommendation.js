@@ -80,4 +80,6 @@ const aiRecommendationSchema = new mongoose.Schema({
 aiRecommendationSchema.index({ user: 1, isActive: 1, expiresAt: 1 });
 aiRecommendationSchema.index({ 'recommendedProducts.product': 1 });
 
-const AIRecommendation = mongoose.model('AIRecommendation', aiRecommendationSchema);`nexport default AIRecommendation;`nexport { AIRecommendation };
+const AIRecommendation = mongoose.model('AIRecommendation', aiRecommendationSchema);
+export default AIRecommendation;
+export { AIRecommendation };

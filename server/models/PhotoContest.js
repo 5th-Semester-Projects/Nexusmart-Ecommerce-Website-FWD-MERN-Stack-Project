@@ -95,4 +95,6 @@ const photoContestSchema = new mongoose.Schema({
 photoContestSchema.index({ isActive: 1 });
 photoContestSchema.index({ 'entries.user': 1 });
 
-const PhotoContest = mongoose.model('PhotoContest', photoContestSchema);`nexport default PhotoContest;`nexport { PhotoContest };
+const PhotoContest = mongoose.model('PhotoContest', photoContestSchema);
+export default PhotoContest;
+export { PhotoContest };

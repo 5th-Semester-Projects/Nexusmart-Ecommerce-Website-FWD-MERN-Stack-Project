@@ -103,4 +103,6 @@ paymentLinkSchema.index({ shortUrl: 1 });
 paymentLinkSchema.index({ status: 1 });
 paymentLinkSchema.index({ 'customer.email': 1 });
 
-const PaymentLink = mongoose.model('PaymentLink', splitPaymentSchema);`nexport default PaymentLink;`nexport { PaymentLink };
+const PaymentLink = mongoose.model('PaymentLink', splitPaymentSchema);
+export default PaymentLink;
+export { PaymentLink };

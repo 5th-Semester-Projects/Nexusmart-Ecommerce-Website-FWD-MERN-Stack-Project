@@ -424,4 +424,6 @@ orderTrackingSchema.statics.getDeliveriesToday = function () {
   }).populate('order user');
 };
 
-const OrderTracking = mongoose.model('OrderTracking', orderTrackingSchema);`nexport default OrderTracking;`nexport { OrderTracking };
+const OrderTracking = mongoose.model('OrderTracking', orderTrackingSchema);
+export default OrderTracking;
+export { OrderTracking };

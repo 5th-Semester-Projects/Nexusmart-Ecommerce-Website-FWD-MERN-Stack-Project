@@ -70,4 +70,6 @@ const sizePredictionSchema = new mongoose.Schema({
 sizePredictionSchema.index({ user: 1, product: 1 });
 sizePredictionSchema.index({ user: 1, createdAt: -1 });
 
-const SizePrediction = mongoose.model('SizePrediction', sizePredictionSchema);`nexport default SizePrediction;`nexport { SizePrediction };
+const SizePrediction = mongoose.model('SizePrediction', sizePredictionSchema);
+export default SizePrediction;
+export { SizePrediction };

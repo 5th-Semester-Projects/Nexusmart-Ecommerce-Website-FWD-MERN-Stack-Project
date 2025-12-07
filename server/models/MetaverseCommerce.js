@@ -157,4 +157,6 @@ metaverseCommerceSchema.index({ user: 1 });
 metaverseCommerceSchema.index({ 'nftPurchases.tokenId': 1 });
 metaverseCommerceSchema.index({ 'virtualStore.platform': 1, createdAt: -1 });
 
-const MetaverseCommerce = mongoose.model('MetaverseCommerce', metaverseCommerceSchema);`nexport default MetaverseCommerce;`nexport { MetaverseCommerce };
+const MetaverseCommerce = mongoose.model('MetaverseCommerce', metaverseCommerceSchema);
+export default MetaverseCommerce;
+export { MetaverseCommerce };

@@ -583,4 +583,6 @@ wishlistFavoritesSchema.statics.findByShareCode = function (shareCode) {
     .populate('user', 'name profilePicture');
 };
 
-const WishlistFavorites = mongoose.model('WishlistFavorites', wishlistFavoritesSchema);`nexport default WishlistFavorites;`nexport { WishlistFavorites };
+const WishlistFavorites = mongoose.model('WishlistFavorites', wishlistFavoritesSchema);
+export default WishlistFavorites;
+export { WishlistFavorites };

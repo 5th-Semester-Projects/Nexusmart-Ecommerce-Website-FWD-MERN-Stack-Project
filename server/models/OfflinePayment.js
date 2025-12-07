@@ -78,4 +78,6 @@ offlinePaymentSchema.index({ order: 1 });
 offlinePaymentSchema.index({ user: 1, status: 1 });
 offlinePaymentSchema.index({ 'verification.status': 1 });
 
-const OfflinePayment = mongoose.model('OfflinePayment', offlinePaymentSchema);`nexport default OfflinePayment;`nexport { OfflinePayment };
+const OfflinePayment = mongoose.model('OfflinePayment', offlinePaymentSchema);
+export default OfflinePayment;
+export { OfflinePayment };

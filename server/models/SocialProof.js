@@ -131,4 +131,6 @@ socialProofSchema.index({ product: 1 });
 socialProofSchema.index({ 'popularitySignals.trendingScore': -1 });
 socialProofSchema.index({ 'recentActivity.timestamp': -1 });
 
-const SocialProof = mongoose.model('SocialProof', socialProofSchema);`nexport default SocialProof;`nexport { SocialProof };
+const SocialProof = mongoose.model('SocialProof', socialProofSchema);
+export default SocialProof;
+export { SocialProof };

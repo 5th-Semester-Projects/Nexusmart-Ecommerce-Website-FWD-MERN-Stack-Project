@@ -104,4 +104,6 @@ const quizSchema = new mongoose.Schema({
 quizSchema.index({ isActive: 1 });
 quizSchema.index({ 'attempts.user': 1 });
 
-const Quiz = mongoose.model('Quiz', quizSchema);`nexport default Quiz;`nexport { Quiz };
+const Quiz = mongoose.model('Quiz', quizSchema);
+export default Quiz;
+export { Quiz };

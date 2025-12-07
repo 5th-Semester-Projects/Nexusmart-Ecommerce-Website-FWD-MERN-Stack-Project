@@ -65,4 +65,6 @@ const instagramShopSchema = new mongoose.Schema({
 instagramShopSchema.index({ product: 1 });
 instagramShopSchema.index({ instagramProductId: 1 });
 
-const InstagramShop = mongoose.model('InstagramShop', instagramShopSchema);`nexport default InstagramShop;`nexport { InstagramShop };
+const InstagramShop = mongoose.model('InstagramShop', instagramShopSchema);
+export default InstagramShop;
+export { InstagramShop };

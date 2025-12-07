@@ -486,4 +486,6 @@ customerSegmentationSchema.statics.getSegmentDistribution = async function () {
   ]);
 };
 
-const CustomerSegmentation = mongoose.model('CustomerSegmentation', customerSegmentationSchema);`nexport default CustomerSegmentation;`nexport { CustomerSegmentation };
+const CustomerSegmentation = mongoose.model('CustomerSegmentation', customerSegmentationSchema);
+export default CustomerSegmentation;
+export { CustomerSegmentation };

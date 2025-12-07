@@ -171,4 +171,6 @@ b2bQuoteSchema.index({ 'buyer.company': 1, status: 1 });
 b2bQuoteSchema.index({ 'seller.company': 1, createdAt: -1 });
 b2bQuoteSchema.index({ status: 1, 'terms.validUntil': 1 });
 
-const B2BQuote = mongoose.model('B2BQuote', b2bQuoteSchema);`nexport default B2BQuote;`nexport { B2BQuote };
+const B2BQuote = mongoose.model('B2BQuote', b2bQuoteSchema);
+export default B2BQuote;
+export { B2BQuote };

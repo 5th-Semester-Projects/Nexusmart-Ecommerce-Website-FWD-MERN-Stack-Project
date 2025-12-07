@@ -379,4 +379,6 @@ oneClickCheckoutSchema.methods.updateAnalytics = function (orderValue, isOneClic
   this.analytics.lastOrderDate = Date.now();
 };
 
-const OneClickCheckout = mongoose.model('OneClickCheckout', oneClickCheckoutSchema);`nexport default OneClickCheckout;`nexport { OneClickCheckout };
+const OneClickCheckout = mongoose.model('OneClickCheckout', oneClickCheckoutSchema);
+export default OneClickCheckout;
+export { OneClickCheckout };

@@ -109,4 +109,6 @@ cryptoPaymentSchema.index({ transactionHash: 1 });
 cryptoPaymentSchema.index({ status: 1, createdAt: -1 });
 cryptoPaymentSchema.index({ 'walletAddress.sender': 1 });
 
-const CryptoPayment = mongoose.model('CryptoPayment', cryptoPaymentSchema);`nexport default CryptoPayment;`nexport { CryptoPayment };
+const CryptoPayment = mongoose.model('CryptoPayment', cryptoPaymentSchema);
+export default CryptoPayment;
+export { CryptoPayment };

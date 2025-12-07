@@ -482,4 +482,6 @@ bundleDealsSchema.statics.getFeaturedBundles = function (limit = 5) {
     .limit(limit);
 };
 
-const BundleDeals = mongoose.model('BundleDeals', bundleDealsSchema);`nexport default BundleDeals;`nexport { BundleDeals };
+const BundleDeals = mongoose.model('BundleDeals', bundleDealsSchema);
+export default BundleDeals;
+export { BundleDeals };

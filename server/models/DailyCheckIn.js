@@ -56,4 +56,6 @@ const dailyCheckInSchema = new mongoose.Schema({
 
 dailyCheckInSchema.index({ user: 1 });
 
-const DailyCheckIn = mongoose.model('DailyCheckIn', dailyCheckInSchema);`nexport default DailyCheckIn;`nexport { DailyCheckIn };
+const DailyCheckIn = mongoose.model('DailyCheckIn', dailyCheckInSchema);
+export default DailyCheckIn;
+export { DailyCheckIn };

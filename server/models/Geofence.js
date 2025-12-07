@@ -105,4 +105,6 @@ const geofenceSchema = new mongoose.Schema({
 geofenceSchema.index({ location: '2dsphere' });
 geofenceSchema.index({ type: 1, isActive: 1 });
 
-const Geofence = mongoose.model('Geofence', geofenceSchema);`nexport default Geofence;`nexport { Geofence };
+const Geofence = mongoose.model('Geofence', geofenceSchema);
+export default Geofence;
+export { Geofence };

@@ -108,4 +108,6 @@ chatbotSchema.index({ sessionId: 1 });
 chatbotSchema.index({ user: 1, status: 1 });
 chatbotSchema.index({ createdAt: -1 });
 
-const Chatbot = mongoose.model('Chatbot', chatbotSchema);`nexport default Chatbot;`nexport { Chatbot };
+const Chatbot = mongoose.model('Chatbot', chatbotSchema);
+export default Chatbot;
+export { Chatbot };

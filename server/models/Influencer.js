@@ -130,4 +130,6 @@ influencerSchema.index({ username: 1 });
 influencerSchema.index({ 'affiliate.code': 1 });
 influencerSchema.index({ 'collaboration.status': 1 });
 
-const Influencer = mongoose.model('Influencer', influencerSchema);`nexport default Influencer;`nexport { Influencer };
+const Influencer = mongoose.model('Influencer', influencerSchema);
+export default Influencer;
+export { Influencer };

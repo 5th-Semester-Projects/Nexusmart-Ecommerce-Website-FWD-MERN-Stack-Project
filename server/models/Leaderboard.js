@@ -63,4 +63,6 @@ const leaderboardSchema = new mongoose.Schema({
 leaderboardSchema.index({ type: 1, period: 1, isActive: 1 });
 leaderboardSchema.index({ 'rankings.user': 1 });
 
-const Leaderboard = mongoose.model('Leaderboard', leaderboardSchema);`nexport default Leaderboard;`nexport { Leaderboard };
+const Leaderboard = mongoose.model('Leaderboard', leaderboardSchema);
+export default Leaderboard;
+export { Leaderboard };

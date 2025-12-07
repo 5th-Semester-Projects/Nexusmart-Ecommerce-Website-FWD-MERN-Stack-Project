@@ -504,4 +504,6 @@ returnsPortalSchema.statics.getPendingReturns = function () {
     .populate('order user');
 };
 
-const ReturnsPortal = mongoose.model('ReturnsPortal', returnsPortalSchema);`nexport default ReturnsPortal;`nexport { ReturnsPortal };
+const ReturnsPortal = mongoose.model('ReturnsPortal', returnsPortalSchema);
+export default ReturnsPortal;
+export { ReturnsPortal };

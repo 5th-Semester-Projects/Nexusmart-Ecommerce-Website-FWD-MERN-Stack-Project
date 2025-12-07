@@ -116,4 +116,6 @@ iotIntegrationSchema.index({ user: 1 });
 iotIntegrationSchema.index({ 'device.deviceId': 1 });
 iotIntegrationSchema.index({ 'connectivity.status': 1 });
 
-const IoTIntegration = mongoose.model('IoTIntegration', iotIntegrationSchema);`nexport default IoTIntegration;`nexport { IoTIntegration };
+const IoTIntegration = mongoose.model('IoTIntegration', iotIntegrationSchema);
+export default IoTIntegration;
+export { IoTIntegration };

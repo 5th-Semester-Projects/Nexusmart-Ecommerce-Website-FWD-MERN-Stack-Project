@@ -106,4 +106,6 @@ const nextPurchasePredictionSchema = new mongoose.Schema({
 nextPurchasePredictionSchema.index({ user: 1, lastPredicted: -1 });
 nextPurchasePredictionSchema.index({ 'predictions.predictedDate': 1 });
 
-const NextPurchasePrediction = mongoose.model('NextPurchasePrediction', nextPurchasePredictionSchema);`nexport default NextPurchasePrediction;`nexport { NextPurchasePrediction };
+const NextPurchasePrediction = mongoose.model('NextPurchasePrediction', nextPurchasePredictionSchema);
+export default NextPurchasePrediction;
+export { NextPurchasePrediction };

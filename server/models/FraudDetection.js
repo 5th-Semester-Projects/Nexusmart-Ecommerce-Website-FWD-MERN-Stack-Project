@@ -127,4 +127,6 @@ fraudDetectionSchema.index({ user: 1 });
 fraudDetectionSchema.index({ riskLevel: 1, decision: 1 });
 fraudDetectionSchema.index({ createdAt: -1 });
 
-const FraudDetection = mongoose.model('FraudDetection', fraudDetectionSchema);`nexport default FraudDetection;`nexport { FraudDetection };
+const FraudDetection = mongoose.model('FraudDetection', fraudDetectionSchema);
+export default FraudDetection;
+export { FraudDetection };

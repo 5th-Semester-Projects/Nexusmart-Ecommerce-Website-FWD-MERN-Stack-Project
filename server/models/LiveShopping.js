@@ -164,4 +164,6 @@ liveShoppingSchema.index({ 'schedule.startTime': -1 });
 liveShoppingSchema.index({ status: 1, 'schedule.startTime': -1 });
 liveShoppingSchema.index({ 'host.id': 1 });
 
-const LiveShopping = mongoose.model('LiveShopping', liveShoppingSchema);`nexport default LiveShopping;`nexport { LiveShopping };
+const LiveShopping = mongoose.model('LiveShopping', liveShoppingSchema);
+export default LiveShopping;
+export { LiveShopping };

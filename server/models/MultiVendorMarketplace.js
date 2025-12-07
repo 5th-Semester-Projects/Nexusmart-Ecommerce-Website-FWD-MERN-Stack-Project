@@ -505,4 +505,6 @@ multiVendorMarketplaceSchema.statics.getTopVendors = function (limit = 10) {
     .select('businessInfo storeSettings performance sales');
 };
 
-const MultiVendorMarketplace = mongoose.model('MultiVendorMarketplace', multiVendorMarketplaceSchema);`nexport default MultiVendorMarketplace;`nexport { MultiVendorMarketplace };
+const MultiVendorMarketplace = mongoose.model('MultiVendorMarketplace', multiVendorMarketplaceSchema);
+export default MultiVendorMarketplace;
+export { MultiVendorMarketplace };

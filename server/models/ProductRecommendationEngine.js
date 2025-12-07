@@ -566,4 +566,6 @@ productRecommendationEngineSchema.statics.getUsersNeedingRetraining = function (
   });
 };
 
-const ProductRecommendationEngine = mongoose.model('ProductRecommendationEngine', productRecommendationEngineSchema);`nexport default ProductRecommendationEngine;`nexport { ProductRecommendationEngine };
+const ProductRecommendationEngine = mongoose.model('ProductRecommendationEngine', productRecommendationEngineSchema);
+export default ProductRecommendationEngine;
+export { ProductRecommendationEngine };

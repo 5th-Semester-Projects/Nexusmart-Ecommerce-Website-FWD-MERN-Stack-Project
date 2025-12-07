@@ -610,4 +610,6 @@ marketingAutomationSchema.statics.getCampaignPerformance = function (businessId,
   ]);
 };
 
-const MarketingAutomation = mongoose.model('MarketingAutomation', marketingAutomationSchema);`nexport default MarketingAutomation;`nexport { MarketingAutomation };
+const MarketingAutomation = mongoose.model('MarketingAutomation', marketingAutomationSchema);
+export default MarketingAutomation;
+export { MarketingAutomation };

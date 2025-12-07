@@ -117,4 +117,6 @@ const dynamicPricingSchema = new mongoose.Schema({
 dynamicPricingSchema.index({ product: 1, isActive: 1 });
 dynamicPricingSchema.index({ nextPriceUpdate: 1 });
 
-const DynamicPricing = mongoose.model('DynamicPricing', dynamicPricingSchema);`nexport default DynamicPricing;`nexport { DynamicPricing };
+const DynamicPricing = mongoose.model('DynamicPricing', dynamicPricingSchema);
+export default DynamicPricing;
+export { DynamicPricing };

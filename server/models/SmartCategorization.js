@@ -94,4 +94,6 @@ smartCategorizationSchema.index({ product: 1 });
 smartCategorizationSchema.index({ 'recommendedCategory.category': 1 });
 smartCategorizationSchema.index({ status: 1 });
 
-const SmartCategorization = mongoose.model('SmartCategorization', smartCategorizationSchema);`nexport default SmartCategorization;`nexport { SmartCategorization };
+const SmartCategorization = mongoose.model('SmartCategorization', smartCategorizationSchema);
+export default SmartCategorization;
+export { SmartCategorization };

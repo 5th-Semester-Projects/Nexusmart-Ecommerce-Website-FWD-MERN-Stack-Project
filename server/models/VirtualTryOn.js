@@ -352,4 +352,6 @@ virtualTryOnSchema.statics.getConversionRate = async function (productId) {
   return total > 0 ? (converted / total) * 100 : 0;
 };
 
-const VirtualTryOn = mongoose.model('VirtualTryOn', virtualTryOnSchema);`nexport default VirtualTryOn;`nexport { VirtualTryOn };
+const VirtualTryOn = mongoose.model('VirtualTryOn', virtualTryOnSchema);
+export default VirtualTryOn;
+export { VirtualTryOn };

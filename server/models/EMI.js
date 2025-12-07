@@ -94,4 +94,6 @@ const emiSchema = new mongoose.Schema({
 emiSchema.index({ user: 1, status: 1 });
 emiSchema.index({ order: 1 });
 
-const EMI = mongoose.model('EMI', emiSchema);`nexport default EMI;`nexport { EMI };
+const EMI = mongoose.model('EMI', emiSchema);
+export default EMI;
+export { EMI };

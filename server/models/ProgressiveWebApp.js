@@ -443,4 +443,6 @@ progressiveWebAppSchema.statics.getActivePWAUsers = function () {
   });
 };
 
-const ProgressiveWebApp = mongoose.model('ProgressiveWebApp', progressiveWebAppSchema);`nexport default ProgressiveWebApp;`nexport { ProgressiveWebApp };
+const ProgressiveWebApp = mongoose.model('ProgressiveWebApp', progressiveWebAppSchema);
+export default ProgressiveWebApp;
+export { ProgressiveWebApp };

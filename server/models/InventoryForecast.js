@@ -109,4 +109,6 @@ const inventoryForecastSchema = new mongoose.Schema({
 inventoryForecastSchema.index({ product: 1, 'forecastPeriod.startDate': -1 });
 inventoryForecastSchema.index({ warehouse: 1 });
 
-const InventoryForecast = mongoose.model('InventoryForecast', inventoryForecastSchema);`nexport default InventoryForecast;`nexport { InventoryForecast };
+const InventoryForecast = mongoose.model('InventoryForecast', inventoryForecastSchema);
+export default InventoryForecast;
+export { InventoryForecast };

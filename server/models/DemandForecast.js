@@ -83,4 +83,6 @@ const demandForecastSchema = new mongoose.Schema({
 demandForecastSchema.index({ product: 1, 'forecastPeriod.startDate': -1 });
 demandForecastSchema.index({ category: 1, createdAt: -1 });
 
-const DemandForecast = mongoose.model('DemandForecast', demandForecastSchema);`nexport default DemandForecast;`nexport { DemandForecast };
+const DemandForecast = mongoose.model('DemandForecast', demandForecastSchema);
+export default DemandForecast;
+export { DemandForecast };

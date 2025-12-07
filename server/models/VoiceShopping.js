@@ -105,4 +105,6 @@ voiceShoppingSchema.index({ user: 1, createdAt: -1 });
 voiceShoppingSchema.index({ sessionId: 1 });
 voiceShoppingSchema.index({ platform: 1, createdAt: -1 });
 
-const VoiceShopping = mongoose.model('VoiceShopping', voiceShoppingSchema);`nexport default VoiceShopping;`nexport { VoiceShopping };
+const VoiceShopping = mongoose.model('VoiceShopping', voiceShoppingSchema);
+export default VoiceShopping;
+export { VoiceShopping };

@@ -638,14 +638,4 @@ function generateRecentAlerts(orders) {
     }));
 }
 
-export {
-  analyzeTransactionRisk,
-  monitorTransactionPatterns,
-  sendTransactionAlert,
-  predictChargebackRisk,
-  fileChargeback,
-  initiateIdentityVerification,
-  verifyIdentity,
-  verifyDocument,
-  getFraudDashboard
-};
+// Exports converted to ES6 export const

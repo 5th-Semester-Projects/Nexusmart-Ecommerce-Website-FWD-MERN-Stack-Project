@@ -641,14 +641,4 @@ function generateSustainabilityAchievements(orders) {
   return achievements;
 }
 
-export {
-  calculateProductCarbonFootprint,
-  calculateOrderCarbonFootprint,
-  assignEcoBadge,
-  getEcoFriendlyProducts,
-  getPackagingOptions,
-  selectPackaging,
-  getGreenShippingOptions,
-  purchaseCarbonOffset,
-  getSustainabilityDashboard
-};
+// Exports converted to ES6 export const

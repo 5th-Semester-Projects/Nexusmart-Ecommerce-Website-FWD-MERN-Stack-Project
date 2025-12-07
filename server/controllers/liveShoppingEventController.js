@@ -2,7 +2,7 @@ const LiveShoppingEvent = require('../models/LiveShoppingEvent');
 const catchAsyncErrors = require('../middleware/catchAsyncErrors');
 
 // Create event
-exports.createEvent = catchAsyncErrors(async (req, res) => {
+export const createEvent = catchAsyncErrors(async (req, res) => {
   const event = await LiveShoppingEvent.create({
     ...req.body,
     host: {
@@ -21,7 +21,7 @@ exports.createEvent = catchAsyncErrors(async (req, res) => {
 });
 
 // Get event by slug
-exports.getEvent = catchAsyncErrors(async (req, res) => {
+export const getEvent = catchAsyncErrors(async (req, res) => {
   const { slug } = req.params;
 
   const event = await LiveShoppingEvent.findOne({ slug })
@@ -41,7 +41,7 @@ exports.getEvent = catchAsyncErrors(async (req, res) => {
 });
 
 // Get upcoming events
-exports.getUpcomingEvents = catchAsyncErrors(async (req, res) => {
+export const getUpcomingEvents = catchAsyncErrors(async (req, res) => {
   const { limit = 10 } = req.query;
 
   const events = await LiveShoppingEvent.getUpcomingEvents(parseInt(limit));
@@ -53,7 +53,7 @@ exports.getUpcomingEvents = catchAsyncErrors(async (req, res) => {
 });
 
 // Get live events
-exports.getLiveEvents = catchAsyncErrors(async (req, res) => {
+export const getLiveEvents = catchAsyncErrors(async (req, res) => {
   const events = await LiveShoppingEvent.getLiveEvents();
 
   res.status(200).json({
@@ -63,7 +63,7 @@ exports.getLiveEvents = catchAsyncErrors(async (req, res) => {
 });
 
 // Start stream
-exports.startStream = catchAsyncErrors(async (req, res) => {
+export const startStream = catchAsyncErrors(async (req, res) => {
   const { slug } = req.params;
 
   const event = await LiveShoppingEvent.findOne({ slug });
@@ -86,7 +86,7 @@ exports.startStream = catchAsyncErrors(async (req, res) => {
 });
 
 // End stream
-exports.endStream = catchAsyncErrors(async (req, res) => {
+export const endStream = catchAsyncErrors(async (req, res) => {
   const { slug } = req.params;
 
   const event = await LiveShoppingEvent.findOne({ slug });
@@ -109,7 +109,7 @@ exports.endStream = catchAsyncErrors(async (req, res) => {
 });
 
 // Update viewer count
-exports.updateViewerCount = catchAsyncErrors(async (req, res) => {
+export const updateViewerCount = catchAsyncErrors(async (req, res) => {
   const { slug } = req.params;
   const { count } = req.body;
 

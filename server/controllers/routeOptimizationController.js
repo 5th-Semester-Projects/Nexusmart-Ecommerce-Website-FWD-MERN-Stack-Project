@@ -4,7 +4,7 @@ const catchAsyncErrors = require('../middleware/catchAsyncErrors');
 const ErrorHandler = require('../utils/ErrorHandler');
 
 // Create optimized delivery route
-exports.createRoute = catchAsyncErrors(async (req, res, next) => {
+export const createRoute = catchAsyncErrors(async (req, res, next) => {
   const { deliveryDate, warehouseId, orderIds } = req.body;
 
   // Fetch orders with addresses
@@ -67,7 +67,7 @@ exports.createRoute = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Get route by ID
-exports.getRoute = catchAsyncErrors(async (req, res, next) => {
+export const getRoute = catchAsyncErrors(async (req, res, next) => {
   const route = await RouteOptimization.findById(req.params.id)
     .populate('orders.order')
     .populate('warehouse')
@@ -84,7 +84,7 @@ exports.getRoute = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Get routes for driver
-exports.getDriverRoutes = catchAsyncErrors(async (req, res, next) => {
+export const getDriverRoutes = catchAsyncErrors(async (req, res, next) => {
   const routes = await RouteOptimization.find({
     driver: req.user.id,
     status: { $in: ['planned', 'active'] }
@@ -98,7 +98,7 @@ exports.getDriverRoutes = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Assign driver to route
-exports.assignDriver = catchAsyncErrors(async (req, res, next) => {
+export const assignDriver = catchAsyncErrors(async (req, res, next) => {
   const { routeId, driverId, vehicleInfo } = req.body;
 
   const route = await RouteOptimization.findById(routeId);
@@ -123,7 +123,7 @@ exports.assignDriver = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Start route delivery
-exports.startRoute = catchAsyncErrors(async (req, res, next) => {
+export const startRoute = catchAsyncErrors(async (req, res, next) => {
   const route = await RouteOptimization.findById(req.params.id);
 
   if (!route) {
@@ -145,7 +145,7 @@ exports.startRoute = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Update delivery status
-exports.updateDeliveryStatus = catchAsyncErrors(async (req, res, next) => {
+export const updateDeliveryStatus = catchAsyncErrors(async (req, res, next) => {
   const { routeId, orderId, status, location } = req.body;
 
   const route = await RouteOptimization.findById(routeId);
@@ -195,7 +195,7 @@ exports.updateDeliveryStatus = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Real-time route update (traffic, delays)
-exports.updateRoute = catchAsyncErrors(async (req, res, next) => {
+export const updateRoute = catchAsyncErrors(async (req, res, next) => {
   const { routeId, updateType, newETA, adjustedRoute } = req.body;
 
   const route = await RouteOptimization.findById(routeId);
@@ -234,7 +234,7 @@ exports.updateRoute = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Complete route
-exports.completeRoute = catchAsyncErrors(async (req, res, next) => {
+export const completeRoute = catchAsyncErrors(async (req, res, next) => {
   const route = await RouteOptimization.findById(req.params.id);
 
   if (!route) {
@@ -271,7 +271,7 @@ exports.completeRoute = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Get route analytics
-exports.getRouteAnalytics = catchAsyncErrors(async (req, res, next) => {
+export const getRouteAnalytics = catchAsyncErrors(async (req, res, next) => {
   const { startDate, endDate } = req.query;
 
   const routes = await RouteOptimization.find({

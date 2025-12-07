@@ -7,7 +7,7 @@ import crypto from 'crypto';
 // AI-Powered Risk Scoring
 
 // Analyze Transaction Risk
-exports.analyzeTransactionRisk = async (req, res) => {
+export const analyzeTransactionRisk = async (req, res) => {
   try {
     const {
       userId,
@@ -121,7 +121,7 @@ exports.analyzeTransactionRisk = async (req, res) => {
 // Transaction Monitoring
 
 // Monitor Transaction Patterns
-exports.monitorTransactionPatterns = async (req, res) => {
+export const monitorTransactionPatterns = async (req, res) => {
   try {
     const { userId, timeframe = 30 } = req.query;
 
@@ -195,7 +195,7 @@ exports.monitorTransactionPatterns = async (req, res) => {
 };
 
 // Real-Time Transaction Alert
-exports.sendTransactionAlert = async (req, res) => {
+export const sendTransactionAlert = async (req, res) => {
   try {
     const { orderId, alertType, severity, message } = req.body;
 
@@ -224,7 +224,7 @@ exports.sendTransactionAlert = async (req, res) => {
 // Chargeback Prevention
 
 // Predict Chargeback Risk
-exports.predictChargebackRisk = async (req, res) => {
+export const predictChargebackRisk = async (req, res) => {
   try {
     const { orderId } = req.params;
 
@@ -309,7 +309,7 @@ exports.predictChargebackRisk = async (req, res) => {
 };
 
 // File Chargeback
-exports.fileChargeback = async (req, res) => {
+export const fileChargeback = async (req, res) => {
   try {
     const { orderId, reason, evidence } = req.body;
 
@@ -346,7 +346,7 @@ exports.fileChargeback = async (req, res) => {
 // Identity Verification
 
 // Initiate Identity Verification
-exports.initiateIdentityVerification = async (req, res) => {
+export const initiateIdentityVerification = async (req, res) => {
   try {
     const { userId, verificationType } = req.body;
 
@@ -388,7 +388,7 @@ exports.initiateIdentityVerification = async (req, res) => {
 };
 
 // Verify Identity
-exports.verifyIdentity = async (req, res) => {
+export const verifyIdentity = async (req, res) => {
   try {
     const { sessionId, verificationCode, documentData, biometricData } = req.body;
 
@@ -422,7 +422,7 @@ exports.verifyIdentity = async (req, res) => {
 };
 
 // Document Verification (KYC)
-exports.verifyDocument = async (req, res) => {
+export const verifyDocument = async (req, res) => {
   try {
     const { userId, documentType, documentImage, documentNumber } = req.body;
 
@@ -477,7 +477,7 @@ exports.verifyDocument = async (req, res) => {
 // Fraud Dashboard
 
 // Get Fraud Detection Dashboard
-exports.getFraudDashboard = async (req, res) => {
+export const getFraudDashboard = async (req, res) => {
   try {
     const { timeframe = 7 } = req.query; // days
 

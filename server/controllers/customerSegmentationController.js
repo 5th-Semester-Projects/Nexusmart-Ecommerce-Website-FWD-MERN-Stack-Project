@@ -2,7 +2,7 @@ const CustomerSegmentation = require('../models/CustomerSegmentation');
 const catchAsyncErrors = require('../middleware/catchAsyncErrors');
 
 // Get user segmentation
-exports.getUserSegmentation = catchAsyncErrors(async (req, res) => {
+export const getUserSegmentation = catchAsyncErrors(async (req, res) => {
   let segmentation = await CustomerSegmentation.findOne({ user: req.user._id });
 
   if (!segmentation) {
@@ -16,7 +16,7 @@ exports.getUserSegmentation = catchAsyncErrors(async (req, res) => {
 });
 
 // Calculate RFM
-exports.calculateRFM = catchAsyncErrors(async (req, res) => {
+export const calculateRFM = catchAsyncErrors(async (req, res) => {
   const segmentation = await CustomerSegmentation.findOne({ user: req.user._id });
 
   if (!segmentation) {
@@ -37,7 +37,7 @@ exports.calculateRFM = catchAsyncErrors(async (req, res) => {
 });
 
 // Determine segment
-exports.determineSegment = catchAsyncErrors(async (req, res) => {
+export const determineSegment = catchAsyncErrors(async (req, res) => {
   const segmentation = await CustomerSegmentation.findOne({ user: req.user._id });
 
   if (!segmentation) {
@@ -58,7 +58,7 @@ exports.determineSegment = catchAsyncErrors(async (req, res) => {
 });
 
 // Update segmentation from order
-exports.updateFromOrder = catchAsyncErrors(async (req, res) => {
+export const updateFromOrder = catchAsyncErrors(async (req, res) => {
   const { orderData } = req.body;
 
   let segmentation = await CustomerSegmentation.findOne({ user: req.user._id });
@@ -78,7 +78,7 @@ exports.updateFromOrder = catchAsyncErrors(async (req, res) => {
 });
 
 // Get segment distribution
-exports.getSegmentDistribution = catchAsyncErrors(async (req, res) => {
+export const getSegmentDistribution = catchAsyncErrors(async (req, res) => {
   const distribution = await CustomerSegmentation.getSegmentDistribution();
 
   res.status(200).json({
@@ -88,7 +88,7 @@ exports.getSegmentDistribution = catchAsyncErrors(async (req, res) => {
 });
 
 // Get high-value customers
-exports.getHighValueCustomers = catchAsyncErrors(async (req, res) => {
+export const getHighValueCustomers = catchAsyncErrors(async (req, res) => {
   const { limit = 100 } = req.query;
 
   const customers = await CustomerSegmentation.find({
@@ -106,7 +106,7 @@ exports.getHighValueCustomers = catchAsyncErrors(async (req, res) => {
 });
 
 // Get at-risk customers
-exports.getAtRiskCustomers = catchAsyncErrors(async (req, res) => {
+export const getAtRiskCustomers = catchAsyncErrors(async (req, res) => {
   const { limit = 100 } = req.query;
 
   const customers = await CustomerSegmentation.find({

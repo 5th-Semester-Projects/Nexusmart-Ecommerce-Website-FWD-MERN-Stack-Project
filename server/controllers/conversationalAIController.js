@@ -4,7 +4,7 @@ const catchAsyncErrors = require('../middleware/catchAsyncErrors');
 const ErrorHandler = require('../utils/ErrorHandler');
 
 // Start conversational shopping session
-exports.startSession = catchAsyncErrors(async (req, res, next) => {
+export const startSession = catchAsyncErrors(async (req, res, next) => {
   const sessionId = `conv_${Date.now()}_${req.user.id}`;
 
   const session = await ConversationalShopping.create({
@@ -21,7 +21,7 @@ exports.startSession = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Process user message
-exports.processMessage = catchAsyncErrors(async (req, res, next) => {
+export const processMessage = catchAsyncErrors(async (req, res, next) => {
   const { sessionId, message } = req.body;
 
   const session = await ConversationalShopping.findOne({ sessionId });
@@ -61,7 +61,7 @@ exports.processMessage = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Get session history
-exports.getSession = catchAsyncErrors(async (req, res, next) => {
+export const getSession = catchAsyncErrors(async (req, res, next) => {
   const session = await ConversationalShopping.findOne({
     sessionId: req.params.sessionId
   }).populate('conversations.productsShown');
@@ -77,7 +77,7 @@ exports.getSession = catchAsyncErrors(async (req, res, next) => {
 });
 
 // End session
-exports.endSession = catchAsyncErrors(async (req, res, next) => {
+export const endSession = catchAsyncErrors(async (req, res, next) => {
   const { sessionId, outcome, satisfactionScore } = req.body;
 
   const session = await ConversationalShopping.findOne({ sessionId });

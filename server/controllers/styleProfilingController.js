@@ -4,7 +4,7 @@ const catchAsyncErrors = require('../middleware/catchAsyncErrors');
 const ErrorHandler = require('../utils/ErrorHandler');
 
 // Create or update style profile
-exports.createProfile = catchAsyncErrors(async (req, res, next) => {
+export const createProfile = catchAsyncErrors(async (req, res, next) => {
   const {
     fashionStyle,
     bodyMeasurements,
@@ -51,7 +51,7 @@ exports.createProfile = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Get style profile
-exports.getProfile = catchAsyncErrors(async (req, res, next) => {
+export const getProfile = catchAsyncErrors(async (req, res, next) => {
   const profile = await StyleProfile.findOne({ user: req.user.id });
 
   if (!profile) {
@@ -65,7 +65,7 @@ exports.getProfile = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Take style quiz
-exports.styleQuiz = catchAsyncErrors(async (req, res, next) => {
+export const styleQuiz = catchAsyncErrors(async (req, res, next) => {
   const { answers } = req.body;
 
   // Process quiz answers and generate style profile
@@ -102,7 +102,7 @@ exports.styleQuiz = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Get AI-powered recommendations
-exports.getRecommendations = catchAsyncErrors(async (req, res, next) => {
+export const getRecommendations = catchAsyncErrors(async (req, res, next) => {
   const profile = await StyleProfile.findOne({ user: req.user.id });
 
   if (!profile) {
@@ -130,7 +130,7 @@ exports.getRecommendations = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Update body measurements
-exports.updateMeasurements = catchAsyncErrors(async (req, res, next) => {
+export const updateMeasurements = catchAsyncErrors(async (req, res, next) => {
   const profile = await StyleProfile.findOne({ user: req.user.id });
 
   if (!profile) {
@@ -151,7 +151,7 @@ exports.updateMeasurements = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Get outfit suggestions
-exports.getOutfitSuggestions = catchAsyncErrors(async (req, res, next) => {
+export const getOutfitSuggestions = catchAsyncErrors(async (req, res, next) => {
   const { occasion, weather, season } = req.query;
   const profile = await StyleProfile.findOne({ user: req.user.id });
 

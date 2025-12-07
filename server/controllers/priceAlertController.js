@@ -2,7 +2,7 @@ const PriceAlert = require('../models/PriceAlert');
 const catchAsyncErrors = require('../middleware/catchAsyncErrors');
 
 // Create price alert
-exports.createAlert = catchAsyncErrors(async (req, res) => {
+export const createAlert = catchAsyncErrors(async (req, res) => {
   const alert = await PriceAlert.create({
     ...req.body,
     user: req.user._id
@@ -17,7 +17,7 @@ exports.createAlert = catchAsyncErrors(async (req, res) => {
 });
 
 // Get user alerts
-exports.getUserAlerts = catchAsyncErrors(async (req, res) => {
+export const getUserAlerts = catchAsyncErrors(async (req, res) => {
   const { page = 1, limit = 10, status } = req.query;
 
   const query = { user: req.user._id };
@@ -40,7 +40,7 @@ exports.getUserAlerts = catchAsyncErrors(async (req, res) => {
 });
 
 // Check price
-exports.checkPrice = catchAsyncErrors(async (req, res) => {
+export const checkPrice = catchAsyncErrors(async (req, res) => {
   const { alertId } = req.params;
   const { newPrice } = req.body;
 
@@ -64,7 +64,7 @@ exports.checkPrice = catchAsyncErrors(async (req, res) => {
 });
 
 // Cancel alert
-exports.cancelAlert = catchAsyncErrors(async (req, res) => {
+export const cancelAlert = catchAsyncErrors(async (req, res) => {
   const { alertId } = req.params;
 
   const alert = await PriceAlert.findById(alertId);
@@ -86,7 +86,7 @@ exports.cancelAlert = catchAsyncErrors(async (req, res) => {
 });
 
 // Pause alert
-exports.pauseAlert = catchAsyncErrors(async (req, res) => {
+export const pauseAlert = catchAsyncErrors(async (req, res) => {
   const { alertId } = req.params;
 
   const alert = await PriceAlert.findById(alertId);
@@ -108,7 +108,7 @@ exports.pauseAlert = catchAsyncErrors(async (req, res) => {
 });
 
 // Resume alert
-exports.resumeAlert = catchAsyncErrors(async (req, res) => {
+export const resumeAlert = catchAsyncErrors(async (req, res) => {
   const { alertId } = req.params;
 
   const alert = await PriceAlert.findById(alertId);
@@ -130,7 +130,7 @@ exports.resumeAlert = catchAsyncErrors(async (req, res) => {
 });
 
 // Get alerts to check
-exports.getAlertsToCheck = catchAsyncErrors(async (req, res) => {
+export const getAlertsToCheck = catchAsyncErrors(async (req, res) => {
   const alerts = await PriceAlert.getAlertsToCheck();
 
   res.status(200).json({

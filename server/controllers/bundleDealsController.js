@@ -2,7 +2,7 @@ const BundleDeals = require('../models/BundleDeals');
 const catchAsyncErrors = require('../middleware/catchAsyncErrors');
 
 // Create bundle
-exports.createBundle = catchAsyncErrors(async (req, res) => {
+export const createBundle = catchAsyncErrors(async (req, res) => {
   const bundle = await BundleDeals.create(req.body);
 
   res.status(201).json({
@@ -12,7 +12,7 @@ exports.createBundle = catchAsyncErrors(async (req, res) => {
 });
 
 // Get bundle by slug
-exports.getBundle = catchAsyncErrors(async (req, res) => {
+export const getBundle = catchAsyncErrors(async (req, res) => {
   const { slug } = req.params;
 
   const bundle = await BundleDeals.findOne({ slug })
@@ -36,7 +36,7 @@ exports.getBundle = catchAsyncErrors(async (req, res) => {
 });
 
 // Get active bundles
-exports.getActiveBundles = catchAsyncErrors(async (req, res) => {
+export const getActiveBundles = catchAsyncErrors(async (req, res) => {
   const { page = 1, limit = 10 } = req.query;
 
   const bundles = await BundleDeals.getActiveBundles()
@@ -58,7 +58,7 @@ exports.getActiveBundles = catchAsyncErrors(async (req, res) => {
 });
 
 // Get featured bundles
-exports.getFeaturedBundles = catchAsyncErrors(async (req, res) => {
+export const getFeaturedBundles = catchAsyncErrors(async (req, res) => {
   const { limit = 5 } = req.query;
 
   const bundles = await BundleDeals.getFeaturedBundles(parseInt(limit));
@@ -70,7 +70,7 @@ exports.getFeaturedBundles = catchAsyncErrors(async (req, res) => {
 });
 
 // Check availability
-exports.checkAvailability = catchAsyncErrors(async (req, res) => {
+export const checkAvailability = catchAsyncErrors(async (req, res) => {
   const { bundleId } = req.params;
 
   const bundle = await BundleDeals.findById(bundleId);
@@ -92,7 +92,7 @@ exports.checkAvailability = catchAsyncErrors(async (req, res) => {
 });
 
 // Track analytics
-exports.trackAnalytics = catchAsyncErrors(async (req, res) => {
+export const trackAnalytics = catchAsyncErrors(async (req, res) => {
   const { bundleId } = req.params;
   const { action, value } = req.body;
 

@@ -5,7 +5,7 @@ const catchAsyncErrors = require('../middleware/catchAsyncErrors');
 const ErrorHandler = require('../utils/ErrorHandler');
 
 // Create live shopping event
-exports.createEvent = catchAsyncErrors(async (req, res, next) => {
+export const createEvent = catchAsyncErrors(async (req, res, next) => {
   const {
     title,
     description,
@@ -53,7 +53,7 @@ exports.createEvent = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Get live shopping events
-exports.getEvents = catchAsyncErrors(async (req, res, next) => {
+export const getEvents = catchAsyncErrors(async (req, res, next) => {
   const { status, upcoming, live } = req.query;
 
   let query = {};
@@ -79,7 +79,7 @@ exports.getEvents = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Get single event
-exports.getEvent = catchAsyncErrors(async (req, res, next) => {
+export const getEvent = catchAsyncErrors(async (req, res, next) => {
   const event = await LiveShopping.findById(req.params.id)
     .populate('products.product');
 
@@ -100,7 +100,7 @@ exports.getEvent = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Start live stream
-exports.startStream = catchAsyncErrors(async (req, res, next) => {
+export const startStream = catchAsyncErrors(async (req, res, next) => {
   const event = await LiveShopping.findById(req.params.id);
 
   if (!event) {
@@ -126,7 +126,7 @@ exports.startStream = catchAsyncErrors(async (req, res, next) => {
 });
 
 // End live stream
-exports.endStream = catchAsyncErrors(async (req, res, next) => {
+export const endStream = catchAsyncErrors(async (req, res, next) => {
   const event = await LiveShopping.findById(req.params.id);
 
   if (!event) {
@@ -154,7 +154,7 @@ exports.endStream = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Add comment to live chat
-exports.addComment = catchAsyncErrors(async (req, res, next) => {
+export const addComment = catchAsyncErrors(async (req, res, next) => {
   const { eventId, message } = req.body;
 
   const event = await LiveShopping.findById(eventId);
@@ -190,7 +190,7 @@ exports.addComment = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Add reaction
-exports.addReaction = catchAsyncErrors(async (req, res, next) => {
+export const addReaction = catchAsyncErrors(async (req, res, next) => {
   const { eventId, reactionType } = req.body;
 
   const event = await LiveShopping.findById(eventId);
@@ -220,7 +220,7 @@ exports.addReaction = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Create flash deal during live
-exports.createFlashDeal = catchAsyncErrors(async (req, res, next) => {
+export const createFlashDeal = catchAsyncErrors(async (req, res, next) => {
   const { eventId, productId, dealPrice, duration, quantity } = req.body;
 
   const event = await LiveShopping.findById(eventId);
@@ -258,7 +258,7 @@ exports.createFlashDeal = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Purchase during live stream
-exports.livePurchase = catchAsyncErrors(async (req, res, next) => {
+export const livePurchase = catchAsyncErrors(async (req, res, next) => {
   const { eventId, productId, quantity } = req.body;
 
   const event = await LiveShopping.findById(eventId);
@@ -319,7 +319,7 @@ exports.livePurchase = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Update viewer count
-exports.updateViewers = catchAsyncErrors(async (req, res, next) => {
+export const updateViewers = catchAsyncErrors(async (req, res, next) => {
   const { eventId, action } = req.body;
 
   const event = await LiveShopping.findById(eventId);

@@ -7,7 +7,7 @@ import crypto from 'crypto';
 // Carbon Footprint Calculator
 
 // Calculate Product Carbon Footprint
-exports.calculateProductCarbonFootprint = async (req, res) => {
+export const calculateProductCarbonFootprint = async (req, res) => {
   try {
     const { productId } = req.params;
 
@@ -66,7 +66,7 @@ exports.calculateProductCarbonFootprint = async (req, res) => {
 };
 
 // Calculate Order Carbon Footprint
-exports.calculateOrderCarbonFootprint = async (req, res) => {
+export const calculateOrderCarbonFootprint = async (req, res) => {
   try {
     const { orderId } = req.params;
 
@@ -118,7 +118,7 @@ exports.calculateOrderCarbonFootprint = async (req, res) => {
 // Eco-Friendly Product Badges
 
 // Assign Eco-Friendly Badge
-exports.assignEcoBadge = async (req, res) => {
+export const assignEcoBadge = async (req, res) => {
   try {
     const { productId, badgeType, certificationDetails } = req.body;
 
@@ -173,7 +173,7 @@ exports.assignEcoBadge = async (req, res) => {
 };
 
 // Get Products with Eco Badges
-exports.getEcoFriendlyProducts = async (req, res) => {
+export const getEcoFriendlyProducts = async (req, res) => {
   try {
     const { badgeType, page = 1, limit = 20 } = req.query;
 
@@ -207,7 +207,7 @@ exports.getEcoFriendlyProducts = async (req, res) => {
 // Sustainable Packaging Options
 
 // Get Packaging Options
-exports.getPackagingOptions = async (req, res) => {
+export const getPackagingOptions = async (req, res) => {
   try {
     const packagingOptions = [
       {
@@ -274,7 +274,7 @@ exports.getPackagingOptions = async (req, res) => {
 };
 
 // Select Packaging for Order
-exports.selectPackaging = async (req, res) => {
+export const selectPackaging = async (req, res) => {
   try {
     const { orderId, packagingOptionId } = req.body;
 
@@ -326,7 +326,7 @@ exports.selectPackaging = async (req, res) => {
 // Green Shipping Options
 
 // Get Green Shipping Options
-exports.getGreenShippingOptions = async (req, res) => {
+export const getGreenShippingOptions = async (req, res) => {
   try {
     const { orderId, destination } = req.query;
 
@@ -401,7 +401,7 @@ exports.getGreenShippingOptions = async (req, res) => {
 // Carbon Offset Program
 
 // Purchase Carbon Offset
-exports.purchaseCarbonOffset = async (req, res) => {
+export const purchaseCarbonOffset = async (req, res) => {
   try {
     const { orderId, offsetAmount, offsetType } = req.body;
 
@@ -446,7 +446,7 @@ exports.purchaseCarbonOffset = async (req, res) => {
 };
 
 // Get Sustainability Dashboard
-exports.getSustainabilityDashboard = async (req, res) => {
+export const getSustainabilityDashboard = async (req, res) => {
   try {
     const { userId } = req.params;
     const { timeframe = '30' } = req.query; // days

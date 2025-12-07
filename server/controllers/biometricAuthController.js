@@ -5,7 +5,7 @@ const ErrorHandler = require('../utils/ErrorHandler');
 const crypto = require('crypto');
 
 // Enroll biometric
-exports.enrollBiometric = catchAsyncErrors(async (req, res, next) => {
+export const enrollBiometric = catchAsyncErrors(async (req, res, next) => {
   const { biometricType, biometricData, deviceInfo } = req.body;
 
   let bioAuth = await BiometricAuth.findOne({ user: req.user.id });
@@ -77,7 +77,7 @@ exports.enrollBiometric = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Authenticate with biometric
-exports.authenticateBiometric = catchAsyncErrors(async (req, res, next) => {
+export const authenticateBiometric = catchAsyncErrors(async (req, res, next) => {
   const { biometricType, biometricData, deviceId } = req.body;
 
   const bioAuth = await BiometricAuth.findOne({ user: req.user.id });
@@ -178,7 +178,7 @@ exports.authenticateBiometric = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Enable payment authentication
-exports.enablePaymentAuth = catchAsyncErrors(async (req, res, next) => {
+export const enablePaymentAuth = catchAsyncErrors(async (req, res, next) => {
   const { methods, thresholdAmount } = req.body;
 
   const bioAuth = await BiometricAuth.findOne({ user: req.user.id });
@@ -206,7 +206,7 @@ exports.enablePaymentAuth = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Verify payment with biometric
-exports.verifyPayment = catchAsyncErrors(async (req, res, next) => {
+export const verifyPayment = catchAsyncErrors(async (req, res, next) => {
   const { orderId, amount, biometricType, biometricData } = req.body;
 
   const bioAuth = await BiometricAuth.findOne({ user: req.user.id });
@@ -243,7 +243,7 @@ exports.verifyPayment = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Get biometric settings
-exports.getBiometricSettings = catchAsyncErrors(async (req, res, next) => {
+export const getBiometricSettings = catchAsyncErrors(async (req, res, next) => {
   const bioAuth = await BiometricAuth.findOne({ user: req.user.id });
 
   if (!bioAuth) {

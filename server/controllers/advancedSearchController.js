@@ -3,7 +3,7 @@ const Product = require('../models/Product');
 const catchAsyncErrors = require('../middleware/catchAsyncErrors');
 
 // Perform search
-exports.search = catchAsyncErrors(async (req, res) => {
+export const search = catchAsyncErrors(async (req, res) => {
   const { query, filters, page = 1, limit = 20 } = req.body;
 
   // Create search record
@@ -48,7 +48,7 @@ exports.search = catchAsyncErrors(async (req, res) => {
 });
 
 // Track interaction
-exports.trackInteraction = catchAsyncErrors(async (req, res) => {
+export const trackInteraction = catchAsyncErrors(async (req, res) => {
   const { searchId } = req.params;
   const { productId, interactionType } = req.body;
 
@@ -76,7 +76,7 @@ exports.trackInteraction = catchAsyncErrors(async (req, res) => {
 });
 
 // Get search history
-exports.getSearchHistory = catchAsyncErrors(async (req, res) => {
+export const getSearchHistory = catchAsyncErrors(async (req, res) => {
   const { limit = 10 } = req.query;
 
   const history = await AdvancedSearch.find({ user: req.user._id })
@@ -91,7 +91,7 @@ exports.getSearchHistory = catchAsyncErrors(async (req, res) => {
 });
 
 // Get popular searches
-exports.getPopularSearches = catchAsyncErrors(async (req, res) => {
+export const getPopularSearches = catchAsyncErrors(async (req, res) => {
   const { limit = 10 } = req.query;
 
   const popular = await AdvancedSearch.aggregate([

@@ -4,7 +4,7 @@ const catchAsyncErrors = require('../middleware/catchAsyncErrors');
 const ErrorHandler = require('../utils/ErrorHandler');
 
 // Initiate crypto payment
-exports.initiateCryptoPayment = catchAsyncErrors(async (req, res, next) => {
+export const initiateCryptoPayment = catchAsyncErrors(async (req, res, next) => {
   const { orderId, cryptocurrency } = req.body;
 
   const order = await Order.findById(orderId);
@@ -85,7 +85,7 @@ exports.initiateCryptoPayment = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Check payment status
-exports.checkPaymentStatus = catchAsyncErrors(async (req, res, next) => {
+export const checkPaymentStatus = catchAsyncErrors(async (req, res, next) => {
   const { paymentId } = req.params;
 
   const payment = await CryptoPayment.findById(paymentId);
@@ -125,7 +125,7 @@ exports.checkPaymentStatus = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Webhook for blockchain events
-exports.blockchainWebhook = catchAsyncErrors(async (req, res, next) => {
+export const blockchainWebhook = catchAsyncErrors(async (req, res, next) => {
   const { transactionHash, confirmations, status } = req.body;
 
   const payment = await CryptoPayment.findOne({ transactionHash });
@@ -151,7 +151,7 @@ exports.blockchainWebhook = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Refund crypto payment
-exports.refundCryptoPayment = catchAsyncErrors(async (req, res, next) => {
+export const refundCryptoPayment = catchAsyncErrors(async (req, res, next) => {
   const { paymentId, refundAddress } = req.body;
 
   const payment = await CryptoPayment.findById(paymentId);
@@ -188,7 +188,7 @@ exports.refundCryptoPayment = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Get supported cryptocurrencies
-exports.getSupportedCryptos = catchAsyncErrors(async (req, res, next) => {
+export const getSupportedCryptos = catchAsyncErrors(async (req, res, next) => {
   const cryptos = [
     { symbol: 'BTC', name: 'Bitcoin', network: 'Bitcoin', fee: '0.0001 BTC' },
     { symbol: 'ETH', name: 'Ethereum', network: 'Ethereum', fee: '0.001 ETH' },

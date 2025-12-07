@@ -2,7 +2,7 @@ const OneClickCheckout = require('../models/OneClickCheckout');
 const catchAsyncErrors = require('../middleware/catchAsyncErrors');
 
 // Get one-click checkout settings
-exports.getSettings = catchAsyncErrors(async (req, res) => {
+export const getSettings = catchAsyncErrors(async (req, res) => {
   let settings = await OneClickCheckout.findOne({ user: req.user._id });
 
   if (!settings) {
@@ -16,7 +16,7 @@ exports.getSettings = catchAsyncErrors(async (req, res) => {
 });
 
 // Add payment method
-exports.addPaymentMethod = catchAsyncErrors(async (req, res) => {
+export const addPaymentMethod = catchAsyncErrors(async (req, res) => {
   const { paymentData } = req.body;
 
   let settings = await OneClickCheckout.findOne({ user: req.user._id });
@@ -36,7 +36,7 @@ exports.addPaymentMethod = catchAsyncErrors(async (req, res) => {
 });
 
 // Add shipping address
-exports.addShippingAddress = catchAsyncErrors(async (req, res) => {
+export const addShippingAddress = catchAsyncErrors(async (req, res) => {
   const { addressData } = req.body;
 
   let settings = await OneClickCheckout.findOne({ user: req.user._id });
@@ -56,7 +56,7 @@ exports.addShippingAddress = catchAsyncErrors(async (req, res) => {
 });
 
 // Set default payment method
-exports.setDefaultPayment = catchAsyncErrors(async (req, res) => {
+export const setDefaultPayment = catchAsyncErrors(async (req, res) => {
   const { paymentId } = req.body;
 
   const settings = await OneClickCheckout.findOne({ user: req.user._id });
@@ -78,7 +78,7 @@ exports.setDefaultPayment = catchAsyncErrors(async (req, res) => {
 });
 
 // Set default shipping address
-exports.setDefaultShipping = catchAsyncErrors(async (req, res) => {
+export const setDefaultShipping = catchAsyncErrors(async (req, res) => {
   const { addressId } = req.body;
 
   const settings = await OneClickCheckout.findOne({ user: req.user._id });
@@ -100,7 +100,7 @@ exports.setDefaultShipping = catchAsyncErrors(async (req, res) => {
 });
 
 // Validate one-click purchase
-exports.validatePurchase = catchAsyncErrors(async (req, res) => {
+export const validatePurchase = catchAsyncErrors(async (req, res) => {
   const { orderValue } = req.body;
 
   const settings = await OneClickCheckout.findOne({ user: req.user._id });
@@ -122,7 +122,7 @@ exports.validatePurchase = catchAsyncErrors(async (req, res) => {
 });
 
 // Update analytics
-exports.updateAnalytics = catchAsyncErrors(async (req, res) => {
+export const updateAnalytics = catchAsyncErrors(async (req, res) => {
   const { orderValue, isOneClick } = req.body;
 
   const settings = await OneClickCheckout.findOne({ user: req.user._id });

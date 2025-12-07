@@ -2,7 +2,7 @@ const LoyaltyProgram = require('../models/LoyaltyProgram');
 const catchAsyncErrors = require('../middleware/catchAsyncErrors');
 
 // Get user loyalty program
-exports.getUserLoyalty = catchAsyncErrors(async (req, res) => {
+export const getUserLoyalty = catchAsyncErrors(async (req, res) => {
   let loyalty = await LoyaltyProgram.findOne({ user: req.user._id });
 
   if (!loyalty) {
@@ -16,7 +16,7 @@ exports.getUserLoyalty = catchAsyncErrors(async (req, res) => {
 });
 
 // Add points
-exports.addPoints = catchAsyncErrors(async (req, res) => {
+export const addPoints = catchAsyncErrors(async (req, res) => {
   const { amount, reason, category } = req.body;
 
   let loyalty = await LoyaltyProgram.findOne({ user: req.user._id });
@@ -36,7 +36,7 @@ exports.addPoints = catchAsyncErrors(async (req, res) => {
 });
 
 // Redeem points
-exports.redeemPoints = catchAsyncErrors(async (req, res) => {
+export const redeemPoints = catchAsyncErrors(async (req, res) => {
   const { amount, reason } = req.body;
 
   const loyalty = await LoyaltyProgram.findOne({ user: req.user._id });
@@ -66,7 +66,7 @@ exports.redeemPoints = catchAsyncErrors(async (req, res) => {
 });
 
 // Get leaderboard
-exports.getLeaderboard = catchAsyncErrors(async (req, res) => {
+export const getLeaderboard = catchAsyncErrors(async (req, res) => {
   const { limit = 10 } = req.query;
 
   const leaderboard = await LoyaltyProgram.getLeaderboard(parseInt(limit));
@@ -78,7 +78,7 @@ exports.getLeaderboard = catchAsyncErrors(async (req, res) => {
 });
 
 // Validate referral code
-exports.validateReferralCode = catchAsyncErrors(async (req, res) => {
+export const validateReferralCode = catchAsyncErrors(async (req, res) => {
   const { code } = req.params;
 
   const loyalty = await LoyaltyProgram.findOne({ 'referralProgram.code': code });

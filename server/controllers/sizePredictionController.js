@@ -5,7 +5,7 @@ const catchAsyncErrors = require('../middleware/catchAsyncErrors');
 const ErrorHandler = require('../utils/ErrorHandler');
 
 // Get size prediction for a product
-exports.predictSize = catchAsyncErrors(async (req, res, next) => {
+export const predictSize = catchAsyncErrors(async (req, res, next) => {
   const { productId } = req.params;
 
   const product = await Product.findById(productId);
@@ -59,7 +59,7 @@ exports.predictSize = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Update actual purchase feedback
-exports.updateFeedback = catchAsyncErrors(async (req, res, next) => {
+export const updateFeedback = catchAsyncErrors(async (req, res, next) => {
   const { predictionId } = req.params;
   const { actualSize, fitFeedback, returned, returnReason } = req.body;
 
@@ -87,7 +87,7 @@ exports.updateFeedback = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Get size chart for brand
-exports.getSizeChart = catchAsyncErrors(async (req, res, next) => {
+export const getSizeChart = catchAsyncErrors(async (req, res, next) => {
   const { brand, category } = req.query;
 
   // Get user measurements
@@ -102,7 +102,7 @@ exports.getSizeChart = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Get fit guarantee details
-exports.getFitGuarantee = catchAsyncErrors(async (req, res, next) => {
+export const getFitGuarantee = catchAsyncErrors(async (req, res, next) => {
   const guaranteeDetails = {
     description: 'We guarantee the fit or you get free returns and exchanges',
     conditions: [
@@ -125,7 +125,7 @@ exports.getFitGuarantee = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Get sizing analytics
-exports.getSizingAnalytics = catchAsyncErrors(async (req, res, next) => {
+export const getSizingAnalytics = catchAsyncErrors(async (req, res, next) => {
   const predictions = await SizePrediction.find({ user: req.user.id })
     .populate('product');
 

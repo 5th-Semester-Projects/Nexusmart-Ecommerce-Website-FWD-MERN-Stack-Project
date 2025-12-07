@@ -2,7 +2,7 @@ const MultiVendorMarketplace = require('../models/MultiVendorMarketplace');
 const catchAsyncErrors = require('../middleware/catchAsyncErrors');
 
 // Create vendor store
-exports.createStore = catchAsyncErrors(async (req, res) => {
+export const createStore = catchAsyncErrors(async (req, res) => {
   const store = await MultiVendorMarketplace.create({
     ...req.body,
     vendor: req.user._id
@@ -15,7 +15,7 @@ exports.createStore = catchAsyncErrors(async (req, res) => {
 });
 
 // Get vendor store
-exports.getStore = catchAsyncErrors(async (req, res) => {
+export const getStore = catchAsyncErrors(async (req, res) => {
   const { slug } = req.params;
 
   const store = await MultiVendorMarketplace.findOne({
@@ -37,7 +37,7 @@ exports.getStore = catchAsyncErrors(async (req, res) => {
 });
 
 // Update store
-exports.updateStore = catchAsyncErrors(async (req, res) => {
+export const updateStore = catchAsyncErrors(async (req, res) => {
   const store = await MultiVendorMarketplace.findOneAndUpdate(
     { vendor: req.user._id },
     req.body,
@@ -58,7 +58,7 @@ exports.updateStore = catchAsyncErrors(async (req, res) => {
 });
 
 // Update rating
-exports.updateRating = catchAsyncErrors(async (req, res) => {
+export const updateRating = catchAsyncErrors(async (req, res) => {
   const { storeId } = req.params;
   const { rating } = req.body;
 
@@ -81,7 +81,7 @@ exports.updateRating = catchAsyncErrors(async (req, res) => {
 });
 
 // Request payout
-exports.requestPayout = catchAsyncErrors(async (req, res) => {
+export const requestPayout = catchAsyncErrors(async (req, res) => {
   const { amount } = req.body;
 
   const store = await MultiVendorMarketplace.findOne({ vendor: req.user._id });
@@ -110,7 +110,7 @@ exports.requestPayout = catchAsyncErrors(async (req, res) => {
 });
 
 // Get top vendors
-exports.getTopVendors = catchAsyncErrors(async (req, res) => {
+export const getTopVendors = catchAsyncErrors(async (req, res) => {
   const { limit = 10 } = req.query;
 
   const vendors = await MultiVendorMarketplace.getTopVendors(parseInt(limit));

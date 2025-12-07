@@ -3,7 +3,7 @@ const Product = require('../models/Product');
 const catchAsyncErrors = require('../middleware/catchAsyncErrors');
 
 // Create enhanced review
-exports.createReview = catchAsyncErrors(async (req, res) => {
+export const createReview = catchAsyncErrors(async (req, res) => {
   const review = await EnhancedReview.create({
     ...req.body,
     user: req.user._id,
@@ -22,7 +22,7 @@ exports.createReview = catchAsyncErrors(async (req, res) => {
 });
 
 // Get product reviews
-exports.getProductReviews = catchAsyncErrors(async (req, res) => {
+export const getProductReviews = catchAsyncErrors(async (req, res) => {
   const { productId } = req.params;
   const { page = 1, limit = 10, sort = 'helpful' } = req.query;
 
@@ -60,7 +60,7 @@ exports.getProductReviews = catchAsyncErrors(async (req, res) => {
 });
 
 // Vote helpful
-exports.voteHelpful = catchAsyncErrors(async (req, res) => {
+export const voteHelpful = catchAsyncErrors(async (req, res) => {
   const { reviewId } = req.params;
   const { helpful } = req.body;
 
@@ -83,7 +83,7 @@ exports.voteHelpful = catchAsyncErrors(async (req, res) => {
 });
 
 // Add reply
-exports.addReply = catchAsyncErrors(async (req, res) => {
+export const addReply = catchAsyncErrors(async (req, res) => {
   const { reviewId } = req.params;
   const { content } = req.body;
 
@@ -107,7 +107,7 @@ exports.addReply = catchAsyncErrors(async (req, res) => {
 });
 
 // Get featured reviews
-exports.getFeaturedReviews = catchAsyncErrors(async (req, res) => {
+export const getFeaturedReviews = catchAsyncErrors(async (req, res) => {
   const { productId } = req.params;
   const { limit = 5 } = req.query;
 

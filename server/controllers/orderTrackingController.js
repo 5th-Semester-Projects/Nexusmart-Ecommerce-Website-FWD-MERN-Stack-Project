@@ -2,7 +2,7 @@ const OrderTracking = require('../models/OrderTracking');
 const catchAsyncErrors = require('../middleware/catchAsyncErrors');
 
 // Create tracking
-exports.createTracking = catchAsyncErrors(async (req, res) => {
+export const createTracking = catchAsyncErrors(async (req, res) => {
   const tracking = await OrderTracking.create(req.body);
 
   res.status(201).json({
@@ -12,7 +12,7 @@ exports.createTracking = catchAsyncErrors(async (req, res) => {
 });
 
 // Get tracking by tracking number
-exports.getTracking = catchAsyncErrors(async (req, res) => {
+export const getTracking = catchAsyncErrors(async (req, res) => {
   const { trackingNumber } = req.params;
 
   const tracking = await OrderTracking.findOne({ trackingNumber })
@@ -37,7 +37,7 @@ exports.getTracking = catchAsyncErrors(async (req, res) => {
 });
 
 // Update status
-exports.updateStatus = catchAsyncErrors(async (req, res) => {
+export const updateStatus = catchAsyncErrors(async (req, res) => {
   const { trackingNumber } = req.params;
   const { status, location, description, performedBy } = req.body;
 
@@ -61,7 +61,7 @@ exports.updateStatus = catchAsyncErrors(async (req, res) => {
 });
 
 // Report issue
-exports.reportIssue = catchAsyncErrors(async (req, res) => {
+export const reportIssue = catchAsyncErrors(async (req, res) => {
   const { trackingNumber } = req.params;
   const { type, description, priority } = req.body;
 
@@ -84,7 +84,7 @@ exports.reportIssue = catchAsyncErrors(async (req, res) => {
 });
 
 // Get deliveries today
-exports.getDeliveriesToday = catchAsyncErrors(async (req, res) => {
+export const getDeliveriesToday = catchAsyncErrors(async (req, res) => {
   const deliveries = await OrderTracking.getDeliveriesToday();
 
   res.status(200).json({

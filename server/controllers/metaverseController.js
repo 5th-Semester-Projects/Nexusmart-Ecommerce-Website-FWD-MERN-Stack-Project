@@ -7,7 +7,7 @@ import crypto from 'crypto';
 // Virtual Store Management
 
 // Create Virtual Store
-exports.createVirtualStore = async (req, res) => {
+export const createVirtualStore = async (req, res) => {
   try {
     const {
       storeName,
@@ -54,7 +54,7 @@ exports.createVirtualStore = async (req, res) => {
 };
 
 // Get Virtual Store
-exports.getVirtualStore = async (req, res) => {
+export const getVirtualStore = async (req, res) => {
   try {
     const { storeId } = req.params;
 
@@ -80,7 +80,7 @@ exports.getVirtualStore = async (req, res) => {
 // Avatar Shopping Experience
 
 // Create/Update User Avatar
-exports.createUserAvatar = async (req, res) => {
+export const createUserAvatar = async (req, res) => {
   try {
     const { userId, avatarConfig } = req.body;
 
@@ -136,7 +136,7 @@ exports.createUserAvatar = async (req, res) => {
 };
 
 // Get User Avatar
-exports.getUserAvatar = async (req, res) => {
+export const getUserAvatar = async (req, res) => {
   try {
     const { userId } = req.params;
 
@@ -156,7 +156,7 @@ exports.getUserAvatar = async (req, res) => {
 };
 
 // Try On Products in VR
-exports.virtualTryOn = async (req, res) => {
+export const virtualTryOn = async (req, res) => {
   try {
     const { userId, productId, avatarId } = req.body;
 
@@ -194,7 +194,7 @@ exports.virtualTryOn = async (req, res) => {
 // VR Experience
 
 // Start VR Shopping Session
-exports.startVRSession = async (req, res) => {
+export const startVRSession = async (req, res) => {
   try {
     const { userId, storeId, deviceType } = req.body;
 
@@ -232,7 +232,7 @@ exports.startVRSession = async (req, res) => {
 };
 
 // Get VR Session Status
-exports.getVRSessionStatus = async (req, res) => {
+export const getVRSessionStatus = async (req, res) => {
   try {
     const { sessionId } = req.params;
 
@@ -252,7 +252,7 @@ exports.getVRSessionStatus = async (req, res) => {
 };
 
 // End VR Session
-exports.endVRSession = async (req, res) => {
+export const endVRSession = async (req, res) => {
   try {
     const { sessionId } = req.body;
 
@@ -278,7 +278,7 @@ exports.endVRSession = async (req, res) => {
 // 3D Product Gallery
 
 // Get 3D Product Gallery
-exports.get3DProductGallery = async (req, res) => {
+export const get3DProductGallery = async (req, res) => {
   try {
     const { category, featured, limit = 20 } = req.query;
 
@@ -326,7 +326,7 @@ exports.get3DProductGallery = async (req, res) => {
 };
 
 // Get Product 3D Model
-exports.getProduct3DModel = async (req, res) => {
+export const getProduct3DModel = async (req, res) => {
   try {
     const { productId } = req.params;
     const { quality = 'high' } = req.query;
@@ -367,7 +367,7 @@ exports.getProduct3DModel = async (req, res) => {
 // Virtual Shopping Events
 
 // Create Virtual Shopping Event
-exports.createVirtualEvent = async (req, res) => {
+export const createVirtualEvent = async (req, res) => {
   try {
     const {
       eventName,
@@ -411,7 +411,7 @@ exports.createVirtualEvent = async (req, res) => {
 };
 
 // Join Virtual Event
-exports.joinVirtualEvent = async (req, res) => {
+export const joinVirtualEvent = async (req, res) => {
   try {
     const { eventId, userId } = req.body;
 
@@ -467,17 +467,4 @@ function generateInteractionPoints(product) {
   ];
 }
 
-export {
-  createVirtualStore,
-  getVirtualStore,
-  createUserAvatar,
-  getUserAvatar,
-  virtualTryOn,
-  startVRSession,
-  getVRSessionStatus,
-  endVRSession,
-  get3DProductGallery,
-  getProduct3DModel,
-  createVirtualEvent,
-  joinVirtualEvent
-};
+// Exports converted to ES6 export const

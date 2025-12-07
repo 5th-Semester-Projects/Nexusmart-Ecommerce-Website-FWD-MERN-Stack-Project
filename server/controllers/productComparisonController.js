@@ -2,7 +2,7 @@ const ProductComparison = require('../models/ProductComparison');
 const catchAsyncErrors = require('../middleware/catchAsyncErrors');
 
 // Create comparison
-exports.createComparison = catchAsyncErrors(async (req, res) => {
+export const createComparison = catchAsyncErrors(async (req, res) => {
   const { products } = req.body;
 
   const comparison = await ProductComparison.create({
@@ -20,7 +20,7 @@ exports.createComparison = catchAsyncErrors(async (req, res) => {
 });
 
 // Get comparison
-exports.getComparison = catchAsyncErrors(async (req, res) => {
+export const getComparison = catchAsyncErrors(async (req, res) => {
   const { comparisonId } = req.params;
 
   const comparison = await ProductComparison.findById(comparisonId)
@@ -40,7 +40,7 @@ exports.getComparison = catchAsyncErrors(async (req, res) => {
 });
 
 // Add product to comparison
-exports.addProduct = catchAsyncErrors(async (req, res) => {
+export const addProduct = catchAsyncErrors(async (req, res) => {
   const { comparisonId } = req.params;
   const { productId } = req.body;
 
@@ -71,7 +71,7 @@ exports.addProduct = catchAsyncErrors(async (req, res) => {
 });
 
 // Remove product from comparison
-exports.removeProduct = catchAsyncErrors(async (req, res) => {
+export const removeProduct = catchAsyncErrors(async (req, res) => {
   const { comparisonId, productId } = req.params;
 
   const comparison = await ProductComparison.findById(comparisonId);
@@ -97,7 +97,7 @@ exports.removeProduct = catchAsyncErrors(async (req, res) => {
 });
 
 // Get user comparisons
-exports.getUserComparisons = catchAsyncErrors(async (req, res) => {
+export const getUserComparisons = catchAsyncErrors(async (req, res) => {
   const { limit = 10 } = req.query;
 
   const comparisons = await ProductComparison.find({ user: req.user._id })

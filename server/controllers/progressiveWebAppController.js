@@ -2,7 +2,7 @@ const ProgressiveWebApp = require('../models/ProgressiveWebApp');
 const catchAsyncErrors = require('../middleware/catchAsyncErrors');
 
 // Get PWA status
-exports.getPWAStatus = catchAsyncErrors(async (req, res) => {
+export const getPWAStatus = catchAsyncErrors(async (req, res) => {
   let pwa = await ProgressiveWebApp.findOne({ user: req.user._id });
 
   if (!pwa) {
@@ -19,7 +19,7 @@ exports.getPWAStatus = catchAsyncErrors(async (req, res) => {
 });
 
 // Record session
-exports.recordSession = catchAsyncErrors(async (req, res) => {
+export const recordSession = catchAsyncErrors(async (req, res) => {
   const { startTime, endTime, pagesViewed, isStandalone, isOffline } = req.body;
 
   let pwa = await ProgressiveWebApp.findOne({ user: req.user._id });
@@ -42,7 +42,7 @@ exports.recordSession = catchAsyncErrors(async (req, res) => {
 });
 
 // Track push notification
-exports.trackPushNotification = catchAsyncErrors(async (req, res) => {
+export const trackPushNotification = catchAsyncErrors(async (req, res) => {
   const { clicked } = req.body;
 
   const pwa = await ProgressiveWebApp.findOne({ user: req.user._id });
@@ -64,7 +64,7 @@ exports.trackPushNotification = catchAsyncErrors(async (req, res) => {
 });
 
 // Subscribe to push
-exports.subscribeToPush = catchAsyncErrors(async (req, res) => {
+export const subscribeToPush = catchAsyncErrors(async (req, res) => {
   const { endpoint, keys } = req.body;
 
   let pwa = await ProgressiveWebApp.findOne({ user: req.user._id });
@@ -89,7 +89,7 @@ exports.subscribeToPush = catchAsyncErrors(async (req, res) => {
 });
 
 // Mark as installed
-exports.markInstalled = catchAsyncErrors(async (req, res) => {
+export const markInstalled = catchAsyncErrors(async (req, res) => {
   const { source } = req.body;
 
   let pwa = await ProgressiveWebApp.findOne({ user: req.user._id });
@@ -113,7 +113,7 @@ exports.markInstalled = catchAsyncErrors(async (req, res) => {
 });
 
 // Calculate retention
-exports.calculateRetention = catchAsyncErrors(async (req, res) => {
+export const calculateRetention = catchAsyncErrors(async (req, res) => {
   const { userId } = req.params;
 
   const pwa = await ProgressiveWebApp.findOne({ user: userId || req.user._id });
@@ -134,7 +134,7 @@ exports.calculateRetention = catchAsyncErrors(async (req, res) => {
 });
 
 // Get installation rate
-exports.getInstallationRate = catchAsyncErrors(async (req, res) => {
+export const getInstallationRate = catchAsyncErrors(async (req, res) => {
   const rate = await ProgressiveWebApp.getInstallationRate();
 
   res.status(200).json({
@@ -144,7 +144,7 @@ exports.getInstallationRate = catchAsyncErrors(async (req, res) => {
 });
 
 // Get active PWA users
-exports.getActivePWAUsers = catchAsyncErrors(async (req, res) => {
+export const getActivePWAUsers = catchAsyncErrors(async (req, res) => {
   const users = await ProgressiveWebApp.getActivePWAUsers();
 
   res.status(200).json({

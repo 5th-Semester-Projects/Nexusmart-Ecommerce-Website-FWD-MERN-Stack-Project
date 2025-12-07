@@ -5,7 +5,7 @@ const catchAsyncErrors = require('../middleware/catchAsyncErrors');
 const ErrorHandler = require('../utils/ErrorHandler');
 
 // AR Virtual Try-On
-exports.createTryOnSession = catchAsyncErrors(async (req, res, next) => {
+export const createTryOnSession = catchAsyncErrors(async (req, res, next) => {
   const { productId, tryOnType, userImage } = req.body;
 
   const product = await Product.findById(productId);
@@ -44,7 +44,7 @@ exports.createTryOnSession = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
-exports.saveTryOnResult = catchAsyncErrors(async (req, res, next) => {
+export const saveTryOnResult = catchAsyncErrors(async (req, res, next) => {
   const { sessionId, feedback } = req.body;
 
   const session = await ARVirtualTryOn.findOne({ sessionId });
@@ -62,7 +62,7 @@ exports.saveTryOnResult = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
-exports.addToCartFromAR = catchAsyncErrors(async (req, res, next) => {
+export const addToCartFromAR = catchAsyncErrors(async (req, res, next) => {
   const { sessionId } = req.body;
 
   const session = await ARVirtualTryOn.findOne({ sessionId });
@@ -80,7 +80,7 @@ exports.addToCartFromAR = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Voice Shopping
-exports.startVoiceSession = catchAsyncErrors(async (req, res, next) => {
+export const startVoiceSession = catchAsyncErrors(async (req, res, next) => {
   const { platform } = req.body;
 
   const session = await VoiceShopping.create({
@@ -100,7 +100,7 @@ exports.startVoiceSession = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
-exports.processVoiceCommand = catchAsyncErrors(async (req, res, next) => {
+export const processVoiceCommand = catchAsyncErrors(async (req, res, next) => {
   const { sessionId, audioFile, transcription } = req.body;
 
   const session = await VoiceShopping.findOne({ sessionId });
@@ -148,7 +148,7 @@ exports.processVoiceCommand = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
-exports.voiceAuthenticate = catchAsyncErrors(async (req, res, next) => {
+export const voiceAuthenticate = catchAsyncErrors(async (req, res, next) => {
   const { sessionId, voiceSample } = req.body;
 
   const session = await VoiceShopping.findOne({ sessionId });
@@ -175,7 +175,7 @@ exports.voiceAuthenticate = catchAsyncErrors(async (req, res, next) => {
 });
 
 // 3D Product View
-exports.get3DModel = catchAsyncErrors(async (req, res, next) => {
+export const get3DModel = catchAsyncErrors(async (req, res, next) => {
   const product = await Product.findById(req.params.productId);
 
   if (!product) {

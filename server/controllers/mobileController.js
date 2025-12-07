@@ -6,7 +6,7 @@ const Geofence = require('../models/Geofence');
 const catchAsyncErrors = require('../middleware/catchAsyncErrors');
 
 // Register PWA Installation
-exports.registerPWAInstall = catchAsyncErrors(async (req, res) => {
+export const registerPWAInstall = catchAsyncErrors(async (req, res) => {
   const { platform, browser, installSource } = req.body;
 
   const pwa = await PWA.findOneAndUpdate(
@@ -31,7 +31,7 @@ exports.registerPWAInstall = catchAsyncErrors(async (req, res) => {
 });
 
 // Update Service Worker
-exports.updateServiceWorker = catchAsyncErrors(async (req, res) => {
+export const updateServiceWorker = catchAsyncErrors(async (req, res) => {
   const { version, cachedResources } = req.body;
 
   const pwa = await PWA.findOneAndUpdate(
@@ -55,7 +55,7 @@ exports.updateServiceWorker = catchAsyncErrors(async (req, res) => {
 });
 
 // Subscribe to Push Notifications
-exports.subscribePushNotifications = catchAsyncErrors(async (req, res) => {
+export const subscribePushNotifications = catchAsyncErrors(async (req, res) => {
   const { subscription, preferences } = req.body;
 
   const pwa = await PWA.findOneAndUpdate(
@@ -78,7 +78,7 @@ exports.subscribePushNotifications = catchAsyncErrors(async (req, res) => {
 });
 
 // Track Offline Usage
-exports.trackOfflineUsage = catchAsyncErrors(async (req, res) => {
+export const trackOfflineUsage = catchAsyncErrors(async (req, res) => {
   const { pagesViewed, actions } = req.body;
 
   const pwa = await PWA.findOneAndUpdate(
@@ -101,7 +101,7 @@ exports.trackOfflineUsage = catchAsyncErrors(async (req, res) => {
 });
 
 // Track PWA Performance
-exports.trackPWAPerformance = catchAsyncErrors(async (req, res) => {
+export const trackPWAPerformance = catchAsyncErrors(async (req, res) => {
   const { metrics } = req.body;
 
   await PWA.findOneAndUpdate(
@@ -119,7 +119,7 @@ exports.trackPWAPerformance = catchAsyncErrors(async (req, res) => {
 });
 
 // Create Deep Link
-exports.createDeepLink = catchAsyncErrors(async (req, res) => {
+export const createDeepLink = catchAsyncErrors(async (req, res) => {
   const { type, destination, parameters, campaign } = req.body;
 
   const linkId = `dl_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
@@ -146,7 +146,7 @@ exports.createDeepLink = catchAsyncErrors(async (req, res) => {
 });
 
 // Track Deep Link Click
-exports.trackDeepLinkClick = catchAsyncErrors(async (req, res) => {
+export const trackDeepLinkClick = catchAsyncErrors(async (req, res) => {
   const { linkId } = req.params;
   const { platform, country } = req.body;
 
@@ -177,7 +177,7 @@ exports.trackDeepLinkClick = catchAsyncErrors(async (req, res) => {
 });
 
 // Generate QR Code
-exports.generateQRCode = catchAsyncErrors(async (req, res) => {
+export const generateQRCode = catchAsyncErrors(async (req, res) => {
   const { type, target, targetId, design } = req.body;
 
   const code = `QR_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
@@ -206,7 +206,7 @@ exports.generateQRCode = catchAsyncErrors(async (req, res) => {
 });
 
 // Scan QR Code
-exports.scanQRCode = catchAsyncErrors(async (req, res) => {
+export const scanQRCode = catchAsyncErrors(async (req, res) => {
   const { code } = req.params;
   const { location, device } = req.body;
 
@@ -246,7 +246,7 @@ exports.scanQRCode = catchAsyncErrors(async (req, res) => {
 });
 
 // Add Mobile Wallet
-exports.addMobileWallet = catchAsyncErrors(async (req, res) => {
+export const addMobileWallet = catchAsyncErrors(async (req, res) => {
   const { walletType, deviceInfo, cardDetails } = req.body;
 
   const walletId = `wallet_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
@@ -267,7 +267,7 @@ exports.addMobileWallet = catchAsyncErrors(async (req, res) => {
 });
 
 // Process Wallet Payment
-exports.processWalletPayment = catchAsyncErrors(async (req, res) => {
+export const processWalletPayment = catchAsyncErrors(async (req, res) => {
   const { orderId, amount } = req.body;
 
   const wallet = await MobileWallet.findOne({ user: req.user.id });
@@ -299,7 +299,7 @@ exports.processWalletPayment = catchAsyncErrors(async (req, res) => {
 });
 
 // Create Geofence
-exports.createGeofence = catchAsyncErrors(async (req, res) => {
+export const createGeofence = catchAsyncErrors(async (req, res) => {
   const { name, location, radius, type, triggers } = req.body;
 
   const geofence = await Geofence.create({
@@ -322,7 +322,7 @@ exports.createGeofence = catchAsyncErrors(async (req, res) => {
 });
 
 // Check Geofence Entry
-exports.checkGeofenceEntry = catchAsyncErrors(async (req, res) => {
+export const checkGeofenceEntry = catchAsyncErrors(async (req, res) => {
   const { latitude, longitude } = req.body;
 
   const geofences = await Geofence.find({
@@ -366,7 +366,7 @@ exports.checkGeofenceEntry = catchAsyncErrors(async (req, res) => {
 });
 
 // Get Geofence Analytics
-exports.getGeofenceAnalytics = catchAsyncErrors(async (req, res) => {
+export const getGeofenceAnalytics = catchAsyncErrors(async (req, res) => {
   const { geofenceId } = req.params;
 
   const geofence = await Geofence.findById(geofenceId);

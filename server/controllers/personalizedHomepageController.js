@@ -2,7 +2,7 @@ const PersonalizedHomepage = require('../models/PersonalizedHomepage');
 const catchAsyncErrors = require('../middleware/catchAsyncErrors');
 
 // Get user homepage
-exports.getUserHomepage = catchAsyncErrors(async (req, res) => {
+export const getUserHomepage = catchAsyncErrors(async (req, res) => {
   let homepage = await PersonalizedHomepage.findOne({ user: req.user._id });
 
   if (!homepage) {
@@ -20,7 +20,7 @@ exports.getUserHomepage = catchAsyncErrors(async (req, res) => {
 });
 
 // Update layout
-exports.updateLayout = catchAsyncErrors(async (req, res) => {
+export const updateLayout = catchAsyncErrors(async (req, res) => {
   const { layout } = req.body;
 
   const homepage = await PersonalizedHomepage.findOneAndUpdate(
@@ -37,7 +37,7 @@ exports.updateLayout = catchAsyncErrors(async (req, res) => {
 });
 
 // Update preferences
-exports.updatePreferences = catchAsyncErrors(async (req, res) => {
+export const updatePreferences = catchAsyncErrors(async (req, res) => {
   const { preferences } = req.body;
 
   const homepage = await PersonalizedHomepage.findOneAndUpdate(
@@ -54,7 +54,7 @@ exports.updatePreferences = catchAsyncErrors(async (req, res) => {
 });
 
 // Refresh recommendations
-exports.refreshRecommendations = catchAsyncErrors(async (req, res) => {
+export const refreshRecommendations = catchAsyncErrors(async (req, res) => {
   const homepage = await PersonalizedHomepage.findOne({ user: req.user._id });
 
   if (!homepage) {
@@ -75,7 +75,7 @@ exports.refreshRecommendations = catchAsyncErrors(async (req, res) => {
 });
 
 // Track interaction
-exports.trackInteraction = catchAsyncErrors(async (req, res) => {
+export const trackInteraction = catchAsyncErrors(async (req, res) => {
   const { blockId, action } = req.body;
 
   const homepage = await PersonalizedHomepage.findOne({ user: req.user._id });

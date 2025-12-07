@@ -2,7 +2,7 @@ const SocialShopping = require('../models/SocialShopping');
 const catchAsyncErrors = require('../middleware/catchAsyncErrors');
 
 // Create post
-exports.createPost = catchAsyncErrors(async (req, res) => {
+export const createPost = catchAsyncErrors(async (req, res) => {
   const post = await SocialShopping.create({
     ...req.body,
     user: req.user._id
@@ -17,7 +17,7 @@ exports.createPost = catchAsyncErrors(async (req, res) => {
 });
 
 // Get post
-exports.getPost = catchAsyncErrors(async (req, res) => {
+export const getPost = catchAsyncErrors(async (req, res) => {
   const { postId } = req.params;
 
   const post = await SocialShopping.findById(postId)
@@ -41,7 +41,7 @@ exports.getPost = catchAsyncErrors(async (req, res) => {
 });
 
 // Get user feed
-exports.getUserFeed = catchAsyncErrors(async (req, res) => {
+export const getUserFeed = catchAsyncErrors(async (req, res) => {
   const { page = 1, limit = 10 } = req.query;
   const skip = (page - 1) * limit;
 
@@ -63,7 +63,7 @@ exports.getUserFeed = catchAsyncErrors(async (req, res) => {
 });
 
 // Toggle like
-exports.toggleLike = catchAsyncErrors(async (req, res) => {
+export const toggleLike = catchAsyncErrors(async (req, res) => {
   const { postId } = req.params;
 
   const post = await SocialShopping.findById(postId);
@@ -85,7 +85,7 @@ exports.toggleLike = catchAsyncErrors(async (req, res) => {
 });
 
 // Toggle save
-exports.toggleSave = catchAsyncErrors(async (req, res) => {
+export const toggleSave = catchAsyncErrors(async (req, res) => {
   const { postId } = req.params;
 
   const post = await SocialShopping.findById(postId);
@@ -107,7 +107,7 @@ exports.toggleSave = catchAsyncErrors(async (req, res) => {
 });
 
 // Add comment
-exports.addComment = catchAsyncErrors(async (req, res) => {
+export const addComment = catchAsyncErrors(async (req, res) => {
   const { postId } = req.params;
   const { text } = req.body;
 
@@ -130,7 +130,7 @@ exports.addComment = catchAsyncErrors(async (req, res) => {
 });
 
 // Get trending posts
-exports.getTrendingPosts = catchAsyncErrors(async (req, res) => {
+export const getTrendingPosts = catchAsyncErrors(async (req, res) => {
   const { limit = 10 } = req.query;
 
   const posts = await SocialShopping.getTrendingPosts(parseInt(limit));

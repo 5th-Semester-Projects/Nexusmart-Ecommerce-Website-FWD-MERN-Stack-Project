@@ -2,7 +2,7 @@ const ReturnsPortal = require('../models/ReturnsPortal');
 const catchAsyncErrors = require('../middleware/catchAsyncErrors');
 
 // Create return request
-exports.createReturn = catchAsyncErrors(async (req, res) => {
+export const createReturn = catchAsyncErrors(async (req, res) => {
   const returnRequest = await ReturnsPortal.create({
     ...req.body,
     user: req.user._id,
@@ -18,7 +18,7 @@ exports.createReturn = catchAsyncErrors(async (req, res) => {
 });
 
 // Get return by return number
-exports.getReturn = catchAsyncErrors(async (req, res) => {
+export const getReturn = catchAsyncErrors(async (req, res) => {
   const { returnNumber } = req.params;
 
   const returnRequest = await ReturnsPortal.findOne({ returnNumber })
@@ -38,7 +38,7 @@ exports.getReturn = catchAsyncErrors(async (req, res) => {
 });
 
 // Get user returns
-exports.getUserReturns = catchAsyncErrors(async (req, res) => {
+export const getUserReturns = catchAsyncErrors(async (req, res) => {
   const { page = 1, limit = 10 } = req.query;
 
   const returns = await ReturnsPortal.find({ user: req.user._id })
@@ -58,7 +58,7 @@ exports.getUserReturns = catchAsyncErrors(async (req, res) => {
 });
 
 // Update return status
-exports.updateStatus = catchAsyncErrors(async (req, res) => {
+export const updateStatus = catchAsyncErrors(async (req, res) => {
   const { returnNumber } = req.params;
   const { status, notes, updatedBy } = req.body;
 
@@ -82,7 +82,7 @@ exports.updateStatus = catchAsyncErrors(async (req, res) => {
 });
 
 // Approve return
-exports.approveReturn = catchAsyncErrors(async (req, res) => {
+export const approveReturn = catchAsyncErrors(async (req, res) => {
   const { returnNumber } = req.params;
 
   const returnRequest = await ReturnsPortal.findOne({ returnNumber });
@@ -105,7 +105,7 @@ exports.approveReturn = catchAsyncErrors(async (req, res) => {
 });
 
 // Reject return
-exports.rejectReturn = catchAsyncErrors(async (req, res) => {
+export const rejectReturn = catchAsyncErrors(async (req, res) => {
   const { returnNumber } = req.params;
   const { reason } = req.body;
 
@@ -129,7 +129,7 @@ exports.rejectReturn = catchAsyncErrors(async (req, res) => {
 });
 
 // Calculate refund
-exports.calculateRefund = catchAsyncErrors(async (req, res) => {
+export const calculateRefund = catchAsyncErrors(async (req, res) => {
   const { returnNumber } = req.params;
 
   const returnRequest = await ReturnsPortal.findOne({ returnNumber });
@@ -150,7 +150,7 @@ exports.calculateRefund = catchAsyncErrors(async (req, res) => {
 });
 
 // Get pending returns
-exports.getPendingReturns = catchAsyncErrors(async (req, res) => {
+export const getPendingReturns = catchAsyncErrors(async (req, res) => {
   const returns = await ReturnsPortal.getPendingReturns();
 
   res.status(200).json({

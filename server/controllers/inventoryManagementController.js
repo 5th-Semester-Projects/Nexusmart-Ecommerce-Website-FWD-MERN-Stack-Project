@@ -2,7 +2,7 @@ const InventoryManagement = require('../models/InventoryManagement');
 const catchAsyncErrors = require('../middleware/catchAsyncErrors');
 
 // Create inventory
-exports.createInventory = catchAsyncErrors(async (req, res) => {
+export const createInventory = catchAsyncErrors(async (req, res) => {
   const inventory = await InventoryManagement.create(req.body);
 
   res.status(201).json({
@@ -12,7 +12,7 @@ exports.createInventory = catchAsyncErrors(async (req, res) => {
 });
 
 // Get inventory by SKU
-exports.getInventoryBySKU = catchAsyncErrors(async (req, res) => {
+export const getInventoryBySKU = catchAsyncErrors(async (req, res) => {
   const { sku } = req.params;
 
   const inventory = await InventoryManagement.findOne({ sku })
@@ -32,7 +32,7 @@ exports.getInventoryBySKU = catchAsyncErrors(async (req, res) => {
 });
 
 // Adjust stock
-exports.adjustStock = catchAsyncErrors(async (req, res) => {
+export const adjustStock = catchAsyncErrors(async (req, res) => {
   const { sku } = req.params;
   const { quantity, type, reason, performedBy } = req.body;
 
@@ -56,7 +56,7 @@ exports.adjustStock = catchAsyncErrors(async (req, res) => {
 });
 
 // Reserve stock
-exports.reserveStock = catchAsyncErrors(async (req, res) => {
+export const reserveStock = catchAsyncErrors(async (req, res) => {
   const { sku } = req.params;
   const { quantity } = req.body;
 
@@ -79,7 +79,7 @@ exports.reserveStock = catchAsyncErrors(async (req, res) => {
 });
 
 // Release reserved stock
-exports.releaseStock = catchAsyncErrors(async (req, res) => {
+export const releaseStock = catchAsyncErrors(async (req, res) => {
   const { sku } = req.params;
   const { quantity } = req.body;
 
@@ -102,7 +102,7 @@ exports.releaseStock = catchAsyncErrors(async (req, res) => {
 });
 
 // Transfer stock
-exports.transferStock = catchAsyncErrors(async (req, res) => {
+export const transferStock = catchAsyncErrors(async (req, res) => {
   const { sku } = req.params;
   const { quantity, fromWarehouse, toWarehouse, performedBy } = req.body;
 
@@ -125,7 +125,7 @@ exports.transferStock = catchAsyncErrors(async (req, res) => {
 });
 
 // Get low stock items
-exports.getLowStockItems = catchAsyncErrors(async (req, res) => {
+export const getLowStockItems = catchAsyncErrors(async (req, res) => {
   const items = await InventoryManagement.getLowStockItems();
 
   res.status(200).json({
@@ -136,7 +136,7 @@ exports.getLowStockItems = catchAsyncErrors(async (req, res) => {
 });
 
 // Get out of stock items
-exports.getOutOfStockItems = catchAsyncErrors(async (req, res) => {
+export const getOutOfStockItems = catchAsyncErrors(async (req, res) => {
   const items = await InventoryManagement.getOutOfStockItems();
 
   res.status(200).json({

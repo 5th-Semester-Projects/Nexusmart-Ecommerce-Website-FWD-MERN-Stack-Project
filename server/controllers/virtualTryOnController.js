@@ -3,7 +3,7 @@ const Product = require('../models/Product');
 const catchAsyncErrors = require('../middleware/catchAsyncErrors');
 
 // Create try-on session
-exports.createSession = catchAsyncErrors(async (req, res) => {
+export const createSession = catchAsyncErrors(async (req, res) => {
   const session = await VirtualTryOn.create({
     ...req.body,
     user: req.user?._id,
@@ -19,7 +19,7 @@ exports.createSession = catchAsyncErrors(async (req, res) => {
 });
 
 // Get try-on session
-exports.getSession = catchAsyncErrors(async (req, res) => {
+export const getSession = catchAsyncErrors(async (req, res) => {
   const { sessionId } = req.params;
 
   const session = await VirtualTryOn.findOne({ sessionId }).populate('product');
@@ -38,7 +38,7 @@ exports.getSession = catchAsyncErrors(async (req, res) => {
 });
 
 // Track interaction
-exports.trackInteraction = catchAsyncErrors(async (req, res) => {
+export const trackInteraction = catchAsyncErrors(async (req, res) => {
   const { sessionId } = req.params;
   const { action, value } = req.body;
 
@@ -61,7 +61,7 @@ exports.trackInteraction = catchAsyncErrors(async (req, res) => {
 });
 
 // Generate share link
-exports.generateShareLink = catchAsyncErrors(async (req, res) => {
+export const generateShareLink = catchAsyncErrors(async (req, res) => {
   const { sessionId } = req.params;
 
   const session = await VirtualTryOn.findOne({ sessionId });
@@ -83,7 +83,7 @@ exports.generateShareLink = catchAsyncErrors(async (req, res) => {
 });
 
 // Get popular try-ons
-exports.getPopularTryOns = catchAsyncErrors(async (req, res) => {
+export const getPopularTryOns = catchAsyncErrors(async (req, res) => {
   const { limit = 10 } = req.query;
 
   const popular = await VirtualTryOn.getPopularTryOns(parseInt(limit));
@@ -95,7 +95,7 @@ exports.getPopularTryOns = catchAsyncErrors(async (req, res) => {
 });
 
 // Get conversion rate
-exports.getConversionRate = catchAsyncErrors(async (req, res) => {
+export const getConversionRate = catchAsyncErrors(async (req, res) => {
   const { productId } = req.params;
 
   const conversionRate = await VirtualTryOn.getConversionRate(productId);

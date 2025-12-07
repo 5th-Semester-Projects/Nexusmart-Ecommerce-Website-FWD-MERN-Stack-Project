@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState, useCallback, createContext, useContext } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiHand, FiArrowLeft, FiArrowRight, FiArrowUp, FiArrowDown, FiZoomIn, FiZoomOut, FiRotateCw, FiSettings, FiX } from 'react-icons/fi';
+import { FiCrosshair, FiArrowLeft, FiArrowRight, FiArrowUp, FiArrowDown, FiZoomIn, FiZoomOut, FiRotateCw, FiSettings, FiX } from 'react-icons/fi';
 
 /**
  * Gesture Controls Component
@@ -146,7 +146,7 @@ const GestureFeedback = ({ gesture }) => {
       case GESTURE_TYPES.ROTATE_CCW:
         return <FiRotateCw className="text-4xl" />;
       default:
-        return <FiHand className="text-4xl" />;
+        return <FiCrosshair className="text-4xl" />;
     }
   };
 
@@ -410,7 +410,7 @@ export const GestureSettings = ({ isOpen, onClose }) => {
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
           <div className="flex items-center gap-2">
-            <FiHand className="text-xl text-primary-600" />
+            <FiCrosshair className="text-xl text-primary-600" />
             <h2 className="text-xl font-bold dark:text-white">Gesture Controls</h2>
           </div>
           <button

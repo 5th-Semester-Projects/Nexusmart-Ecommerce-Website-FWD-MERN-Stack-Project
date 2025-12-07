@@ -150,4 +150,5 @@ userSubscriptionSchema.methods.isInTrial = function () {
 };
 
 export const SubscriptionPlan = mongoose.model('SubscriptionPlan', subscriptionPlanSchema);
+export const Subscription = SubscriptionPlan; // Alias for backwards compatibility
 export const UserSubscription = mongoose.model('UserSubscription', userSubscriptionSchema);

@@ -25,7 +25,7 @@ import {
   ProductQA, 
   EnhancedReviews 
 } from '../components/products';
-import { SocialShare } from '../components/social';
+import { ShareToSocial } from '../components/social';
 import { LiveViewerCount } from '../components/realtime';
 import { PriceHistoryChart } from '../components/analytics';
 
@@ -633,7 +633,7 @@ const ProductDetailPage = () => {
       />
 
       {/* Social Share Modal */}
-      <SocialShare
+      <ShareToSocial
         isOpen={showSocialShare}
         onClose={() => setShowSocialShare(false)}
         product={product}

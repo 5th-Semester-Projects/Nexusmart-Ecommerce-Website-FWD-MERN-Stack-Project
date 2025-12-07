@@ -4,7 +4,7 @@ import axios from 'axios';
 // Internationalization Context
 const I18nContext = createContext(null);
 
-// Available languages
+// Available languages - Extended with RTL support for Urdu, Arabic, Persian, Hebrew
 export const languages = {
   en: { name: 'English', nativeName: 'English', direction: 'ltr', flag: '🇺🇸' },
   es: { name: 'Spanish', nativeName: 'Español', direction: 'ltr', flag: '🇪🇸' },
@@ -16,11 +16,18 @@ export const languages = {
   ja: { name: 'Japanese', nativeName: '日本語', direction: 'ltr', flag: '🇯🇵' },
   ko: { name: 'Korean', nativeName: '한국어', direction: 'ltr', flag: '🇰🇷' },
   ar: { name: 'Arabic', nativeName: 'العربية', direction: 'rtl', flag: '🇸🇦' },
+  ur: { name: 'Urdu', nativeName: 'اردو', direction: 'rtl', flag: '🇵🇰' },
+  fa: { name: 'Persian', nativeName: 'فارسی', direction: 'rtl', flag: '🇮🇷' },
+  he: { name: 'Hebrew', nativeName: 'עברית', direction: 'rtl', flag: '🇮🇱' },
   hi: { name: 'Hindi', nativeName: 'हिन्दी', direction: 'ltr', flag: '🇮🇳' },
+  bn: { name: 'Bengali', nativeName: 'বাংলা', direction: 'ltr', flag: '🇧🇩' },
   ru: { name: 'Russian', nativeName: 'Русский', direction: 'ltr', flag: '🇷🇺' },
   tr: { name: 'Turkish', nativeName: 'Türkçe', direction: 'ltr', flag: '🇹🇷' },
   nl: { name: 'Dutch', nativeName: 'Nederlands', direction: 'ltr', flag: '🇳🇱' },
-  pl: { name: 'Polish', nativeName: 'Polski', direction: 'ltr', flag: '🇵🇱' }
+  pl: { name: 'Polish', nativeName: 'Polski', direction: 'ltr', flag: '🇵🇱' },
+  th: { name: 'Thai', nativeName: 'ไทย', direction: 'ltr', flag: '🇹🇭' },
+  vi: { name: 'Vietnamese', nativeName: 'Tiếng Việt', direction: 'ltr', flag: '🇻🇳' },
+  id: { name: 'Indonesian', nativeName: 'Bahasa Indonesia', direction: 'ltr', flag: '🇮🇩' }
 };
 
 // Translation files (embedded for demo)
@@ -307,6 +314,125 @@ const translations = {
     'cart.title': 'शॉपिंग कार्ट',
     'cart.empty': 'आपका कार्ट खाली है',
     'cart.checkout': 'चेकआउट करें'
+  },
+  ur: {
+    // Common
+    'common.loading': 'لوڈ ہو رہا ہے...',
+    'common.error': 'ایک غلطی ہوئی',
+    'common.save': 'محفوظ کریں',
+    'common.cancel': 'منسوخ کریں',
+    'common.delete': 'حذف کریں',
+    'common.edit': 'ترمیم کریں',
+    'common.search': 'تلاش کریں',
+    'common.filter': 'فلٹر',
+    'common.sort': 'ترتیب دیں',
+    'common.close': 'بند کریں',
+    'common.back': 'واپس',
+    'common.next': 'اگلا',
+    'common.previous': 'پچھلا',
+    'common.submit': 'جمع کریں',
+    'common.confirm': 'تصدیق کریں',
+    'common.yes': 'ہاں',
+    'common.no': 'نہیں',
+
+    // Navigation
+    'nav.home': 'ہوم',
+    'nav.products': 'مصنوعات',
+    'nav.categories': 'زمرے',
+    'nav.cart': 'کارٹ',
+    'nav.wishlist': 'پسندیدہ',
+    'nav.account': 'میرا اکاؤنٹ',
+    'nav.orders': 'آرڈرز',
+    'nav.settings': 'ترتیبات',
+    'nav.logout': 'لاگ آؤٹ',
+    'nav.login': 'لاگ ان',
+    'nav.register': 'رجسٹر کریں',
+
+    // Products
+    'product.addToCart': 'کارٹ میں شامل کریں',
+    'product.buyNow': 'ابھی خریدیں',
+    'product.addToWishlist': 'پسندیدہ میں شامل کریں',
+    'product.removeFromWishlist': 'پسندیدہ سے ہٹائیں',
+    'product.inStock': 'دستیاب ہے',
+    'product.outOfStock': 'دستیاب نہیں',
+    'product.lowStock': 'صرف {{count}} باقی ہیں',
+    'product.price': 'قیمت',
+    'product.originalPrice': 'اصل قیمت',
+    'product.discount': '{{percent}}% رعایت',
+    'product.reviews': '{{count}} جائزے',
+    'product.rating': '{{rating}} 5 میں سے',
+    'product.description': 'تفصیل',
+    'product.specifications': 'خصوصیات',
+    'product.relatedProducts': 'متعلقہ مصنوعات',
+    'product.recentlyViewed': 'حال ہی میں دیکھا گیا',
+
+    // Cart
+    'cart.title': 'شاپنگ کارٹ',
+    'cart.empty': 'آپ کا کارٹ خالی ہے',
+    'cart.continueShopping': 'خریداری جاری رکھیں',
+    'cart.subtotal': 'ذیلی کل',
+    'cart.shipping': 'شپنگ',
+    'cart.tax': 'ٹیکس',
+    'cart.total': 'کل',
+    'cart.checkout': 'چیک آؤٹ کریں',
+    'cart.remove': 'ہٹائیں',
+    'cart.quantity': 'مقدار',
+    'cart.updateCart': 'کارٹ اپ ڈیٹ کریں',
+
+    // Checkout
+    'checkout.title': 'چیک آؤٹ',
+    'checkout.shippingAddress': 'شپنگ ایڈریس',
+    'checkout.billingAddress': 'بلنگ ایڈریس',
+    'checkout.paymentMethod': 'ادائیگی کا طریقہ',
+    'checkout.orderSummary': 'آرڈر کا خلاصہ',
+    'checkout.placeOrder': 'آرڈر دیں',
+    'checkout.processing': 'پروسیسنگ...',
+    'checkout.success': 'آرڈر کامیابی سے دے دیا گیا!',
+    'checkout.error': 'آرڈر دینے میں ناکامی',
+
+    // Auth
+    'auth.email': 'ای میل',
+    'auth.password': 'پاس ورڈ',
+    'auth.confirmPassword': 'پاس ورڈ کی تصدیق کریں',
+    'auth.forgotPassword': 'پاس ورڈ بھول گئے؟',
+    'auth.rememberMe': 'مجھے یاد رکھیں',
+    'auth.createAccount': 'اکاؤنٹ بنائیں',
+    'auth.alreadyHaveAccount': 'پہلے سے اکاؤنٹ ہے؟',
+    'auth.dontHaveAccount': 'اکاؤنٹ نہیں ہے؟',
+    'auth.orContinueWith': 'یا اس کے ساتھ جاری رکھیں',
+
+    // Footer
+    'footer.about': 'ہمارے بارے میں',
+    'footer.contact': 'رابطہ کریں',
+    'footer.help': 'مدد مرکز',
+    'footer.privacy': 'رازداری کی پالیسی',
+    'footer.terms': 'سروس کی شرائط',
+    'footer.shipping': 'شپنگ کی معلومات',
+    'footer.returns': 'واپسی',
+    'footer.newsletter': 'ہمارے نیوز لیٹر کو سبسکرائب کریں',
+    'footer.copyright': '© {{year}} نیکسس مارٹ۔ تمام حقوق محفوظ ہیں۔'
+  },
+  fa: {
+    // Persian/Farsi translations
+    'common.loading': 'در حال بارگذاری...',
+    'common.error': 'خطایی رخ داد',
+    'common.save': 'ذخیره',
+    'common.cancel': 'لغو',
+    'nav.home': 'خانه',
+    'nav.products': 'محصولات',
+    'nav.cart': 'سبد خرید',
+    'nav.wishlist': 'لیست علاقه‌مندی‌ها',
+    'nav.account': 'حساب من',
+    'nav.orders': 'سفارشات',
+    'nav.login': 'ورود',
+    'nav.register': 'ثبت نام',
+    'product.addToCart': 'افزودن به سبد',
+    'product.buyNow': 'خرید فوری',
+    'product.inStock': 'موجود',
+    'product.outOfStock': 'ناموجود',
+    'cart.title': 'سبد خرید',
+    'cart.empty': 'سبد خرید شما خالی است',
+    'cart.checkout': 'تسویه حساب'
   }
 };
 

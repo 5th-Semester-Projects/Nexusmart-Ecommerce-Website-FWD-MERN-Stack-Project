@@ -41,6 +41,100 @@ import gamificationRoutes from './routes/gamificationRoutes.js';
 import aiRoutes from './routes/aiRoutes.js';
 import analyticsRoutes from './routes/analyticsRoutes.js';
 import realTimeRoutes from './routes/realTimeRoutes.js';
+import web3Routes from './routes/web3Routes.js';
+import advancedAnalyticsRoutes from './routes/advancedAnalyticsRoutes.js';
+import socialCommerceRoutes from './routes/socialCommerceRoutes.js';
+import gdprRoutes from './routes/gdprRoutes.js';
+
+// New Feature Routes
+import subscriptionRoutes from './routes/subscriptionRoutes.js';
+import giftCardRoutes from './routes/giftCardRoutes.js';
+import sellerRoutes from './routes/sellerRoutes.js';
+import bnplRoutes from './routes/bnplRoutes.js';
+import deliveryRoutes from './routes/deliveryRoutes.js';
+import advancedAIRoutes from './routes/advancedAIRoutes.js';
+import currencyRoutes from './routes/currencyRoutes.js';
+import shoppableVideoRoutes from './routes/shoppableVideoRoutes.js';
+import whatsappRoutes from './routes/whatsappRoutes.js';
+import nextGenRoutes from './routes/nextGenRoutes.js';
+
+// Advanced Feature Routes
+import productCategorizationRoutes from './routes/productCategorizationRoutes.js';
+import imageGenerationRoutes from './routes/imageGenerationRoutes.js';
+import occasionShoppingRoutes from './routes/occasionShoppingRoutes.js';
+import personalizationRoutes from './routes/personalizationRoutes.js';
+import advancedPaymentRoutes from './routes/advancedPaymentRoutes.js';
+import socialCommunityRoutes from './routes/socialCommunityRoutes.js';
+import logisticsRoutes from './routes/logisticsRoutes.js';
+import customerExperienceRoutes from './routes/customerExperienceRoutes.js';
+import b2bRoutes from './routes/b2bRoutes.js';
+import complianceRoutes from './routes/complianceRoutes.js';
+import emergingTechRoutes from './routes/emergingTechRoutes.js';
+import detailedAnalyticsRoutes from './routes/detailedAnalyticsRoutes.js';
+import enhancedCustomerServiceRoutes from './routes/enhancedCustomerServiceRoutes.js';
+import securityFeaturesRoutes from './routes/securityFeaturesRoutes.js';
+
+// New Advanced Features Routes
+import marketingRoutes from './routes/marketingRoutes.js';
+import searchRoutes from './routes/searchRoutes.js';
+import warehouseRoutes from './routes/warehouseRoutes.js';
+import liveChatRoutes from './routes/liveChatRoutes.js';
+import multiVendorRoutes from './routes/multiVendorRoutes.js';
+import advancedFeaturesRoutes from './routes/advancedFeaturesRoutes.js';
+
+// Latest Feature Routes (New Implementation)
+import smartRecommendationRoutes from './routes/smartRecommendationRoutes.js';
+import enhancedReviewRoutes from './routes/enhancedReviewRoutes.js';
+import loyaltyProgramRoutes from './routes/loyaltyProgramRoutes.js';
+import virtualTryOnRoutes from './routes/virtualTryOnRoutes.js';
+import personalizedHomepageRoutes from './routes/personalizedHomepageRoutes.js';
+import multiVendorMarketplaceRoutes from './routes/multiVendorMarketplaceRoutes.js';
+import orderTrackingRoutes from './routes/orderTrackingRoutes.js';
+import bundleDealsRoutes from './routes/bundleDealsRoutes.js';
+import returnsPortalRoutes from './routes/returnsPortalRoutes.js';
+import socialShoppingRoutes from './routes/socialShoppingRoutes.js';
+import liveShoppingEventRoutes from './routes/liveShoppingEventRoutes.js';
+import inventoryManagementRoutes from './routes/inventoryManagementRoutes.js';
+import priceAlertRoutes from './routes/priceAlertRoutes.js';
+import oneClickCheckoutRoutes from './routes/oneClickCheckoutRoutes.js';
+import customerSegmentationRoutes from './routes/customerSegmentationRoutes.js';
+import progressiveWebAppRoutes from './routes/progressiveWebAppRoutes.js';
+import advancedSearchRoutes from './routes/advancedSearchRoutes.js';
+import productComparisonRoutes from './routes/productComparisonRoutes.js';
+
+// New Critical Features Routes (Implementation Jan 2025)
+import realtimeInventorySyncRoutes from './routes/realtimeInventorySyncRoutes.js';
+import advancedAnalyticsDashboardRoutes from './routes/advancedAnalyticsDashboardRoutes.js';
+import marketingAutomationRoutes from './routes/marketingAutomationRoutes.js';
+import productRecommendationEngineRoutes from './routes/productRecommendationEngineRoutes.js';
+import multiChannelIntegrationRoutes from './routes/multiChannelIntegrationRoutes.js';
+import advancedSearchFiltersRoutes from './routes/advancedSearchFiltersRoutes.js';
+import customerServiceHubRoutes from './routes/customerServiceHubRoutes.js';
+import wishlistFavoritesRoutes from './routes/wishlistFavoritesRoutes.js';
+import giftCardStoreCreditRoutes from './routes/giftCardStoreCreditRoutes.js';
+import productBundleKitRoutes from './routes/productBundleKitRoutes.js';
+
+// Premium Features Routes (Implementation Jan 2025)
+import subscriptionManagementRoutes from './routes/subscriptionManagementRoutes.js';
+import arTryOnRoutes from './routes/arTryOnRoutes.js';
+import voiceCommerceRoutes from './routes/voiceCommerceRoutes.js';
+import socialProofEngineRoutes from './routes/socialProofEngineRoutes.js';
+import dynamicPricingEngineRoutes from './routes/dynamicPricingEngineRoutes.js';
+import advancedReturnsManagementRoutes from './routes/advancedReturnsManagementRoutes.js';
+import influencerMarketingRoutes from './routes/influencerMarketingRoutes.js';
+import preOrderBackorderRoutes from './routes/preOrderBackorderRoutes.js';
+import productQARoutes from './routes/productQARoutes.js';
+import geolocationServicesRoutes from './routes/geolocationServicesRoutes.js';
+
+// Next-Gen Features Routes (Implementation Dec 2025)
+import nextGenFeaturesRoutes from './routes/nextGenFeatures.js';
+
+// Next-Gen Individual Feature Routes (Implementation Dec 2025)
+import aiStylistRoutes from './routes/aiStylist.js';
+import blockchainRoutes from './routes/blockchain.js';
+import metaverseRoutes from './routes/metaverse.js';
+import sustainabilityRoutes from './routes/sustainability.js';
+import fraudDetectionRoutes from './routes/fraudDetection.js';
 
 // Initialize express app
 const app = express();
@@ -184,6 +278,101 @@ app.use('/api/v1/gamification', gamificationRoutes);
 app.use('/api/v1/ai', aiRoutes);
 app.use('/api/v1/analytics', analyticsRoutes);
 app.use('/api/v1/realtime', realTimeRoutes);
+app.use('/api/v1/web3', web3Routes);
+app.use('/api/v1/advanced-analytics', advancedAnalyticsRoutes);
+app.use('/api/v1/social', socialCommerceRoutes);
+app.use('/api/v1/gdpr', gdprRoutes);
+
+// New Feature Routes
+app.use('/api/v1/subscriptions', subscriptionRoutes);
+app.use('/api/v1/gift-cards', giftCardRoutes);
+app.use('/api/v1/sellers', sellerRoutes);
+app.use('/api/v1/bnpl', bnplRoutes);
+app.use('/api/v1/delivery', deliveryRoutes);
+app.use('/api/v1/advanced-ai', advancedAIRoutes);
+app.use('/api/v1/currency', currencyRoutes);
+app.use('/api/v1/videos', shoppableVideoRoutes);
+app.use('/api/v1/whatsapp', whatsappRoutes);
+app.use('/api/v1/next-gen', nextGenRoutes);
+
+// Advanced Feature Routes
+app.use('/api/v1/product-categorization', productCategorizationRoutes);
+app.use('/api/v1/image-generation', imageGenerationRoutes);
+app.use('/api/v1/occasion-shopping', occasionShoppingRoutes);
+app.use('/api/v1/personalization', personalizationRoutes);
+app.use('/api/v1/advanced-payment', advancedPaymentRoutes);
+app.use('/api/v1/community', socialCommunityRoutes);
+app.use('/api/v1/logistics', logisticsRoutes);
+app.use('/api/v1/customer-experience', customerExperienceRoutes);
+app.use('/api/v1/b2b', b2bRoutes);
+app.use('/api/v1/compliance', complianceRoutes);
+app.use('/api/v1/emerging-tech', emergingTechRoutes);
+app.use('/api/v1/detailed-analytics', detailedAnalyticsRoutes);
+app.use('/api/v1/customer-service', enhancedCustomerServiceRoutes);
+app.use('/api/v1/security-features', securityFeaturesRoutes);
+
+// New Advanced Features Routes
+app.use('/api/v1/marketing', marketingRoutes);
+app.use('/api/v1/search', searchRoutes);
+app.use('/api/v1/warehouse', warehouseRoutes);
+app.use('/api/v1/live-chat', liveChatRoutes);
+app.use('/api/v1/marketplace', multiVendorRoutes);
+app.use('/api/v1/features', advancedFeaturesRoutes);
+
+// Latest Feature Routes (New Implementation)
+app.use('/api/v1/recommendations', smartRecommendationRoutes);
+app.use('/api/v1/enhanced-reviews', enhancedReviewRoutes);
+app.use('/api/v1/loyalty', loyaltyProgramRoutes);
+app.use('/api/v1/virtual-tryon', virtualTryOnRoutes);
+app.use('/api/v1/homepage', personalizedHomepageRoutes);
+app.use('/api/v1/vendor-marketplace', multiVendorMarketplaceRoutes);
+app.use('/api/v1/tracking', orderTrackingRoutes);
+app.use('/api/v1/bundles', bundleDealsRoutes);
+app.use('/api/v1/returns', returnsPortalRoutes);
+app.use('/api/v1/social-shopping', socialShoppingRoutes);
+app.use('/api/v1/live-events', liveShoppingEventRoutes);
+app.use('/api/v1/inventory', inventoryManagementRoutes);
+app.use('/api/v1/price-alerts', priceAlertRoutes);
+app.use('/api/v1/one-click', oneClickCheckoutRoutes);
+app.use('/api/v1/segmentation', customerSegmentationRoutes);
+app.use('/api/v1/pwa', progressiveWebAppRoutes);
+app.use('/api/v1/advanced-search', advancedSearchRoutes);
+app.use('/api/v1/comparison', productComparisonRoutes);
+
+// New Critical Features Routes (Implementation Jan 2025)
+app.use('/api/v1', realtimeInventorySyncRoutes);
+app.use('/api/v1', advancedAnalyticsDashboardRoutes);
+app.use('/api/v1', marketingAutomationRoutes);
+app.use('/api/v1', productRecommendationEngineRoutes);
+app.use('/api/v1', multiChannelIntegrationRoutes);
+app.use('/api/v1', advancedSearchFiltersRoutes);
+app.use('/api/v1', customerServiceHubRoutes);
+app.use('/api/v1', wishlistFavoritesRoutes);
+app.use('/api/v1', giftCardStoreCreditRoutes);
+app.use('/api/v1', productBundleKitRoutes);
+
+// Premium Features Routes (Implementation Jan 2025)
+app.use('/api/v1', subscriptionManagementRoutes);
+app.use('/api/v1', arTryOnRoutes);
+app.use('/api/v1', voiceCommerceRoutes);
+
+// Next-Gen Features Routes (Implementation Dec 2025)
+app.use('/api/next-gen', nextGenFeaturesRoutes);
+
+// Next-Gen Individual Feature Routes (Implementation Dec 2025)
+app.use('/api/v1/ai-stylist', aiStylistRoutes);
+app.use('/api/v1/blockchain', blockchainRoutes);
+app.use('/api/v1/metaverse', metaverseRoutes);
+app.use('/api/v1/sustainability', sustainabilityRoutes);
+app.use('/api/v1/fraud-detection', fraudDetectionRoutes);
+
+app.use('/api/v1', socialProofEngineRoutes);
+app.use('/api/v1', dynamicPricingEngineRoutes);
+app.use('/api/v1', advancedReturnsManagementRoutes);
+app.use('/api/v1', influencerMarketingRoutes);
+app.use('/api/v1', preOrderBackorderRoutes);
+app.use('/api/v1', productQARoutes);
+app.use('/api/v1', geolocationServicesRoutes);
 
 // Setup Socket.IO event handlers
 setupSocketHandlers(io);

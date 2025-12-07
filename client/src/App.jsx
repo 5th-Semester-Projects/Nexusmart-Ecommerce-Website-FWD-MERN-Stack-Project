@@ -4,9 +4,16 @@ import { Toaster } from 'react-hot-toast';
 
 // Styles
 import './styles/index.css';
+import './styles/accessibility.css';
 
 // Utilities
 import { cleanAllStorage } from './utils/cleanStorage';
+
+// Context Providers
+import { ThemeProvider } from './context/ThemeContext';
+import { AccessibilityProvider } from './context/AccessibilityContext';
+import { I18nProvider } from './context/I18nContext';
+import { GestureProvider } from './components/gestures/GestureController';
 
 // Common Components
 import ErrorBoundary from './components/common/ErrorBoundary';
@@ -97,7 +104,11 @@ function App() {
 
   return (
     <ErrorBoundary>
-      <ComparisonProvider>
+      <ThemeProvider>
+        <I18nProvider>
+          <AccessibilityProvider>
+            <GestureProvider>
+              <ComparisonProvider>
         <Router>
           {/* Magical Cursor Trail Effect ✨ */}
           <CursorTrail />
@@ -194,6 +205,10 @@ function App() {
         />
       </Router>
     </ComparisonProvider>
+            </GestureProvider>
+          </AccessibilityProvider>
+        </I18nProvider>
+      </ThemeProvider>
     </ErrorBoundary>
   );
 }

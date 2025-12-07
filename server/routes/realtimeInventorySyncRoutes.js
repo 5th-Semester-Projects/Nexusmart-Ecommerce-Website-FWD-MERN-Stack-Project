@@ -1,50 +1,49 @@
 import express from 'express';
 import {
-  getAllInventories,
-  getInventoryById,
+  getInventoryBySKU,
   createInventory,
-  updateInventory,
-  deleteInventory,
-  syncInventoryToChannel,
-  updateStockMovement,
-  checkReorderPoints,
-  transferStock,
-  getLowStockProducts,
-  getStockByWarehouse,
-  getStockHistory
+  updateWarehouseStock,
+  getLowStockItems,
+  getOutOfStockItems,
+  syncWithChannel,
+  getPendingReorders,
+  getActiveAlerts,
+  acknowledgeAlert,
+  getInventoryAnalytics
 } from '../controllers/realtimeInventorySyncController.js';
 import { isAuthenticatedUser, authorizeRoles } from '../middleware/auth.js';
 
 const router = express.Router();
 
+// Available routes based on controller exports
+router.route('/inventory/sku/:sku')
+  .get(isAuthenticatedUser, authorizeRoles('admin', 'seller'), getInventoryBySKU);
+
 router.route('/inventory')
-  .get(isAuthenticatedUser, authorizeRoles('admin', 'seller'), getAllInventories)
   .post(isAuthenticatedUser, authorizeRoles('admin', 'seller'), createInventory);
 
-router.route('/inventory/:id')
-  .get(isAuthenticatedUser, getInventoryById)
-  .put(isAuthenticatedUser, authorizeRoles('admin', 'seller'), updateInventory)
-  .delete(isAuthenticatedUser, authorizeRoles('admin'), deleteInventory);
-
-router.route('/inventory/:id/sync/:channel')
-  .post(isAuthenticatedUser, authorizeRoles('admin', 'seller'), syncInventoryToChannel);
-
-router.route('/inventory/:id/movement')
-  .post(isAuthenticatedUser, authorizeRoles('admin', 'seller'), updateStockMovement);
-
-router.route('/inventory/check-reorder')
-  .get(isAuthenticatedUser, authorizeRoles('admin', 'seller'), checkReorderPoints);
-
-router.route('/inventory/:id/transfer')
-  .post(isAuthenticatedUser, authorizeRoles('admin', 'seller'), transferStock);
+router.route('/inventory/warehouse/:warehouseId')
+  .put(isAuthenticatedUser, authorizeRoles('admin', 'seller'), updateWarehouseStock);
 
 router.route('/inventory/low-stock')
-  .get(isAuthenticatedUser, authorizeRoles('admin', 'seller'), getLowStockProducts);
+  .get(isAuthenticatedUser, authorizeRoles('admin', 'seller'), getLowStockItems);
 
-router.route('/inventory/warehouse/:warehouseId')
-  .get(isAuthenticatedUser, authorizeRoles('admin', 'seller'), getStockByWarehouse);
+router.route('/inventory/out-of-stock')
+  .get(isAuthenticatedUser, authorizeRoles('admin', 'seller'), getOutOfStockItems);
 
-router.route('/inventory/:id/history')
-  .get(isAuthenticatedUser, authorizeRoles('admin', 'seller'), getStockHistory);
+router.route('/inventory/sync/:channelId')
+  .post(isAuthenticatedUser, authorizeRoles('admin', 'seller'), syncWithChannel);
+
+router.route('/inventory/pending-reorders')
+  .get(isAuthenticatedUser, authorizeRoles('admin', 'seller'), getPendingReorders);
+
+router.route('/inventory/alerts')
+  .get(isAuthenticatedUser, authorizeRoles('admin', 'seller'), getActiveAlerts);
+
+router.route('/inventory/alerts/:alertId/acknowledge')
+  .put(isAuthenticatedUser, authorizeRoles('admin', 'seller'), acknowledgeAlert);
+
+router.route('/inventory/analytics')
+  .get(isAuthenticatedUser, authorizeRoles('admin', 'seller'), getInventoryAnalytics);
 
 export default router;

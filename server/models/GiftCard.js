@@ -192,3 +192,4 @@ const giftWrappingSchema = new mongoose.Schema({
 
 export const GiftCard = mongoose.model('GiftCard', giftCardSchema);
 export const GiftWrapping = mongoose.model('GiftWrapping', giftWrappingSchema);
+export const GiftWrap = GiftWrapping; // Alias

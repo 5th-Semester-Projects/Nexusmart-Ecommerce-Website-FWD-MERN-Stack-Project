@@ -6,7 +6,7 @@ import {
   FaCopy, FaCheck, FaShareAlt, FaQrcode
 } from 'react-icons/fa';
 import { toast } from 'react-hot-toast';
-import QRCode from 'qrcode.react';
+import { QRCodeSVG } from 'qrcode.react';
 
 const ShareToSocial = ({ product, url, title, description, image }) => {
   const [copied, setCopied] = useState(false);
@@ -262,7 +262,7 @@ const ShareToSocial = ({ product, url, title, description, image }) => {
                 className="mt-4 flex justify-center"
               >
                 <div className="p-4 bg-white rounded-xl">
-                  <QRCode 
+                  <QRCodeSVG 
                     value={shareUrl} 
                     size={150}
                     level="H"

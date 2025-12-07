@@ -158,3 +158,7 @@ export const checkResourceOwnership = (resourceModel) => {
     next();
   });
 };
+
+// Aliases for backward compatibility
+export const isAuthenticated = isAuthenticatedUser;
+export const isAdmin = authorizeRoles('admin');

@@ -49,6 +49,7 @@
     "natural": "^6.10.4",
     "node-cache": "^5.1.2",
     "openai": "^4.20.1",
+    "sharp": "^0.33.1",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.0",
     "winston": "^3.11.0",

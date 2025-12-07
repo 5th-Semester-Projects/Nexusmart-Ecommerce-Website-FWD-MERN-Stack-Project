@@ -75,4 +75,4 @@ deepLinkSchema.index({ linkId: 1 });
 deepLinkSchema.index({ shortUrl: 1 });
 deepLinkSchema.index({ type: 1, isActive: 1 });
 
-module.exports = mongoose.model('DeepLink', deepLinkSchema);
+const DeepLink = mongoose.model('DeepLink', deepLinkSchema);`nexport default DeepLink;`nexport { DeepLink };

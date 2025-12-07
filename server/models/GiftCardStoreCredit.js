@@ -608,4 +608,4 @@ giftCardStoreCreditSchema.pre('save', function (next) {
   next();
 });
 
-module.exports = mongoose.model('GiftCardStoreCredit', giftCardStoreCreditSchema);
+const GiftCardStoreCredit = mongoose.model('GiftCardStoreCredit', giftCardStoreCreditSchema);`nexport default GiftCardStoreCredit;`nexport { GiftCardStoreCredit };

@@ -70,4 +70,4 @@ const tiktokShopSchema = new mongoose.Schema({
 tiktokShopSchema.index({ product: 1 });
 tiktokShopSchema.index({ tiktokProductId: 1 });
 
-module.exports = mongoose.model('TiktokShop', tiktokShopSchema);
+const TiktokShop = mongoose.model('TiktokShop', tiktokShopSchema);`nexport default TiktokShop;`nexport { TiktokShop };

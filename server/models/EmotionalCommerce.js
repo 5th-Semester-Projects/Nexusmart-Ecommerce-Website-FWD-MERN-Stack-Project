@@ -89,4 +89,4 @@ const emotionalCommerceSchema = new mongoose.Schema({
 emotionalCommerceSchema.index({ user: 1, createdAt: -1 });
 emotionalCommerceSchema.index({ 'moodDetection.current.mood': 1 });
 
-module.exports = mongoose.model('EmotionalCommerce', emotionalCommerceSchema);
+const EmotionalCommerce = mongoose.model('EmotionalCommerce', emotionalCommerceSchema);`nexport default EmotionalCommerce;`nexport { EmotionalCommerce };

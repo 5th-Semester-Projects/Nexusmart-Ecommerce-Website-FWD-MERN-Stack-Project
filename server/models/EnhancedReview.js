@@ -364,4 +364,4 @@ enhancedReviewSchema.statics.getTopReviews = function (productId, limit = 10) {
     .populate('user', 'name avatar');
 };
 
-module.exports = mongoose.model('EnhancedReview', enhancedReviewSchema);
+const EnhancedReview = mongoose.model('EnhancedReview', enhancedReviewSchema);`nexport default EnhancedReview;`nexport { EnhancedReview };

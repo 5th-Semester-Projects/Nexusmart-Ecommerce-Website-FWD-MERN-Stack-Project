@@ -324,4 +324,4 @@ smartSizingSchema.statics.getUsersNeedingUpdates = function () {
   });
 };
 
-module.exports = mongoose.model('SmartSizing', smartSizingSchema);
+const SmartSizing = mongoose.model('SmartSizing', smartSizingSchema);`nexport default SmartSizing;`nexport { SmartSizing };

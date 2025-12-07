@@ -106,4 +106,4 @@ voiceSearchSchema.index({ user: 1, createdAt: -1 });
 voiceSearchSchema.index({ platform: 1 });
 voiceSearchSchema.index({ 'transcription.text': 'text' });
 
-module.exports = mongoose.model('VoiceSearch', voiceSearchSchema);
+const VoiceSearch = mongoose.model('VoiceSearch', voiceSearchSchema);`nexport default VoiceSearch;`nexport { VoiceSearch };

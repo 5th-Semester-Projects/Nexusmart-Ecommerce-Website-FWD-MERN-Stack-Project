@@ -90,4 +90,4 @@ const walletSchema = new mongoose.Schema({
 walletSchema.index({ user: 1 });
 walletSchema.index({ walletId: 1 });
 
-module.exports = mongoose.model('Wallet', walletSchema);
+const Wallet = mongoose.model('Wallet', walletSchema);`nexport default Wallet;`nexport { Wallet };

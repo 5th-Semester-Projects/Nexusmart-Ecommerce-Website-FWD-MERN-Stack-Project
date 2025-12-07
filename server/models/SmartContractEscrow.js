@@ -160,4 +160,4 @@ smartContractEscrowSchema.index({ order: 1 });
 smartContractEscrowSchema.index({ 'smartContract.address': 1 });
 smartContractEscrowSchema.index({ status: 1, createdAt: -1 });
 
-module.exports = mongoose.model('SmartContractEscrow', smartContractEscrowSchema);
+const SmartContractEscrow = mongoose.model('SmartContractEscrow', smartContractEscrowSchema);`nexport default SmartContractEscrow;`nexport { SmartContractEscrow };

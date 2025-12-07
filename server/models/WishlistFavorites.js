@@ -583,4 +583,4 @@ wishlistFavoritesSchema.statics.findByShareCode = function (shareCode) {
     .populate('user', 'name profilePicture');
 };
 
-module.exports = mongoose.model('WishlistFavorites', wishlistFavoritesSchema);
+const WishlistFavorites = mongoose.model('WishlistFavorites', wishlistFavoritesSchema);`nexport default WishlistFavorites;`nexport { WishlistFavorites };

@@ -73,4 +73,4 @@ const mobileWalletSchema = new mongoose.Schema({
 mobileWalletSchema.index({ user: 1, walletType: 1 });
 mobileWalletSchema.index({ 'deviceInfo.deviceId': 1 });
 
-module.exports = mongoose.model('MobileWallet', mobileWalletSchema);
+const MobileWallet = mongoose.model('MobileWallet', mobileWalletSchema);`nexport default MobileWallet;`nexport { MobileWallet };

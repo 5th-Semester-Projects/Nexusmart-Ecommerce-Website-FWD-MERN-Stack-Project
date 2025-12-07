@@ -84,4 +84,4 @@ qrCodeSchema.index({ code: 1 });
 qrCodeSchema.index({ type: 1, isActive: 1 });
 qrCodeSchema.index({ targetId: 1 });
 
-module.exports = mongoose.model('QRCode', qrCodeSchema);
+const QRCode = mongoose.model('QRCode', qrCodeSchema);`nexport default QRCode;`nexport { QRCode };

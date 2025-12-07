@@ -140,4 +140,4 @@ splitPaymentSchema.index({ order: 1 });
 splitPaymentSchema.index({ user: 1, status: 1 });
 splitPaymentSchema.index({ status: 1, createdAt: -1 });
 
-module.exports = mongoose.model('SplitPayment', splitPaymentSchema);
+const SplitPayment = mongoose.model('SplitPayment', splitPaymentSchema);`nexport default SplitPayment;`nexport { SplitPayment };

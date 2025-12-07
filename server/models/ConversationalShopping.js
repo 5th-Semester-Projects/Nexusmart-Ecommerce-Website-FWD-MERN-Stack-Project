@@ -80,4 +80,4 @@ const conversationalShoppingSchema = new mongoose.Schema({
 conversationalShoppingSchema.index({ user: 1, createdAt: -1 });
 conversationalShoppingSchema.index({ sessionId: 1 });
 
-module.exports = mongoose.model('ConversationalShopping', conversationalShoppingSchema);
+const ConversationalShopping = mongoose.model('ConversationalShopping', conversationalShoppingSchema);`nexport default ConversationalShopping;`nexport { ConversationalShopping };

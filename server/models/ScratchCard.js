@@ -59,4 +59,4 @@ const scratchCardSchema = new mongoose.Schema({
 scratchCardSchema.index({ user: 1, status: 1 });
 scratchCardSchema.index({ cardCode: 1 });
 
-module.exports = mongoose.model('ScratchCard', scratchCardSchema);
+const ScratchCard = mongoose.model('ScratchCard', scratchCardSchema);`nexport default ScratchCard;`nexport { ScratchCard };

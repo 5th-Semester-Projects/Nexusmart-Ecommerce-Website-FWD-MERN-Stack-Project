@@ -176,4 +176,4 @@ complianceSchema.index({ 'amlScreening.result.status': 1 });
 complianceSchema.index({ 'riskScore.overall': -1 });
 complianceSchema.index({ 'flags.severity': 1, 'flags.resolvedAt': 1 });
 
-module.exports = mongoose.model('Compliance', complianceSchema);
+const Compliance = mongoose.model('Compliance', complianceSchema);`nexport default Compliance;`nexport { Compliance };

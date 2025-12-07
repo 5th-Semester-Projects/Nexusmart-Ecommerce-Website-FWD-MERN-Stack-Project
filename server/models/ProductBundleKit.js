@@ -622,4 +622,4 @@ productBundleKitSchema.pre('save', function (next) {
   next();
 });
 
-module.exports = mongoose.model('ProductBundleKit', productBundleKitSchema);
+const ProductBundleKit = mongoose.model('ProductBundleKit', productBundleKitSchema);`nexport default ProductBundleKit;`nexport { ProductBundleKit };

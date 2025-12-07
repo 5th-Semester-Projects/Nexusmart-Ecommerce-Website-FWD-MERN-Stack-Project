@@ -67,4 +67,4 @@ const spinWheelSchema = new mongoose.Schema({
 spinWheelSchema.index({ isActive: 1 });
 spinWheelSchema.index({ 'spins.user': 1 });
 
-module.exports = mongoose.model('SpinWheel', spinWheelSchema);
+const SpinWheel = mongoose.model('SpinWheel', spinWheelSchema);`nexport default SpinWheel;`nexport { SpinWheel };

@@ -105,4 +105,4 @@ const biometricAuthSchema = new mongoose.Schema({
 biometricAuthSchema.index({ user: 1 });
 biometricAuthSchema.index({ 'deviceBindings.deviceId': 1 });
 
-module.exports = mongoose.model('BiometricAuth', biometricAuthSchema);
+const BiometricAuth = mongoose.model('BiometricAuth', biometricAuthSchema);`nexport default BiometricAuth;`nexport { BiometricAuth };

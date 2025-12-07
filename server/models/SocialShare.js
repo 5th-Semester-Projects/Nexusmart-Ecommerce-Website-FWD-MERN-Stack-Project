@@ -45,4 +45,4 @@ const socialShareSchema = new mongoose.Schema({
 socialShareSchema.index({ user: 1, platform: 1 });
 socialShareSchema.index({ contentType: 1, contentId: 1 });
 
-module.exports = mongoose.model('SocialShare', socialShareSchema);
+const SocialShare = mongoose.model('SocialShare', socialShareSchema);`nexport default SocialShare;`nexport { SocialShare };

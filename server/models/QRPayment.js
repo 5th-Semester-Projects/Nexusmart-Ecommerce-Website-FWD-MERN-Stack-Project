@@ -73,4 +73,4 @@ qrPaymentSchema.index({ qrCode: 1 });
 qrPaymentSchema.index({ order: 1 });
 qrPaymentSchema.index({ status: 1 });
 
-module.exports = mongoose.model('QRPayment', qrPaymentSchema);
+const QRPayment = mongoose.model('QRPayment', qrPaymentSchema);`nexport default QRPayment;`nexport { QRPayment };

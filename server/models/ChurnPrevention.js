@@ -90,4 +90,4 @@ const churnPreventionSchema = new mongoose.Schema({
 churnPreventionSchema.index({ user: 1 });
 churnPreventionSchema.index({ 'churnRisk.level': 1, 'churnRisk.score': -1 });
 
-module.exports = mongoose.model('ChurnPrevention', churnPreventionSchema);
+const ChurnPrevention = mongoose.model('ChurnPrevention', churnPreventionSchema);`nexport default ChurnPrevention;`nexport { ChurnPrevention };

@@ -540,4 +540,4 @@ advancedSearchFiltersSchema.statics.updateTrendingSearches = async function (que
   }
 };
 
-module.exports = mongoose.model('AdvancedSearchFilters', advancedSearchFiltersSchema);
+const AdvancedSearchFilters = mongoose.model('AdvancedSearchFilters', advancedSearchFiltersSchema);`nexport default AdvancedSearchFilters;`nexport { AdvancedSearchFilters };

@@ -570,4 +570,4 @@ multiChannelIntegrationSchema.statics.getActiveIntegrations = function (business
   });
 };
 
-module.exports = mongoose.model('MultiChannelIntegration', multiChannelIntegrationSchema);
+const MultiChannelIntegration = mongoose.model('MultiChannelIntegration', multiChannelIntegrationSchema);`nexport default MultiChannelIntegration;`nexport { MultiChannelIntegration };

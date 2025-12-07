@@ -564,4 +564,4 @@ inventoryManagementSchema.statics.getOutOfStockItems = function () {
     .sort({ 'salesMetrics.dailyAvg': -1 });
 };
 
-module.exports = mongoose.model('InventoryManagement', inventoryManagementSchema);
+const InventoryManagement = mongoose.model('InventoryManagement', inventoryManagementSchema);`nexport default InventoryManagement;`nexport { InventoryManagement };

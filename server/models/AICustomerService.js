@@ -195,4 +195,4 @@ aiCustomerServiceSchema.index({ 'ticket.user': 1, 'ticket.status': 1 });
 aiCustomerServiceSchema.index({ 'ticket.status': 1, 'ticket.priority': 1 });
 aiCustomerServiceSchema.index({ 'aiTriaging.sentiment.label': 1 });
 
-module.exports = mongoose.model('AICustomerService', aiCustomerServiceSchema);
+const AICustomerService = mongoose.model('AICustomerService', aiCustomerServiceSchema);`nexport default AICustomerService;`nexport { AICustomerService };

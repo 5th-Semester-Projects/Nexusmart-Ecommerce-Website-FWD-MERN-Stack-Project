@@ -535,4 +535,4 @@ liveShoppingEventSchema.statics.getLiveEvents = function () {
     .populate('host.user', 'name avatar');
 };
 
-module.exports = mongoose.model('LiveShoppingEvent', liveShoppingEventSchema);
+const LiveShoppingEvent = mongoose.model('LiveShoppingEvent', liveShoppingEventSchema);`nexport default LiveShoppingEvent;`nexport { LiveShoppingEvent };

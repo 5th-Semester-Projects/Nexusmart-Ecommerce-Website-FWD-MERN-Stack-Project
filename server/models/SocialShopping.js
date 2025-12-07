@@ -471,4 +471,4 @@ socialShoppingSchema.statics.getUserFeed = function (userId, following, limit = 
     .populate('products.product', 'name images price');
 };
 
-module.exports = mongoose.model('SocialShopping', socialShoppingSchema);
+const SocialShopping = mongoose.model('SocialShopping', socialShoppingSchema);`nexport default SocialShopping;`nexport { SocialShopping };

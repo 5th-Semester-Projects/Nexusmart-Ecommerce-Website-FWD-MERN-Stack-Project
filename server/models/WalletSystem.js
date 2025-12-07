@@ -397,4 +397,4 @@ walletSystemSchema.pre('save', function (next) {
   next();
 });
 
-module.exports = mongoose.model('WalletSystem', walletSystemSchema);
+const WalletSystem = mongoose.model('WalletSystem', walletSystemSchema);`nexport default WalletSystem;`nexport { WalletSystem };

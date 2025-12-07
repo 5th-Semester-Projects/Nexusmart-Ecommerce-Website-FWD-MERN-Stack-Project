@@ -345,4 +345,4 @@ priceAlertSchema.pre('save', function (next) {
   next();
 });
 
-module.exports = mongoose.model('PriceAlert', priceAlertSchema);
+const PriceAlert = mongoose.model('PriceAlert', priceAlertSchema);`nexport default PriceAlert;`nexport { PriceAlert };

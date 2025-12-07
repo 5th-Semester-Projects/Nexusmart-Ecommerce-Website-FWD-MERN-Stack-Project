@@ -65,4 +65,4 @@ const facebookMarketplaceSchema = new mongoose.Schema({
 facebookMarketplaceSchema.index({ product: 1 });
 facebookMarketplaceSchema.index({ facebookProductId: 1 });
 
-module.exports = mongoose.model('FacebookMarketplace', facebookMarketplaceSchema);
+const FacebookMarketplace = mongoose.model('FacebookMarketplace', facebookMarketplaceSchema);`nexport default FacebookMarketplace;`nexport { FacebookMarketplace };

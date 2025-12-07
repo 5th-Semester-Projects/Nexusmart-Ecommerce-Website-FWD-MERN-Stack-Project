@@ -79,4 +79,4 @@ arVirtualTryOnSchema.index({ user: 1, createdAt: -1 });
 arVirtualTryOnSchema.index({ product: 1 });
 arVirtualTryOnSchema.index({ tryOnType: 1, createdAt: -1 });
 
-module.exports = mongoose.model('ARVirtualTryOn', arVirtualTryOnSchema);
+const ARVirtualTryOn = mongoose.model('ARVirtualTryOn', arVirtualTryOnSchema);`nexport default ARVirtualTryOn;`nexport { ARVirtualTryOn };

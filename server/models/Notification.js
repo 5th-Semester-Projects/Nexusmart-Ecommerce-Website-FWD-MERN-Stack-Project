@@ -122,4 +122,6 @@ notificationSchema.methods.markAsRead = function () {
   return this.save();
 };
 
-export default mongoose.model('Notification', notificationSchema);
+const Notification = mongoose.model('Notification', notificationSchema);
+export default Notification;
+export { Notification };

@@ -197,4 +197,6 @@ reviewSchema.methods.markNotHelpful = async function () {
   await this.save();
 };
 
-export default mongoose.model('Review', reviewSchema);
+const Review = mongoose.model('Review', reviewSchema);
+export default Review;
+export { Review };

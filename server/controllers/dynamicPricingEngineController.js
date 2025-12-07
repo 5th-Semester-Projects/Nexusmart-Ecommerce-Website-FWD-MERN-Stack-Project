@@ -1,6 +1,6 @@
 import DynamicPricingEngine from '../models/DynamicPricingEngine.js';
 import catchAsyncErrors from '../middleware/catchAsyncErrors.js';
-import ErrorHandler from '../utils/ErrorHandler.js';
+import ErrorHandler from '../utils/errorHandler.js';
 
 // Get product dynamic price
 export const getProductPrice = catchAsyncErrors(async (req, res, next) => {

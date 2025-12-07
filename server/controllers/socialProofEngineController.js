@@ -1,6 +1,6 @@
 import SocialProofEngine from '../models/SocialProofEngine.js';
 import catchAsyncErrors from '../middleware/catchAsyncErrors.js';
-import ErrorHandler from '../utils/ErrorHandler.js';
+import ErrorHandler from '../utils/errorHandler.js';
 
 // Get social proof configuration
 export const getConfiguration = catchAsyncErrors(async (req, res, next) => {

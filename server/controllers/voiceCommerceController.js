@@ -1,6 +1,6 @@
 import VoiceCommerce from '../models/VoiceCommerce.js';
 import catchAsyncErrors from '../middleware/catchAsyncErrors.js';
-import ErrorHandler from '../utils/ErrorHandler.js';
+import ErrorHandler from '../utils/errorHandler.js';
 
 // Start voice session
 export const startVoiceSession = catchAsyncErrors(async (req, res, next) => {

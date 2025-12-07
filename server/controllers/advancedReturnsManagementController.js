@@ -1,6 +1,6 @@
 import AdvancedReturnsManagement from '../models/AdvancedReturnsManagement.js';
 import catchAsyncErrors from '../middleware/catchAsyncErrors.js';
-import ErrorHandler from '../utils/ErrorHandler.js';
+import ErrorHandler from '../utils/errorHandler.js';
 
 // Get all returns for user
 export const getUserReturns = catchAsyncErrors(async (req, res, next) => {

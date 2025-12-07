@@ -1,6 +1,6 @@
 import InfluencerMarketing from '../models/InfluencerMarketing.js';
 import catchAsyncErrors from '../middleware/catchAsyncErrors.js';
-import ErrorHandler from '../utils/ErrorHandler.js';
+import ErrorHandler from '../utils/errorHandler.js';
 
 // Get all influencers for seller
 export const getInfluencers = catchAsyncErrors(async (req, res, next) => {

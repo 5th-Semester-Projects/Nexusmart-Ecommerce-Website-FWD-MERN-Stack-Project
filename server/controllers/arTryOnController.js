@@ -1,6 +1,6 @@
 import ARTryOn from '../models/ARTryOn.js';
 import catchAsyncErrors from '../middleware/catchAsyncErrors.js';
-import ErrorHandler from '../utils/ErrorHandler.js';
+import ErrorHandler from '../utils/errorHandler.js';
 
 // Get all AR enabled products
 export const getAllARProducts = catchAsyncErrors(async (req, res, next) => {

@@ -80,7 +80,7 @@ const shippingRateSchema = new mongoose.Schema({
       type: Boolean,
       default: false
     },
-    saturday Delivery: {
+    saturdayDelivery: {
       type: Boolean,
       default: false
     }

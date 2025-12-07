@@ -154,3 +154,6 @@ export const handleMulterError = (error, req, res, next) => {
   }
   next(error);
 };
+
+// Default export
+export default uploadSingleImage;

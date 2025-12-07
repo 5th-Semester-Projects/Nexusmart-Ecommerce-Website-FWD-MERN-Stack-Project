@@ -195,4 +195,6 @@ cartSchema.methods.moveToCart = async function (savedItemId, price) {
   throw new Error('Saved item not found');
 };
 
-export default mongoose.model('Cart', cartSchema);
+const Cart = mongoose.model('Cart', cartSchema);
+export default Cart;
+export { Cart };

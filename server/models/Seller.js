@@ -248,4 +248,5 @@ sellerAnalyticsSchema.index({ seller: 1, date: -1 });
 
 export const Seller = mongoose.model('Seller', sellerSchema);
 export const SellerPayout = mongoose.model('SellerPayout', sellerPayoutSchema);
+export const Payout = SellerPayout; // Alias
 export const SellerAnalytics = mongoose.model('SellerAnalytics', sellerAnalyticsSchema);

@@ -1,50 +1,58 @@
 import express from 'express';
 import {
-  getDashboardData,
-  getById,
+  getDashboard,
   createDashboard,
-  updateDashboard,
-  deleteDashboard,
-  generateForecast,
-  getHeatmapData,
+  getSalesForecast,
   getConversionFunnel,
   getRevenueAttribution,
   getProductPerformance,
-  getTopPerformers,
-  generateReport
+  getCustomerAnalytics,
+  getBehaviorHeatmaps,
+  getRealTimeMetrics,
+  predictNextMonthRevenue,
+  generateReport,
+  getRecentDashboards,
+  updateDashboardSettings
 } from '../controllers/advancedAnalyticsDashboardController.js';
 import { isAuthenticatedUser, authorizeRoles } from '../middleware/auth.js';
 
 const router = express.Router();
 
 router.route('/analytics/dashboard')
-  .get(isAuthenticatedUser, authorizeRoles('admin', 'seller'), getDashboardData)
+  .get(isAuthenticatedUser, authorizeRoles('admin', 'seller'), getDashboard)
   .post(isAuthenticatedUser, authorizeRoles('admin'), createDashboard);
 
-router.route('/analytics/:id')
-  .get(isAuthenticatedUser, authorizeRoles('admin', 'seller'), getById)
-  .put(isAuthenticatedUser, authorizeRoles('admin'), updateDashboard)
-  .delete(isAuthenticatedUser, authorizeRoles('admin'), deleteDashboard);
+router.route('/analytics/dashboard/settings')
+  .put(isAuthenticatedUser, authorizeRoles('admin'), updateDashboardSettings);
 
-router.route('/analytics/:id/forecast')
-  .post(isAuthenticatedUser, authorizeRoles('admin', 'seller'), generateForecast);
+router.route('/analytics/dashboard/recent')
+  .get(isAuthenticatedUser, authorizeRoles('admin', 'seller'), getRecentDashboards);
 
-router.route('/analytics/:id/heatmap')
-  .get(isAuthenticatedUser, authorizeRoles('admin', 'seller'), getHeatmapData);
+router.route('/analytics/sales-forecast')
+  .get(isAuthenticatedUser, authorizeRoles('admin', 'seller'), getSalesForecast);
 
-router.route('/analytics/:id/funnel')
+router.route('/analytics/funnel')
   .get(isAuthenticatedUser, authorizeRoles('admin', 'seller'), getConversionFunnel);
 
-router.route('/analytics/:id/attribution')
+router.route('/analytics/attribution')
   .get(isAuthenticatedUser, authorizeRoles('admin', 'seller'), getRevenueAttribution);
 
-router.route('/analytics/:id/products')
+router.route('/analytics/products')
   .get(isAuthenticatedUser, authorizeRoles('admin', 'seller'), getProductPerformance);
 
-router.route('/analytics/:id/top-performers')
-  .get(isAuthenticatedUser, authorizeRoles('admin', 'seller'), getTopPerformers);
+router.route('/analytics/customers')
+  .get(isAuthenticatedUser, authorizeRoles('admin', 'seller'), getCustomerAnalytics);
 
-router.route('/analytics/:id/report')
+router.route('/analytics/heatmaps')
+  .get(isAuthenticatedUser, authorizeRoles('admin', 'seller'), getBehaviorHeatmaps);
+
+router.route('/analytics/realtime')
+  .get(isAuthenticatedUser, authorizeRoles('admin', 'seller'), getRealTimeMetrics);
+
+router.route('/analytics/predict-revenue')
+  .get(isAuthenticatedUser, authorizeRoles('admin', 'seller'), predictNextMonthRevenue);
+
+router.route('/analytics/report')
   .post(isAuthenticatedUser, authorizeRoles('admin', 'seller'), generateReport);
 
 export default router;

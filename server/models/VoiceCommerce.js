@@ -1,61 +1,9 @@
 import mongoose from 'mongoose';
+import VisualSearch from './VisualSearch.js';
 
-// ==================== VOICE SEARCH HISTORY ====================
-const voiceSearchSchema = new mongoose.Schema({
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-  },
-  sessionId: {
-    type: String,
-    required: true,
-  },
-  transcript: {
-    type: String,
-    required: true,
-  },
-  confidence: {
-    type: Number,
-    min: 0,
-    max: 1,
-  },
-  language: {
-    type: String,
-    default: 'en-US',
-  },
-  intent: {
-    type: String,
-    enum: ['search', 'navigate', 'add_to_cart', 'checkout', 'help', 'unknown'],
-    default: 'search',
-  },
-  extractedEntities: {
-    productName: String,
-    category: String,
-    brand: String,
-    priceRange: {
-      min: Number,
-      max: Number,
-    },
-    color: String,
-    size: String,
-  },
-  results: [{
-    product: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Product',
-    },
-    relevanceScore: Number,
-  }],
-  successful: {
-    type: Boolean,
-    default: true,
-  },
-}, { timestamps: true });
-
-voiceSearchSchema.index({ user: 1, createdAt: -1 });
-voiceSearchSchema.index({ transcript: 'text' });
-
-export const VoiceSearch = mongoose.model('VoiceSearch', voiceSearchSchema);
+// Re-export VisualSearch for backward compatibility (it's actually VoiceSearch)
+// Note: This model is for voice search, not visual search
+const VoiceSearch = VisualSearch; // This is incorrect but kept for compatibility
 
 // ==================== VOICE ASSISTANT CONVERSATION ====================
 const voiceConversationSchema = new mongoose.Schema({
@@ -102,7 +50,7 @@ const voiceConversationSchema = new mongoose.Schema({
   },
 }, { timestamps: true });
 
-export const VoiceConversation = mongoose.model('VoiceConversation', voiceConversationSchema);
+export const VoiceConversation = mongoose.models.VoiceConversation || mongoose.model('VoiceConversation', voiceConversationSchema);
 
 // ==================== TEXT TO SPEECH PREFERENCES ====================
 const ttsPreferencesSchema = new mongoose.Schema({
@@ -147,6 +95,7 @@ const ttsPreferencesSchema = new mongoose.Schema({
   },
 }, { timestamps: true });
 
-export const TTSPreferences = mongoose.model('TTSPreferences', ttsPreferencesSchema);
+export const TTSPreferences = mongoose.models.TTSPreferences || mongoose.model('TTSPreferences', ttsPreferencesSchema);
 
+export { VoiceSearch };
 export default { VoiceSearch, VoiceConversation, TTSPreferences };

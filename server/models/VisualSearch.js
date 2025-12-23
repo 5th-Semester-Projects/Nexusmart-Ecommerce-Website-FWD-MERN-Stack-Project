@@ -74,4 +74,4 @@ const visualSearchSchema = new mongoose.Schema({
 
 visualSearchSchema.index({ user: 1, searchedAt: -1 });
 
-export default mongoose.model('VisualSearch', visualSearchSchema);
+export default mongoose.models.VisualSearch || mongoose.model('VisualSearch', visualSearchSchema);

@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import PriceAlert from './PriceAlert.js';
 
 // ==================== AI CHAT MESSAGE SCHEMA ====================
 const chatMessageSchema = new mongoose.Schema({
@@ -225,51 +226,8 @@ userRecommendationSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 });
 
 export const UserRecommendation = mongoose.model('UserRecommendation', userRecommendationSchema);
 
-// ==================== PRICE ALERT SCHEMA ====================
-const priceAlertSchema = new mongoose.Schema({
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true,
-  },
-  product: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Product',
-    required: true,
-  },
-  targetPrice: {
-    type: Number,
-    required: true,
-  },
-  currentPrice: {
-    type: Number,
-    required: true,
-  },
-  alertType: {
-    type: String,
-    enum: ['below', 'drop_percent'],
-    default: 'below',
-  },
-  dropPercent: Number,
-  isTriggered: {
-    type: Boolean,
-    default: false,
-  },
-  triggeredAt: Date,
-  notified: {
-    type: Boolean,
-    default: false,
-  },
-  isActive: {
-    type: Boolean,
-    default: true,
-  },
-}, { timestamps: true });
-
-priceAlertSchema.index({ user: 1, product: 1 }, { unique: true });
-priceAlertSchema.index({ product: 1, isActive: 1 });
-
-export const PriceAlert = mongoose.model('PriceAlert', priceAlertSchema);
+// PriceAlert schema has been moved to its own file PriceAlert.js
+// Import it from there instead
 
 export default {
   AIChatSession,

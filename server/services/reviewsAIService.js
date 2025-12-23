@@ -9,9 +9,9 @@ import { Product } from '../models/Product.js';
 
 class ReviewsAIService {
   constructor() {
-    this.openai = new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY
-    });
+    this.openai = process.env.OPENAI_API_KEY 
+      ? new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
+      : null;
   }
 
   /**

@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import FlashSale from './FlashSale.js';
 
 // ==================== LIVE CHAT MESSAGE SCHEMA ====================
 const liveChatMessageSchema = new mongoose.Schema({
@@ -144,79 +145,10 @@ const orderTrackingSchema = new mongoose.Schema({
 
 orderTrackingSchema.index({ order: 1 }, { unique: true });
 
-export const OrderTracking = mongoose.model('OrderTracking', orderTrackingSchema);
+export const OrderTracking = mongoose.models.OrderTracking || mongoose.model('OrderTracking', orderTrackingSchema);
 
-// ==================== FLASH SALE SCHEMA ====================
-const flashSaleSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  description: String,
-  products: [{
-    product: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Product',
-      required: true,
-    },
-    salePrice: {
-      type: Number,
-      required: true,
-    },
-    originalPrice: {
-      type: Number,
-      required: true,
-    },
-    discount: {
-      type: Number,
-      required: true,
-    },
-    quantity: {
-      type: Number,
-      required: true,
-    },
-    sold: {
-      type: Number,
-      default: 0,
-    },
-    limit: {
-      type: Number,
-      default: 1, // per user
-    },
-  }],
-  startTime: {
-    type: Date,
-    required: true,
-  },
-  endTime: {
-    type: Date,
-    required: true,
-  },
-  banner: {
-    url: String,
-    alt: String,
-  },
-  isActive: {
-    type: Boolean,
-    default: true,
-  },
-  totalViews: {
-    type: Number,
-    default: 0,
-  },
-  totalSold: {
-    type: Number,
-    default: 0,
-  },
-  revenue: {
-    type: Number,
-    default: 0,
-  },
-}, { timestamps: true });
-
-flashSaleSchema.index({ startTime: 1, endTime: 1, isActive: 1 });
-
-export const FlashSale = mongoose.model('FlashSale', flashSaleSchema);
+// Export FlashSale from its own file
+export { FlashSale };
 
 // ==================== PRODUCT VIEW TRACKING ====================
 const productViewSchema = new mongoose.Schema({

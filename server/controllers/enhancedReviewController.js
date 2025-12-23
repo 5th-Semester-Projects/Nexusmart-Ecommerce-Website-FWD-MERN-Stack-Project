@@ -118,5 +118,3 @@ export const getFeaturedReviews = catchAsyncErrors(async (req, res) => {
     reviews
   });
 });
-
-module.exports = exports;

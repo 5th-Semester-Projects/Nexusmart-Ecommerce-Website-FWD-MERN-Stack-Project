@@ -5,13 +5,14 @@ import {
   createCampaign,
   updateCampaign,
   deleteCampaign,
-  triggerCampaign,
   pauseCampaign,
-  resumeCampaign,
   getActiveCampaigns,
-  getTopPerforming,
-  trackEngagement,
-  runABTest
+  activateCampaign,
+  getCampaignMetrics,
+  getCampaignPerformance,
+  addSendRecord,
+  recordInteraction,
+  selectABTestWinner
 } from '../controllers/marketingAutomationController.js';
 import { isAuthenticatedUser, authorizeRoles } from '../middleware/auth.js';
 
@@ -21,30 +22,33 @@ router.route('/marketing/campaigns')
   .get(isAuthenticatedUser, authorizeRoles('admin', 'seller'), getAllCampaigns)
   .post(isAuthenticatedUser, authorizeRoles('admin', 'seller'), createCampaign);
 
+router.route('/marketing/campaigns/active')
+  .get(isAuthenticatedUser, authorizeRoles('admin', 'seller'), getActiveCampaigns);
+
 router.route('/marketing/campaigns/:id')
   .get(isAuthenticatedUser, authorizeRoles('admin', 'seller'), getCampaign)
   .put(isAuthenticatedUser, authorizeRoles('admin', 'seller'), updateCampaign)
   .delete(isAuthenticatedUser, authorizeRoles('admin'), deleteCampaign);
 
-router.route('/marketing/campaigns/:id/trigger')
-  .post(isAuthenticatedUser, authorizeRoles('admin', 'seller'), triggerCampaign);
+router.route('/marketing/campaigns/:id/activate')
+  .post(isAuthenticatedUser, authorizeRoles('admin', 'seller'), activateCampaign);
 
 router.route('/marketing/campaigns/:id/pause')
   .post(isAuthenticatedUser, authorizeRoles('admin', 'seller'), pauseCampaign);
 
-router.route('/marketing/campaigns/:id/resume')
-  .post(isAuthenticatedUser, authorizeRoles('admin', 'seller'), resumeCampaign);
+router.route('/marketing/campaigns/:id/metrics')
+  .get(isAuthenticatedUser, authorizeRoles('admin', 'seller'), getCampaignMetrics);
 
-router.route('/marketing/campaigns/active')
-  .get(isAuthenticatedUser, authorizeRoles('admin', 'seller'), getActiveCampaigns);
+router.route('/marketing/campaigns/:id/send')
+  .post(isAuthenticatedUser, authorizeRoles('admin', 'seller'), addSendRecord);
 
-router.route('/marketing/campaigns/top-performing')
-  .get(isAuthenticatedUser, authorizeRoles('admin', 'seller'), getTopPerforming);
+router.route('/marketing/campaigns/:id/interaction')
+  .post(recordInteraction);
 
-router.route('/marketing/campaigns/:id/track')
-  .post(isAuthenticatedUser, trackEngagement);
+router.route('/marketing/campaigns/:id/ab-test/select-winner')
+  .post(isAuthenticatedUser, authorizeRoles('admin', 'seller'), selectABTestWinner);
 
-router.route('/marketing/campaigns/:id/ab-test')
-  .post(isAuthenticatedUser, authorizeRoles('admin', 'seller'), runABTest);
+router.route('/marketing/campaigns/performance/:businessId/:campaignType')
+  .get(isAuthenticatedUser, authorizeRoles('admin', 'seller'), getCampaignPerformance);
 
 export default router;

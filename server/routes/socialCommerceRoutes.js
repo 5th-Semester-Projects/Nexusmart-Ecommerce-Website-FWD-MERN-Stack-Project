@@ -1,4 +1,5 @@
 import express from 'express';
+import multer from 'multer';
 import {
   createLiveStream,
   startLiveStream,
@@ -17,7 +18,8 @@ import {
   generateShareLink
 } from '../controllers/socialCommerceController.js';
 import { isAuthenticated, isAdmin } from '../middleware/auth.js';
-import upload from '../middleware/upload.js';
+
+const upload = multer({ storage: multer.memoryStorage() });
 
 const router = express.Router();
 

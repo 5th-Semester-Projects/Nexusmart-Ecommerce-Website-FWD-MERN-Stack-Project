@@ -153,7 +153,8 @@ const io = new Server(server, {
       'http://localhost:5174',
       'https://nexusmart-frontend-3db70d50e139.herokuapp.com',
       'https://nexusmart-d0c174bae61e.herokuapp.com',
-      'https://nexusmart-ecom-944322862c43.herokuapp.com'
+      'https://nexusmart-ecom-944322862c43.herokuapp.com',
+      'https://nexusmart-ecommerce.onrender.com'
     ],
     credentials: true,
   },
@@ -183,6 +184,8 @@ app.use(
           "https://api.stripe.com",
           "https://*.herokuapp.com",
           "wss://*.herokuapp.com",
+          "https://*.onrender.com",
+          "wss://*.onrender.com",
         ],
         frameSrc: ["'self'", "https://js.stripe.com"],
         objectSrc: ["'none'"],
@@ -202,7 +205,8 @@ const allowedOrigins = [
   'http://localhost:5174',
   'https://nexusmart-frontend-3db70d50e139.herokuapp.com',
   'https://nexusmart-d0c174bae61e.herokuapp.com',
-  'https://nexusmart-ecom-944322862c43.herokuapp.com'
+  'https://nexusmart-ecom-944322862c43.herokuapp.com',
+  'https://nexusmart-ecommerce.onrender.com'
 ];
 
 app.use(

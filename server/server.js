@@ -169,7 +169,7 @@ app.use(
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'"],
-        scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+        scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://www.googletagmanager.com", "https://www.google-analytics.com"],
         styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
         fontSrc: ["'self'", "https://fonts.gstatic.com"],
         imgSrc: [
@@ -186,6 +186,8 @@ app.use(
           "wss://*.herokuapp.com",
           "https://*.onrender.com",
           "wss://*.onrender.com",
+          "https://www.google-analytics.com",
+          "https://www.googletagmanager.com",
         ],
         frameSrc: ["'self'", "https://js.stripe.com"],
         objectSrc: ["'none'"],

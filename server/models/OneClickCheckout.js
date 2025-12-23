@@ -261,7 +261,7 @@ const oneClickCheckoutSchema = new mongoose.Schema({
       type: Boolean,
       default: true
     },
-    shipping Updates: {
+    shippingUpdates: {
       type: Boolean,
       default: true
     },

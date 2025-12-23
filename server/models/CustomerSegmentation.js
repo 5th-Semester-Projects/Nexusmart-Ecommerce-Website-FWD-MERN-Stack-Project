@@ -217,7 +217,7 @@ const customerSegmentationSchema = new mongoose.Schema({
         min: 0,
         max: 100
       },
-      risk Level: {
+      riskLevel: {
         type: String,
         enum: ['low', 'medium', 'high', 'critical']
       },

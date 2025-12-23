@@ -1,14 +1,30 @@
 services:
   - type: web
     name: nexusmart-ecommerce
-    env: node
+    runtime: node
     region: oregon
     plan: free
     branch: main
-    buildCommand: npm install && cd client && npm install && npm run build && cd ..
-    startCommand: node server/server.js
+    rootDir: ./
+    buildCommand: cd server && npm install && cd ../client && npm install && npm run build
+    startCommand: cd server && npm start
+    healthCheckPath: /health
     envVars:
       - key: NODE_ENV
         value: production
       - key: NODE_VERSION
         value: 20.19.0
+      - key: PORT
+        value: 10000
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: JWT_REFRESH_SECRET
+        sync: false
+      - key: JWT_EXPIRE
+        value: 7d
+      - key: JWT_REFRESH_EXPIRE
+        value: 30d
+      - key: CLIENT_URL
+        sync: false

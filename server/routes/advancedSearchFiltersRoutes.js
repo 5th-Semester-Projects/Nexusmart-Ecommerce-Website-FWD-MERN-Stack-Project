@@ -1,33 +1,25 @@
 import express from 'express';
 import {
-  searchProducts,
-  getSearchById,
-  createSearch,
-  updateSearch,
-  deleteSearch,
-  getSuggestions,
+  performSearch,
+  getAutocompleteSuggestions,
   getTrendingSearches,
-  getPopularFilters,
-  saveSearch,
   getSearchHistory,
-  getFilteredResults,
-  trackClickThrough
+  trackSearchClick,
+  saveSearch,
+  getSavedSearches,
+  deleteSavedSearch,
+  getPopularFilters,
+  getSearchAnalytics
 } from '../controllers/advancedSearchFiltersController.js';
 import { isAuthenticatedUser, authorizeRoles } from '../middleware/auth.js';
 
 const router = express.Router();
 
 router.route('/search')
-  .get(searchProducts)
-  .post(isAuthenticatedUser, createSearch);
-
-router.route('/search/:id')
-  .get(isAuthenticatedUser, getSearchById)
-  .put(isAuthenticatedUser, updateSearch)
-  .delete(isAuthenticatedUser, deleteSearch);
+  .get(performSearch);
 
 router.route('/search/suggestions')
-  .get(getSuggestions);
+  .get(getAutocompleteSuggestions);
 
 router.route('/search/trending')
   .get(getTrendingSearches);
@@ -38,13 +30,19 @@ router.route('/search/filters/popular')
 router.route('/search/save')
   .post(isAuthenticatedUser, saveSearch);
 
+router.route('/search/saved')
+  .get(isAuthenticatedUser, getSavedSearches);
+
+router.route('/search/saved/:id')
+  .delete(isAuthenticatedUser, deleteSavedSearch);
+
 router.route('/search/history')
   .get(isAuthenticatedUser, getSearchHistory);
 
-router.route('/search/filtered')
-  .get(getFilteredResults);
-
 router.route('/search/track-click')
-  .post(trackClickThrough);
+  .post(trackSearchClick);
+
+router.route('/search/analytics')
+  .get(isAuthenticatedUser, authorizeRoles('admin'), getSearchAnalytics);
 
 export default router;

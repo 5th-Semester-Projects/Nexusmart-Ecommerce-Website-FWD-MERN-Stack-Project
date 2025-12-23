@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const smartSizingSchema = new mongoose.Schema({
   user: {

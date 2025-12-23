@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const nextPurchasePredictionSchema = new mongoose.Schema({
   user: {

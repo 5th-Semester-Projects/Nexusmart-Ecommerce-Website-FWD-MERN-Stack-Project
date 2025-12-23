@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const wishlistFavoritesSchema = new mongoose.Schema({
   user: {

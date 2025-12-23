@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const bundleDealsSchema = new mongoose.Schema({
   // Bundle information

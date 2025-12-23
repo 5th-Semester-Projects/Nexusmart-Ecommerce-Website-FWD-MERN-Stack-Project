@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const customer360Schema = new mongoose.Schema({
   user: {

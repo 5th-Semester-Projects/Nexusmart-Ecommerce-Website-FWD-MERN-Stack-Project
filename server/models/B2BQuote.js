@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const b2bQuoteSchema = new mongoose.Schema({
   quoteNumber: {

@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const returnsPortalSchema = new mongoose.Schema({
   order: {

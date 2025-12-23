@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const giftCardStoreCreditSchema = new mongoose.Schema({
   // Gift Card Details

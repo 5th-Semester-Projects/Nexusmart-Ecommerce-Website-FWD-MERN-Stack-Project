@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const orderTrackingSchema = new mongoose.Schema({
   order: {

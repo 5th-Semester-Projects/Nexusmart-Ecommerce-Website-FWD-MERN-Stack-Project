@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const facebookMarketplaceSchema = new mongoose.Schema({
   product: {

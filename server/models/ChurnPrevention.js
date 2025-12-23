@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const churnPreventionSchema = new mongoose.Schema({
   user: {

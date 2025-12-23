@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const fraudDetectionSchema = new mongoose.Schema({
   order: {

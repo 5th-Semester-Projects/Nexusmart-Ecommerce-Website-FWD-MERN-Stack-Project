@@ -1,26 +1,26 @@
 import express from 'express';
 import * as fraudDetectionController from '../controllers/fraudDetectionController.js';
-import { authenticate, adminAuth } from '../middleware/auth.js';
+import { isAuthenticatedUser, authorizeRoles } from '../middleware/auth.js';
 
 const router = express.Router();
 
 // Risk Analysis Routes
-router.post('/analyze', authenticate, fraudDetectionController.analyzeTransactionRisk);
+router.post('/analyze', isAuthenticatedUser, fraudDetectionController.analyzeTransactionRisk);
 
 // Transaction Monitoring Routes
-router.get('/monitor/patterns', adminAuth, fraudDetectionController.monitorTransactionPatterns);
-router.post('/monitor/alert', adminAuth, fraudDetectionController.sendTransactionAlert);
+router.get('/monitor/patterns', isAuthenticatedUser, authorizeRoles('admin'), fraudDetectionController.monitorTransactionPatterns);
+router.post('/monitor/alert', isAuthenticatedUser, authorizeRoles('admin'), fraudDetectionController.sendTransactionAlert);
 
 // Chargeback Prevention Routes
-router.post('/chargeback/predict', authenticate, fraudDetectionController.predictChargebackRisk);
-router.post('/chargeback/file', authenticate, fraudDetectionController.fileChargeback);
+router.post('/chargeback/predict', isAuthenticatedUser, fraudDetectionController.predictChargebackRisk);
+router.post('/chargeback/file', isAuthenticatedUser, fraudDetectionController.fileChargeback);
 
 // Identity Verification Routes
-router.post('/verify/initiate', authenticate, fraudDetectionController.initiateIdentityVerification);
-router.post('/verify/identity', authenticate, fraudDetectionController.verifyIdentity);
-router.post('/verify/document', authenticate, fraudDetectionController.verifyDocument);
+router.post('/verify/initiate', isAuthenticatedUser, fraudDetectionController.initiateIdentityVerification);
+router.post('/verify/identity', isAuthenticatedUser, fraudDetectionController.verifyIdentity);
+router.post('/verify/document', isAuthenticatedUser, fraudDetectionController.verifyDocument);
 
 // Fraud Analytics Routes
-router.get('/analytics/dashboard', adminAuth, fraudDetectionController.getFraudDashboard);
+router.get('/analytics/dashboard', isAuthenticatedUser, authorizeRoles('admin'), fraudDetectionController.getFraudDashboard);
 
 export default router;

@@ -1,7 +1,7 @@
 import express from 'express';
 import {
   getAllCampaigns,
-  getCampaignById,
+  getCampaign,
   createCampaign,
   updateCampaign,
   deleteCampaign,
@@ -22,7 +22,7 @@ router.route('/marketing/campaigns')
   .post(isAuthenticatedUser, authorizeRoles('admin', 'seller'), createCampaign);
 
 router.route('/marketing/campaigns/:id')
-  .get(isAuthenticatedUser, authorizeRoles('admin', 'seller'), getCampaignById)
+  .get(isAuthenticatedUser, authorizeRoles('admin', 'seller'), getCampaign)
   .put(isAuthenticatedUser, authorizeRoles('admin', 'seller'), updateCampaign)
   .delete(isAuthenticatedUser, authorizeRoles('admin'), deleteCampaign);
 

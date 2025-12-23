@@ -285,7 +285,7 @@ const socialShoppingSchema = new mongoose.Schema({
       campaignId: String,
       compensation: Number
     },
-    discount Code: String,
+    discountCode: String,
     affiliateLinks: [{
       platform: String,
       url: String,

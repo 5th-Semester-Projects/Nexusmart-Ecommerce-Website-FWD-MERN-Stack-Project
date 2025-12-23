@@ -1,5 +1,5 @@
-const PriceAlert = require('../models/PriceAlert');
-const catchAsyncErrors = require('../middleware/catchAsyncErrors');
+import PriceAlert from '../models/PriceAlert.js';
+import { catchAsyncErrors } from '../middleware/catchAsyncErrors.js';
 
 // Create price alert
 export const createAlert = catchAsyncErrors(async (req, res) => {

@@ -1,5 +1,5 @@
-const ProgressiveWebApp = require('../models/ProgressiveWebApp');
-const catchAsyncErrors = require('../middleware/catchAsyncErrors');
+import ProgressiveWebApp from '../models/ProgressiveWebApp.js';
+import { catchAsyncErrors } from '../middleware/catchAsyncErrors.js';
 
 // Get PWA status
 export const getPWAStatus = catchAsyncErrors(async (req, res) => {

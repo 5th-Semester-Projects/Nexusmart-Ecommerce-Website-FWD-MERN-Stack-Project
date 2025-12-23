@@ -1,7 +1,7 @@
-const RouteOptimization = require('../models/RouteOptimization');
-const Order = require('../models/Order');
-const catchAsyncErrors = require('../middleware/catchAsyncErrors');
-const ErrorHandler = require('../utils/ErrorHandler');
+import { RouteOptimization } from '../models/RouteOptimization.js';
+import { Order } from '../models/Order.js';
+import { catchAsyncErrors } from '../middleware/catchAsyncErrors.js';
+import ErrorHandler from '../utils/errorHandler.js';
 
 // Create optimized delivery route
 export const createRoute = catchAsyncErrors(async (req, res, next) => {

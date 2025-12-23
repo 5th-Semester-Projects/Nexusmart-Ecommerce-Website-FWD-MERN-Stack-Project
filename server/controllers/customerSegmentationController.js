@@ -1,5 +1,5 @@
-const CustomerSegmentation = require('../models/CustomerSegmentation');
-const catchAsyncErrors = require('../middleware/catchAsyncErrors');
+import CustomerSegmentation from '../models/CustomerSegmentation.js';
+import { catchAsyncErrors } from '../middleware/catchAsyncErrors.js';
 
 // Get user segmentation
 export const getUserSegmentation = catchAsyncErrors(async (req, res) => {

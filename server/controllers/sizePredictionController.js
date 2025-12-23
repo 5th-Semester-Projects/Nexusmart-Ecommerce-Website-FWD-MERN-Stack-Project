@@ -1,8 +1,8 @@
-const SizePrediction = require('../models/SizePrediction');
-const Product = require('../models/Product');
-const StyleProfile = require('../models/StyleProfile');
-const catchAsyncErrors = require('../middleware/catchAsyncErrors');
-const ErrorHandler = require('../utils/ErrorHandler');
+import SizePrediction from '../models/SizePrediction.js';
+import { Product } from '../models/Product.js';
+import StyleProfile from '../models/StyleProfile.js';
+import { catchAsyncErrors } from '../middleware/catchAsyncErrors.js';
+import ErrorHandler from '../utils/errorHandler.js';
 
 // Get size prediction for a product
 export const predictSize = catchAsyncErrors(async (req, res, next) => {

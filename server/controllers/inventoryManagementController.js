@@ -1,5 +1,5 @@
-const InventoryManagement = require('../models/InventoryManagement');
-const catchAsyncErrors = require('../middleware/catchAsyncErrors');
+import InventoryManagement from '../models/InventoryManagement.js';
+import { catchAsyncErrors } from '../middleware/catchAsyncErrors.js';
 
 // Create inventory
 export const createInventory = catchAsyncErrors(async (req, res) => {

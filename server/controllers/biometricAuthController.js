@@ -1,8 +1,8 @@
-const BiometricAuth = require('../models/BiometricAuth');
-const User = require('../models/User');
-const catchAsyncErrors = require('../middleware/catchAsyncErrors');
-const ErrorHandler = require('../utils/ErrorHandler');
-const crypto = require('crypto');
+import BiometricAuth from '../models/BiometricAuth.js';
+import { User } from '../models/User.js';
+import { catchAsyncErrors } from '../middleware/catchAsyncErrors.js';
+import ErrorHandler from '../utils/errorHandler.js';
+import crypto from 'crypto';
 
 // Enroll biometric
 export const enrollBiometric = catchAsyncErrors(async (req, res, next) => {

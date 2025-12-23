@@ -1,6 +1,6 @@
-const VirtualTryOn = require('../models/VirtualTryOn');
-const Product = require('../models/Product');
-const catchAsyncErrors = require('../middleware/catchAsyncErrors');
+import VirtualTryOn from '../models/VirtualTryOn.js';
+import { Product } from '../models/Product.js';
+import { catchAsyncErrors } from '../middleware/catchAsyncErrors.js';
 
 // Create try-on session
 export const createSession = catchAsyncErrors(async (req, res) => {

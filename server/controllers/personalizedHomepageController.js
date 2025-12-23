@@ -1,5 +1,5 @@
-const PersonalizedHomepage = require('../models/PersonalizedHomepage');
-const catchAsyncErrors = require('../middleware/catchAsyncErrors');
+import PersonalizedHomepage from '../models/PersonalizedHomepage.js';
+import { catchAsyncErrors } from '../middleware/catchAsyncErrors.js';
 
 // Get user homepage
 export const getUserHomepage = catchAsyncErrors(async (req, res) => {

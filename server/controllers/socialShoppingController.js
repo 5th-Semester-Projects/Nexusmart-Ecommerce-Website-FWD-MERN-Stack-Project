@@ -1,5 +1,5 @@
-const SocialShopping = require('../models/SocialShopping');
-const catchAsyncErrors = require('../middleware/catchAsyncErrors');
+import SocialShopping from '../models/SocialShopping.js';
+import { catchAsyncErrors } from '../middleware/catchAsyncErrors.js';
 
 // Create post
 export const createPost = catchAsyncErrors(async (req, res) => {

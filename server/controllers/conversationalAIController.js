@@ -1,7 +1,7 @@
-const ConversationalShopping = require('../models/ConversationalShopping');
-const Product = require('../models/Product');
-const catchAsyncErrors = require('../middleware/catchAsyncErrors');
-const ErrorHandler = require('../utils/ErrorHandler');
+import ConversationalShopping from '../models/ConversationalShopping.js';
+import { Product } from '../models/Product.js';
+import { catchAsyncErrors } from '../middleware/catchAsyncErrors.js';
+import ErrorHandler from '../utils/errorHandler.js';
 
 // Start conversational shopping session
 export const startSession = catchAsyncErrors(async (req, res, next) => {

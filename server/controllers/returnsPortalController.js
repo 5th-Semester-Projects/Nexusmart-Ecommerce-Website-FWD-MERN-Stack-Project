@@ -1,5 +1,5 @@
-const ReturnsPortal = require('../models/ReturnsPortal');
-const catchAsyncErrors = require('../middleware/catchAsyncErrors');
+import ReturnsPortal from '../models/ReturnsPortal.js';
+import { catchAsyncErrors } from '../middleware/catchAsyncErrors.js';
 
 // Create return request
 export const createReturn = catchAsyncErrors(async (req, res) => {

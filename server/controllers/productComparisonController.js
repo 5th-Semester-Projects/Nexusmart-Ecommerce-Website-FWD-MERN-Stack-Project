@@ -1,5 +1,5 @@
-const ProductComparison = require('../models/ProductComparison');
-const catchAsyncErrors = require('../middleware/catchAsyncErrors');
+import ProductComparison from '../models/ProductComparison.js';
+import { catchAsyncErrors } from '../middleware/catchAsyncErrors.js';
 
 // Create comparison
 export const createComparison = catchAsyncErrors(async (req, res) => {

@@ -1,5 +1,5 @@
-const OrderTracking = require('../models/OrderTracking');
-const catchAsyncErrors = require('../middleware/catchAsyncErrors');
+import OrderTracking from '../models/OrderTracking.js';
+import { catchAsyncErrors } from '../middleware/catchAsyncErrors.js';
 
 // Create tracking
 export const createTracking = catchAsyncErrors(async (req, res) => {

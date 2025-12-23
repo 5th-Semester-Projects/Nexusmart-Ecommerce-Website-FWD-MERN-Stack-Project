@@ -1,7 +1,7 @@
-const StyleProfile = require('../models/StyleProfile');
-const Product = require('../models/Product');
-const catchAsyncErrors = require('../middleware/catchAsyncErrors');
-const ErrorHandler = require('../utils/ErrorHandler');
+import StyleProfile from '../models/StyleProfile.js';
+import { Product } from '../models/Product.js';
+import { catchAsyncErrors } from '../middleware/catchAsyncErrors.js';
+import ErrorHandler from '../utils/errorHandler.js';
 
 // Create or update style profile
 export const createProfile = catchAsyncErrors(async (req, res, next) => {

@@ -1,8 +1,8 @@
-const LiveShopping = require('../models/LiveShopping');
-const Product = require('../models/Product');
-const Order = require('../models/Order');
-const catchAsyncErrors = require('../middleware/catchAsyncErrors');
-const ErrorHandler = require('../utils/ErrorHandler');
+import LiveShopping from '../models/LiveShopping.js';
+import { Product } from '../models/Product.js';
+import { Order } from '../models/Order.js';
+import { catchAsyncErrors } from '../middleware/catchAsyncErrors.js';
+import ErrorHandler from '../utils/errorHandler.js';
 
 // Create live shopping event
 export const createEvent = catchAsyncErrors(async (req, res, next) => {

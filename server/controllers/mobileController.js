@@ -1,9 +1,9 @@
-const PWA = require('../models/PWA');
-const DeepLink = require('../models/DeepLink');
-const QRCode = require('../models/QRCode');
-const MobileWallet = require('../models/MobileWallet');
-const Geofence = require('../models/Geofence');
-const catchAsyncErrors = require('../middleware/catchAsyncErrors');
+import PWA from '../models/PWA.js';
+import DeepLink from '../models/DeepLink.js';
+import QRCode from '../models/QRCode.js';
+import MobileWallet from '../models/MobileWallet.js';
+import Geofence from '../models/Geofence.js';
+import { catchAsyncErrors } from '../middleware/catchAsyncErrors.js';
 
 // Register PWA Installation
 export const registerPWAInstall = catchAsyncErrors(async (req, res) => {

@@ -1,5 +1,5 @@
-const MultiVendorMarketplace = require('../models/MultiVendorMarketplace');
-const catchAsyncErrors = require('../middleware/catchAsyncErrors');
+import MultiVendorMarketplace from '../models/MultiVendorMarketplace.js';
+import { catchAsyncErrors } from '../middleware/catchAsyncErrors.js';
 
 // Create vendor store
 export const createStore = catchAsyncErrors(async (req, res) => {

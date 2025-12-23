@@ -1,5 +1,5 @@
-const LoyaltyProgram = require('../models/LoyaltyProgram');
-const catchAsyncErrors = require('../middleware/catchAsyncErrors');
+import LoyaltyProgram from '../models/LoyaltyProgram.js';
+import { catchAsyncErrors } from '../middleware/catchAsyncErrors.js';
 
 // Get user loyalty program
 export const getUserLoyalty = catchAsyncErrors(async (req, res) => {

@@ -1,5 +1,5 @@
-const LiveShoppingEvent = require('../models/LiveShoppingEvent');
-const catchAsyncErrors = require('../middleware/catchAsyncErrors');
+import LiveShoppingEvent from '../models/LiveShoppingEvent.js';
+import { catchAsyncErrors } from '../middleware/catchAsyncErrors.js';
 
 // Create event
 export const createEvent = catchAsyncErrors(async (req, res) => {

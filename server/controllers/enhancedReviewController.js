@@ -1,6 +1,6 @@
-const EnhancedReview = require('../models/EnhancedReview');
-const Product = require('../models/Product');
-const catchAsyncErrors = require('../middleware/catchAsyncErrors');
+import EnhancedReview from '../models/EnhancedReview.js';
+import { Product } from '../models/Product.js';
+import { catchAsyncErrors } from '../middleware/catchAsyncErrors.js';
 
 // Create enhanced review
 export const createReview = catchAsyncErrors(async (req, res) => {

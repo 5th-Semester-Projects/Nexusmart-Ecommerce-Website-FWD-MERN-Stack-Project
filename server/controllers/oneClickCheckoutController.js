@@ -1,5 +1,5 @@
-const OneClickCheckout = require('../models/OneClickCheckout');
-const catchAsyncErrors = require('../middleware/catchAsyncErrors');
+import OneClickCheckout from '../models/OneClickCheckout.js';
+import { catchAsyncErrors } from '../middleware/catchAsyncErrors.js';
 
 // Get one-click checkout settings
 export const getSettings = catchAsyncErrors(async (req, res) => {

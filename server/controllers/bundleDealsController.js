@@ -1,5 +1,5 @@
-const BundleDeals = require('../models/BundleDeals');
-const catchAsyncErrors = require('../middleware/catchAsyncErrors');
+import BundleDeals from '../models/BundleDeals.js';
+import { catchAsyncErrors } from '../middleware/catchAsyncErrors.js';
 
 // Create bundle
 export const createBundle = catchAsyncErrors(async (req, res) => {

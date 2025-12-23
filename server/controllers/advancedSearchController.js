@@ -1,6 +1,6 @@
-const AdvancedSearch = require('../models/AdvancedSearch');
-const Product = require('../models/Product');
-const catchAsyncErrors = require('../middleware/catchAsyncErrors');
+import AdvancedSearch from '../models/AdvancedSearch.js';
+import { Product } from '../models/Product.js';
+import { catchAsyncErrors } from '../middleware/catchAsyncErrors.js';
 
 // Perform search
 export const search = catchAsyncErrors(async (req, res) => {

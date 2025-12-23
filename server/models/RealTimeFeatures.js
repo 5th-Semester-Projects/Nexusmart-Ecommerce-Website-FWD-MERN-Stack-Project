@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import FlashSale from './FlashSale.js';
+import OrderTracking from './OrderTracking.js';
 
 // ==================== LIVE CHAT MESSAGE SCHEMA ====================
 const liveChatMessageSchema = new mongoose.Schema({
@@ -84,71 +85,11 @@ liveChatSessionSchema.index({ status: 1, priority: -1, createdAt: 1 });
 
 export const LiveChatSession = mongoose.model('LiveChatSession', liveChatSessionSchema);
 
-// ==================== ORDER TRACKING SCHEMA ====================
-const orderTrackingSchema = new mongoose.Schema({
-  order: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Order',
-    required: true,
-  },
-  currentLocation: {
-    latitude: Number,
-    longitude: Number,
-    address: String,
-    city: String,
-    timestamp: {
-      type: Date,
-      default: Date.now,
-    },
-  },
-  deliveryPartner: {
-    name: String,
-    phone: String,
-    photo: String,
-    vehicleNumber: String,
-    rating: Number,
-  },
-  route: [{
-    latitude: Number,
-    longitude: Number,
-    timestamp: Date,
-  }],
-  estimatedArrival: Date,
-  actualArrival: Date,
-  distance: {
-    remaining: Number, // in km
-    total: Number,
-  },
-  status: {
-    type: String,
-    enum: ['preparing', 'picked_up', 'in_transit', 'nearby', 'delivered', 'failed'],
-    default: 'preparing',
-  },
-  statusHistory: [{
-    status: String,
-    timestamp: {
-      type: Date,
-      default: Date.now,
-    },
-    location: {
-      latitude: Number,
-      longitude: Number,
-      address: String,
-    },
-    note: String,
-  }],
-  isLiveTracking: {
-    type: Boolean,
-    default: false,
-  },
-}, { timestamps: true });
+// OrderTracking schema has been moved to its own file OrderTracking.js
+// Import it from there instead
 
-orderTrackingSchema.index({ order: 1 }, { unique: true });
-
-export const OrderTracking = mongoose.models.OrderTracking || mongoose.model('OrderTracking', orderTrackingSchema);
-
-// Export FlashSale from its own file
-export { FlashSale };
+// Export FlashSale and OrderTracking from their own files
+export { FlashSale, OrderTracking };
 
 // ==================== PRODUCT VIEW TRACKING ====================
 const productViewSchema = new mongoose.Schema({

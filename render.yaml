@@ -1,6 +1,7 @@
 services:
+  # Backend API Server
   - type: web
-    name: nexusmart-ecommerce
+    name: nexusmart-backend
     runtime: node
     region: oregon
     plan: free
@@ -25,4 +26,20 @@ services:
       - key: JWT_REFRESH_EXPIRE
         value: 30d
       - key: CLIENT_URL
-        value: https://nexusmart-d0c174bae61e.herokuapp.com
+        value: https://nexusmart-ecommerce.onrender.com
+
+  # Frontend Static Site
+  - type: web
+    name: nexusmart-frontend
+    runtime: static
+    region: oregon
+    plan: free
+    branch: main
+    rootDir: client
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://nexusmart-backend.onrender.com
+      - key: VITE_ENABLE_PWA
+        value: false

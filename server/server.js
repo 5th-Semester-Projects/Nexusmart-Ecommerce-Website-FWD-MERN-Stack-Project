@@ -154,7 +154,9 @@ const io = new Server(server, {
       'https://nexusmart-frontend-3db70d50e139.herokuapp.com',
       'https://nexusmart-d0c174bae61e.herokuapp.com',
       'https://nexusmart-ecom-944322862c43.herokuapp.com',
-      'https://nexusmart-ecommerce.onrender.com'
+      'https://nexusmart-ecommerce.onrender.com',
+      'https://nexusmart-backend.onrender.com',
+      'https://nexusmart-frontend.onrender.com'
     ],
     credentials: true,
   },
@@ -208,7 +210,9 @@ const allowedOrigins = [
   'https://nexusmart-frontend-3db70d50e139.herokuapp.com',
   'https://nexusmart-d0c174bae61e.herokuapp.com',
   'https://nexusmart-ecom-944322862c43.herokuapp.com',
-  'https://nexusmart-ecommerce.onrender.com'
+  'https://nexusmart-ecommerce.onrender.com',
+  'https://nexusmart-backend.onrender.com',
+  'https://nexusmart-frontend.onrender.com'
 ];
 
 app.use(

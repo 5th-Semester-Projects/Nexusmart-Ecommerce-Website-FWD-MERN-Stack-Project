@@ -4,8 +4,8 @@ import {
   PriceHistory,
   PricePrediction,
   UserRecommendation,
-  PriceAlert,
 } from '../models/AIFeatures.js';
+import PriceAlert from '../models/PriceAlert.js';
 import Product from '../models/Product.js';
 import User from '../models/User.js';
 import Order from '../models/Order.js';

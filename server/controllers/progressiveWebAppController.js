@@ -153,5 +153,3 @@ export const getActivePWAUsers = catchAsyncErrors(async (req, res) => {
     users
   });
 });
-
-module.exports = exports;

@@ -139,5 +139,3 @@ export const getAlertsToCheck = catchAsyncErrors(async (req, res) => {
     alerts
   });
 });
-
-module.exports = exports;

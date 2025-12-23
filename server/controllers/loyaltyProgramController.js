@@ -96,5 +96,3 @@ export const validateReferralCode = catchAsyncErrors(async (req, res) => {
     referrer: loyalty.user
   });
 });
-
-module.exports = exports;

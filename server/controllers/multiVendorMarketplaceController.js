@@ -120,5 +120,3 @@ export const getTopVendors = catchAsyncErrors(async (req, res) => {
     vendors
   });
 });
-
-module.exports = exports;

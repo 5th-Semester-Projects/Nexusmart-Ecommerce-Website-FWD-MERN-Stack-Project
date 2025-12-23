@@ -95,5 +95,3 @@ export const trackInteraction = catchAsyncErrors(async (req, res) => {
     message: 'Interaction tracked'
   });
 });
-
-module.exports = exports;

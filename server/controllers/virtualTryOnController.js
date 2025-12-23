@@ -106,5 +106,3 @@ export const getConversionRate = catchAsyncErrors(async (req, res) => {
     conversionRate
   });
 });
-
-module.exports = exports;

@@ -112,5 +112,3 @@ export const getPopularSearches = catchAsyncErrors(async (req, res) => {
     popular
   });
 });
-
-module.exports = exports;

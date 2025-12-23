@@ -145,5 +145,3 @@ export const getOutOfStockItems = catchAsyncErrors(async (req, res) => {
     items
   });
 });
-
-module.exports = exports;

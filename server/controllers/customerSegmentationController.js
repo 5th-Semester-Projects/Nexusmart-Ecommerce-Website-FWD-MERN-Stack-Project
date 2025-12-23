@@ -122,5 +122,3 @@ export const getAtRiskCustomers = catchAsyncErrors(async (req, res) => {
     customers
   });
 });
-
-module.exports = exports;

@@ -377,5 +377,3 @@ export const getGeofenceAnalytics = catchAsyncErrors(async (req, res) => {
     events: geofence.events
   });
 });
-
-module.exports = exports;

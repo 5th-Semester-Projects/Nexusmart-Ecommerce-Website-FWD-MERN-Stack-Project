@@ -130,5 +130,3 @@ export const updateViewerCount = catchAsyncErrors(async (req, res) => {
     message: 'Viewer count updated'
   });
 });
-
-module.exports = exports;

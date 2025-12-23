@@ -142,5 +142,3 @@ export const updateAnalytics = catchAsyncErrors(async (req, res) => {
     message: 'Analytics updated'
   });
 });
-
-module.exports = exports;

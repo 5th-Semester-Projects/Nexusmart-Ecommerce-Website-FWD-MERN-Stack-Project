@@ -93,5 +93,3 @@ export const getDeliveriesToday = catchAsyncErrors(async (req, res) => {
     deliveries
   });
 });
-
-module.exports = exports;

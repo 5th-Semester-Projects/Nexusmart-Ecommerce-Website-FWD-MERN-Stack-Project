@@ -140,5 +140,3 @@ export const getTrendingPosts = catchAsyncErrors(async (req, res) => {
     posts
   });
 });
-
-module.exports = exports;

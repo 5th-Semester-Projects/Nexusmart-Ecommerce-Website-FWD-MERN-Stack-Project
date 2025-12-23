@@ -113,5 +113,3 @@ export const trackAnalytics = catchAsyncErrors(async (req, res) => {
     message: 'Analytics tracked'
   });
 });
-
-module.exports = exports;

@@ -159,5 +159,3 @@ export const getPendingReturns = catchAsyncErrors(async (req, res) => {
     returns
   });
 });
-
-module.exports = exports;

@@ -111,4 +111,3 @@ export const getUserComparisons = catchAsyncErrors(async (req, res) => {
   });
 });
 
-module.exports = exports;

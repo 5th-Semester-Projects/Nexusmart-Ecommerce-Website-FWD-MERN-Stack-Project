@@ -46,7 +46,7 @@ const oneClickCheckoutSchema = new mongoose.Schema({
       routingNumber: String
     },
 
-    billing Address: {
+    billingAddress: {
       street: String,
       city: String,
       state: String,

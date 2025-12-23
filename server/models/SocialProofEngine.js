@@ -289,7 +289,10 @@ const socialProofEngineSchema = new mongoose.Schema({
           type: Number,
           default: 10
         },
-        message: 'Only {{count}} left in stock!'
+        message: {
+          type: String,
+          default: 'Only {{count}} left in stock!'
+        }
       },
       veryLowStock: {
         enabled: {
@@ -300,7 +303,10 @@ const socialProofEngineSchema = new mongoose.Schema({
           type: Number,
           default: 5
         },
-        message: 'Hurry! Only {{count}} remaining!'
+        message: {
+          type: String,
+          default: 'Hurry! Only {{count}} remaining!'
+        }
       },
       lastItems: {
         enabled: {
@@ -311,7 +317,10 @@ const socialProofEngineSchema = new mongoose.Schema({
           type: Number,
           default: 3
         },
-        message: 'Almost gone! {{count}} left!'
+        message: {
+          type: String,
+          default: 'Almost gone! {{count}} left!'
+        }
       }
     },
     timeLimitedOffers: [{

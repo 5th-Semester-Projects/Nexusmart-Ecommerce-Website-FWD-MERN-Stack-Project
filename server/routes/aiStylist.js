@@ -1,22 +1,22 @@
 import express from 'express';
 import * as aiStylistController from '../controllers/aiStylistController.js';
-import { authenticate } from '../middleware/auth.js';
+import { isAuthenticatedUser } from '../middleware/auth.js';
 
 const router = express.Router();
 
 // Style Quiz Routes
-router.post('/style-quiz', authenticate, aiStylistController.submitStyleQuiz);
-router.get('/style-profile/:userId', authenticate, aiStylistController.updateStyleProfile);
-router.put('/style-profile/:userId', authenticate, aiStylistController.updateStyleProfile);
+router.post('/style-quiz', isAuthenticatedUser, aiStylistController.submitStyleQuiz);
+router.get('/style-profile/:userId', isAuthenticatedUser, aiStylistController.updateStyleProfile);
+router.put('/style-profile/:userId', isAuthenticatedUser, aiStylistController.updateStyleProfile);
 
 // Outfit Recommendations
-router.get('/outfit-recommendations', authenticate, aiStylistController.getOutfitRecommendations);
+router.get('/outfit-recommendations', isAuthenticatedUser, aiStylistController.getOutfitRecommendations);
 
 // Styling Sessions
-router.post('/styling-session', authenticate, aiStylistController.bookStylingSession);
-router.get('/styling-sessions/:userId', authenticate, aiStylistController.getStylingSessions);
+router.post('/styling-session', isAuthenticatedUser, aiStylistController.bookStylingSession);
+router.get('/styling-sessions/:userId', isAuthenticatedUser, aiStylistController.getStylingSessions);
 
 // Personal Shopper
-router.get('/personal-shopper', authenticate, aiStylistController.getPersonalShopperSuggestions);
+router.get('/personal-shopper', isAuthenticatedUser, aiStylistController.getPersonalShopperSuggestions);
 
 export default router;

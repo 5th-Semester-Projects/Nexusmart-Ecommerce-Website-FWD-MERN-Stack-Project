@@ -1,26 +1,26 @@
 import express from 'express';
 import * as sustainabilityController from '../controllers/sustainabilityController.js';
-import { authenticate } from '../middleware/auth.js';
+import { isAuthenticatedUser } from '../middleware/auth.js';
 
 const router = express.Router();
 
 // Carbon Footprint Routes
 router.get('/carbon/product/:productId', sustainabilityController.calculateProductCarbonFootprint);
-router.get('/carbon/order/:orderId', authenticate, sustainabilityController.calculateOrderCarbonFootprint);
-router.post('/carbon/offset', authenticate, sustainabilityController.purchaseCarbonOffset);
+router.get('/carbon/order/:orderId', isAuthenticatedUser, sustainabilityController.calculateOrderCarbonFootprint);
+router.post('/carbon/offset', isAuthenticatedUser, sustainabilityController.purchaseCarbonOffset);
 
 // Eco Badges Routes
-router.post('/eco-badge/assign', authenticate, sustainabilityController.assignEcoBadge);
+router.post('/eco-badge/assign', isAuthenticatedUser, sustainabilityController.assignEcoBadge);
 router.get('/eco-badge/products', sustainabilityController.getEcoFriendlyProducts);
 
 // Sustainable Packaging Routes
 router.get('/packaging/options', sustainabilityController.getPackagingOptions);
-router.post('/packaging/select', authenticate, sustainabilityController.selectPackaging);
+router.post('/packaging/select', isAuthenticatedUser, sustainabilityController.selectPackaging);
 
 // Green Shipping Routes
 router.get('/shipping/green-options', sustainabilityController.getGreenShippingOptions);
 
 // Sustainability Dashboard Routes
-router.get('/dashboard', authenticate, sustainabilityController.getSustainabilityDashboard);
+router.get('/dashboard', isAuthenticatedUser, sustainabilityController.getSustainabilityDashboard);
 
 export default router;

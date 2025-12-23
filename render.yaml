@@ -32,7 +32,6 @@ services:
   - type: web
     name: nexusmart-frontend
     runtime: static
-    region: oregon
     plan: free
     branch: main
     rootDir: client

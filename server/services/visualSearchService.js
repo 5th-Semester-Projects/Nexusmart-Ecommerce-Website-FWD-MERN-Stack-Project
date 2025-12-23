@@ -9,7 +9,7 @@ import sharp from 'sharp';
 
 class VisualSearchService {
   constructor() {
-    this.openai = process.env.OPENAI_API_KEY 
+    this.openai = process.env.OPENAI_API_KEY
       ? new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
       : null;
   }

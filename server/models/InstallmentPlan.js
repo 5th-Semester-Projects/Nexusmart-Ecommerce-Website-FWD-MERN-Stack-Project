@@ -88,4 +88,4 @@ installmentPlanSchema.index({ order: 1 });
 installmentPlanSchema.index({ status: 1 });
 installmentPlanSchema.index({ 'installments.dueDate': 1 });
 
-export default mongoose.model('InstallmentPlan', installmentPlanSchema);
+export default mongoose.models.InstallmentPlan || mongoose.model('InstallmentPlan', installmentPlanSchema);

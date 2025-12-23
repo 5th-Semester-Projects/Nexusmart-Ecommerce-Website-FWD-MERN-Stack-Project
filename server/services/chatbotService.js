@@ -10,7 +10,7 @@ import { User } from '../models/User.js';
 
 class ChatbotService {
   constructor() {
-    this.openai = process.env.OPENAI_API_KEY 
+    this.openai = process.env.OPENAI_API_KEY
       ? new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
       : null;
 

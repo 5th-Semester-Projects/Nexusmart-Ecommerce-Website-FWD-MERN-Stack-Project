@@ -1,10 +1,10 @@
 import express from 'express';
 const router = express.Router();
-import aiStylistController from '../controllers/aiStylistController.js';
-import blockchainController from '../controllers/blockchainController.js';
-import metaverseController from '../controllers/metaverseController.js';
-import sustainabilityController from '../controllers/sustainabilityController.js';
-import fraudDetectionController from '../controllers/fraudDetectionController.js';
+import * as aiStylistController from '../controllers/aiStylistController.js';
+import * as blockchainController from '../controllers/blockchainController.js';
+import * as metaverseController from '../controllers/metaverseController.js';
+import * as sustainabilityController from '../controllers/sustainabilityController.js';
+import * as fraudDetectionController from '../controllers/fraudDetectionController.js';
 
 // ============================================
 // AI STYLIST / PERSONAL SHOPPER ROUTES

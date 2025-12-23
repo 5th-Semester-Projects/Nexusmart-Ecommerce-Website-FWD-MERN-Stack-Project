@@ -159,8 +159,8 @@ mern-ecommerce/
 1. **Clone the repository**
 
 ```bash
-git clone https://github.com/yourusername/nexusmart.git
-cd nexusmart
+git clone https://github.com/5th-Semester-Projects/Nexusmart-Ecommerce-Website-FWD-MERN-Stack-Project.git
+cd Nexusmart-Ecommerce-Website-FWD-MERN-Stack-Project
 ```
 
 2. **Install server dependencies**

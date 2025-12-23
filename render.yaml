@@ -5,26 +5,24 @@ services:
     region: oregon
     plan: free
     branch: main
-    rootDir: ./
-    buildCommand: cd server && npm install && cd ../client && npm install && npm run build
-    startCommand: cd server && npm start
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
     healthCheckPath: /health
     envVars:
       - key: NODE_ENV
         value: production
       - key: NODE_VERSION
         value: 20.19.0
-      - key: PORT
-        value: 10000
       - key: MONGODB_URI
-        sync: false
+        value: mongodb+srv://nexusmart-admin:cZfFthnSKtsCnlJB@nexusmart-cluster.46lpntt.mongodb.net/nexusmart?retryWrites=true&w=majority
       - key: JWT_SECRET
-        sync: false
+        value: nexusmart_jwt_secret_key_production_2024_secure
       - key: JWT_REFRESH_SECRET
-        sync: false
+        value: nexusmart_refresh_token_secret_production_2024
       - key: JWT_EXPIRE
         value: 7d
       - key: JWT_REFRESH_EXPIRE
         value: 30d
       - key: CLIENT_URL
-        sync: false
+        value: https://nexusmart-d0c174bae61e.herokuapp.com

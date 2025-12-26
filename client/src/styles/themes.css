@@ -65,60 +65,67 @@
   --show-particles: block;
 }
 
-/* LIGHT THEME ☀️ - COMPREHENSIVE FIX */
+/* LIGHT THEME ☀️ - PROFESSIONAL & CLEAN */
 .theme-light {
-  /* Background Colors - Clean Light */
-  --bg-primary: #f8fafc;
-  --bg-secondary: #f1f5f9;
-  --bg-tertiary: #e2e8f0;
+  /* Background Colors - Ultra Clean Light */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f9fafb;
+  --bg-tertiary: #f3f4f6;
   --bg-card: #ffffff;
-  --bg-card-hover: #f8fafc;
+  --bg-card-hover: #fafbfc;
   --bg-input: #ffffff;
-  --bg-navbar: rgba(255, 255, 255, 0.95);
-  --bg-footer: #1e293b;
+  --bg-navbar: rgba(255, 255, 255, 0.98);
+  --bg-footer: #111827;
 
-  /* Text Colors - Dark for readability */
-  --text-primary: #0f172a;
-  --text-secondary: #334155;
-  --text-tertiary: #475569;
-  --text-muted: #64748b;
+  /* Text Colors - Maximum Readability */
+  --text-primary: #111827;
+  --text-secondary: #374151;
+  --text-tertiary: #6b7280;
+  --text-muted: #9ca3af;
   --text-inverse: #ffffff;
 
-  /* Border Colors */
-  --border-primary: #e2e8f0;
-  --border-secondary: #f1f5f9;
-  --border-hover: #a78bfa;
+  /* Border Colors - Subtle but Visible */
+  --border-primary: #e5e7eb;
+  --border-secondary: #f3f4f6;
+  --border-hover: #8b5cf6;
 
-  /* Accent Colors - Vibrant Purple */
-  --accent-primary: #7c3aed;
-  --accent-secondary: #2563eb;
-  --accent-tertiary: #0891b2;
-  --accent-gradient: linear-gradient(135deg, #7c3aed, #2563eb, #0891b2);
+  /* Accent Colors - Vibrant & Professional */
+  --accent-primary: #8b5cf6;
+  --accent-secondary: #3b82f6;
+  --accent-tertiary: #10b981;
+  --accent-gradient: linear-gradient(
+    135deg,
+    #8b5cf6 0%,
+    #6366f1 50%,
+    #3b82f6 100%
+  );
 
-  /* Button Colors */
-  --btn-primary-bg: linear-gradient(135deg, #7c3aed, #6366f1);
-  --btn-primary-hover: linear-gradient(135deg, #8b5cf6, #818cf8);
+  /* Button Colors - High Contrast */
+  --btn-primary-bg: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+  --btn-primary-hover: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);
   --btn-primary-text: #ffffff;
-  --btn-secondary-bg: #f3f0ff;
+  --btn-secondary-bg: #f5f3ff;
   --btn-secondary-hover: #ede9fe;
   --btn-secondary-text: #7c3aed;
 
-  /* Glass Effect - Light version */
-  --glass-bg: rgba(255, 255, 255, 0.9);
-  --glass-border: #e2e8f0;
-  --glass-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  /* Glass Effect - Clean Light Glass */
+  --glass-bg: rgba(255, 255, 255, 0.95);
+  --glass-border: #e5e7eb;
+  --glass-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 4px 16px rgba(0, 0, 0, 0.05);
 
-  /* Shadows - Softer for light */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
-  --shadow-glow: 0 0 20px rgba(124, 58, 237, 0.2);
+  /* Shadows - Crisp & Professional */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md:
+    0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+  --shadow-lg:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-glow: 0 0 0 3px rgba(139, 92, 246, 0.1);
 
-  /* Status Colors */
-  --success: #16a34a;
-  --warning: #d97706;
-  --error: #dc2626;
-  --info: #2563eb;
+  /* Status Colors - Clear & Distinct */
+  --success: #10b981;
+  --warning: #f59e0b;
+  --error: #ef4444;
+  --info: #3b82f6;
 
   /* Hide Theme Elements */
   --show-stars: none;
@@ -204,15 +211,10 @@ body[data-theme='magical'] {
   background-attachment: fixed;
 }
 
-/* Light Theme Body */
+/* Light Theme Body - Ultra Clean & Professional */
 .theme-light body,
 body[data-theme='light'] {
-  background: linear-gradient(
-    135deg,
-    var(--bg-primary) 0%,
-    var(--bg-secondary) 50%,
-    var(--bg-tertiary) 100%
-  );
+  background: linear-gradient(180deg, #ffffff 0%, #f9fafb 40%, #ffffff 100%);
   color: var(--text-primary);
   background-attachment: fixed;
 }

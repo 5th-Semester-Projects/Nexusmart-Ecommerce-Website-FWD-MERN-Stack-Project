@@ -7,7 +7,12 @@ services:
     plan: free
     branch: main
     buildCommand: |
-      cd client && npm install && export VITE_API_URL=https://nexusmart-backend.onrender.com && npm run build && cd ../server && npm install
+      cd client
+      npm install
+      export VITE_API_URL=https://nexusmart-backend.onrender.com
+      npm run build
+      cd ../server
+      npm install
     startCommand: cd server && npm start
     healthCheckPath: /health
     envVars:

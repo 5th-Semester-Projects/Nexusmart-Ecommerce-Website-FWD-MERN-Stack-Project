@@ -4,6 +4,14 @@ import { FaComments, FaPaperPlane, FaTimes, FaUser, FaHeadset, FaCircle } from '
 import { io } from 'socket.io-client';
 import { useSelector } from 'react-redux';
 
+// Helper to get socket URL
+const getSocketURL = () => {
+  if (import.meta.env.VITE_SOCKET_URL) return import.meta.env.VITE_SOCKET_URL;
+  if (import.meta.env.VITE_API_URL) return import.meta.env.VITE_API_URL;
+  if (import.meta.env.PROD && typeof window !== 'undefined') return window.location.origin;
+  return 'http://localhost:5000';
+};
+
 const LiveChatSupport = () => {
   const { user } = useSelector((state) => state.auth);
   const [isOpen, setIsOpen] = useState(false);
@@ -19,7 +27,7 @@ const LiveChatSupport = () => {
 
   useEffect(() => {
     if (isOpen && !socket) {
-      const newSocket = io(import.meta.env.VITE_API_URL || 'http://localhost:5000', {
+      const newSocket = io(getSocketURL(), {
         path: '/socket.io',
         transports: ['websocket', 'polling']
       });

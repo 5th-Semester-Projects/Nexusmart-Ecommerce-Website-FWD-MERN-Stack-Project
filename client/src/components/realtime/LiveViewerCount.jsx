@@ -3,13 +3,21 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FaEye, FaShoppingCart, FaFire, FaUsers } from 'react-icons/fa';
 import { io } from 'socket.io-client';
 
+// Helper to get socket URL
+const getSocketURL = () => {
+  if (import.meta.env.VITE_SOCKET_URL) return import.meta.env.VITE_SOCKET_URL;
+  if (import.meta.env.VITE_API_URL) return import.meta.env.VITE_API_URL;
+  if (import.meta.env.PROD && typeof window !== 'undefined') return window.location.origin;
+  return 'http://localhost:5000';
+};
+
 const LiveViewerCount = ({ productId, initialCount = 0 }) => {
   const [viewerCount, setViewerCount] = useState(initialCount || Math.floor(Math.random() * 50) + 10);
   const [recentActions, setRecentActions] = useState([]);
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    const newSocket = io(import.meta.env.VITE_API_URL || 'http://localhost:5000', {
+    const newSocket = io(getSocketURL(), {
       path: '/socket.io',
       transports: ['websocket', 'polling']
     });

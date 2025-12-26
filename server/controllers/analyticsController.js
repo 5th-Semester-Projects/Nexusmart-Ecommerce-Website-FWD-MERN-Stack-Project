@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import Order from '../models/Order.js';
 import Product from '../models/Product.js';
 import User from '../models/User.js';
@@ -378,6 +379,27 @@ export const getShoppingTrends = catchAsyncErrors(async (req, res) => {
 export const getPriceHistoryChart = catchAsyncErrors(async (req, res) => {
   const { productId } = req.params;
   const { period = '30d' } = req.query;
+
+  // Validate ObjectId
+  if (!mongoose.Types.ObjectId.isValid(productId)) {
+    return res.status(200).json({
+      success: true,
+      data: {
+        product: {
+          id: productId,
+          name: 'Unknown Product',
+          currentPrice: 0,
+        },
+        history: [],
+        stats: {
+          current: 0,
+          lowest: 0,
+          highest: 0,
+          average: 0,
+        },
+      },
+    });
+  }
 
   let startDate = new Date();
   if (period === '7d') startDate.setDate(startDate.getDate() - 7);

@@ -1,7 +1,11 @@
 import axios from 'axios';
 
 // Dynamic API URL configuration
-let API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+// In production, when served from same origin, use relative URLs
+// In development or when VITE_API_URL is set, use that URL
+let API_BASE = import.meta.env.PROD && !import.meta.env.VITE_API_URL
+  ? window.location.origin
+  : (import.meta.env.VITE_API_URL || 'http://localhost:5000');
 let configFetched = false;
 
 // Function to fetch runtime config
@@ -16,6 +20,10 @@ const fetchConfig = async () => {
     console.log('Runtime API URL:', API_BASE);
   } catch (error) {
     console.error('Failed to fetch API config:', error);
+    // Fallback to current origin in production
+    if (import.meta.env.PROD) {
+      API_BASE = window.location.origin;
+    }
   }
 };
 

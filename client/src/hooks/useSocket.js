@@ -6,7 +6,16 @@ import { io } from 'socket.io-client';
  * Manages WebSocket connections for real-time features
  */
 
-const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'http://localhost:5000';
+// In production, when served from same origin, use current origin
+// In development or when VITE_SOCKET_URL/VITE_API_URL is set, use that URL
+const getSocketURL = () => {
+  if (import.meta.env.VITE_SOCKET_URL) return import.meta.env.VITE_SOCKET_URL;
+  if (import.meta.env.VITE_API_URL) return import.meta.env.VITE_API_URL;
+  if (import.meta.env.PROD && typeof window !== 'undefined') return window.location.origin;
+  return 'http://localhost:5000';
+};
+
+const SOCKET_URL = getSocketURL();
 
 // Singleton socket instance
 let socketInstance = null;

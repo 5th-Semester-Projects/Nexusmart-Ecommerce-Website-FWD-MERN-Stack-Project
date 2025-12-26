@@ -3,6 +3,14 @@ import { motion } from 'framer-motion';
 import { FaMapMarkerAlt, FaTruck, FaBox, FaCheck, FaWarehouse, FaHome } from 'react-icons/fa';
 import { io } from 'socket.io-client';
 
+// Helper to get socket URL
+const getSocketURL = () => {
+  if (import.meta.env.VITE_SOCKET_URL) return import.meta.env.VITE_SOCKET_URL;
+  if (import.meta.env.VITE_API_URL) return import.meta.env.VITE_API_URL;
+  if (import.meta.env.PROD && typeof window !== 'undefined') return window.location.origin;
+  return 'http://localhost:5000';
+};
+
 const LiveOrderTracking = ({ orderId, initialStatus }) => {
   const [trackingData, setTrackingData] = useState({
     status: initialStatus || 'processing',
@@ -26,7 +34,7 @@ const LiveOrderTracking = ({ orderId, initialStatus }) => {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    const newSocket = io(import.meta.env.VITE_API_URL || 'http://localhost:5000', {
+    const newSocket = io(getSocketURL(), {
       path: '/socket.io',
       transports: ['websocket', 'polling']
     });

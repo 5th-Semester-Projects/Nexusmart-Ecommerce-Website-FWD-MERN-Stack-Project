@@ -1,5 +1,5 @@
 services:
-  # Unified Full-Stack Service (Backend + Frontend)
+  # Unified Full-Stack Service (Backend + Frontend) - Force rebuild with dev deps
   - type: web
     name: nexusmart-ecommerce
     runtime: node

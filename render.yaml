@@ -12,7 +12,7 @@ services:
       export VITE_API_URL=https://nexusmart-backend.onrender.com
       npm run build
       cd ../server
-      npm ci
+      npm install
     startCommand: cd server && npm start
     healthCheckPath: /health
     envVars:

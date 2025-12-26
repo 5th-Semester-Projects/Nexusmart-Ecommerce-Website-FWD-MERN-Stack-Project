@@ -133,56 +133,56 @@
   --show-particles: none;
 }
 
-/* DARK THEME 🌙 */
+/* DARK THEME 🌙 - PROFESSIONAL & SLEEK */
 .theme-dark {
-  /* Background Colors */
+  /* Background Colors - Deep Rich Blacks */
   --bg-primary: #0f0f0f;
   --bg-secondary: #171717;
   --bg-tertiary: #1f1f1f;
   --bg-card: rgba(23, 23, 23, 0.95);
   --bg-card-hover: rgba(31, 31, 31, 0.95);
   --bg-input: rgba(23, 23, 23, 0.8);
-  --bg-navbar: rgba(15, 15, 15, 0.9);
+  --bg-navbar: rgba(15, 15, 15, 0.95);
   --bg-footer: rgba(10, 10, 10, 0.98);
 
-  /* Text Colors */
+  /* Text Colors - Crisp Whites & Grays */
   --text-primary: #fafafa;
-  --text-secondary: #a1a1aa;
-  --text-tertiary: #71717a;
-  --text-muted: rgba(161, 161, 170, 0.7);
+  --text-secondary: #d4d4d8;
+  --text-tertiary: #a1a1aa;
+  --text-muted: #71717a;
   --text-inverse: #0f0f0f;
 
-  /* Border Colors */
+  /* Border Colors - Subtle with Glow */
   --border-primary: rgba(63, 63, 70, 0.5);
   --border-secondary: rgba(63, 63, 70, 0.3);
-  --border-hover: rgba(139, 92, 246, 0.4);
+  --border-hover: rgba(139, 92, 246, 0.5);
 
-  /* Accent Colors */
+  /* Accent Colors - Vibrant Purples & Blues */
   --accent-primary: #a78bfa;
   --accent-secondary: #60a5fa;
   --accent-tertiary: #22d3ee;
-  --accent-gradient: linear-gradient(135deg, #a78bfa, #60a5fa, #22d3ee);
+  --accent-gradient: linear-gradient(135deg, #a78bfa 0%, #60a5fa 50%, #22d3ee 100%);
 
-  /* Button Colors */
-  --btn-primary-bg: linear-gradient(135deg, #8b5cf6, #6366f1);
-  --btn-primary-hover: linear-gradient(135deg, #a78bfa, #818cf8);
+  /* Button Colors - Glowing Effects */
+  --btn-primary-bg: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+  --btn-primary-hover: linear-gradient(135deg, #a78bfa 0%, #818cf8 100%);
   --btn-primary-text: #ffffff;
   --btn-secondary-bg: rgba(139, 92, 246, 0.15);
   --btn-secondary-hover: rgba(139, 92, 246, 0.25);
-  --btn-secondary-text: #a78bfa;
+  --btn-secondary-text: #c4b5fd;
 
-  /* Glass Effect */
+  /* Glass Effect - Dark Glassmorphism */
   --glass-bg: rgba(23, 23, 23, 0.7);
-  --glass-border: rgba(63, 63, 70, 0.3);
-  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 20px rgba(139, 92, 246, 0.1);
 
-  /* Shadows */
+  /* Shadows - Deep with Glow */
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
-  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.6);
-  --shadow-glow: 0 0 20px rgba(139, 92, 246, 0.2);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5), 0 0 10px rgba(139, 92, 246, 0.1);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 20px rgba(139, 92, 246, 0.15);
+  --shadow-glow: 0 0 20px rgba(139, 92, 246, 0.3);
 
-  /* Status Colors */
+  /* Status Colors - Vibrant */
   --success: #22c55e;
   --warning: #f59e0b;
   --error: #ef4444;
@@ -219,14 +219,15 @@ body[data-theme='light'] {
   background-attachment: fixed;
 }
 
-/* Dark Theme Body */
+/* Dark Theme Body - Rich & Immersive */
 .theme-dark body,
 body[data-theme='dark'] {
   background: linear-gradient(
-    to bottom,
-    var(--bg-primary) 0%,
-    var(--bg-secondary) 50%,
-    var(--bg-tertiary) 100%
+    180deg,
+    #0f0f0f 0%,
+    #171717 40%,
+    #1f1f1f 70%,
+    #0f0f0f 100%
   );
   color: var(--text-primary);
   background-attachment: fixed;

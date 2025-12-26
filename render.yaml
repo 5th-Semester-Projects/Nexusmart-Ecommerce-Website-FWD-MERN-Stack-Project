@@ -8,11 +8,11 @@ services:
     branch: main
     buildCommand: |
       cd client
-      npm install
+      npm ci --include=dev
       export VITE_API_URL=https://nexusmart-backend.onrender.com
       npm run build
       cd ../server
-      npm install
+      npm ci
     startCommand: cd server && npm start
     healthCheckPath: /health
     envVars:

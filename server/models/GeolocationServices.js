@@ -417,7 +417,6 @@ const geolocationServicesSchema = new mongoose.Schema({
 
 // Indexes
 geolocationServicesSchema.index({ 'stores.location.coordinates': '2dsphere' });
-geolocationServicesSchema.index({ business: 1 });
 
 // Methods
 geolocationServicesSchema.methods.findNearbyStores = function (longitude, latitude, maxDistance = 50000) {

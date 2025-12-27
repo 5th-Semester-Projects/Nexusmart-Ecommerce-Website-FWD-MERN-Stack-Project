@@ -524,7 +524,6 @@ const dynamicPricingEngineSchema = new mongoose.Schema({
 });
 
 // Indexes
-dynamicPricingEngineSchema.index({ product: 1 });
 dynamicPricingEngineSchema.index({ 'competitorTracking.lowestCompetitorPrice': 1 });
 dynamicPricingEngineSchema.index({ 'currentPrice.amount': 1 });
 

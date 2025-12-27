@@ -432,7 +432,6 @@ const productRecommendationEngineSchema = new mongoose.Schema({
 });
 
 // Indexes
-productRecommendationEngineSchema.index({ user: 1 }, { unique: true });
 productRecommendationEngineSchema.index({ 'realTimePersonalization.currentSession.sessionId': 1 });
 productRecommendationEngineSchema.index({ lastUpdated: -1 });
 

@@ -232,7 +232,7 @@ const outfitBuilderSchema = new mongoose.Schema({
 });
 
 // Indexes
-outfitBuilderSchema.index({ user: 1, status: 1 });
+outfitBuilderSchema.index({ status: 1 });
 outfitBuilderSchema.index({ occasion: 1, season: 1 });
 outfitBuilderSchema.index({ 'engagement.likes': -1 });
 outfitBuilderSchema.index({ 'engagement.views': -1 });

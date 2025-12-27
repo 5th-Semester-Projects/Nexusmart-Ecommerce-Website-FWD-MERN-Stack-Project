@@ -440,7 +440,6 @@ const subscriptionManagementSchema = new mongoose.Schema({
 });
 
 // Indexes
-subscriptionManagementSchema.index({ user: 1, status: 1 });
 subscriptionManagementSchema.index({ 'deliverySchedule.nextDeliveryDate': 1 });
 subscriptionManagementSchema.index({ status: 1, 'contract.endDate': 1 });
 

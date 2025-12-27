@@ -447,7 +447,6 @@ const aiStylistSchema = new mongoose.Schema({
 });
 
 // Indexes
-aiStylistSchema.index({ user: 1 });
 aiStylistSchema.index({ 'outfitRecommendations.outfitId': 1 });
 aiStylistSchema.index({ 'virtualSessions.sessionId': 1 });
 

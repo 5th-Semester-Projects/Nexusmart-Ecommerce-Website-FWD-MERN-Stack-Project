@@ -25,10 +25,17 @@ const FlashSaleCountdown = ({ sale }) => {
   };
 
   const currentSale = sale || defaultSale;
+  
+  // Memoize end time to prevent infinite loop
+  const endTime = React.useMemo(() => {
+    return currentSale.endTime instanceof Date 
+      ? currentSale.endTime.getTime() 
+      : new Date(currentSale.endTime).getTime();
+  }, [currentSale.endTime]);
 
   useEffect(() => {
     const calculateTimeLeft = () => {
-      const difference = new Date(currentSale.endTime) - new Date();
+      const difference = endTime - Date.now();
       
       if (difference > 0) {
         const hours = Math.floor(difference / (1000 * 60 * 60));
@@ -46,7 +53,7 @@ const FlashSaleCountdown = ({ sale }) => {
     const timer = setInterval(calculateTimeLeft, 1000);
 
     return () => clearInterval(timer);
-  }, [currentSale.endTime]);
+  }, [endTime]);
 
   const TimeBlock = ({ value, label }) => (
     <div className="text-center">

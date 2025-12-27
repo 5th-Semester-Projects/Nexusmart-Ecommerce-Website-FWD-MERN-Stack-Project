@@ -103,10 +103,18 @@ const MagicalGenie = ({ onOrderConfirm = false }) => {
           }}
           exit={{ scale: 0, opacity: 0 }}
           transition={{ type: 'spring', damping: 15, duration: 0.8 }}
-          className="fixed bottom-[180px] right-6 z-[60] pointer-events-auto"
-          style={{ width: '80px', height: '80px' }}
+          className="fixed bottom-32 sm:bottom-36 md:bottom-[180px] right-4 sm:right-5 md:right-6 z-[60] pointer-events-auto"
+          style={{ width: '70px', height: '70px' }}
           title="AI Shopping Assistant"
         >
+          <style>{`
+            @media (min-width: 640px) {
+              [style*="width: 70px"] { width: 75px !important; height: 75px !important; }
+            }
+            @media (min-width: 768px) {
+              [style*="width: 70px"] { width: 80px !important; height: 80px !important; }
+            }
+          `}</style>
           {/* Genie Character - Compact Size */}
           <motion.div
             animate={{

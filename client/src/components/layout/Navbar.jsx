@@ -54,10 +54,10 @@ const Navbar = () => {
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        className="fixed top-0 left-0 right-0 z-50"
+        className="fixed top-0 left-0 right-0 z-50 w-full overflow-x-hidden"
       >
         {/* Glassmorphism Background */}
-        <div className="absolute inset-0 bg-gray-950/80 backdrop-blur-xl border-b border-purple-500/20"></div>
+        <div className="absolute inset-0 bg-gray-950/80 backdrop-blur-xl border-b border-purple-500/20 w-full"></div>
         
         {/* Animated Border Gradient */}
         <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-purple-500 to-transparent opacity-50"></div>
@@ -66,8 +66,8 @@ const Navbar = () => {
         <div className="absolute top-0 left-1/4 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl -z-10"></div>
         <div className="absolute top-0 right-1/4 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl -z-10"></div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <div className="flex items-center justify-between h-20 w-full">
             
             {/* Logo - Enhanced with 3D effect */}
             <Link to="/" className="flex items-center space-x-3 group">
@@ -487,6 +487,14 @@ const Navbar = () => {
                     </Link>
                   </>
                 )}
+              </div>
+
+              {/* Theme Switcher in Mobile Menu */}
+              <div className="mt-6 pt-6 border-t border-purple-500/20">
+                <div className="px-4 mb-3 text-sm text-purple-400 font-semibold uppercase tracking-wide">
+                  Theme
+                </div>
+                <ThemeSwitcher variant="mobile" />
               </div>
 
               <div className="mt-8 pt-6 border-t border-purple-500/20">

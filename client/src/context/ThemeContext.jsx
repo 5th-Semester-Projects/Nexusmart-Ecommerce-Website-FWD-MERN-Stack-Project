@@ -184,7 +184,7 @@ const ThemeContext = createContext();
 // Provider component
 export const ThemeProvider = ({ children }) => {
   const [currentTheme, setCurrentTheme] = useState(() => 
-    localStorage.getItem('theme') || 'light'
+    localStorage.getItem('theme') || 'magical'
   );
   const [primaryColor, setPrimaryColor] = useState(() =>
     localStorage.getItem('primaryColor') || 'indigo'

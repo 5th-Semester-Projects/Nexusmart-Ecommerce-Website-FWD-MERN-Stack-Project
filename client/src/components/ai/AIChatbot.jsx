@@ -73,7 +73,7 @@ const AIChatbot = () => {
     <>
       {/* Floating Button */}
       <motion.button
-        className="fixed bottom-6 right-6 z-40 w-14 h-14 bg-gradient-to-r from-purple-600 to-blue-500 rounded-full shadow-lg flex items-center justify-center text-white"
+        className="fixed bottom-4 sm:bottom-5 md:bottom-6 right-4 sm:right-5 md:right-6 z-40 w-12 h-12 sm:w-13 sm:h-13 md:w-14 md:h-14 bg-gradient-to-r from-purple-600 to-blue-500 rounded-full shadow-lg flex items-center justify-center text-white"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         onClick={() => setIsOpen(!isOpen)}

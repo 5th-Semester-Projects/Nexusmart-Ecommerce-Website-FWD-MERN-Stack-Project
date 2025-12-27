@@ -139,9 +139,9 @@ function App() {
 
             {/* Main Site Routes with Navbar/Footer */}
             <Route path="/*" element={
-              <div className="App min-h-screen flex flex-col relative">
+              <div className="App min-h-screen flex flex-col relative w-full max-w-[100vw] overflow-x-hidden">
                 <Navbar />
-                <main className="flex-grow">
+                <main className="flex-grow w-full">
                   <Routes>
                     {/* Public Routes */}
                     <Route path="/" element={<HomePage />} />

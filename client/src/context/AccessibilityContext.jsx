@@ -214,11 +214,11 @@ export const AccessibilityProvider = ({ children }) => {
       {/* Accessibility floating button */}
       <button
         onClick={() => setShowPanel(true)}
-        className="fixed bottom-4 right-4 z-40 w-12 h-12 bg-primary-600 text-white rounded-full shadow-lg hover:bg-primary-700 transition-colors flex items-center justify-center"
+        className="fixed bottom-20 sm:bottom-24 md:bottom-[100px] right-4 sm:right-5 md:right-6 z-50 w-11 h-11 sm:w-12 sm:h-12 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full shadow-lg hover:shadow-xl transition-all flex items-center justify-center"
         aria-label="Open accessibility settings"
         title="Accessibility Settings (Alt + A)"
       >
-        <FiEye className="text-xl" />
+        <FiEye className="text-lg sm:text-xl" />
       </button>
 
       {/* Accessibility panel */}

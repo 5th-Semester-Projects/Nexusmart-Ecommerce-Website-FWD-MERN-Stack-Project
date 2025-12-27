@@ -109,7 +109,7 @@ const HomePage = () => {
         <meta name="description" content="Experience the future of shopping with AI-powered recommendations and cutting-edge technology." />
       </Helmet>
 
-      <div className="min-h-screen relative">
+      <div className="min-h-screen relative w-full overflow-x-hidden">
         {/* Circuit Background - Reduced Opacity */}
         <div className="circuit-bg" style={{ opacity: 0.15 }}></div>
 
@@ -119,7 +119,7 @@ const HomePage = () => {
         <MagicalGenie />
 
         {/* HERO SECTION - Robotic Design */}
-        <section className="relative min-h-[100vh] flex items-center justify-center overflow-hidden">
+        <section className="relative min-h-[100vh] flex items-center justify-center overflow-hidden w-full">
           {/* Animated Tech Grid */}
           <div className="absolute inset-0 tech-grid opacity-10"></div>
           
@@ -128,14 +128,14 @@ const HomePage = () => {
 
           {/* Energy Orbs - CSS-only animations for performance */}
           <div
-            className="absolute top-20 left-20 w-64 h-64 rounded-full blur-3xl energy-orb"
+            className="absolute top-10 sm:top-20 left-4 sm:left-10 md:left-20 w-32 h-32 sm:w-48 sm:h-48 md:w-64 md:h-64 rounded-full blur-3xl energy-orb"
             style={{
               background: 'radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, transparent 70%)',
               animationDuration: '4s'
             }}
           />
           <div
-            className="absolute bottom-20 right-20 w-80 h-80 rounded-full blur-3xl energy-orb"
+            className="absolute bottom-10 sm:bottom-20 right-4 sm:right-10 md:right-20 w-40 h-40 sm:w-60 sm:h-60 md:w-80 md:h-80 rounded-full blur-3xl energy-orb"
             style={{
               background: 'radial-gradient(circle, rgba(136, 0, 255, 0.1) 0%, transparent 70%)',
               animationDuration: '5s',
@@ -144,7 +144,7 @@ const HomePage = () => {
           />
 
           {/* Hero Content with Carousel - Optimized */}
-          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentSlide}
@@ -172,10 +172,12 @@ const HomePage = () => {
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: 0.1 }}
-                  className="text-6xl md:text-8xl font-display mb-6 glitch"
+                  className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display mb-4 sm:mb-6 glitch px-2 break-words"
                   style={{
                     fontFamily: 'Audiowide, Orbitron, sans-serif',
                     textShadow: `0 0 20px rgba(${heroSlides[currentSlide].color === 'cyan' ? '0, 212, 255' : heroSlides[currentSlide].color === 'red' ? '255, 0, 0' : '136, 0, 255'}, 0.6)`,
+                    wordWrap: 'break-word',
+                    overflowWrap: 'break-word'
                   }}
                 >
                   <span className="gradient-text-robotic">{heroSlides[currentSlide].title}</span>
@@ -185,7 +187,7 @@ const HomePage = () => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.3, delay: 0.2 }}
-                  className="text-xl md:text-3xl text-cyan-300 mb-4 font-body tracking-wide"
+                  className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-cyan-300 mb-3 sm:mb-4 font-body tracking-wide px-2 break-words"
                 >
                   {heroSlides[currentSlide].subtitle}
                 </motion.p>
@@ -194,7 +196,7 @@ const HomePage = () => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.3, delay: 0.3 }}
-                  className="text-base md:text-lg text-gray-400 mb-12 max-w-3xl mx-auto font-tech"
+                  className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-400 mb-8 sm:mb-10 md:mb-12 max-w-3xl mx-auto font-tech px-4 break-words"
                 >
                   {heroSlides[currentSlide].description}
                 </motion.p>
@@ -283,7 +285,7 @@ const HomePage = () => {
         </section>
 
         {/* FEATURED CATEGORIES SECTION */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8 relative">
+        <section className="py-20 px-4 sm:px-6 lg:px-8 relative w-full overflow-x-hidden">
           {/* Flash Sale Countdown */}
           <div className="max-w-5xl mx-auto mb-16">
             <FlashSaleCountdown />
@@ -340,7 +342,7 @@ const HomePage = () => {
         </section>
 
         {/* TRENDING PRODUCTS */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8 relative">
+        <section className="py-20 px-4 sm:px-6 lg:px-8 relative w-full overflow-x-hidden">
           <div className="max-w-7xl mx-auto relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -374,7 +376,7 @@ const HomePage = () => {
         </section>
 
         {/* FEATURES SECTION - Enhanced with More Icons */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8 relative">
+        <section className="py-20 px-4 sm:px-6 lg:px-8 relative w-full overflow-x-hidden">
           <div className="circuit-bg"></div>
           <div className="max-w-7xl mx-auto relative z-10">
             <motion.div
@@ -446,7 +448,7 @@ const HomePage = () => {
         </section>
 
         {/* TESTIMONIALS / SOCIAL PROOF */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8 relative bg-gradient-to-b from-gray-900/50 to-transparent">
+        <section className="py-20 px-4 sm:px-6 lg:px-8 relative w-full overflow-x-hidden bg-gradient-to-b from-gray-900/50 to-transparent">
           <div className="max-w-7xl mx-auto relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -506,7 +508,7 @@ const HomePage = () => {
         </section>
 
         {/* CALL TO ACTION */}
-        <section className="py-32 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <section className="py-32 px-4 sm:px-6 lg:px-8 relative overflow-hidden w-full">
           <div className="absolute inset-0 bg-gradient-to-br from-cyan-900/20 via-purple-900/20 to-red-900/20"></div>
           <div className="scan-lines"></div>
           

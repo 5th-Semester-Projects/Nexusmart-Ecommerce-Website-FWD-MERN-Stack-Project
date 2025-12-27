@@ -95,14 +95,14 @@ const ThemeSwitcher = ({ variant = 'dropdown' }) => {
         {isOpen && (
           <>
             {/* Backdrop */}
-            <div className="fixed inset-0 z-40" onClick={() => setIsOpen(false)} />
+            <div className="fixed inset-0 z-[9998]" onClick={() => setIsOpen(false)} />
             
             <motion.div
               initial={{ opacity: 0, y: -10, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -10, scale: 0.95 }}
               transition={{ duration: 0.2 }}
-              className="absolute right-0 top-full mt-2 w-64 z-50
+              className="absolute right-0 top-full mt-2 w-64 z-[9999]
                        bg-gray-900/95 backdrop-blur-xl border border-purple-500/30 
                        rounded-xl shadow-2xl shadow-purple-500/20 overflow-hidden"
               style={{ background: 'var(--bg-card, rgba(15, 15, 35, 0.95))' }}

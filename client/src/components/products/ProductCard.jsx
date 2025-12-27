@@ -128,7 +128,7 @@ const ProductCard = ({ product, onQuickView, eager = false }) => {
         <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-transparent to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none"></div>
 
         {/* Product Image with magical hover effect */}
-        <div className="relative">
+        <div className="relative mb-4">
           {/* Discount Badge with glow */}
           {discountPercentage > 0 && (
             <motion.div
@@ -157,7 +157,7 @@ const ProductCard = ({ product, onQuickView, eager = false }) => {
             <FiHeart className={`text-lg ${isInWishlist ? 'fill-current' : ''}`} />
           </motion.button>
 
-          <Link to={`/products/${product._id}`} className="block relative aspect-square overflow-hidden rounded-xl mb-4">
+          <Link to={`/products/${product._id}`} className="block relative aspect-square overflow-hidden rounded-xl">
           
           {/* Loading skeleton */}
           {!imageLoaded && !imageError && (
@@ -188,18 +188,18 @@ const ProductCard = ({ product, onQuickView, eager = false }) => {
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </Link>
 
-          {/* Quick action buttons - OUTSIDE Link, positioned absolutely */}
+          {/* Quick action buttons on hover - positioned on image */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 20 }}
             transition={{ duration: 0.3 }}
-            className="absolute bottom-20 left-0 right-0 flex justify-center gap-3 px-4 z-50"
+            className="absolute bottom-4 left-0 right-0 flex justify-center gap-3 px-4 z-[60]"
           >
             <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={handleQuickView}
-              className="p-3 bg-white dark:bg-gray-800 backdrop-blur-xl rounded-full text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-gray-700 transition-all shadow-xl border-2 border-purple-300 dark:border-purple-600"
+              className="p-3 bg-white dark:bg-gray-900 backdrop-blur-xl rounded-full text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-gray-800 transition-all shadow-2xl border-2 border-purple-400 dark:border-purple-500"
               title="Quick View"
             >
               <FiEye className="text-xl font-bold" />
@@ -209,10 +209,10 @@ const ProductCard = ({ product, onQuickView, eager = false }) => {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={handleCompareToggle}
-              className={`p-3 backdrop-blur-xl rounded-full transition-all shadow-xl border-2
+              className={`p-3 backdrop-blur-xl rounded-full transition-all shadow-2xl border-2
                 ${inComparison 
                   ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white border-purple-400' 
-                  : 'bg-white dark:bg-gray-800 text-purple-600 dark:text-purple-400 border-purple-300 dark:border-purple-600 hover:bg-purple-50 dark:hover:bg-gray-700'
+                  : 'bg-white dark:bg-gray-900 text-purple-600 dark:text-purple-400 border-purple-400 dark:border-purple-500 hover:bg-purple-50 dark:hover:bg-gray-800'
                 }`}
               title={inComparison ? 'Remove from Compare' : 'Add to Compare'}
             >
@@ -223,10 +223,10 @@ const ProductCard = ({ product, onQuickView, eager = false }) => {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={handleAddToCart}
-              className="px-6 py-3 bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600 text-white rounded-full font-bold hover:shadow-2xl hover:shadow-purple-500/50 transition-all flex items-center gap-2 border-2 border-purple-400"
+              className="px-6 py-3 bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600 text-white rounded-full font-bold hover:shadow-2xl hover:shadow-purple-500/80 transition-all flex items-center gap-2 border-2 border-white/30"
             >
               <FiShoppingCart className="text-lg" />
-              <span className="text-sm">Add to Cart</span>
+              <span className="text-sm">Add</span>
             </motion.button>
           </motion.div>
         </div>

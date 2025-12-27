@@ -216,7 +216,7 @@ const PersonalizedRecommendations = ({
       {/* Image */}
       <div className="relative aspect-[3/4] overflow-hidden">
         <img
-          src={product.images[0]?.url}
+          src={(Array.isArray(product.images) && product.images[0]?.url) || product.image || 'https://via.placeholder.com/300x400?text=No+Image'}
           alt={product.name}
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
         />

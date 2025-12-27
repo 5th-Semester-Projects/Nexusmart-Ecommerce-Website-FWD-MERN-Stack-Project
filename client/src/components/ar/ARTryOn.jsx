@@ -178,8 +178,12 @@ const ARTryOn = ({ product, onClose }) => {
 
   // Set product overlay image
   useEffect(() => {
-    if (product?.images?.[0]?.url) {
+    if (Array.isArray(product?.images) && product.images[0]?.url) {
       setProductOverlay(product.images[0].url);
+    } else if (Array.isArray(product?.images) && product.images[0]) {
+      setProductOverlay(product.images[0]);
+    } else if (product?.image) {
+      setProductOverlay(product.image);
     }
   }, [product]);
 

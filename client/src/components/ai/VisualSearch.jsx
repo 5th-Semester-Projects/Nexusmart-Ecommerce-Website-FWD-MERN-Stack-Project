@@ -185,7 +185,7 @@ const VisualSearch = ({ onClose }) => {
                     className="bg-gray-100 dark:bg-gray-700 rounded-xl p-3 cursor-pointer"
                   >
                     <img
-                      src={product.images[0]?.url}
+                      src={(Array.isArray(product.images) && product.images[0]?.url) || product.image || 'https://via.placeholder.com/200?text=No+Image'}
                       alt={product.name}
                       className="w-full h-24 object-cover rounded-lg mb-2"
                     />

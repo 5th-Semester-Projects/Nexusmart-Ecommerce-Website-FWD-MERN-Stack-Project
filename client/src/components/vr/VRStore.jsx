@@ -312,9 +312,15 @@ const VRStore = ({ products = [], onAddToCart, onProductSelect }) => {
                         style={{ transformStyle: 'preserve-3d' }}
                       >
                         <div className="aspect-square bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl mb-3 flex items-center justify-center overflow-hidden">
-                          {product.images?.[0] ? (
+                          {Array.isArray(product.images) && product.images[0] ? (
                             <img 
-                              src={product.images[0].url} 
+                              src={product.images[0]?.url || product.images[0]} 
+                              alt={product.name}
+                              className="w-full h-full object-cover"
+                            />
+                          ) : product.image ? (
+                            <img 
+                              src={product.image} 
                               alt={product.name}
                               className="w-full h-full object-cover"
                             />
@@ -517,9 +523,17 @@ const VRStore = ({ products = [], onAddToCart, onProductSelect }) => {
                   >
                     <div className="flex gap-6">
                       <div className="w-1/2 aspect-square bg-gradient-to-br from-purple-900/50 to-blue-900/50 rounded-xl flex items-center justify-center">
-                        {selectedProduct.images?.[0] ? (
+                        {Array.isArray(selectedProduct.images) && selectedProduct.images[0] ? (
                           <motion.img 
-                            src={selectedProduct.images[0].url} 
+                            src={selectedProduct.images[0]?.url || selectedProduct.images[0]} 
+                            alt={selectedProduct.name}
+                            className="w-full h-full object-contain"
+                            animate={{ rotateY: [0, 360] }}
+                            transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
+                          />
+                        ) : selectedProduct.image ? (
+                          <motion.img 
+                            src={selectedProduct.image} 
                             alt={selectedProduct.name}
                             className="w-full h-full object-contain"
                             animate={{ rotateY: [0, 360] }}

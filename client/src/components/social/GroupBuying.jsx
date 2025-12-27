@@ -338,9 +338,16 @@ const GroupBuying = ({ product, onJoinGroup, onCreateGroup }) => {
               <div className="space-y-6">
                 {/* Product info */}
                 <div className="flex items-center gap-4 p-4 bg-black/30 rounded-xl">
-                  {product?.images?.[0] && (
+                  {Array.isArray(product?.images) && product.images[0] && (
                     <img 
-                      src={product.images[0].url} 
+                      src={product.images[0]?.url || product.images[0]} 
+                      alt={product.name}
+                      className="w-16 h-16 object-cover rounded-lg"
+                    />
+                  )}
+                  {!Array.isArray(product?.images) && product?.image && (
+                    <img 
+                      src={product.image} 
                       alt={product.name}
                       className="w-16 h-16 object-cover rounded-lg"
                     />

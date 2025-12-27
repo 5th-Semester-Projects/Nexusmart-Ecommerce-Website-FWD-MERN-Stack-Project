@@ -54,7 +54,8 @@ const Navbar = () => {
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        className="fixed top-0 left-0 right-0 z-50 w-full"
+        className="fixed top-0 left-0 right-0 z-50 w-full overflow-visible"
+        style={{ overflow: 'visible' }}
       >
         {/* Glassmorphism Background */}
         <div className="absolute inset-0 bg-gray-950/80 backdrop-blur-xl border-b border-purple-500/20 w-full"></div>

@@ -414,9 +414,6 @@ productBundleKitSchema.index({ bundleName: 1 });
 productBundleKitSchema.index({ status: 1, 'availability.isAvailable': 1 });
 productBundleKitSchema.index({ category: 1, status: 1 });
 productBundleKitSchema.index({ 'pricing.bundlePrice': 1 });
-productBundleKitSchema.index({ 'analytics.totalSold': -1 });
-productBundleKitSchema.index({ 'promotional.isFeatured': 1 });
-productBundleKitSchema.index({ 'seo.slug': 1 });
 
 // Virtual: Is Available
 productBundleKitSchema.virtual('isAvailable').get(function () {

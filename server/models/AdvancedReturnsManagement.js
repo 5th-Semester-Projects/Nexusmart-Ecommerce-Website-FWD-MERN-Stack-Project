@@ -383,7 +383,6 @@ const advancedReturnsManagementSchema = new mongoose.Schema({
 });
 
 // Indexes
-advancedReturnsManagementSchema.index({ returnId: 1 });
 advancedReturnsManagementSchema.index({ user: 1, status: 1 });
 advancedReturnsManagementSchema.index({ order: 1 });
 

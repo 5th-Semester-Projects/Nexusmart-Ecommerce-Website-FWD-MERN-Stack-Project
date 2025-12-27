@@ -453,7 +453,6 @@ const multiVendorMarketplaceSchema = new mongoose.Schema({
 });
 
 // Indexes
-multiVendorMarketplaceSchema.index({ vendor: 1 });
 multiVendorMarketplaceSchema.index({ 'verification.status': 1 });
 multiVendorMarketplaceSchema.index({ status: 1 });
 multiVendorMarketplaceSchema.index({ 'performance.rating.average': -1 });

@@ -425,7 +425,6 @@ const returnsPortalSchema = new mongoose.Schema({
 });
 
 // Indexes
-returnsPortalSchema.index({ returnNumber: 1 });
 returnsPortalSchema.index({ order: 1 });
 returnsPortalSchema.index({ user: 1, createdAt: -1 });
 returnsPortalSchema.index({ status: 1 });

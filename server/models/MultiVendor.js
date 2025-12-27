@@ -153,7 +153,6 @@ const multiVendorSchema = new mongoose.Schema({
   }
 }, { timestamps: true });
 
-multiVendorSchema.index({ seller: 1 });
 multiVendorSchema.index({ status: 1 });
 multiVendorSchema.index({ 'ratings.average': -1 });
 

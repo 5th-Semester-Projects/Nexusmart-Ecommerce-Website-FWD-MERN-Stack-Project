@@ -369,7 +369,6 @@ const giftCardStoreCreditSchema = new mongoose.Schema({
 });
 
 // Indexes
-giftCardStoreCreditSchema.index({ cardNumber: 1 }, { unique: true });
 giftCardStoreCreditSchema.index({ currentOwner: 1, cardStatus: 1 });
 giftCardStoreCreditSchema.index({ 'recipient.email': 1 });
 giftCardStoreCreditSchema.index({ expiryDate: 1 });

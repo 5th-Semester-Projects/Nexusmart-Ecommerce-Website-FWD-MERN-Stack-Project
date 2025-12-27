@@ -273,7 +273,6 @@ const realtimeInventorySyncSchema = new mongoose.Schema({
 });
 
 // Indexes
-realtimeInventorySyncSchema.index({ sku: 1 }, { unique: true });
 realtimeInventorySyncSchema.index({ product: 1, variant: 1 });
 realtimeInventorySyncSchema.index({ 'warehouses.warehouseId': 1 });
 realtimeInventorySyncSchema.index({ 'globalStock.totalAvailable': 1 });

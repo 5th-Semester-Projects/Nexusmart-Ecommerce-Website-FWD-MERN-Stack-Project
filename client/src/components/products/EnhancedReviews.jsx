@@ -444,7 +444,7 @@ export const ReviewCard = ({ review, onVote }) => {
       )}
 
       {/* Images */}
-      {review.images?.length > 0 && (
+      {Array.isArray(review.images) && review.images.length > 0 && (
         <div className="flex gap-2 mt-4 overflow-x-auto pb-2">
           {review.images.map((img, index) => (
             <button

@@ -157,49 +157,50 @@ const ProductCard = ({ product, onQuickView, eager = false }) => {
             <FiHeart className={`text-lg ${isInWishlist ? 'fill-current' : ''}`} />
           </motion.button>
 
-          <Link to={`/products/${product._id}`} className="block relative aspect-square overflow-hidden rounded-xl">
+          <div className="relative block aspect-square overflow-hidden rounded-xl mb-4">
           
           {/* Loading skeleton */}
           {!imageLoaded && !imageError && (
             <div className="absolute inset-0 bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-800 animate-pulse" />
           )}
           
-          <img
-            src={product.images?.[0]?.url || `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Crect fill='%23667eea' width='400' height='400'/%3E%3Ctext fill='%23ffffff' font-family='Arial' font-size='20' x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle'%3E${encodeURIComponent(product.name.substring(0, 20))}%3C/text%3E%3C/svg%3E`}
-            alt={product.name}
-            loading="eager"
-            decoding="async"
-            crossOrigin="anonymous"
-            referrerPolicy="no-referrer"
-            onLoad={() => {
-              setImageLoaded(true);
-            }}
-            onError={(e) => {
-              e.target.onerror = null;
-              setImageLoaded(true);
-              setImageError(true);
-              // Use simple data URL SVG fallback
-              e.target.src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Crect fill='%23667eea' width='400' height='400'/%3E%3Ctext fill='%23ffffff' font-family='Arial' font-size='18' x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle'%3E${encodeURIComponent(product.name.substring(0, 25))}%3C/text%3E%3C/svg%3E`;
-            }}
-            className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
-          />
-          
-          {/* Overlay gradient on hover */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <Link to={`/products/${product._id}`} className="block w-full h-full">
+            <img
+              src={product.images?.[0]?.url || `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Crect fill='%23667eea' width='400' height='400'/%3E%3Ctext fill='%23ffffff' font-family='Arial' font-size='20' x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle'%3E${encodeURIComponent(product.name.substring(0, 20))}%3C/text%3E%3C/svg%3E`}
+              alt={product.name}
+              loading="eager"
+              decoding="async"
+              crossOrigin="anonymous"
+              referrerPolicy="no-referrer"
+              onLoad={() => {
+                setImageLoaded(true);
+              }}
+              onError={(e) => {
+                e.target.onerror = null;
+                setImageLoaded(true);
+                setImageError(true);
+                // Use simple data URL SVG fallback
+                e.target.src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Crect fill='%23667eea' width='400' height='400'/%3E%3Ctext fill='%23ffffff' font-family='Arial' font-size='18' x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle'%3E${encodeURIComponent(product.name.substring(0, 25))}%3C/text%3E%3C/svg%3E`;
+              }}
+              className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
+            />
+            
+            {/* Overlay gradient on hover */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
           </Link>
 
-          {/* Quick action buttons on hover - positioned on image */}
+          {/* Quick action buttons on hover - INSIDE image container */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 20 }}
             transition={{ duration: 0.3 }}
-            className="absolute bottom-4 left-0 right-0 flex justify-center gap-3 px-4 z-[60]"
+            className="absolute bottom-4 left-0 right-0 flex justify-center gap-3 px-4 z-[60] pointer-events-none"
           >
             <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={handleQuickView}
-              className="p-3 bg-white dark:bg-gray-900 backdrop-blur-xl rounded-full text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-gray-800 transition-all shadow-2xl border-2 border-purple-400 dark:border-purple-500"
+              className="p-3 bg-white dark:bg-gray-900 backdrop-blur-xl rounded-full text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-gray-800 transition-all shadow-2xl border-2 border-purple-400 dark:border-purple-500 pointer-events-auto"
               title="Quick View"
             >
               <FiEye className="text-xl font-bold" />
@@ -209,7 +210,7 @@ const ProductCard = ({ product, onQuickView, eager = false }) => {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={handleCompareToggle}
-              className={`p-3 backdrop-blur-xl rounded-full transition-all shadow-2xl border-2
+              className={`p-3 backdrop-blur-xl rounded-full transition-all shadow-2xl border-2 pointer-events-auto
                 ${inComparison 
                   ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white border-purple-400' 
                   : 'bg-white dark:bg-gray-900 text-purple-600 dark:text-purple-400 border-purple-400 dark:border-purple-500 hover:bg-purple-50 dark:hover:bg-gray-800'
@@ -223,12 +224,13 @@ const ProductCard = ({ product, onQuickView, eager = false }) => {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={handleAddToCart}
-              className="px-6 py-3 bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600 text-white rounded-full font-bold hover:shadow-2xl hover:shadow-purple-500/80 transition-all flex items-center gap-2 border-2 border-white/30"
+              className="px-6 py-3 bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600 text-white rounded-full font-bold hover:shadow-2xl hover:shadow-purple-500/80 transition-all flex items-center gap-2 border-2 border-white/30 pointer-events-auto"
             >
               <FiShoppingCart className="text-lg" />
               <span className="text-sm">Add</span>
             </motion.button>
           </motion.div>
+        </div>
         </div>
 
         {/* Product Details */}

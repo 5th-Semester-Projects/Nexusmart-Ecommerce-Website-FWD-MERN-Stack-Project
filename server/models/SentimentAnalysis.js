@@ -108,8 +108,7 @@ const sentimentAnalysisSchema = new mongoose.Schema({
     processingTime: Number
   }
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 sentimentAnalysisSchema.index({ 'source.type': 1, 'source.referenceId': 1 });
 sentimentAnalysisSchema.index({ 'source.user': 1 });

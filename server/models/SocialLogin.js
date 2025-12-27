@@ -46,8 +46,7 @@ const socialLoginSchema = new mongoose.Schema({
     default: false
   }
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 socialLoginSchema.index({ user: 1, provider: 1 });
 socialLoginSchema.index({ providerId: 1, provider: 1 }, { unique: true });

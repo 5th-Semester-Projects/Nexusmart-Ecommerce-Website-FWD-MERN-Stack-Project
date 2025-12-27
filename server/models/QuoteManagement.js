@@ -111,8 +111,7 @@ const quoteManagementSchema = new mongoose.Schema({
     ref: 'Order'
   }
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 quoteManagementSchema.index({ business: 1 });
 quoteManagementSchema.index({ status: 1 });

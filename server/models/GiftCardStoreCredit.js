@@ -365,8 +365,7 @@ const giftCardStoreCreditSchema = new mongoose.Schema({
   cancelledAt: Date
 
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 // Indexes
 giftCardStoreCreditSchema.index({ currentOwner: 1, cardStatus: 1 });

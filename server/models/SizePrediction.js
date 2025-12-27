@@ -64,8 +64,7 @@ const sizePredictionSchema = new mongoose.Schema({
     lastTrainedAt: Date
   }
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 sizePredictionSchema.index({ user: 1, product: 1 });
 sizePredictionSchema.index({ user: 1, createdAt: -1 });

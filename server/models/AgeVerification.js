@@ -121,8 +121,7 @@ const ageVerificationSchema = new mongoose.Schema({
     }]
   }
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 ageVerificationSchema.index({ user: 1 });
 ageVerificationSchema.index({ order: 1 });

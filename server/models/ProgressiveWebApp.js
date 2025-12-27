@@ -342,9 +342,7 @@ const progressiveWebAppSchema = new mongoose.Schema({
     default: 'active'
   }
 }, {
-  timestamps: true,
-  suppressReservedKeysWarning: true
-});
+  timestamps: true, suppressReservedKeysWarning: true });
 
 // Indexes
 progressiveWebAppSchema.index({ user: 1 });

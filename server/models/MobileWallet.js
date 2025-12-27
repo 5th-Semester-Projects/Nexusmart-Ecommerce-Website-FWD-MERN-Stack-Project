@@ -66,8 +66,7 @@ const mobileWalletSchema = new mongoose.Schema({
   },
   verifiedAt: Date
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 // Indexes
 mobileWalletSchema.index({ user: 1, walletType: 1 });

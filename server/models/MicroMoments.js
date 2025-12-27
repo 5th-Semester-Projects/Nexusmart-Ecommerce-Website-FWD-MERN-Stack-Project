@@ -86,8 +86,7 @@ const microMomentsSchema = new mongoose.Schema({
   },
   revenue: Number
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 microMomentsSchema.index({ user: 1, createdAt: -1 });
 microMomentsSchema.index({ momentType: 1, createdAt: -1 });

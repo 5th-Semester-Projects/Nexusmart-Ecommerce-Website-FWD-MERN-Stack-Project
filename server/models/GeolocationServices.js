@@ -412,8 +412,7 @@ const geolocationServicesSchema = new mongoose.Schema({
     default: Date.now
   }
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 // Indexes
 geolocationServicesSchema.index({ 'stores.location.coordinates': '2dsphere' });

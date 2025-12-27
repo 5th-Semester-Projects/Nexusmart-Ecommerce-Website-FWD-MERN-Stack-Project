@@ -147,8 +147,7 @@ const esgScoringSchema = new mongoose.Schema({
   },
   nextAssessment: Date
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 esgScoringSchema.index({ 'entity.type': 1, 'entity.referenceId': 1 });
 esgScoringSchema.index({ 'overall.score': -1 });

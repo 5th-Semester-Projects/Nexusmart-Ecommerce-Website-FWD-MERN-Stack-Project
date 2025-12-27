@@ -440,8 +440,7 @@ const influencerMarketingSchema = new mongoose.Schema({
     default: Date.now
   }
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 // Indexes
 influencerMarketingSchema.index({ 'influencer.user': 1, seller: 1 });

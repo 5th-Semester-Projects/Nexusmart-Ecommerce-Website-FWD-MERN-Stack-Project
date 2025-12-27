@@ -130,8 +130,7 @@ const groupBuyingSchema = new mongoose.Schema({
     message: String
   }]
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 groupBuyingSchema.index({ product: 1 });
 groupBuyingSchema.index({ organizer: 1 });

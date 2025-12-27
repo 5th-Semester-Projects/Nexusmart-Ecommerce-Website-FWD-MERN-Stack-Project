@@ -102,8 +102,7 @@ const greenDeliverySchema = new mongoose.Schema({
     }
   }
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 greenDeliverySchema.index({ order: 1 });
 greenDeliverySchema.index({ user: 1 });

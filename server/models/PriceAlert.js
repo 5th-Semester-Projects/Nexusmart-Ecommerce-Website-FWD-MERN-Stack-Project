@@ -176,8 +176,7 @@ const priceAlertSchema = new mongoose.Schema({
   // Notes
   notes: String
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 // Indexes
 priceAlertSchema.index({ user: 1, product: 1 });

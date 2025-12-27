@@ -143,8 +143,7 @@ const advancedSearchSchema = new mongoose.Schema({
     index: true
   }
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 // Indexes
 advancedSearchSchema.index({ 'query.original': 'text' });

@@ -73,8 +73,7 @@ const aiRecommendationSchema = new mongoose.Schema({
     default: true
   }
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 // Index for fast queries
 aiRecommendationSchema.index({ user: 1, isActive: 1, expiresAt: 1 });

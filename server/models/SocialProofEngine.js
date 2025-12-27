@@ -524,8 +524,7 @@ const socialProofEngineSchema = new mongoose.Schema({
     default: Date.now
   }
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 // Indexes
 socialProofEngineSchema.index({ 'recentPurchases.timestamp': -1 });

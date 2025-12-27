@@ -66,8 +66,7 @@ const qrPaymentSchema = new mongoose.Schema({
     ref: 'User'
   }
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 qrPaymentSchema.index({ qrCode: 1 });
 qrPaymentSchema.index({ order: 1 });

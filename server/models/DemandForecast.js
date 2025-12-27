@@ -77,8 +77,7 @@ const demandForecastSchema = new mongoose.Schema({
     ref: 'Seller'
   }
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 demandForecastSchema.index({ product: 1, 'forecastPeriod.startDate': -1 });
 demandForecastSchema.index({ category: 1, createdAt: -1 });

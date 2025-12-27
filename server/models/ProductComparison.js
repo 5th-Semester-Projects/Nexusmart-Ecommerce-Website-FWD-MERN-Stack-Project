@@ -138,8 +138,7 @@ const productComparisonSchema = new mongoose.Schema({
     default: () => new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) // 30 days
   }
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 // Indexes
 productComparisonSchema.index({ user: 1, isActive: 1 });

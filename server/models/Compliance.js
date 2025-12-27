@@ -168,8 +168,7 @@ const complianceSchema = new mongoose.Schema({
     ipAddress: String
   }]
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 complianceSchema.index({ 'entity.type': 1, 'entity.id': 1 });
 complianceSchema.index({ 'amlScreening.result.status': 1 });

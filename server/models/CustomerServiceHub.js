@@ -475,8 +475,7 @@ const customerServiceHubSchema = new mongoose.Schema({
   }
 
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 // Indexes
 customerServiceHubSchema.index({ businessId: 1, 'ticket.status': 1 });

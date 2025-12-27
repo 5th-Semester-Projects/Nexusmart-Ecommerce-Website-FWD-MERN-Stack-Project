@@ -320,8 +320,7 @@ const productQASchema = new mongoose.Schema({
     default: Date.now
   }
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 // Indexes
 productQASchema.index({ product: 1, status: 1 });

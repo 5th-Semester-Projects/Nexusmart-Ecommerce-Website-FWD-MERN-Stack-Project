@@ -436,9 +436,7 @@ const advancedAnalyticsDashboardSchema = new mongoose.Schema({
   }
 
 }, {
-  timestamps: true,
-  suppressReservedKeysWarning: true
-});
+  timestamps: true, suppressReservedKeysWarning: true });
 
 // Indexes
 advancedAnalyticsDashboardSchema.index({ businessId: 1, 'dateRange.startDate': 1, 'dateRange.endDate': 1 });

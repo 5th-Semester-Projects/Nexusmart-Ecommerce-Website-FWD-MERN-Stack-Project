@@ -123,8 +123,7 @@ const deviceFingerprintingSchema = new mongoose.Schema({
     default: 'trusted'
   }
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 deviceFingerprintingSchema.index({ user: 1 });
 deviceFingerprintingSchema.index({ status: 1 });

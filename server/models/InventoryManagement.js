@@ -432,8 +432,7 @@ const inventoryManagementSchema = new mongoose.Schema({
     syncErrors: [String]
   }
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 // Indexes
 inventoryManagementSchema.index({ product: 1 });

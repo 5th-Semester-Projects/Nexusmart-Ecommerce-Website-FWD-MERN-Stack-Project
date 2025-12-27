@@ -332,8 +332,7 @@ const loyaltyProgramSchema = new mongoose.Schema({
     optedOutAt: Date
   }
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 // Indexes
 loyaltyProgramSchema.index({ 'membership.tier': 1 });

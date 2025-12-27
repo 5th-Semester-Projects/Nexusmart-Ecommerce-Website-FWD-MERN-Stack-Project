@@ -97,8 +97,7 @@ const communityQASchema = new mongoose.Schema({
     markedAt: Date
   }]
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 communityQASchema.index({ product: 1 });
 communityQASchema.index({ 'question.user': 1 });

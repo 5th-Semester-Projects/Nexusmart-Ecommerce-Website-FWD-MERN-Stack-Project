@@ -53,8 +53,7 @@ const scratchCardSchema = new mongoose.Schema({
     default: true
   }
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 scratchCardSchema.index({ user: 1, status: 1 });
 scratchCardSchema.index({ cardCode: 1 });

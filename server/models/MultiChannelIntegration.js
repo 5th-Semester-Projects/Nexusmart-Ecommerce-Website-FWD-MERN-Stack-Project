@@ -492,9 +492,7 @@ const multiChannelIntegrationSchema = new mongoose.Schema({
   }]
 
 }, {
-  timestamps: true,
-  suppressReservedKeysWarning: true
-});
+  timestamps: true, suppressReservedKeysWarning: true });
 
 // Indexes
 multiChannelIntegrationSchema.index({ 'instagram.enabled': 1 });

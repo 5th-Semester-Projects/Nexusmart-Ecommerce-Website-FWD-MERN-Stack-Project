@@ -128,8 +128,7 @@ const aiChatTriagingSchema = new mongoose.Schema({
     isAI: Boolean
   }]
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 aiChatTriagingSchema.index({ 'ticket.user': 1 });
 aiChatTriagingSchema.index({ 'routing.actual.agent': 1 });

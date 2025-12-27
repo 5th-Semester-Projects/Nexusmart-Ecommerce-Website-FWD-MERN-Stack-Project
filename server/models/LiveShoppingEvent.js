@@ -478,8 +478,7 @@ const liveShoppingEventSchema = new mongoose.Schema({
 
   cancelledReason: String
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 // Indexes
 liveShoppingEventSchema.index({ 'scheduling.scheduledAt': 1 });

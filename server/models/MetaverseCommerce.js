@@ -150,8 +150,7 @@ const metaverseCommerceSchema = new mongoose.Schema({
     rewards: mongoose.Schema.Types.Mixed
   }]
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 metaverseCommerceSchema.index({ 'nftPurchases.tokenId': 1 });
 metaverseCommerceSchema.index({ 'virtualStore.platform': 1, createdAt: -1 });

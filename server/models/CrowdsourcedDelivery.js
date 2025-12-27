@@ -106,8 +106,7 @@ const crowdsourcedDeliverySchema = new mongoose.Schema({
     ratedAt: Date
   }
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 crowdsourcedDeliverySchema.index({ order: 1 });
 crowdsourcedDeliverySchema.index({ driver: 1 });

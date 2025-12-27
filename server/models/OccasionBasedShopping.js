@@ -81,8 +81,7 @@ const occasionBasedShoppingSchema = new mongoose.Schema({
     }
   }]
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 occasionBasedShoppingSchema.index({ user: 1, occasion: 1 });
 occasionBasedShoppingSchema.index({ occasionDate: 1 });

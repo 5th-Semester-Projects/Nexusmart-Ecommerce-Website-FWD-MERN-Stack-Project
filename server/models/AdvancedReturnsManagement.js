@@ -379,8 +379,7 @@ const advancedReturnsManagementSchema = new mongoose.Schema({
     default: Date.now
   }
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 // Indexes
 // advancedReturnsManagementSchema.index({ user: 1, status: 1 }); // Removed: both user and status already have index:true

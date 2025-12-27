@@ -87,8 +87,7 @@ const lifeStagetargetingSchema = new mongoose.Schema({
     default: 'inference'
   }
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 lifeStagetargetingSchema.index({ user: 1 });
 lifeStagetargetingSchema.index({ lifeStage: 1 });

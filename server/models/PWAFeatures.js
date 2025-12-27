@@ -75,8 +75,7 @@ const pwaFeaturesSchema = new mongoose.Schema({
     lastOnline: Date
   }
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 pwaFeaturesSchema.index({ user: 1 });
 

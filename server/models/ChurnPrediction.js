@@ -127,8 +127,7 @@ const churnPredictionSchema = new mongoose.Schema({
   }],
   nextReviewDate: Date
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 // Indexes
 churnPredictionSchema.index({ user: 1, createdAt: -1 });

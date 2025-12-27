@@ -355,8 +355,7 @@ const customerSegmentationSchema = new mongoose.Schema({
     result: String
   }]
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 // Indexes
 // customerSegmentationSchema.index({ user: 1 }); // Removed: user already has unique:true

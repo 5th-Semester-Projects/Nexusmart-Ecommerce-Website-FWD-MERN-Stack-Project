@@ -102,8 +102,7 @@ const inventoryForecastSchema = new mongoose.Schema({
     default: 'generating'
   }
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 // Indexes
 inventoryForecastSchema.index({ product: 1, 'forecastPeriod.startDate': -1 });

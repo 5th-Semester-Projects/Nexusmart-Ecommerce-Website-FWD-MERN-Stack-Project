@@ -269,8 +269,7 @@ const realtimeInventorySyncSchema = new mongoose.Schema({
   }
 
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 // Indexes
 realtimeInventorySyncSchema.index({ product: 1, variant: 1 });

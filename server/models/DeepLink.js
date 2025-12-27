@@ -67,8 +67,7 @@ const deepLinkSchema = new mongoose.Schema({
     default: true
   }
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 // Indexes
 deepLinkSchema.index({ linkId: 1 });

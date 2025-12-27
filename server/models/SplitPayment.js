@@ -133,8 +133,7 @@ const splitPaymentSchema = new mongoose.Schema({
     details: mongoose.Schema.Types.Mixed
   }]
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 splitPaymentSchema.index({ user: 1, status: 1 });
 splitPaymentSchema.index({ status: 1, createdAt: -1 });

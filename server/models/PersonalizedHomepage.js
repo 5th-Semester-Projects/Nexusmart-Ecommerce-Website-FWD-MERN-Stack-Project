@@ -356,8 +356,7 @@ const personalizedHomepageSchema = new mongoose.Schema({
     }
   }
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 // Indexes
 personalizedHomepageSchema.index({ 'recommendations.lastRefreshed': 1 });

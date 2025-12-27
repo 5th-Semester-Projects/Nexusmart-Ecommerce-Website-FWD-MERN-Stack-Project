@@ -153,8 +153,7 @@ const smartContractEscrowSchema = new mongoose.Schema({
     termsUrl: String
   }
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 smartContractEscrowSchema.index({ 'smartContract.address': 1 });
 smartContractEscrowSchema.index({ status: 1, createdAt: -1 });

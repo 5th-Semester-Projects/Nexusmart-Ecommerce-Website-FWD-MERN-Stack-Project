@@ -428,8 +428,7 @@ const productRecommendationEngineSchema = new mongoose.Schema({
   lastUpdated: { type: Date, default: Date.now }
 
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 // Indexes
 productRecommendationEngineSchema.index({ 'realTimePersonalization.currentSession.sessionId': 1 });

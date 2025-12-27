@@ -51,8 +51,7 @@ const dailyCheckInSchema = new mongoose.Schema({
     missedDays: { type: Number, default: 0 }
   }
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 dailyCheckInSchema.index({ user: 1 });
 

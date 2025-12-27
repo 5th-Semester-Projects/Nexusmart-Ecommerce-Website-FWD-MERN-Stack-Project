@@ -98,8 +98,7 @@ const geofenceSchema = new mongoose.Schema({
     ref: 'User'
   }
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 // Geospatial index
 geofenceSchema.index({ location: '2dsphere' });

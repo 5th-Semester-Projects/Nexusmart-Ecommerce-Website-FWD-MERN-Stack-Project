@@ -73,8 +73,7 @@ const returnsAggregationSchema = new mongoose.Schema({
     waived: Boolean
   }
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 returnsAggregationSchema.index({ user: 1 });
 returnsAggregationSchema.index({ status: 1 });

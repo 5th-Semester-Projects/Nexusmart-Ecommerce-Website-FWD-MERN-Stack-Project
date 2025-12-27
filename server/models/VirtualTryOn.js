@@ -290,8 +290,7 @@ const virtualTryOnSchema = new mongoose.Schema({
     default: () => new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days
   }
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 // Indexes
 virtualTryOnSchema.index({ user: 1, createdAt: -1 });

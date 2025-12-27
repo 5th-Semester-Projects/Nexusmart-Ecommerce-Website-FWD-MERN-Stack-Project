@@ -114,8 +114,7 @@ const invoiceFinancingSchema = new mongoose.Schema({
     uploadedAt: Date
   }]
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 invoiceFinancingSchema.index({ business: 1 });
 invoiceFinancingSchema.index({ status: 1 });

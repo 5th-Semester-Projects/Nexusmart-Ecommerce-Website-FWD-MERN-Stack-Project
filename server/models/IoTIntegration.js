@@ -109,8 +109,7 @@ const iotIntegrationSchema = new mongoose.Schema({
     budgetLimit: Number
   }
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 iotIntegrationSchema.index({ 'connectivity.status': 1 });
 

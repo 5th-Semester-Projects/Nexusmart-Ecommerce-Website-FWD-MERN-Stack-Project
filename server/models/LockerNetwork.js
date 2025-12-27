@@ -91,8 +91,7 @@ const lockerNetworkSchema = new mongoose.Schema({
     peakHours: [Number]
   }
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 lockerNetworkSchema.index({ 'locker.location.coordinates': '2dsphere' });
 lockerNetworkSchema.index({ 'deliveries.order': 1 });

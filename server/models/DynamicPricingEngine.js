@@ -520,8 +520,7 @@ const dynamicPricingEngineSchema = new mongoose.Schema({
     default: Date.now
   }
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 // Indexes
 dynamicPricingEngineSchema.index({ 'competitorTracking.lowestCompetitorPrice': 1 });

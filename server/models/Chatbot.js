@@ -100,9 +100,7 @@ const chatbotSchema = new mongoose.Schema({
   endedAt: Date,
   duration: Number // in seconds
 }, {
-  timestamps: true,
-  suppressReservedKeysWarning: true
-});
+  timestamps: true, suppressReservedKeysWarning: true });
 
 // Index for performance
 chatbotSchema.index({ user: 1, status: 1 });

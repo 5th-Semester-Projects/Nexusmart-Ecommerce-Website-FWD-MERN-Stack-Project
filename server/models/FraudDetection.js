@@ -118,8 +118,7 @@ const fraudDetectionSchema = new mongoose.Schema({
     sessionId: String
   }
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 // Indexes
 fraudDetectionSchema.index({ order: 1 });

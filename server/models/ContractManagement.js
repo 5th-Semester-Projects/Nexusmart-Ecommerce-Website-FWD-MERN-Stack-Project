@@ -133,8 +133,7 @@ const contractManagementSchema = new mongoose.Schema({
     message: String
   }]
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 contractManagementSchema.index({ 'parties.buyer': 1 });
 contractManagementSchema.index({ 'parties.seller': 1 });

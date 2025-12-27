@@ -466,8 +466,7 @@ const blockchainIntegrationSchema = new mongoose.Schema({
     default: Date.now
   }
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 // Indexes
 blockchainIntegrationSchema.index({ business: 1 });

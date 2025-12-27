@@ -81,8 +81,7 @@ const styleProfileSchema = new mongoose.Schema({
     default: Date.now
   }
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 const StyleProfile = mongoose.model('StyleProfile', styleProfileSchema);
 export default StyleProfile;

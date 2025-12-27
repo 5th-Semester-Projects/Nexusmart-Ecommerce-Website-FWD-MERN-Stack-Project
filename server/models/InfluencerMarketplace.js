@@ -158,8 +158,7 @@ const influencerMarketplaceSchema = new mongoose.Schema({
     totalSalesGenerated: Number
   }
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 influencerMarketplaceSchema.index({ influencer: 1 });
 influencerMarketplaceSchema.index({ 'profile.categories': 1 });

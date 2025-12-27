@@ -164,8 +164,7 @@ const smartRecommendationSchema = new mongoose.Schema({
     timestamp: Date
   }]
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 // Indexes
 smartRecommendationSchema.index({ recommendationType: 1 });

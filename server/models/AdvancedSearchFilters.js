@@ -354,8 +354,7 @@ const advancedSearchFiltersSchema = new mongoose.Schema({
   lastSearched: { type: Date, default: Date.now }
 
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 // Indexes
 advancedSearchFiltersSchema.index({ userId: 1, lastSearched: -1 });

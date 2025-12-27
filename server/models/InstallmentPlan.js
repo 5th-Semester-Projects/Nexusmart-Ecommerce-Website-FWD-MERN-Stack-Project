@@ -80,8 +80,7 @@ const installmentPlanSchema = new mongoose.Schema({
     fee: Number
   }
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 installmentPlanSchema.index({ user: 1 });
 installmentPlanSchema.index({ order: 1 });

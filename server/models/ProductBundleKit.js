@@ -406,8 +406,7 @@ const productBundleKitSchema = new mongoose.Schema({
   archivedReason: String
 
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 // Indexes
 productBundleKitSchema.index({ bundleName: 1 });

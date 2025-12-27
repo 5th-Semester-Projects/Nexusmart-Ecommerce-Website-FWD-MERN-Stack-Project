@@ -228,8 +228,7 @@ const outfitBuilderSchema = new mongoose.Schema({
   lastModified: Date
 
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 // Indexes
 outfitBuilderSchema.index({ status: 1 });

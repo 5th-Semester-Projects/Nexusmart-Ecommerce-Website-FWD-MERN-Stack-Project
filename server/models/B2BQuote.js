@@ -163,8 +163,7 @@ const b2bQuoteSchema = new mongoose.Schema({
     convertedAt: Date
   }
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 b2bQuoteSchema.index({ 'buyer.company': 1, status: 1 });
 b2bQuoteSchema.index({ 'seller.company': 1, createdAt: -1 });

@@ -436,8 +436,7 @@ const subscriptionManagementSchema = new mongoose.Schema({
     default: Date.now
   }
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 // Indexes
 subscriptionManagementSchema.index({ 'deliverySchedule.nextDeliveryDate': 1 });

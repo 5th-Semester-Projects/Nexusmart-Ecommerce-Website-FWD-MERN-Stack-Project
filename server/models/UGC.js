@@ -72,8 +72,7 @@ const ugcSchema = new mongoose.Schema({
     default: true
   }
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 ugcSchema.index({ user: 1 });
 ugcSchema.index({ product: 1 });

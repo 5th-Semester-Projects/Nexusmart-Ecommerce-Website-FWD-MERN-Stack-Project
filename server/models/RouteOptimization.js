@@ -100,8 +100,7 @@ const routeOptimizationSchema = new mongoose.Schema({
     default: 'planned'
   }
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 routeOptimizationSchema.index({ deliveryDate: 1, warehouse: 1 });
 routeOptimizationSchema.index({ driver: 1, status: 1 });

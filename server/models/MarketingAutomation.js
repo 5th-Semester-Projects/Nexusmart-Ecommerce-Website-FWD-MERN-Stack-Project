@@ -430,8 +430,7 @@ const marketingAutomationSchema = new mongoose.Schema({
   }
 
 }, {
-  timestamps: true
-, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true });
 
 // Indexes
 marketingAutomationSchema.index({ businessId: 1, campaignType: 1 });

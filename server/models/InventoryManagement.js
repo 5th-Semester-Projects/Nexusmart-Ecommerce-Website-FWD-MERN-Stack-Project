@@ -436,7 +436,6 @@ const inventoryManagementSchema = new mongoose.Schema({
 });
 
 // Indexes
-inventoryManagementSchema.index({ 'variant.sku': 1 });
 inventoryManagementSchema.index({ product: 1 });
 inventoryManagementSchema.index({ stockStatus: 1 });
 inventoryManagementSchema.index({ 'stock.available': 1 });

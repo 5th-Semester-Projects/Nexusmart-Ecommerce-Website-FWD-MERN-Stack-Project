@@ -336,7 +336,6 @@ const loyaltyProgramSchema = new mongoose.Schema({
 });
 
 // Indexes
-loyaltyProgramSchema.index({ user: 1 });
 loyaltyProgramSchema.index({ 'membership.tier': 1 });
 loyaltyProgramSchema.index({ 'points.current': -1 });
 loyaltyProgramSchema.index({ 'points.expiring.expiryDate': 1 });

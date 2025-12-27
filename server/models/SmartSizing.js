@@ -199,7 +199,6 @@ const smartSizingSchema = new mongoose.Schema({
 });
 
 // Indexes
-smartSizingSchema.index({ user: 1 });
 smartSizingSchema.index({ 'bodyTypeAnalysis.bodyShape': 1 });
 smartSizingSchema.index({ 'analytics.profileCompleteness': -1 });
 

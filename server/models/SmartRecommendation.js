@@ -168,7 +168,7 @@ const smartRecommendationSchema = new mongoose.Schema({
 });
 
 // Indexes
-smartRecommendationSchema.index({ user: 1, recommendationType: 1 });
+smartRecommendationSchema.index({ recommendationType: 1 });
 smartRecommendationSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 });
 smartRecommendationSchema.index({ 'recommendations.product': 1 });
 smartRecommendationSchema.index({ 'context.location.coordinates': '2dsphere' });

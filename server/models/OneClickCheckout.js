@@ -291,7 +291,7 @@ const oneClickCheckoutSchema = new mongoose.Schema({
 });
 
 // Indexes
-oneClickCheckoutSchema.index({ user: 1 });
+
 oneClickCheckoutSchema.index({ 'paymentMethods.isDefault': 1 });
 oneClickCheckoutSchema.index({ 'shippingAddresses.isDefault': 1 });
 

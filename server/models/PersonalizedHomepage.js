@@ -360,7 +360,6 @@ const personalizedHomepageSchema = new mongoose.Schema({
 });
 
 // Indexes
-personalizedHomepageSchema.index({ user: 1 });
 personalizedHomepageSchema.index({ 'recommendations.lastRefreshed': 1 });
 personalizedHomepageSchema.index({ 'metrics.lastVisit': -1 });
 

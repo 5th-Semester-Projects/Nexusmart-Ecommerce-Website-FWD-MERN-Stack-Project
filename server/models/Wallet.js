@@ -87,7 +87,6 @@ const walletSchema = new mongoose.Schema({
   timestamps: true
 });
 
-walletSchema.index({ user: 1 });
 walletSchema.index({ walletId: 1 });
 
 const Wallet = mongoose.model('Wallet', walletSchema);

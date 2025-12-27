@@ -84,8 +84,6 @@ const styleProfileSchema = new mongoose.Schema({
   timestamps: true
 });
 
-styleProfileSchema.index({ user: 1 });
-
 const StyleProfile = mongoose.model('StyleProfile', styleProfileSchema);
 export default StyleProfile;
 export { StyleProfile };

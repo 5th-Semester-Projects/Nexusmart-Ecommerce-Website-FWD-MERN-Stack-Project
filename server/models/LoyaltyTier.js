@@ -109,7 +109,7 @@ const loyaltyTierSchema = new mongoose.Schema({
     enum: ['active', 'inactive', 'suspended'],
     default: 'active'
   }
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 loyaltyTierSchema.index({ 'currentTier.name': 1 });
 

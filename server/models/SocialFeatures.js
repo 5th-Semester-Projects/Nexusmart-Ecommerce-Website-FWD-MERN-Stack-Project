@@ -106,7 +106,7 @@ const liveStreamSchema = new mongoose.Schema({
     averageWatchTime: Number,
     engagementRate: Number,
   },
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 liveStreamSchema.index({ host: 1, status: 1 });
 liveStreamSchema.index({ scheduledAt: 1 });
@@ -216,7 +216,7 @@ const influencerStorefrontSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 export const InfluencerStorefront = mongoose.model('InfluencerStorefront', influencerStorefrontSchema);
 
@@ -293,7 +293,7 @@ const sharedWishlistSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 sharedWishlistSchema.index({ owner: 1 });
 sharedWishlistSchema.index({ shareCode: 1 });
@@ -376,7 +376,7 @@ const groupBuyingSchema = new mongoose.Schema({
     type: Number,
     default: 2,
   },
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 groupBuyingSchema.index({ status: 1, endDate: 1 });
 groupBuyingSchema.index({ product: 1 });
@@ -399,7 +399,7 @@ const socialFollowSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 socialFollowSchema.index({ follower: 1, following: 1 }, { unique: true });
 

@@ -71,7 +71,7 @@ const flashSaleSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   }
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 flashSaleSchema.index({ 'timing.startTime': 1, 'timing.endTime': 1 });
 flashSaleSchema.index({ status: 1 });

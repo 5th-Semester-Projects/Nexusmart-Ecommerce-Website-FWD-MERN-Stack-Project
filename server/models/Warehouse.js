@@ -91,7 +91,7 @@ const warehouseSchema = new mongoose.Schema({
     accuracy: Number,
     onTimeShipment: Number
   }
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 warehouseSchema.index({ 'location.coordinates': '2dsphere' });
 

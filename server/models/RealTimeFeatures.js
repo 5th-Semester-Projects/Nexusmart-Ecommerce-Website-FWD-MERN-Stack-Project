@@ -77,7 +77,7 @@ const liveChatSessionSchema = new mongoose.Schema({
   endedAt: Date,
   waitTime: Number, // in seconds
   responseTime: Number, // first response time in seconds
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 liveChatSessionSchema.index({ customer: 1, status: 1 });
 liveChatSessionSchema.index({ agent: 1, status: 1 });
@@ -129,7 +129,7 @@ const productViewSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 productViewSchema.index({ product: 1 }, { unique: true });
 
@@ -180,7 +180,7 @@ const personalizedDealSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Order',
   },
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 personalizedDealSchema.index({ user: 1, isUsed: 1 });
 
@@ -268,7 +268,7 @@ const userAnalyticsSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 userAnalyticsSchema.index({ user: 1, period: 1, date: -1 });
 
@@ -295,7 +295,7 @@ const productViewerSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 export const ProductViewer = mongoose.model('ProductViewer', productViewerSchema);
 
@@ -317,7 +317,7 @@ const productActivitySchema = new mongoose.Schema({
   },
   message: String,
   location: String,
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 productActivitySchema.index({ product: 1, createdAt: -1 });
 
@@ -366,7 +366,7 @@ const supportTicketSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Order',
   },
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 supportTicketSchema.index({ user: 1, status: 1 });
 

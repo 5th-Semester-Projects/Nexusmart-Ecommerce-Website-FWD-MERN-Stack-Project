@@ -27,7 +27,7 @@ const loyaltyTransactionSchema = new mongoose.Schema({
   expiresAt: {
     type: Date,
   },
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 export const LoyaltyTransaction = mongoose.model('LoyaltyTransaction', loyaltyTransactionSchema);
 
@@ -86,7 +86,7 @@ const achievementSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 export const Achievement = mongoose.model('Achievement', achievementSchema);
 
@@ -124,7 +124,7 @@ const userAchievementSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 userAchievementSchema.index({ user: 1, achievement: 1 }, { unique: true });
 
@@ -163,7 +163,7 @@ const spinWheelPrizeSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 export const SpinWheelPrize = mongoose.model('SpinWheelPrize', spinWheelPrizeSchema);
 
@@ -193,7 +193,7 @@ const userSpinSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 export const UserSpin = mongoose.model('UserSpin', userSpinSchema);
 
@@ -242,7 +242,7 @@ const referralSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Order',
   },
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 referralSchema.index({ referrer: 1, referred: 1 }, { unique: true });
 
@@ -275,7 +275,7 @@ const gamificationSettingsSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 export const GamificationSettings = mongoose.model('GamificationSettings', gamificationSettingsSchema);
 

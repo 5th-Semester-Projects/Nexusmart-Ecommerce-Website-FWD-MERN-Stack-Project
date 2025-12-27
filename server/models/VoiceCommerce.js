@@ -93,7 +93,7 @@ const ttsPreferencesSchema = new mongoose.Schema({
       default: true,
     },
   },
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 export const TTSPreferences = mongoose.models.TTSPreferences || mongoose.model('TTSPreferences', ttsPreferencesSchema);
 

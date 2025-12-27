@@ -104,7 +104,7 @@ const subscriptionBoxSchema = new mongoose.Schema({
     },
     averageLifetimeValue: Number
   }
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 subscriptionBoxSchema.index({ status: 1 });
 subscriptionBoxSchema.index({ category: 1 });

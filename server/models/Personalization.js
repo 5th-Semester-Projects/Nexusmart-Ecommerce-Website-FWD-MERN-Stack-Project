@@ -61,7 +61,7 @@ const styleQuizSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 styleQuizSchema.index({ user: 1, isActive: 1 });
 
@@ -119,7 +119,7 @@ const personalizedHomepageSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 export const PersonalizedHomepage = mongoose.model('PersonalizedHomepage', personalizedHomepageSchema);
 
@@ -197,7 +197,7 @@ const smartBundleSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 smartBundleSchema.index({ user: 1, isActive: 1 });
 smartBundleSchema.index({ type: 1 });
@@ -246,7 +246,7 @@ const completeTheLookSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 completeTheLookSchema.index({ baseProduct: 1, isActive: 1 });
 
@@ -318,7 +318,7 @@ const userPreferenceLearningSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 export const UserPreferenceLearning = mongoose.model('UserPreferenceLearning', userPreferenceLearningSchema);
 

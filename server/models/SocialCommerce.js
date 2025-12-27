@@ -84,7 +84,7 @@ const liveStreamSchema = new mongoose.Schema({
     moderationEnabled: { type: Boolean, default: true },
     subscribersOnly: { type: Boolean, default: false }
   }
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 // Generate stream key
 liveStreamSchema.pre('save', function (next) {
@@ -155,7 +155,7 @@ const groupBuySchema = new mongoose.Schema({
     type: String,
     unique: true
   }
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 // Generate invite code
 groupBuySchema.pre('save', function (next) {
@@ -228,7 +228,7 @@ const videoReviewSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   }
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 export const LiveStream = mongoose.model('LiveStream', liveStreamSchema);
 export const GroupBuy = mongoose.model('GroupBuy', groupBuySchema);

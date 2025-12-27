@@ -62,7 +62,7 @@ const referralProgramSchema = new mongoose.Schema({
     enum: ['active', 'suspended', 'cancelled'],
     default: 'active'
   }
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 referralProgramSchema.index({ referrer: 1 });
 

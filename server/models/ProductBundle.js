@@ -99,7 +99,7 @@ const productBundleSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   }
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 productBundleSchema.index({ status: 1 });
 

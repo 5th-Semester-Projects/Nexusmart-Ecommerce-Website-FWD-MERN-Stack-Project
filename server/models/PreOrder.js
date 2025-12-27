@@ -97,7 +97,7 @@ const preOrderSchema = new mongoose.Schema({
     enum: ['active', 'confirmed', 'cancelled', 'fulfilled', 'refunded'],
     default: 'active'
   }
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 preOrderSchema.index({ product: 1, user: 1 });
 preOrderSchema.index({ status: 1 });

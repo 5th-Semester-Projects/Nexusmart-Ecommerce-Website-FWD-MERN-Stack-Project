@@ -67,6 +67,6 @@ const emailCampaignSchema = new mongoose.Schema({
     ref: 'User',
     required: true
   }
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 export default mongoose.model('EmailCampaign', emailCampaignSchema);

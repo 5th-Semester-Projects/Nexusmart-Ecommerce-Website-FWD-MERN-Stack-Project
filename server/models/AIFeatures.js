@@ -21,7 +21,7 @@ const chatMessageSchema = new mongoose.Schema({
       ref: 'Product',
     }],
   },
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 // ==================== AI CHAT SESSION SCHEMA ====================
 const aiChatSessionSchema = new mongoose.Schema({
@@ -64,7 +64,7 @@ const aiChatSessionSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   },
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 aiChatSessionSchema.index({ user: 1, createdAt: -1 });
 
@@ -103,7 +103,7 @@ const visualSearchSchema = new mongoose.Schema({
     },
   }],
   searchQuery: String,
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 visualSearchSchema.index({ imageHash: 1 });
 
@@ -126,7 +126,7 @@ const priceHistorySchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 priceHistorySchema.index({ product: 1, recordedAt: -1 });
 
@@ -176,7 +176,7 @@ const pricePredictionSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 pricePredictionSchema.index({ product: 1, validUntil: -1 });
 
@@ -218,7 +218,7 @@ const userRecommendationSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 userRecommendationSchema.index({ user: 1, type: 1 });
 userRecommendationSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 });

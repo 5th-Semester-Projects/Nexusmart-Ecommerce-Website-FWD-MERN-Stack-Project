@@ -46,7 +46,7 @@ const virtualTryOnSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 virtualTryOnSchema.index({ user: 1, product: 1 });
 
@@ -106,7 +106,7 @@ const furniturePlacementSchema = new mongoose.Schema({
     default: false,
   },
   notes: String,
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 export const FurniturePlacement = mongoose.model('FurniturePlacement', furniturePlacementSchema);
 
@@ -166,7 +166,7 @@ const bodyScanSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 bodyScanSchema.index({ user: 1, isActive: 1 });
 
@@ -223,7 +223,7 @@ const arProductModelSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 export const ARProductModel = mongoose.model('ARProductModel', arProductModelSchema);
 

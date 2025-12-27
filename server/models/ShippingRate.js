@@ -103,7 +103,7 @@ const shippingRateSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   }
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 shippingRateSchema.index({ 'carrier.name': 1 });
 shippingRateSchema.index({ calculatedAt: 1 });

@@ -151,7 +151,7 @@ const multiVendorSchema = new mongoose.Schema({
     returnPolicy: String,
     processingTime: Number
   }
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 multiVendorSchema.index({ status: 1 });
 multiVendorSchema.index({ 'ratings.average': -1 });

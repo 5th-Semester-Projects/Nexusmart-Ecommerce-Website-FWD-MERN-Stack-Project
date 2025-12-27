@@ -45,7 +45,7 @@ const membershipTierSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 export const MembershipTier = mongoose.model('MembershipTier', membershipTierSchema);
 
@@ -103,7 +103,7 @@ const rewardCatalogSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 rewardCatalogSchema.index({ type: 1, isActive: 1 });
 rewardCatalogSchema.index({ pointsCost: 1 });
@@ -142,7 +142,7 @@ const rewardRedemptionSchema = new mongoose.Schema({
     ref: 'Order',
   },
   notes: String,
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 rewardRedemptionSchema.index({ user: 1, status: 1 });
 
@@ -202,7 +202,7 @@ const memberDealSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 memberDealSchema.index({ minTier: 1, isActive: 1 });
 memberDealSchema.index({ startDate: 1, endDate: 1 });
@@ -246,7 +246,7 @@ const birthdayRewardSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Order',
   },
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 birthdayRewardSchema.index({ user: 1, year: 1 }, { unique: true });
 
@@ -276,7 +276,7 @@ const pointsExpirySchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 pointsExpirySchema.index({ expiresAt: 1, expired: 1 });
 

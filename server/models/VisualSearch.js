@@ -70,7 +70,7 @@ const visualSearchSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   }
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 visualSearchSchema.index({ user: 1, searchedAt: -1 });
 

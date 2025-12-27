@@ -12,9 +12,6 @@ const logger = winston.createLogger({
   ],
 });
 
-// Suppress reserved schema pathname warnings globally
-mongoose.set('suppressReservedKeysWarning', true);
-
 /**
  * Connect to MongoDB database
  * Implements connection pooling and error handling

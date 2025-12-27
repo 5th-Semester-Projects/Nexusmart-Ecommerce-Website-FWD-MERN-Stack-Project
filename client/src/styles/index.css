@@ -20,6 +20,13 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ==================== NAVBAR FIX - Remove scrollbar ==================== */
+nav {
+  overflow: visible !important;
+  overflow-y: visible !important;
+  overflow-x: hidden !important;
+}
+
 /* ==================== GLOBAL FIX - Ensure pseudo-elements don't block clicks ==================== */
 *::before,
 *::after {

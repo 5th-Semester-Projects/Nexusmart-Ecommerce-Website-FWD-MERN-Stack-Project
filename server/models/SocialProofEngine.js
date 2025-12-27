@@ -528,7 +528,6 @@ const socialProofEngineSchema = new mongoose.Schema({
 });
 
 // Indexes
-socialProofEngineSchema.index({ businessId: 1 });
 socialProofEngineSchema.index({ 'recentPurchases.timestamp': -1 });
 
 // Methods

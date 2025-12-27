@@ -326,7 +326,6 @@ const productQASchema = new mongoose.Schema({
 // Indexes
 productQASchema.index({ product: 1, status: 1 });
 productQASchema.index({ 'question.askedBy': 1 });
-productQASchema.index({ 'moderation.status': 1 });
 
 // Methods
 productQASchema.methods.addAnswer = function (answerData) {

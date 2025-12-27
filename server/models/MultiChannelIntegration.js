@@ -497,7 +497,6 @@ const multiChannelIntegrationSchema = new mongoose.Schema({
 });
 
 // Indexes
-multiChannelIntegrationSchema.index({ businessId: 1 });
 multiChannelIntegrationSchema.index({ 'instagram.enabled': 1 });
 multiChannelIntegrationSchema.index({ 'facebook.enabled': 1 });
 multiChannelIntegrationSchema.index({ 'amazon.enabled': 1 });

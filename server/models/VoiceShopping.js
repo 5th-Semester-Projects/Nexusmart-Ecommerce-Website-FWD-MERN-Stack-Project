@@ -98,7 +98,8 @@ const voiceShoppingSchema = new mongoose.Schema({
     completedTask: Boolean
   }
 }, {
-  timestamps: true
+  timestamps: true,
+  suppressReservedKeysWarning: true
 });
 
 voiceShoppingSchema.index({ user: 1, createdAt: -1 });

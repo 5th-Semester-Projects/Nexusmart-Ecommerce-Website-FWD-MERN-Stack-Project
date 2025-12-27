@@ -111,7 +111,6 @@ const loyaltyTierSchema = new mongoose.Schema({
   }
 }, { timestamps: true });
 
-loyaltyTierSchema.index({ user: 1 });
 loyaltyTierSchema.index({ 'currentTier.name': 1 });
 
 export default mongoose.model('LoyaltyTier', loyaltyTierSchema);

@@ -418,7 +418,6 @@ const preOrderBackorderSchema = new mongoose.Schema({
 });
 
 // Indexes
-preOrderBackorderSchema.index({ product: 1, seller: 1 });
 preOrderBackorderSchema.index({ 'waitlist.user': 1 });
 
 // Methods

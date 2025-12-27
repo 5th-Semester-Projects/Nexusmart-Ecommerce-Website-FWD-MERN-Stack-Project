@@ -1,5 +1,23 @@
 import mongoose from 'mongoose';
 
+// Sub-schema for errors array
+const errorSchema = new mongoose.Schema({
+  type: {
+    type: String,
+    enum: ['service_worker', 'cache', 'sync', 'notification', 'payment', 'other']
+  },
+  message: String,
+  stack: String,
+  timestamp: {
+    type: Date,
+    default: Date.now
+  },
+  resolved: {
+    type: Boolean,
+    default: false
+  }
+}, { _id: false, suppressReservedKeysWarning: true });
+
 const progressiveWebAppSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
@@ -305,22 +323,7 @@ const progressiveWebAppSchema = new mongoose.Schema({
   },
 
   // Errors and issues
-  errors: [{
-    type: {
-      type: String,
-      enum: ['service_worker', 'cache', 'sync', 'notification', 'payment', 'other']
-    },
-    message: String,
-    stack: String,
-    timestamp: {
-      type: Date,
-      default: Date.now
-    },
-    resolved: {
-      type: Boolean,
-      default: false
-    }
-  }],
+  errors: [errorSchema],
 
   // User feedback
   feedback: {

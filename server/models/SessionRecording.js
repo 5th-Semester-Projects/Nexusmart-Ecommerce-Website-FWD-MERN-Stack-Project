@@ -1,5 +1,13 @@
 import mongoose from 'mongoose';
 
+// Sub-schema for errors array
+const errorSchema = new mongoose.Schema({
+  message: String,
+  stack: String,
+  timestamp: Date,
+  page: String
+}, { _id: false, suppressReservedKeysWarning: true });
+
 const sessionRecordingSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
@@ -74,12 +82,7 @@ const sessionRecordingSchema = new mongoose.Schema({
     os: String,
     screenSize: String
   },
-  errors: [{
-    message: String,
-    stack: String,
-    timestamp: Date,
-    page: String
-  }],
+  errors: [errorSchema],
   consent: {
     given: {
       type: Boolean,

@@ -78,7 +78,6 @@ const conversationalShoppingSchema = new mongoose.Schema({
 });
 
 conversationalShoppingSchema.index({ user: 1, createdAt: -1 });
-conversationalShoppingSchema.index({ sessionId: 1 });
 
 const ConversationalShopping = mongoose.model('ConversationalShopping', conversationalShoppingSchema);
 export default ConversationalShopping;

@@ -359,7 +359,6 @@ const advancedSearchFiltersSchema = new mongoose.Schema({
 
 // Indexes
 advancedSearchFiltersSchema.index({ userId: 1, lastSearched: -1 });
-advancedSearchFiltersSchema.index({ sessionId: 1 });
 advancedSearchFiltersSchema.index({ 'searchQuery.keyword': 'text' });
 advancedSearchFiltersSchema.index({ 'trendingSearches.count': -1 });
 advancedSearchFiltersSchema.index({ 'results.products.product': 1 });

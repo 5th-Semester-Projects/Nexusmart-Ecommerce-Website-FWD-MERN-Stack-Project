@@ -93,7 +93,6 @@ const warehouseSchema = new mongoose.Schema({
   }
 }, { timestamps: true });
 
-warehouseSchema.index({ code: 1 });
 warehouseSchema.index({ 'location.coordinates': '2dsphere' });
 
 export default mongoose.model('Warehouse', warehouseSchema);

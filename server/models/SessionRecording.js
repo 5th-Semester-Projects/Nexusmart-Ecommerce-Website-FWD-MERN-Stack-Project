@@ -108,7 +108,6 @@ const sessionRecordingSchema = new mongoose.Schema({
   timestamps: true
 });
 
-sessionRecordingSchema.index({ sessionId: 1 });
 sessionRecordingSchema.index({ user: 1 });
 sessionRecordingSchema.index({ 'recording.started': -1 });
 

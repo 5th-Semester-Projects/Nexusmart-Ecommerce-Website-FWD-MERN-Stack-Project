@@ -67,7 +67,6 @@ const aiChatSessionSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 aiChatSessionSchema.index({ user: 1, createdAt: -1 });
-aiChatSessionSchema.index({ sessionId: 1 });
 
 export const AIChatSession = mongoose.model('AIChatSession', aiChatSessionSchema);
 

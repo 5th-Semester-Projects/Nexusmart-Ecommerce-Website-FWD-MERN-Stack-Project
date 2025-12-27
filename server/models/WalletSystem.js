@@ -242,7 +242,6 @@ const walletSystemSchema = new mongoose.Schema({
 });
 
 // Indexes
-walletSystemSchema.index({ user: 1 }, { unique: true });
 walletSystemSchema.index({ 'transactions.transactionId': 1 });
 walletSystemSchema.index({ status: 1 });
 walletSystemSchema.index({ referralCode: 1 });

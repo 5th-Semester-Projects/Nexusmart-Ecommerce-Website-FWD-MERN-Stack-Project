@@ -64,7 +64,6 @@ const referralProgramSchema = new mongoose.Schema({
   }
 }, { timestamps: true });
 
-referralProgramSchema.index({ referralCode: 1 });
 referralProgramSchema.index({ referrer: 1 });
 
 export default mongoose.model('ReferralProgram', referralProgramSchema);

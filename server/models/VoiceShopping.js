@@ -102,7 +102,6 @@ const voiceShoppingSchema = new mongoose.Schema({
 });
 
 voiceShoppingSchema.index({ user: 1, createdAt: -1 });
-voiceShoppingSchema.index({ sessionId: 1 });
 voiceShoppingSchema.index({ platform: 1, createdAt: -1 });
 
 const VoiceShopping = mongoose.model('VoiceShopping', voiceShoppingSchema);

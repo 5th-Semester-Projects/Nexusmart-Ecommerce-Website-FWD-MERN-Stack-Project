@@ -143,7 +143,6 @@ const productComparisonSchema = new mongoose.Schema({
 
 // Indexes
 productComparisonSchema.index({ user: 1, isActive: 1 });
-productComparisonSchema.index({ sessionId: 1 });
 productComparisonSchema.index({ 'products.product': 1 });
 productComparisonSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 });
 productComparisonSchema.index({ 'sharing.shareLink': 1 });

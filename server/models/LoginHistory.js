@@ -62,7 +62,6 @@ const loginHistorySchema = new mongoose.Schema({
 // Index for efficient queries
 loginHistorySchema.index({ user: 1, createdAt: -1 });
 loginHistorySchema.index({ user: 1, isActive: 1 });
-loginHistorySchema.index({ sessionId: 1 });
 
 // Static method to log a login attempt
 loginHistorySchema.statics.logLogin = async function ({

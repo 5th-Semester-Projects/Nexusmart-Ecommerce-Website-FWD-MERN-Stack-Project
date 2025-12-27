@@ -346,7 +346,6 @@ const progressiveWebAppSchema = new mongoose.Schema({
 });
 
 // Indexes
-progressiveWebAppSchema.index({ sessionId: 1 });
 progressiveWebAppSchema.index({ user: 1 });
 progressiveWebAppSchema.index({ 'installation.isInstalled': 1 });
 progressiveWebAppSchema.index({ 'pushNotifications.subscribed': 1 });

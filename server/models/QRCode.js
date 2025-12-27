@@ -80,7 +80,6 @@ const qrCodeSchema = new mongoose.Schema({
 });
 
 // Indexes
-qrCodeSchema.index({ code: 1 });
 qrCodeSchema.index({ type: 1, isActive: 1 });
 qrCodeSchema.index({ targetId: 1 });
 

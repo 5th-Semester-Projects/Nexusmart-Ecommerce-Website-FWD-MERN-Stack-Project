@@ -97,6 +97,5 @@ const liveChatSchema = new mongoose.Schema({
 
 liveChatSchema.index({ customer: 1, createdAt: -1 });
 liveChatSchema.index({ agent: 1, status: 1 });
-liveChatSchema.index({ sessionId: 1 });
 
 export default mongoose.model('LiveChat', liveChatSchema);

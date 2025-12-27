@@ -197,7 +197,6 @@ couponSchema.statics.findPublicCoupons = function () {
 };
 
 // Index for faster queries
-couponSchema.index({ code: 1 });
 couponSchema.index({ isActive: 1, isPublic: 1, expiresAt: 1 });
 
 export default mongoose.model('Coupon', couponSchema);

@@ -294,7 +294,6 @@ const virtualTryOnSchema = new mongoose.Schema({
 });
 
 // Indexes
-virtualTryOnSchema.index({ sessionId: 1 });
 virtualTryOnSchema.index({ user: 1, createdAt: -1 });
 virtualTryOnSchema.index({ product: 1 });
 virtualTryOnSchema.index({ 'social.shareLink': 1 });

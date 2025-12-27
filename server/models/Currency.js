@@ -173,7 +173,6 @@ currencySchema.statics.convert = async function (amount, fromCurrency, toCurrenc
   return Math.round(converted * Math.pow(10, to.decimalPlaces)) / Math.pow(10, to.decimalPlaces);
 };
 
-currencySchema.index({ code: 1 });
 currencySchema.index({ isActive: 1, isDefault: 1 });
 
 export const Currency = mongoose.model('Currency', currencySchema);

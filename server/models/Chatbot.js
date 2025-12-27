@@ -104,7 +104,6 @@ const chatbotSchema = new mongoose.Schema({
 });
 
 // Index for performance
-chatbotSchema.index({ sessionId: 1 });
 chatbotSchema.index({ user: 1, status: 1 });
 chatbotSchema.index({ createdAt: -1 });
 

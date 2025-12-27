@@ -198,7 +198,6 @@ const chatbotConversationSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 chatbotConversationSchema.index({ user: 1, createdAt: -1 });
-chatbotConversationSchema.index({ sessionId: 1 });
 
 export const ChatbotConversation = mongoose.model('ChatbotConversation', chatbotConversationSchema);
 

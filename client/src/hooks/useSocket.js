@@ -29,7 +29,7 @@ export const useSocket = (namespace = '') => {
     // Create or reuse socket connection
     if (!socketInstance) {
       socketInstance = io(SOCKET_URL + namespace, {
-        transports: ['websocket', 'polling'],
+        transports: ['polling', 'websocket'], // Use polling first (Heroku free tier limitation)
         autoConnect: true,
         reconnection: true,
         reconnectionAttempts: 5,

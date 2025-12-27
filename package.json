@@ -8,7 +8,7 @@
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "server": "cd server && npm run dev",
     "client": "cd client && npm run dev",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
+    "heroku-postbuild": "npm install --prefix server && NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
     "build": "cd client && npm install --include=dev && npm run build",
     "start": "node server/server.js",
     "test": "cd server && npm test && cd ../client && npm test",

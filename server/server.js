@@ -148,10 +148,24 @@ if (process.env.NODE_ENV === 'production') {
 // Initialize Socket.IO
 const io = new Server(server, {
   cors: {
-    origin: [
-      'http://localhost:5173',
-      'http://localhost:5174'
-    ],
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like mobile apps or same-origin)
+      if (!origin) return callback(null, true);
+      
+      // Allow localhost and Heroku domains
+      const allowedPatterns = [
+        /^http:\/\/localhost:\d+$/,
+        /^https?:\/\/[a-zA-Z0-9-]+\.herokuapp\.com$/,
+        /^https?:\/\/[a-zA-Z0-9-]+\.herokuapp\.com$/
+      ];
+      
+      if (allowedPatterns.some(pattern => pattern.test(origin))) {
+        callback(null, true);
+      } else {
+        console.log('Socket.IO CORS blocked origin:', origin);
+        callback(null, false);
+      }
+    },
     credentials: true,
   },
 });
@@ -195,19 +209,21 @@ app.use(
 );
 app.use(mongoSanitize());
 
-// CORS configuration - Allow multiple origins
-const allowedOrigins = [
-  'http://localhost:5173',
-  'http://localhost:5174'
-];
-
+// CORS configuration - Allow Heroku and localhost
 app.use(
   cors({
     origin: function (origin, callback) {
       // Allow requests with no origin (like mobile apps, Postman, or same-origin)
       if (!origin) return callback(null, true);
 
-      if (allowedOrigins.indexOf(origin) !== -1) {
+      // Allow localhost and Heroku domains
+      const allowedPatterns = [
+        /^http:\/\/localhost:\d+$/,
+        /^https?:\/\/[a-zA-Z0-9-]+\.herokuapp\.com$/,
+        /^https?:\/\/[a-zA-Z0-9-]+\.herokuapp\.com$/
+      ];
+      
+      if (allowedPatterns.some(pattern => pattern.test(origin))) {
         callback(null, true);
       } else {
         console.log('CORS blocked origin:', origin);

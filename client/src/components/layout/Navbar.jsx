@@ -58,7 +58,7 @@ const Navbar = () => {
         style={{ overflow: 'visible !important', overflowY: 'visible !important', overflowX: 'hidden' }}
       >
         {/* Glassmorphism Background */}
-        <div className="absolute inset-0 bg-gray-950/80 backdrop-blur-xl border-b border-purple-500/20 w-full"></div>
+        <div className="absolute inset-0 bg-gray-950/80 backdrop-blur-xl border-b border-purple-500/20 w-full" style={{ overflow: 'visible' }}></div>
         
         {/* Animated Border Gradient */}
         <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-purple-500 to-transparent opacity-50"></div>
@@ -67,8 +67,8 @@ const Navbar = () => {
         <div className="absolute top-0 left-1/4 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl -z-10"></div>
         <div className="absolute top-0 right-1/4 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl -z-10"></div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          <div className="flex items-center justify-between h-20 w-full">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full" style={{ overflow: 'visible' }}>
+          <div className="flex items-center justify-between h-20 w-full" style={{ overflow: 'visible' }}>
             
             {/* Logo - Enhanced with 3D effect */}
             <Link to="/" className="flex items-center space-x-3 group">

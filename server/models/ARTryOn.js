@@ -479,7 +479,7 @@ const arTryOnSchema = new mongoose.Schema({
 
 // Indexes
 arTryOnSchema.index({ product: 1, arType: 1 });
-arTryOnSchema.index({ status: 1 });
+// arTryOnSchema.index({ status: 1 }); // Removed: status already has index:true
 arTryOnSchema.index({ 'analytics.conversionRate': -1 });
 
 // Methods

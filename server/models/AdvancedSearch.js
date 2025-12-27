@@ -148,7 +148,7 @@ const advancedSearchSchema = new mongoose.Schema({
 
 // Indexes
 advancedSearchSchema.index({ 'query.original': 'text' });
-advancedSearchSchema.index({ searchedAt: -1 });
+// advancedSearchSchema.index({ searchedAt: -1 }); // Removed: searchedAt already has index:true
 advancedSearchSchema.index({ 'results.products.product': 1 });
 advancedSearchSchema.index({ 'metrics.conversionRate': -1 });
 

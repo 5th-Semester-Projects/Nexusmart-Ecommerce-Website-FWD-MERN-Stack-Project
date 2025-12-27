@@ -359,7 +359,7 @@ const customerSegmentationSchema = new mongoose.Schema({
 });
 
 // Indexes
-customerSegmentationSchema.index({ user: 1 });
+// customerSegmentationSchema.index({ user: 1 }); // Removed: user already has unique:true
 customerSegmentationSchema.index({ primarySegment: 1 });
 customerSegmentationSchema.index({ 'rfm.combinedScore': -1 });
 customerSegmentationSchema.index({ 'valueTier.tier': 1 });

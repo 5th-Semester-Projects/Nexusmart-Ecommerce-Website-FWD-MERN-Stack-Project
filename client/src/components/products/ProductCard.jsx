@@ -200,24 +200,26 @@ const ProductCard = ({ product, onQuickView, eager = false }) => {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={handleQuickView}
-              className="p-3 bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl rounded-full text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-gray-700 transition-all shadow-2xl border-2 border-purple-500 dark:border-purple-400 pointer-events-auto"
+              className="px-4 py-3 bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl rounded-full text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-gray-700 transition-all shadow-2xl border-2 border-purple-500 dark:border-purple-400 pointer-events-auto flex items-center gap-2"
               title="Quick View"
             >
-              <FiEye className="w-6 h-6" style={{ strokeWidth: 2.5 }} />
+              <FiEye className="w-5 h-5" />
+              <span className="text-sm font-semibold">View</span>
             </motion.button>
             
             <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={handleCompareToggle}
-              className={`p-3 backdrop-blur-xl rounded-full transition-all shadow-2xl border-2 pointer-events-auto
+              className={`px-4 py-3 backdrop-blur-xl rounded-full transition-all shadow-2xl border-2 pointer-events-auto flex items-center gap-2
                 ${inComparison 
                   ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white border-purple-400' 
                   : 'bg-white/95 dark:bg-gray-800/95 text-purple-600 dark:text-purple-400 border-purple-500 dark:border-purple-400 hover:bg-purple-50 dark:hover:bg-gray-700'
                 }`}
               title={inComparison ? 'Remove from Compare' : 'Add to Compare'}
             >
-              <HiOutlineScale className="w-6 h-6" style={{ strokeWidth: 2.5 }} />
+              <HiOutlineScale className="w-5 h-5" />
+              <span className="text-sm font-semibold">Compare</span>
             </motion.button>
             
             <motion.button
@@ -226,7 +228,7 @@ const ProductCard = ({ product, onQuickView, eager = false }) => {
               onClick={handleAddToCart}
               className="px-6 py-3 bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600 text-white rounded-full font-bold hover:shadow-2xl hover:shadow-purple-500/80 transition-all flex items-center gap-2 border-2 border-white/30 pointer-events-auto"
             >
-              <FiShoppingCart className="w-6 h-6" style={{ strokeWidth: 2.5 }} />
+              <FiShoppingCart className="w-5 h-5" />
               <span className="text-sm">Add</span>
             </motion.button>
           </motion.div>

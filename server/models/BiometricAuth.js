@@ -102,7 +102,6 @@ const biometricAuthSchema = new mongoose.Schema({
   timestamps: true
 });
 
-biometricAuthSchema.index({ user: 1 });
 biometricAuthSchema.index({ 'deviceBindings.deviceId': 1 });
 
 const BiometricAuth = mongoose.model('BiometricAuth', biometricAuthSchema);

@@ -112,8 +112,6 @@ const iotIntegrationSchema = new mongoose.Schema({
   timestamps: true
 });
 
-iotIntegrationSchema.index({ user: 1 });
-iotIntegrationSchema.index({ 'device.deviceId': 1 });
 iotIntegrationSchema.index({ 'connectivity.status': 1 });
 
 const IoTIntegration = mongoose.model('IoTIntegration', iotIntegrationSchema);

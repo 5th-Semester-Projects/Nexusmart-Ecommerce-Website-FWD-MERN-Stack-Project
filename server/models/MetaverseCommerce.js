@@ -153,7 +153,6 @@ const metaverseCommerceSchema = new mongoose.Schema({
   timestamps: true
 });
 
-metaverseCommerceSchema.index({ user: 1 });
 metaverseCommerceSchema.index({ 'nftPurchases.tokenId': 1 });
 metaverseCommerceSchema.index({ 'virtualStore.platform': 1, createdAt: -1 });
 

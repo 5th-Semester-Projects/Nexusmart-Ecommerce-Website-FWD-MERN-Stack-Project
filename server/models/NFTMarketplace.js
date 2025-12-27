@@ -141,7 +141,6 @@ const nftMarketplaceSchema = new mongoose.Schema({
   timestamps: true
 });
 
-nftMarketplaceSchema.index({ 'nft.tokenId': 1 });
 nftMarketplaceSchema.index({ owner: 1 });
 nftMarketplaceSchema.index({ creator: 1 });
 nftMarketplaceSchema.index({ 'listing.listed': 1 });

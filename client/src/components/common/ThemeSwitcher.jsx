@@ -101,13 +101,13 @@ const ThemeSwitcher = ({ variant = 'dropdown' }) => {
         animate={{ opacity: 1, y: 0, scale: 1 }}
         exit={{ opacity: 0, y: -10, scale: 0.95 }}
         transition={{ duration: 0.2 }}
-        className="fixed w-64 z-[9999]
-                 bg-gray-900/95 backdrop-blur-xl border border-purple-500/30 
-                 rounded-xl shadow-2xl shadow-purple-500/20 overflow-hidden"
+        className="fixed w-64 z-[99999]
+                 bg-gray-900 backdrop-blur-xl border-2 border-red-500 
+                 rounded-xl shadow-2xl overflow-hidden"
         style={{ 
-          background: 'var(--bg-card, rgba(15, 15, 35, 0.95))',
           top: `${dropdownPosition.top}px`,
-          right: `${dropdownPosition.right}px`
+          right: `${dropdownPosition.right}px`,
+          boxShadow: '0 0 50px rgba(255, 0, 0, 0.5)'
         }}
       >
         <div className="p-3 border-b border-purple-500/20">

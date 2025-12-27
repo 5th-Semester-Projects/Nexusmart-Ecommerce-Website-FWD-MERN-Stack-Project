@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiSun, FiMoon, FiStar, FiCheck } from 'react-icons/fi';
@@ -90,8 +91,89 @@ const ThemeSwitcher = ({ variant = 'dropdown' }) => {
   }
 
   // Dropdown variant - shows all options
+  const dropdownContent = isOpen && (
+    <>
+      {/* Backdrop */}
+      <div className="fixed inset-0 z-[9998]" onClick={() => setIsOpen(false)} />
+      
+      <motion.div
+        initial={{ opacity: 0, y: -10, scale: 0.95 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={{ opacity: 0, y: -10, scale: 0.95 }}
+        transition={{ duration: 0.2 }}
+        className="fixed w-64 z-[9999]
+                 bg-gray-900/95 backdrop-blur-xl border border-purple-500/30 
+                 rounded-xl shadow-2xl shadow-purple-500/20 overflow-hidden"
+        style={{ 
+          background: 'var(--bg-card, rgba(15, 15, 35, 0.95))',
+          top: `${dropdownPosition.top}px`,
+          right: `${dropdownPosition.right}px`
+        }}
+      >
+        <div className="p-3 border-b border-purple-500/20">
+          <p className="text-sm font-semibold" style={{ color: 'var(--text-primary, #fff)' }}>
+            Choose Theme
+          </p>
+        </div>
+        
+        <div className="p-2">
+          {themes.map((theme) => {
+            const Icon = theme.icon;
+            const isActive = currentTheme === theme.id;
+            
+            return (
+              <motion.button
+                key={theme.id}
+                whileHover={{ x: 4 }}
+                onClick={() => handleThemeChange(theme.id)}
+                className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg transition-all duration-200
+                  ${isActive 
+                    ? 'bg-purple-500/20 border border-purple-500/40' 
+                    : 'hover:bg-purple-500/10 border border-transparent'
+                  }`}
+              >
+                {/* Theme Colors Preview */}
+                <div className="flex -space-x-1">
+                  {theme.colors.map((color, i) => (
+                    <div
+                      key={i}
+                      className="w-5 h-5 rounded-full border-2 border-gray-800"
+                      style={{ backgroundColor: color, zIndex: 3 - i }}
+                    />
+                  ))}
+                </div>
+                
+                {/* Theme Info */}
+                <div className="flex-1 text-left">
+                  <p className="font-medium" style={{ color: 'var(--text-primary, #fff)' }}>
+                    {theme.name}
+                  </p>
+                  <p className="text-xs" style={{ color: 'var(--text-muted, #a78bfa)' }}>
+                    {theme.description}
+                  </p>
+                </div>
+                
+                {/* Check Icon */}
+                {isActive && (
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    className="w-6 h-6 rounded-full bg-gradient-to-r from-purple-500 to-cyan-500 
+                             flex items-center justify-center"
+                  >
+                    <FiCheck className="text-white text-sm" />
+                  </motion.div>
+                )}
+              </motion.button>
+            );
+          })}
+        </div>
+      </motion.div>
+    </>
+  );
+
   return (
-    <div className="relative z-[9999]" ref={dropdownRef}>
+    <div className="relative" ref={dropdownRef}>
       <motion.button
         ref={buttonRef}
         whileHover={{ scale: 1.05 }}
@@ -106,86 +188,7 @@ const ThemeSwitcher = ({ variant = 'dropdown' }) => {
       </motion.button>
 
       <AnimatePresence>
-        {isOpen && (
-          <>
-            {/* Backdrop */}
-            <div className="fixed inset-0 z-[9998]" onClick={() => setIsOpen(false)} />
-            
-            <motion.div
-              initial={{ opacity: 0, y: -10, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -10, scale: 0.95 }}
-              transition={{ duration: 0.2 }}
-              className="fixed w-64 z-[9999]
-                       bg-gray-900/95 backdrop-blur-xl border border-purple-500/30 
-                       rounded-xl shadow-2xl shadow-purple-500/20 overflow-hidden"
-              style={{ 
-                background: 'var(--bg-card, rgba(15, 15, 35, 0.95))',
-                top: `${dropdownPosition.top}px`,
-                right: `${dropdownPosition.right}px`
-              }}
-            >
-              <div className="p-3 border-b border-purple-500/20">
-                <p className="text-sm font-semibold" style={{ color: 'var(--text-primary, #fff)' }}>
-                  Choose Theme
-                </p>
-              </div>
-              
-              <div className="p-2">
-                {themes.map((theme) => {
-                  const Icon = theme.icon;
-                  const isActive = currentTheme === theme.id;
-                  
-                  return (
-                    <motion.button
-                      key={theme.id}
-                      whileHover={{ x: 4 }}
-                      onClick={() => handleThemeChange(theme.id)}
-                      className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg transition-all duration-200
-                        ${isActive 
-                          ? 'bg-purple-500/20 border border-purple-500/40' 
-                          : 'hover:bg-purple-500/10 border border-transparent'
-                        }`}
-                    >
-                      {/* Theme Colors Preview */}
-                      <div className="flex -space-x-1">
-                        {theme.colors.map((color, i) => (
-                          <div
-                            key={i}
-                            className="w-5 h-5 rounded-full border-2 border-gray-800"
-                            style={{ backgroundColor: color, zIndex: 3 - i }}
-                          />
-                        ))}
-                      </div>
-                      
-                      {/* Theme Info */}
-                      <div className="flex-1 text-left">
-                        <p className="font-medium" style={{ color: 'var(--text-primary, #fff)' }}>
-                          {theme.name}
-                        </p>
-                        <p className="text-xs" style={{ color: 'var(--text-muted, #a78bfa)' }}>
-                          {theme.description}
-                        </p>
-                      </div>
-                      
-                      {/* Check Icon */}
-                      {isActive && (
-                        <motion.div
-                          initial={{ scale: 0 }}
-                          animate={{ scale: 1 }}
-                          className="w-6 h-6 rounded-full bg-gradient-to-r from-purple-500 to-cyan-500 
-                                   flex items-center justify-center"
-                        >
-                          <FiCheck className="text-white text-sm" />
-                        </motion.div>
-                      )}
-                    </motion.button>
-                  );
-                })}
-              </div>
-            </motion.div>
-          </>
-        )}
+        {dropdownContent && createPortal(dropdownContent, document.body)}
       </AnimatePresence>
     </div>
   );

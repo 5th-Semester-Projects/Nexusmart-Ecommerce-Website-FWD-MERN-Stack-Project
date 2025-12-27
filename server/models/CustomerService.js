@@ -86,7 +86,7 @@ const videoChatSessionSchema = new mongoose.Schema({
     },
     feedback: String,
   },
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 videoChatSessionSchema.index({ customer: 1, status: 1 });
 videoChatSessionSchema.index({ agent: 1, status: 1 });
@@ -135,7 +135,7 @@ const faqChatbotSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 faqChatbotSchema.index({ category: 1, isActive: 1 });
 faqChatbotSchema.index({ keywords: 1 });
@@ -195,7 +195,7 @@ const chatbotConversationSchema = new mongoose.Schema({
     score: Number,
     feedback: String,
   },
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 chatbotConversationSchema.index({ user: 1, createdAt: -1 });
 
@@ -265,7 +265,7 @@ const callbackScheduleSchema = new mongoose.Schema({
     score: Number,
     feedback: String,
   },
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 callbackScheduleSchema.index({ preferredTime: 1, status: 1 });
 callbackScheduleSchema.index({ customer: 1 });
@@ -345,7 +345,7 @@ const supportTicketSchema = new mongoose.Schema({
     feedback: String,
     submittedAt: Date,
   },
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 supportTicketSchema.index({ ticketNumber: 1 });
 supportTicketSchema.index({ customer: 1, status: 1 });

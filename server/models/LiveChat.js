@@ -93,7 +93,7 @@ const liveChatSchema = new mongoose.Schema({
     responseTime: Number,
     totalDuration: Number
   }
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 liveChatSchema.index({ customer: 1, createdAt: -1 });
 liveChatSchema.index({ agent: 1, status: 1 });

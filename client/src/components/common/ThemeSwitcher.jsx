@@ -32,7 +32,20 @@ const ThemeSwitcher = ({ variant = 'dropdown' }) => {
   const dispatch = useDispatch();
   const currentTheme = useSelector((state) => state.ui?.theme || 'magical');
   const [isOpen, setIsOpen] = useState(false);
+  const [dropdownPosition, setDropdownPosition] = useState({ top: 0, right: 0 });
   const dropdownRef = useRef(null);
+  const buttonRef = useRef(null);
+
+  // Calculate dropdown position when opened
+  useEffect(() => {
+    if (isOpen && buttonRef.current) {
+      const rect = buttonRef.current.getBoundingClientRect();
+      setDropdownPosition({
+        top: rect.bottom + 8,
+        right: window.innerWidth - rect.right
+      });
+    }
+  }, [isOpen]);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -78,8 +91,9 @@ const ThemeSwitcher = ({ variant = 'dropdown' }) => {
 
   // Dropdown variant - shows all options
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div className="relative z-[9999]" ref={dropdownRef}>
       <motion.button
+        ref={buttonRef}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(!isOpen)}
@@ -102,10 +116,14 @@ const ThemeSwitcher = ({ variant = 'dropdown' }) => {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -10, scale: 0.95 }}
               transition={{ duration: 0.2 }}
-              className="absolute right-0 top-full mt-2 w-64 z-[9999]
+              className="fixed w-64 z-[9999]
                        bg-gray-900/95 backdrop-blur-xl border border-purple-500/30 
                        rounded-xl shadow-2xl shadow-purple-500/20 overflow-hidden"
-              style={{ background: 'var(--bg-card, rgba(15, 15, 35, 0.95))' }}
+              style={{ 
+                background: 'var(--bg-card, rgba(15, 15, 35, 0.95))',
+                top: `${dropdownPosition.top}px`,
+                right: `${dropdownPosition.right}px`
+              }}
             >
               <div className="p-3 border-b border-purple-500/20">
                 <p className="text-sm font-semibold" style={{ color: 'var(--text-primary, #fff)' }}>

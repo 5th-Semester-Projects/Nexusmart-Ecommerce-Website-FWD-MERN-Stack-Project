@@ -86,6 +86,14 @@ const PriceHistoryChart = ({ productId, currentPrice = 4999 }) => {
     );
   }
 
+  if (!Array.isArray(priceHistory) || priceHistory.length === 0) {
+    return (
+      <div className="h-48 flex items-center justify-center text-gray-400">
+        <p>No price history available</p>
+      </div>
+    );
+  }
+
   const prices = priceHistory.map(h => h.price);
   const lowestPrice = Math.min(...prices);
   const highestPrice = Math.max(...prices);

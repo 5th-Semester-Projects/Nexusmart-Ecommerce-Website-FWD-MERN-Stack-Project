@@ -48,12 +48,24 @@ const ProductDetailPage = () => {
   const [showSocialShare, setShowSocialShare] = useState(false);
   const [showImageZoom, setShowImageZoom] = useState(false);
 
-  // Create 3 images for display
-  const displayImages = [
-    product?.images?.[0]?.url || product?.image,
-    product?.images?.[1]?.url || product?.images?.[0]?.url || product?.image,
-    product?.images?.[2]?.url || product?.images?.[0]?.url || product?.image,
-  ];
+  // Create 3 images for display - safely handle empty/undefined images
+  const productImages = Array.isArray(product?.images) && product.images.length > 0 
+    ? product.images 
+    : product?.image 
+      ? [{ url: product.image }] 
+      : [];
+  
+  const displayImages = productImages.length > 0 
+    ? [
+        productImages[0]?.url || productImages[0],
+        productImages[1]?.url || productImages[0]?.url || productImages[0],
+        productImages[2]?.url || productImages[0]?.url || productImages[0],
+      ]
+    : [
+        'https://via.placeholder.com/500?text=No+Image',
+        'https://via.placeholder.com/500?text=No+Image',
+        'https://via.placeholder.com/500?text=No+Image'
+      ];
 
   useEffect(() => {
     // Reset states when product ID changes

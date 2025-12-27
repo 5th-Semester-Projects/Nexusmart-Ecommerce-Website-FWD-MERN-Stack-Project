@@ -342,7 +342,8 @@ const progressiveWebAppSchema = new mongoose.Schema({
     default: 'active'
   }
 }, {
-  timestamps: true
+  timestamps: true,
+  suppressReservedKeysWarning: true
 });
 
 // Indexes

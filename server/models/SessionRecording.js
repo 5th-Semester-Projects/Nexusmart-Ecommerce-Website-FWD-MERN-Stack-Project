@@ -105,7 +105,8 @@ const sessionRecordingSchema = new mongoose.Schema({
     timestamp: Date
   }]
 }, {
-  timestamps: true
+  timestamps: true,
+  suppressReservedKeysWarning: true
 });
 
 sessionRecordingSchema.index({ user: 1 });

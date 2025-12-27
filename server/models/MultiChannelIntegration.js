@@ -492,7 +492,8 @@ const multiChannelIntegrationSchema = new mongoose.Schema({
   }]
 
 }, {
-  timestamps: true
+  timestamps: true,
+  suppressReservedKeysWarning: true
 });
 
 // Indexes

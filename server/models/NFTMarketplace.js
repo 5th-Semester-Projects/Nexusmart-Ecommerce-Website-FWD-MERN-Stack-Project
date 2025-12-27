@@ -138,7 +138,8 @@ const nftMarketplaceSchema = new mongoose.Schema({
     default: false
   }
 }, {
-  timestamps: true
+  timestamps: true,
+  suppressReservedKeysWarning: true
 });
 
 nftMarketplaceSchema.index({ owner: 1 });

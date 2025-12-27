@@ -186,50 +186,49 @@ const ProductCard = ({ product, onQuickView, eager = false }) => {
           
           {/* Overlay gradient on hover */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </Link>
 
-          {/* Quick action buttons appear on hover */}
+          {/* Quick action buttons - OUTSIDE Link, positioned absolutely */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 20 }}
             transition={{ duration: 0.3 }}
-            className="absolute bottom-4 left-0 right-0 flex justify-center gap-3 px-4 pointer-events-none"
+            className="absolute bottom-20 left-0 right-0 flex justify-center gap-3 px-4 z-50"
           >
             <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={handleQuickView}
-              className="p-3 bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl rounded-full text-purple-600 dark:text-purple-400 hover:bg-white dark:hover:bg-gray-800 hover:text-purple-700 dark:hover:text-purple-300 transition-all shadow-lg pointer-events-auto"
+              className="p-3 bg-white dark:bg-gray-800 backdrop-blur-xl rounded-full text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-gray-700 transition-all shadow-xl border-2 border-purple-300 dark:border-purple-600"
               title="Quick View"
             >
-              <FiEye className="text-xl" />
+              <FiEye className="text-xl font-bold" />
             </motion.button>
             
-            {/* Compare Button */}
             <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={handleCompareToggle}
-              className={`p-3 backdrop-blur-xl rounded-full transition-all shadow-lg pointer-events-auto
+              className={`p-3 backdrop-blur-xl rounded-full transition-all shadow-xl border-2
                 ${inComparison 
-                  ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-700 hover:to-blue-700' 
-                  : 'bg-white/95 dark:bg-gray-800/95 text-purple-600 dark:text-purple-400 hover:bg-white dark:hover:bg-gray-800 hover:text-purple-700 dark:hover:text-purple-300'
+                  ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white border-purple-400' 
+                  : 'bg-white dark:bg-gray-800 text-purple-600 dark:text-purple-400 border-purple-300 dark:border-purple-600 hover:bg-purple-50 dark:hover:bg-gray-700'
                 }`}
               title={inComparison ? 'Remove from Compare' : 'Add to Compare'}
             >
-              <HiOutlineScale className="text-xl" />
+              <HiOutlineScale className="text-xl font-bold" />
             </motion.button>
             
             <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={handleAddToCart}
-              className="px-6 py-3 bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600 text-white rounded-full font-semibold hover:shadow-xl hover:shadow-purple-500/50 transition-all flex items-center gap-2 pointer-events-auto hover:from-purple-700 hover:via-blue-700 hover:to-cyan-700"
+              className="px-6 py-3 bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600 text-white rounded-full font-bold hover:shadow-2xl hover:shadow-purple-500/50 transition-all flex items-center gap-2 border-2 border-purple-400"
             >
               <FiShoppingCart className="text-lg" />
-              <span className="text-sm font-bold">Add to Cart</span>
+              <span className="text-sm">Add to Cart</span>
             </motion.button>
           </motion.div>
-        </Link>
         </div>
 
         {/* Product Details */}

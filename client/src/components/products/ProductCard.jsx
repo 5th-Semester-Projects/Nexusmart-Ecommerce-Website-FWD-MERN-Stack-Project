@@ -203,7 +203,7 @@ const ProductCard = ({ product, onQuickView, eager = false }) => {
               className="p-3 bg-white dark:bg-gray-900 backdrop-blur-xl rounded-full text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-gray-800 transition-all shadow-2xl border-2 border-purple-400 dark:border-purple-500 pointer-events-auto"
               title="Quick View"
             >
-              <FiEye className="text-xl font-bold" />
+              <FiEye className="w-5 h-5" />
             </motion.button>
             
             <motion.button
@@ -217,7 +217,7 @@ const ProductCard = ({ product, onQuickView, eager = false }) => {
                 }`}
               title={inComparison ? 'Remove from Compare' : 'Add to Compare'}
             >
-              <HiOutlineScale className="text-xl font-bold" />
+              <HiOutlineScale className="w-5 h-5" />
             </motion.button>
             
             <motion.button
@@ -226,7 +226,7 @@ const ProductCard = ({ product, onQuickView, eager = false }) => {
               onClick={handleAddToCart}
               className="px-6 py-3 bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600 text-white rounded-full font-bold hover:shadow-2xl hover:shadow-purple-500/80 transition-all flex items-center gap-2 border-2 border-white/30 pointer-events-auto"
             >
-              <FiShoppingCart className="text-lg" />
+              <FiShoppingCart className="w-5 h-5" />
               <span className="text-sm">Add</span>
             </motion.button>
           </motion.div>

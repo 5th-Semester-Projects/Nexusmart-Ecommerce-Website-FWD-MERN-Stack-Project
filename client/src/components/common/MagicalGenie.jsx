@@ -103,7 +103,7 @@ const MagicalGenie = ({ onOrderConfirm = false }) => {
           }}
           exit={{ scale: 0, opacity: 0 }}
           transition={{ type: 'spring', damping: 15, duration: 0.8 }}
-          className="fixed bottom-[140px] right-6 z-50 pointer-events-auto"
+          className="fixed bottom-[140px] right-6 z-[60] pointer-events-auto"
           style={{ width: '80px', height: '80px' }}
           title="AI Shopping Assistant"
         >

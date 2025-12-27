@@ -8,13 +8,11 @@
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "server": "cd server && npm run dev",
     "client": "cd client && npm run dev",
-    "heroku-postbuild": "echo 'Building NexusMart...' && cd server && npm install --production=false && cd ../client && npm install --production=false && npm run build",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
     "build": "cd client && npm install --include=dev && npm run build",
-    "start": "cd server && npm start",
+    "start": "node server/server.js",
     "test": "cd server && npm test && cd ../client && npm test",
-    "setup": "npm run install-all && echo '\n✅ Dependencies installed! Next steps:\n1. Copy server/.env.example to server/.env\n2. Copy client/.env.example to client/.env\n3. Update environment variables\n4. Run: npm run dev'",
-    "deploy:heroku": "git push heroku main",
-    "logs:heroku": "heroku logs --tail"
+    "setup": "npm run install-all && echo '\n✅ Dependencies installed! Next steps:\n1. Copy server/.env.example to server/.env\n2. Copy client/.env.example to client/.env\n3. Update environment variables\n4. Run: npm run dev'"
   },
   "keywords": [
     "ecommerce",

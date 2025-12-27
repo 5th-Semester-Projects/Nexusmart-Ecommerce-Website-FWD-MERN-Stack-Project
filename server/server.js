@@ -150,13 +150,7 @@ const io = new Server(server, {
   cors: {
     origin: [
       'http://localhost:5173',
-      'http://localhost:5174',
-      'https://nexusmart-frontend-3db70d50e139.herokuapp.com',
-      'https://nexusmart-d0c174bae61e.herokuapp.com',
-      'https://nexusmart-ecom-944322862c43.herokuapp.com',
-      'https://nexusmart-ecommerce.onrender.com',
-      'https://nexusmart-backend.onrender.com',
-      'https://nexusmart-frontend.onrender.com'
+      'http://localhost:5174'
     ],
     credentials: true,
   },
@@ -184,10 +178,8 @@ app.use(
         connectSrc: [
           "'self'",
           "https://api.stripe.com",
-          "https://*.herokuapp.com",
           "wss://*.herokuapp.com",
-          "https://*.onrender.com",
-          "wss://*.onrender.com",
+          "https://*.herokuapp.com",
           "https://www.google-analytics.com",
           "https://www.googletagmanager.com",
         ],
@@ -206,13 +198,7 @@ app.use(mongoSanitize());
 // CORS configuration - Allow multiple origins
 const allowedOrigins = [
   'http://localhost:5173',
-  'http://localhost:5174',
-  'https://nexusmart-frontend-3db70d50e139.herokuapp.com',
-  'https://nexusmart-d0c174bae61e.herokuapp.com',
-  'https://nexusmart-ecom-944322862c43.herokuapp.com',
-  'https://nexusmart-ecommerce.onrender.com',
-  'https://nexusmart-backend.onrender.com',
-  'https://nexusmart-frontend.onrender.com'
+  'http://localhost:5174'
 ];
 
 app.use(

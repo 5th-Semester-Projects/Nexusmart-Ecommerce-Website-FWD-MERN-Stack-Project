@@ -495,7 +495,8 @@ const multiChannelIntegrationSchema = new mongoose.Schema({
   syncHistory: [syncHistorySchema]
 
 }, {
-  timestamps: true, suppressReservedKeysWarning: true });
+  timestamps: true, suppressReservedKeysWarning: true
+});
 
 // Indexes
 multiChannelIntegrationSchema.index({ 'instagram.enabled': 1 });

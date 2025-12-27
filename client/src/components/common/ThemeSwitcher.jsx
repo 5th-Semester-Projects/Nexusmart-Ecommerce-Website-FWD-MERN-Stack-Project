@@ -41,9 +41,10 @@ const ThemeSwitcher = ({ variant = 'dropdown' }) => {
   useEffect(() => {
     if (isOpen && buttonRef.current) {
       const rect = buttonRef.current.getBoundingClientRect();
+      const dropdownWidth = 288; // w-72
       setDropdownPosition({
-        top: rect.bottom + window.scrollY + 8,
-        right: window.innerWidth - rect.right + window.scrollX
+        top: rect.bottom + 8,
+        left: rect.right - dropdownWidth
       });
     }
   }, [isOpen]);
@@ -103,11 +104,12 @@ const ThemeSwitcher = ({ variant = 'dropdown' }) => {
         transition={{ duration: 0.2 }}
         className="fixed w-72 z-[99999]
                  bg-gray-900 backdrop-blur-xl border-2 border-purple-500 
-                 rounded-xl shadow-2xl overflow-hidden"
+                 rounded-xl shadow-2xl overflow-visible"
         style={{ 
           top: `${dropdownPosition.top}px`,
-          left: `${window.innerWidth - dropdownPosition.right - 288}px`,
-          boxShadow: '0 25px 50px -12px rgba(139, 92, 246, 0.5)'
+          left: `${dropdownPosition.left}px`,
+          boxShadow: '0 25px 50px -12px rgba(139, 92, 246, 0.8)',
+          maxHeight: '400px'
         }}
       >
         <div className="p-3 border-b border-purple-500/20">

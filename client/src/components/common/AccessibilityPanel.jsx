@@ -519,8 +519,9 @@ export const AccessibilityButton = () => {
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-20 right-4 z-40 w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full shadow-lg flex items-center justify-center hover:shadow-xl transition-shadow"
+        className="fixed bottom-28 right-6 z-40 w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full shadow-lg flex items-center justify-center hover:shadow-xl transition-shadow"
         aria-label="Open accessibility settings"
+        title="Accessibility Settings"
       >
         <FiSettings size={20} />
       </button>

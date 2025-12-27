@@ -77,6 +77,7 @@ const AIChatbot = () => {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         onClick={() => setIsOpen(!isOpen)}
+        title="AI Chatbot"
       >
         {isOpen ? <FaTimes size={20} /> : <FaRobot size={24} />}
       </motion.button>

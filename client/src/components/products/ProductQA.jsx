@@ -124,12 +124,12 @@ const QuestionItem = ({
             onClick={() => setShowAnswers(!showAnswers)}
             className="w-full px-4 py-2 flex items-center justify-between text-sm text-cyan-400 bg-white/5 hover:bg-white/10 transition-colors"
           >
-            <span>{showAnswers ? 'Hide' : 'Show'} Answers ({question.answers.length})</span>
+            <span>{showAnswers ? 'Hide' : 'Show'} Answers ({Array.isArray(question.answers) ? question.answers.length : 0})</span>
             {showAnswers ? <FiChevronUp /> : <FiChevronDown />}
           </button>
 
           <AnimatePresence>
-            {showAnswers && (
+            {showAnswers && Array.isArray(question.answers) && question.answers.length > 0 && (
               <motion.div
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: 'auto', opacity: 1 }}

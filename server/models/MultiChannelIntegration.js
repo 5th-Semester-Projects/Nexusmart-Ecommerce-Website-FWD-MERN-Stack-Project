@@ -1,5 +1,22 @@
 import mongoose from 'mongoose';
 
+// Sub-schema for sync history errors
+const syncHistorySchema = new mongoose.Schema({
+  channel: String,
+  syncType: {
+    type: String,
+    enum: ['products', 'orders', 'inventory', 'catalog']
+  },
+  startTime: Date,
+  endTime: Date,
+  status: {
+    type: String,
+    enum: ['success', 'failed', 'partial']
+  },
+  itemsSynced: Number,
+  errors: [String]
+}, { _id: false, suppressReservedKeysWarning: true });
+
 const multiChannelIntegrationSchema = new mongoose.Schema({
   businessId: {
     type: mongoose.Schema.Types.ObjectId,
@@ -475,21 +492,7 @@ const multiChannelIntegrationSchema = new mongoose.Schema({
   },
 
   // Sync History
-  syncHistory: [{
-    channel: String,
-    syncType: {
-      type: String,
-      enum: ['products', 'orders', 'inventory', 'catalog']
-    },
-    startTime: Date,
-    endTime: Date,
-    status: {
-      type: String,
-      enum: ['success', 'failed', 'partial']
-    },
-    itemsSynced: Number,
-    errors: [String]
-  }]
+  syncHistory: [syncHistorySchema]
 
 }, {
   timestamps: true, suppressReservedKeysWarning: true });

@@ -100,7 +100,8 @@ const chatbotSchema = new mongoose.Schema({
   endedAt: Date,
   duration: Number // in seconds
 }, {
-  timestamps: true
+  timestamps: true,
+  suppressReservedKeysWarning: true
 });
 
 // Index for performance

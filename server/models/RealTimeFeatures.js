@@ -183,7 +183,6 @@ const personalizedDealSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 personalizedDealSchema.index({ user: 1, isUsed: 1 });
-personalizedDealSchema.index({ discountCode: 1 }, { unique: true });
 
 export const PersonalizedDeal = mongoose.model('PersonalizedDeal', personalizedDealSchema);
 

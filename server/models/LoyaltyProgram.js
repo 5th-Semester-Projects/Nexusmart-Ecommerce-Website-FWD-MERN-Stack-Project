@@ -339,7 +339,6 @@ const loyaltyProgramSchema = new mongoose.Schema({
 loyaltyProgramSchema.index({ user: 1 });
 loyaltyProgramSchema.index({ 'membership.tier': 1 });
 loyaltyProgramSchema.index({ 'points.current': -1 });
-loyaltyProgramSchema.index({ 'referral.code': 1 });
 loyaltyProgramSchema.index({ 'points.expiring.expiryDate': 1 });
 
 // Method to add points

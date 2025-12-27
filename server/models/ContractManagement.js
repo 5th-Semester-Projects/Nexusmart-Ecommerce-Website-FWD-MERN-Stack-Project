@@ -136,7 +136,6 @@ const contractManagementSchema = new mongoose.Schema({
   timestamps: true
 });
 
-contractManagementSchema.index({ contractNumber: 1 });
 contractManagementSchema.index({ 'parties.buyer': 1 });
 contractManagementSchema.index({ 'parties.seller': 1 });
 contractManagementSchema.index({ status: 1 });

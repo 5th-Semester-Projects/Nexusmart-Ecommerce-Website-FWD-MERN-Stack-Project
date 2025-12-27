@@ -482,7 +482,6 @@ const liveShoppingEventSchema = new mongoose.Schema({
 });
 
 // Indexes
-liveShoppingEventSchema.index({ slug: 1 });
 liveShoppingEventSchema.index({ 'scheduling.scheduledAt': 1 });
 liveShoppingEventSchema.index({ 'stream.status': 1 });
 liveShoppingEventSchema.index({ 'host.user': 1 });

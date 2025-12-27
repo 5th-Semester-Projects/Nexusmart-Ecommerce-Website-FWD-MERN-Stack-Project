@@ -115,7 +115,6 @@ const quoteManagementSchema = new mongoose.Schema({
 });
 
 quoteManagementSchema.index({ business: 1 });
-quoteManagementSchema.index({ quoteNumber: 1 });
 quoteManagementSchema.index({ status: 1 });
 
 export default mongoose.model('QuoteManagement', quoteManagementSchema);

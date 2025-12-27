@@ -156,7 +156,6 @@ const smartContractEscrowSchema = new mongoose.Schema({
   timestamps: true
 });
 
-smartContractEscrowSchema.index({ order: 1 });
 smartContractEscrowSchema.index({ 'smartContract.address': 1 });
 smartContractEscrowSchema.index({ status: 1, createdAt: -1 });
 

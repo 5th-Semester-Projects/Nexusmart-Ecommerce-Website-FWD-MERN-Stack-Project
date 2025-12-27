@@ -126,7 +126,6 @@ const deviceFingerprintingSchema = new mongoose.Schema({
   timestamps: true
 });
 
-deviceFingerprintingSchema.index({ 'fingerprint.hash': 1 });
 deviceFingerprintingSchema.index({ user: 1 });
 deviceFingerprintingSchema.index({ status: 1 });
 

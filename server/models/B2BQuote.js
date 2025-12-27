@@ -166,7 +166,6 @@ const b2bQuoteSchema = new mongoose.Schema({
   timestamps: true
 });
 
-b2bQuoteSchema.index({ quoteNumber: 1 });
 b2bQuoteSchema.index({ 'buyer.company': 1, status: 1 });
 b2bQuoteSchema.index({ 'seller.company': 1, createdAt: -1 });
 b2bQuoteSchema.index({ status: 1, 'terms.validUntil': 1 });

@@ -480,7 +480,6 @@ const customerServiceHubSchema = new mongoose.Schema({
 
 // Indexes
 customerServiceHubSchema.index({ businessId: 1, 'ticket.status': 1 });
-customerServiceHubSchema.index({ 'ticket.ticketId': 1 }, { unique: true });
 customerServiceHubSchema.index({ 'ticket.customer.userId': 1 });
 customerServiceHubSchema.index({ 'ticket.assignedTo.agent': 1 });
 customerServiceHubSchema.index({ 'ticket.priority': 1, 'ticket.createdAt': -1 });

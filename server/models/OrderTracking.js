@@ -341,8 +341,6 @@ const orderTrackingSchema = new mongoose.Schema({
 });
 
 // Indexes
-orderTrackingSchema.index({ trackingNumber: 1 });
-orderTrackingSchema.index({ order: 1 });
 orderTrackingSchema.index({ user: 1, createdAt: -1 });
 orderTrackingSchema.index({ 'currentStatus.status': 1 });
 orderTrackingSchema.index({ 'estimatedDelivery.date': 1 });

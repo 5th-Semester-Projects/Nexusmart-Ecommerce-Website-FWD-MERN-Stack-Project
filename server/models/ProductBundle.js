@@ -102,6 +102,5 @@ const productBundleSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 productBundleSchema.index({ status: 1 });
-productBundleSchema.index({ slug: 1 });
 
 export default mongoose.model('ProductBundle', productBundleSchema);

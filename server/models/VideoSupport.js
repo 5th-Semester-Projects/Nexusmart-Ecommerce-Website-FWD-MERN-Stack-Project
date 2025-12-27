@@ -139,7 +139,6 @@ const videosupportSchema = new mongoose.Schema({
   timestamps: true
 });
 
-videosupportSchema.index({ 'session.sessionId': 1 });
 videosupportSchema.index({ customer: 1 });
 videosupportSchema.index({ agent: 1 });
 videosupportSchema.index({ 'session.status': 1 });

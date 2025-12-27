@@ -118,7 +118,6 @@ const invoiceFinancingSchema = new mongoose.Schema({
 });
 
 invoiceFinancingSchema.index({ business: 1 });
-invoiceFinancingSchema.index({ 'invoice.invoiceNumber': 1 });
 invoiceFinancingSchema.index({ status: 1 });
 invoiceFinancingSchema.index({ 'invoice.dueDate': 1 });
 

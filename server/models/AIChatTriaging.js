@@ -131,7 +131,6 @@ const aiChatTriagingSchema = new mongoose.Schema({
   timestamps: true
 });
 
-aiChatTriagingSchema.index({ 'ticket.ticketNumber': 1 });
 aiChatTriagingSchema.index({ 'ticket.user': 1 });
 aiChatTriagingSchema.index({ 'routing.actual.agent': 1 });
 aiChatTriagingSchema.index({ 'aiAnalysis.urgency.level': 1 });

@@ -190,7 +190,6 @@ const aiCustomerServiceSchema = new mongoose.Schema({
   timestamps: true
 });
 
-aiCustomerServiceSchema.index({ 'ticket.ticketId': 1 });
 aiCustomerServiceSchema.index({ 'ticket.user': 1, 'ticket.status': 1 });
 aiCustomerServiceSchema.index({ 'ticket.status': 1, 'ticket.priority': 1 });
 aiCustomerServiceSchema.index({ 'aiTriaging.sentiment.label': 1 });

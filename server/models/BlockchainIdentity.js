@@ -89,7 +89,6 @@ const blockchainIdentitySchema = new mongoose.Schema({
 });
 
 blockchainIdentitySchema.index({ user: 1 });
-blockchainIdentitySchema.index({ did: 1 });
 blockchainIdentitySchema.index({ 'wallet.address': 1 });
 
 export default mongoose.model('BlockchainIdentity', blockchainIdentitySchema);

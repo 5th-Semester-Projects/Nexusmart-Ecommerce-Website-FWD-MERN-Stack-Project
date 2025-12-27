@@ -218,8 +218,6 @@ const influencerStorefrontSchema = new mongoose.Schema({
   },
 }, { timestamps: true });
 
-influencerStorefrontSchema.index({ slug: 1 });
-
 export const InfluencerStorefront = mongoose.model('InfluencerStorefront', influencerStorefrontSchema);
 
 // ==================== SHARED WISHLIST ====================

@@ -136,7 +136,6 @@ const splitPaymentSchema = new mongoose.Schema({
   timestamps: true
 });
 
-splitPaymentSchema.index({ order: 1 });
 splitPaymentSchema.index({ user: 1, status: 1 });
 splitPaymentSchema.index({ status: 1, createdAt: -1 });
 

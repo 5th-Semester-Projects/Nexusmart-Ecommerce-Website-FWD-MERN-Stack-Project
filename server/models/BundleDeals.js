@@ -393,7 +393,6 @@ const bundleDealsSchema = new mongoose.Schema({
 });
 
 // Indexes
-bundleDealsSchema.index({ slug: 1 });
 bundleDealsSchema.index({ status: 1, 'validity.isActive': 1 });
 bundleDealsSchema.index({ 'validity.startDate': 1, 'validity.endDate': 1 });
 bundleDealsSchema.index({ 'analytics.purchases': -1 });

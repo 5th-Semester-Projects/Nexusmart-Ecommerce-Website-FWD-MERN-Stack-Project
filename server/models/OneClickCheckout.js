@@ -288,7 +288,7 @@ const oneClickCheckoutSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 // Indexes
 

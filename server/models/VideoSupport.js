@@ -137,7 +137,7 @@ const videosupportSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 videosupportSchema.index({ customer: 1 });
 videosupportSchema.index({ agent: 1 });

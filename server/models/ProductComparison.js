@@ -139,7 +139,7 @@ const productComparisonSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 // Indexes
 productComparisonSchema.index({ user: 1, isActive: 1 });

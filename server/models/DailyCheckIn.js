@@ -52,7 +52,7 @@ const dailyCheckInSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 dailyCheckInSchema.index({ user: 1 });
 

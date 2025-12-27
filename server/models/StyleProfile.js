@@ -82,7 +82,7 @@ const styleProfileSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 const StyleProfile = mongoose.model('StyleProfile', styleProfileSchema);
 export default StyleProfile;

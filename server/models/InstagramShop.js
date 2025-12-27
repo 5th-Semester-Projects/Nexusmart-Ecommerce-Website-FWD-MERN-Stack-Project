@@ -60,7 +60,7 @@ const instagramShopSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 instagramShopSchema.index({ product: 1 });
 instagramShopSchema.index({ instagramProductId: 1 });

@@ -415,7 +415,7 @@ const preOrderBackorderSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 // Indexes
 preOrderBackorderSchema.index({ 'waitlist.user': 1 });

@@ -72,7 +72,7 @@ const offlinePaymentSchema = new mongoose.Schema({
   }]
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 offlinePaymentSchema.index({ order: 1 });
 offlinePaymentSchema.index({ user: 1, status: 1 });

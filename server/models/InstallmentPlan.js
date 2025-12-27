@@ -81,7 +81,7 @@ const installmentPlanSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 installmentPlanSchema.index({ user: 1 });
 installmentPlanSchema.index({ order: 1 });

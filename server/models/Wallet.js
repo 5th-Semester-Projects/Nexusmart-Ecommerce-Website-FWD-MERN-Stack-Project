@@ -85,7 +85,7 @@ const walletSchema = new mongoose.Schema({
   lockedReason: String
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 walletSchema.index({ walletId: 1 });
 

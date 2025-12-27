@@ -433,7 +433,7 @@ const inventoryManagementSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 // Indexes
 inventoryManagementSchema.index({ product: 1 });

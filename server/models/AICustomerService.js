@@ -188,7 +188,7 @@ const aiCustomerServiceSchema = new mongoose.Schema({
   }]
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 aiCustomerServiceSchema.index({ 'ticket.user': 1, 'ticket.status': 1 });
 aiCustomerServiceSchema.index({ 'ticket.status': 1, 'ticket.priority': 1 });

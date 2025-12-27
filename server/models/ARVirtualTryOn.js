@@ -73,7 +73,7 @@ const arVirtualTryOnSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 arVirtualTryOnSchema.index({ user: 1, createdAt: -1 });
 arVirtualTryOnSchema.index({ product: 1 });

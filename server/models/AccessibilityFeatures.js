@@ -97,7 +97,7 @@ const accessibilityFeaturesSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 accessibilityFeaturesSchema.index({ user: 1 });
 

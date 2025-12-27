@@ -106,7 +106,7 @@ const pwaSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 // Indexes
 pwaSchema.index({ user: 1 });

@@ -104,7 +104,7 @@ const lifestyleClusteringSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 lifestyleClusteringSchema.index({ user: 1 });
 lifestyleClusteringSchema.index({ 'cluster.name': 1 });

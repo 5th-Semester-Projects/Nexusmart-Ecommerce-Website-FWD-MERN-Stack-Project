@@ -112,7 +112,7 @@ const quoteManagementSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 quoteManagementSchema.index({ business: 1 });
 quoteManagementSchema.index({ status: 1 });

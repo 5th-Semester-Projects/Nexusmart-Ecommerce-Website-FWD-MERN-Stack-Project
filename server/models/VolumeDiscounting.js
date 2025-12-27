@@ -82,7 +82,7 @@ const volumeDiscountingSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 volumeDiscountingSchema.index({ product: 1 });
 volumeDiscountingSchema.index({ category: 1 });

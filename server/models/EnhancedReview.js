@@ -283,7 +283,7 @@ const enhancedReviewSchema = new mongoose.Schema({
   }]
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 // Indexes
 enhancedReviewSchema.index({ product: 1, status: 1, createdAt: -1 });

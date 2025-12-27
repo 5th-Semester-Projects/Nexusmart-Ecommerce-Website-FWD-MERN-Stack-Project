@@ -99,7 +99,7 @@ const quizSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 quizSchema.index({ isActive: 1 });
 quizSchema.index({ 'attempts.user': 1 });

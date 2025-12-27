@@ -441,7 +441,7 @@ const influencerMarketingSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 // Indexes
 influencerMarketingSchema.index({ 'influencer.user': 1, seller: 1 });

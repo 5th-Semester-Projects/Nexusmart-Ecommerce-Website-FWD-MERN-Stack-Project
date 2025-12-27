@@ -444,7 +444,7 @@ const aiStylistSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 // Indexes
 aiStylistSchema.index({ 'outfitRecommendations.outfitId': 1 });

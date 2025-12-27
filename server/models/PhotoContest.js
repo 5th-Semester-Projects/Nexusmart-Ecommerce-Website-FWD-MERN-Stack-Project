@@ -90,7 +90,7 @@ const photoContestSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 photoContestSchema.index({ isActive: 1 });
 photoContestSchema.index({ 'entries.user': 1 });

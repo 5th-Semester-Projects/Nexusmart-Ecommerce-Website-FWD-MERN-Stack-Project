@@ -239,7 +239,7 @@ const walletSystemSchema = new mongoose.Schema({
 
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 // Indexes
 walletSystemSchema.index({ 'transactions.transactionId': 1 });

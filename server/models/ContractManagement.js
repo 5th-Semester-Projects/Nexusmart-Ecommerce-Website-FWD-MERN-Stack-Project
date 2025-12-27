@@ -134,7 +134,7 @@ const contractManagementSchema = new mongoose.Schema({
   }]
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 contractManagementSchema.index({ 'parties.buyer': 1 });
 contractManagementSchema.index({ 'parties.seller': 1 });

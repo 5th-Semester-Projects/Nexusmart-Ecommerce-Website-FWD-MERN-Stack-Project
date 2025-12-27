@@ -407,7 +407,7 @@ const productBundleKitSchema = new mongoose.Schema({
 
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 // Indexes
 productBundleKitSchema.index({ bundleName: 1 });

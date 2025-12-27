@@ -40,7 +40,7 @@ const socialShareSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 socialShareSchema.index({ user: 1, platform: 1 });
 socialShareSchema.index({ contentType: 1, contentId: 1 });

@@ -115,7 +115,7 @@ const invoiceFinancingSchema = new mongoose.Schema({
   }]
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 invoiceFinancingSchema.index({ business: 1 });
 invoiceFinancingSchema.index({ status: 1 });

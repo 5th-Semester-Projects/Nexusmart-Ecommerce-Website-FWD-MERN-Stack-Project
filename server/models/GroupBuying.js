@@ -131,7 +131,7 @@ const groupBuyingSchema = new mongoose.Schema({
   }]
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 groupBuyingSchema.index({ product: 1 });
 groupBuyingSchema.index({ organizer: 1 });

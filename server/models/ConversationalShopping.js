@@ -75,7 +75,7 @@ const conversationalShoppingSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 conversationalShoppingSchema.index({ user: 1, createdAt: -1 });
 

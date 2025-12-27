@@ -366,7 +366,7 @@ const giftCardStoreCreditSchema = new mongoose.Schema({
 
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 // Indexes
 giftCardStoreCreditSchema.index({ currentOwner: 1, cardStatus: 1 });

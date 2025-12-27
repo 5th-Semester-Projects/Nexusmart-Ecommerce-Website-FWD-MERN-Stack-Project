@@ -321,7 +321,7 @@ const productQASchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 // Indexes
 productQASchema.index({ product: 1, status: 1 });

@@ -101,7 +101,7 @@ const nextPurchasePredictionSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 nextPurchasePredictionSchema.index({ user: 1, lastPredicted: -1 });
 nextPurchasePredictionSchema.index({ 'predictions.predictedDate': 1 });

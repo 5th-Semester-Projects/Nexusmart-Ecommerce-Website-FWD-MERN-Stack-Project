@@ -73,7 +73,7 @@ const ugcSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 ugcSchema.index({ user: 1 });
 ugcSchema.index({ product: 1 });

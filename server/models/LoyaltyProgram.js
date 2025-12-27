@@ -333,7 +333,7 @@ const loyaltyProgramSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 // Indexes
 loyaltyProgramSchema.index({ 'membership.tier': 1 });

@@ -422,7 +422,7 @@ const returnsPortalSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 // Indexes
 returnsPortalSchema.index({ order: 1 });

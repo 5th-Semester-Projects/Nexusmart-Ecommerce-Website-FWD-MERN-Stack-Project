@@ -169,7 +169,7 @@ const complianceSchema = new mongoose.Schema({
   }]
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 complianceSchema.index({ 'entity.type': 1, 'entity.id': 1 });
 complianceSchema.index({ 'amlScreening.result.status': 1 });

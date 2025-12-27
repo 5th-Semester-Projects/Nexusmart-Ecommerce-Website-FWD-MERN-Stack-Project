@@ -87,7 +87,7 @@ const smartCategorizationSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 // Indexes
 smartCategorizationSchema.index({ product: 1 });

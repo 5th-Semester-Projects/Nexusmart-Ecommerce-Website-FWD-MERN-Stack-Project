@@ -355,7 +355,7 @@ const advancedSearchFiltersSchema = new mongoose.Schema({
 
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 // Indexes
 advancedSearchFiltersSchema.index({ userId: 1, lastSearched: -1 });

@@ -111,7 +111,7 @@ const dynamicPricingSchema = new mongoose.Schema({
   validUntil: Date
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 // Indexes
 dynamicPricingSchema.index({ product: 1, isActive: 1 });

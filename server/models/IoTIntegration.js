@@ -110,7 +110,7 @@ const iotIntegrationSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 iotIntegrationSchema.index({ 'connectivity.status': 1 });
 

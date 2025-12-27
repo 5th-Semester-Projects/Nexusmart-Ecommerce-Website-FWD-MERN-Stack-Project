@@ -51,7 +51,7 @@ const gestureControlSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 gestureControlSchema.index({ user: 1 });
 

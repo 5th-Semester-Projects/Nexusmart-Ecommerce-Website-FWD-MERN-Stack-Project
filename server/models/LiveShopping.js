@@ -158,7 +158,7 @@ const liveShoppingSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 liveShoppingSchema.index({ 'schedule.startTime': -1 });
 liveShoppingSchema.index({ status: 1, 'schedule.startTime': -1 });

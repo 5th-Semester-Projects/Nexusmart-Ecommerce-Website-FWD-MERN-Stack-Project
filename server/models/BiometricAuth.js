@@ -100,7 +100,7 @@ const biometricAuthSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 biometricAuthSchema.index({ 'deviceBindings.deviceId': 1 });
 

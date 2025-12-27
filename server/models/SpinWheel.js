@@ -62,7 +62,7 @@ const spinWheelSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 spinWheelSchema.index({ isActive: 1 });
 spinWheelSchema.index({ 'spins.user': 1 });

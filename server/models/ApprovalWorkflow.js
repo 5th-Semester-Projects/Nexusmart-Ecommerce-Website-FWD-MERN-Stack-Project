@@ -121,7 +121,7 @@ const approvalWorkflowSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 approvalWorkflowSchema.index({ 'request.requestedBy': 1 });
 approvalWorkflowSchema.index({ status: 1 });

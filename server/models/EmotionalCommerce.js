@@ -84,7 +84,7 @@ const emotionalCommerceSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 emotionalCommerceSchema.index({ user: 1, createdAt: -1 });
 emotionalCommerceSchema.index({ 'moodDetection.current.mood': 1 });

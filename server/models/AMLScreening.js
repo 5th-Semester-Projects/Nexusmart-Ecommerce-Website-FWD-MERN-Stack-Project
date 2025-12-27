@@ -147,7 +147,7 @@ const amlScreeningSchema = new mongoose.Schema({
   }]
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 amlScreeningSchema.index({ user: 1 });
 amlScreeningSchema.index({ 'decision.status': 1 });

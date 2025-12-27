@@ -58,7 +58,7 @@ const leaderboardSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 leaderboardSchema.index({ type: 1, period: 1, isActive: 1 });
 leaderboardSchema.index({ 'rankings.user': 1 });

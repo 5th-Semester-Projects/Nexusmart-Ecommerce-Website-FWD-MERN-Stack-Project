@@ -64,7 +64,7 @@ const imageGenerationSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 imageGenerationSchema.index({ product: 1 });
 imageGenerationSchema.index({ status: 1 });

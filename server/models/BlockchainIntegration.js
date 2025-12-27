@@ -467,7 +467,7 @@ const blockchainIntegrationSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 // Indexes
 blockchainIntegrationSchema.index({ business: 1 });

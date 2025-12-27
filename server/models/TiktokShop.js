@@ -65,7 +65,7 @@ const tiktokShopSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 tiktokShopSchema.index({ product: 1 });
 tiktokShopSchema.index({ tiktokProductId: 1 });

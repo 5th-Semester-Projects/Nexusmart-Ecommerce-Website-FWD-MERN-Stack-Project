@@ -475,7 +475,7 @@ const arTryOnSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 // Indexes
 arTryOnSchema.index({ product: 1, arType: 1 });

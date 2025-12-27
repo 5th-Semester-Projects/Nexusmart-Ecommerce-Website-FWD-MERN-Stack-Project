@@ -89,7 +89,7 @@ const emiSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 emiSchema.index({ user: 1, status: 1 });
 emiSchema.index({ order: 1 });

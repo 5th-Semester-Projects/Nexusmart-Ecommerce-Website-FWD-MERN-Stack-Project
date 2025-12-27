@@ -107,7 +107,7 @@ const crowdsourcedDeliverySchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 crowdsourcedDeliverySchema.index({ order: 1 });
 crowdsourcedDeliverySchema.index({ driver: 1 });

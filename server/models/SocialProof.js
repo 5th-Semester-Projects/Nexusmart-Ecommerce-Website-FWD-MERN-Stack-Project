@@ -125,7 +125,7 @@ const socialProofSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 socialProofSchema.index({ product: 1 });
 socialProofSchema.index({ 'popularitySignals.trendingScore': -1 });

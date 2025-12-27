@@ -196,7 +196,7 @@ const smartSizingSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 // Indexes
 smartSizingSchema.index({ 'bodyTypeAnalysis.bodyShape': 1 });

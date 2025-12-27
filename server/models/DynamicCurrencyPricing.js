@@ -66,7 +66,7 @@ const dynamicCurrencyPricingSchema = new mongoose.Schema({
   }]
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 dynamicCurrencyPricingSchema.index({ product: 1 });
 dynamicCurrencyPricingSchema.index({ 'currencies.code': 1 });

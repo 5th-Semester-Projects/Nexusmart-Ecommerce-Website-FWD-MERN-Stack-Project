@@ -156,7 +156,7 @@ const customer360Schema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 // customer360Schema.index({ user: 1 }); // Removed: user already has unique:true
 customer360Schema.index({ 'lifecycle.stage': 1 });

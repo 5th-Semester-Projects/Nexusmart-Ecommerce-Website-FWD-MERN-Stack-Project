@@ -343,7 +343,7 @@ const wishlistFavoritesSchema = new mongoose.Schema({
 
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 // Indexes
 // wishlistFavoritesSchema.index({ 'wishlists.wishlistId': 1 }, { unique: true, sparse: true }); // Removed: wishlistId already has unique:true

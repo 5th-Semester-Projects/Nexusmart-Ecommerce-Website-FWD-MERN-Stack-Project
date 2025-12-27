@@ -338,7 +338,7 @@ const orderTrackingSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 // Indexes
 orderTrackingSchema.index({ user: 1, createdAt: -1 });

@@ -291,7 +291,7 @@ const virtualTryOnSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 // Indexes
 virtualTryOnSchema.index({ user: 1, createdAt: -1 });

@@ -103,7 +103,7 @@ const imageRecognitionSchema = new mongoose.Schema({
   error: String
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 // Indexes
 imageRecognitionSchema.index({ product: 1 });

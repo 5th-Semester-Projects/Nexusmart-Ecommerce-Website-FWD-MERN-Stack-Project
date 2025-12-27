@@ -450,7 +450,7 @@ const multiVendorMarketplaceSchema = new mongoose.Schema({
   lastPayout: Date
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 // Indexes
 multiVendorMarketplaceSchema.index({ 'verification.status': 1 });

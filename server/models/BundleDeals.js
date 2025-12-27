@@ -390,7 +390,7 @@ const bundleDealsSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 // Indexes
 bundleDealsSchema.index({ status: 1, 'validity.isActive': 1 });

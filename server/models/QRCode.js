@@ -77,7 +77,7 @@ const qrCodeSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 // Indexes
 qrCodeSchema.index({ type: 1, isActive: 1 });

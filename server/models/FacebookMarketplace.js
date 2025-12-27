@@ -60,7 +60,7 @@ const facebookMarketplaceSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 facebookMarketplaceSchema.index({ product: 1 });
 facebookMarketplaceSchema.index({ facebookProductId: 1 });

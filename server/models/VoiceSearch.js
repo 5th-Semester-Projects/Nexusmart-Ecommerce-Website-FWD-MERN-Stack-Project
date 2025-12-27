@@ -99,7 +99,7 @@ const voiceSearchSchema = new mongoose.Schema({
   error: String
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 // Indexes
 voiceSearchSchema.index({ user: 1, createdAt: -1 });

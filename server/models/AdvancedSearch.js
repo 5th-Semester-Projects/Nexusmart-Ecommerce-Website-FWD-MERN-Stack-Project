@@ -144,7 +144,7 @@ const advancedSearchSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 // Indexes
 advancedSearchSchema.index({ 'query.original': 'text' });

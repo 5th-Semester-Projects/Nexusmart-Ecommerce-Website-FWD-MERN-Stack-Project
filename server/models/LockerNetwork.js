@@ -92,7 +92,7 @@ const lockerNetworkSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 lockerNetworkSchema.index({ 'locker.location.coordinates': '2dsphere' });
 lockerNetworkSchema.index({ 'deliveries.order': 1 });

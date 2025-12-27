@@ -86,7 +86,7 @@ const blockchainIdentitySchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 blockchainIdentitySchema.index({ 'wallet.address': 1 });
 

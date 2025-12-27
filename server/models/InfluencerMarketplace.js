@@ -159,7 +159,7 @@ const influencerMarketplaceSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 influencerMarketplaceSchema.index({ influencer: 1 });
 influencerMarketplaceSchema.index({ 'profile.categories': 1 });

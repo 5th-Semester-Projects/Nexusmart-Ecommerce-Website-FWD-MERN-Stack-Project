@@ -99,7 +99,7 @@ const geofenceSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 // Geospatial index
 geofenceSchema.index({ location: '2dsphere' });

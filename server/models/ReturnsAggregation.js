@@ -74,7 +74,7 @@ const returnsAggregationSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 returnsAggregationSchema.index({ user: 1 });
 returnsAggregationSchema.index({ status: 1 });

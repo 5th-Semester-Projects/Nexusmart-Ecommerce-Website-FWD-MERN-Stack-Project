@@ -229,7 +229,7 @@ const outfitBuilderSchema = new mongoose.Schema({
 
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 // Indexes
 outfitBuilderSchema.index({ status: 1 });

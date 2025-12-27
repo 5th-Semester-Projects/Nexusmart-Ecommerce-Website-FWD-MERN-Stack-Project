@@ -413,7 +413,7 @@ const geolocationServicesSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 // Indexes
 geolocationServicesSchema.index({ 'stores.location.coordinates': '2dsphere' });

@@ -126,7 +126,7 @@ const wishlistSharingSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 wishlistSharingSchema.index({ owner: 1 });
 wishlistSharingSchema.index({ 'sharing.shareUrl': 1 });

@@ -124,7 +124,7 @@ const influencerSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 influencerSchema.index({ username: 1 });
 influencerSchema.index({ 'affiliate.code': 1 });

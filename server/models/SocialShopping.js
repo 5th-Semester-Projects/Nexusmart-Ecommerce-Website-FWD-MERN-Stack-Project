@@ -386,7 +386,7 @@ const socialShoppingSchema = new mongoose.Schema({
   expiresAt: Date
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 // Indexes
 socialShoppingSchema.index({ user: 1, createdAt: -1 });

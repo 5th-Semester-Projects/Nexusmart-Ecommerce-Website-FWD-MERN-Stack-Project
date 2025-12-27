@@ -85,7 +85,7 @@ const churnPreventionSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 // churnPreventionSchema.index({ user: 1 }); // Removed: user already has unique:true
 churnPreventionSchema.index({ 'churnRisk.level': 1, 'churnRisk.score': -1 });

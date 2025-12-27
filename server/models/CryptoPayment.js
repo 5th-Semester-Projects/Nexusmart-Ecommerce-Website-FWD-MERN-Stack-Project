@@ -102,7 +102,7 @@ const cryptoPaymentSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 cryptoPaymentSchema.index({ order: 1 });
 cryptoPaymentSchema.index({ transactionHash: 1 });

@@ -54,7 +54,7 @@ const scratchCardSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 scratchCardSchema.index({ user: 1, status: 1 });
 scratchCardSchema.index({ cardCode: 1 });

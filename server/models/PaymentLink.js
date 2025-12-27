@@ -96,7 +96,7 @@ const paymentLinkSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 paymentLinkSchema.index({ linkId: 1 });
 paymentLinkSchema.index({ shortUrl: 1 });

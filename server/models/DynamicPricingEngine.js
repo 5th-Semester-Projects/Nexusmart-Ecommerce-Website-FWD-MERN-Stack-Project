@@ -521,7 +521,7 @@ const dynamicPricingEngineSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 // Indexes
 dynamicPricingEngineSchema.index({ 'competitorTracking.lowestCompetitorPrice': 1 });

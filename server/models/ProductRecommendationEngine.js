@@ -429,7 +429,7 @@ const productRecommendationEngineSchema = new mongoose.Schema({
 
 }, {
   timestamps: true
-});
+, suppressReservedKeysWarning: true });
 
 // Indexes
 productRecommendationEngineSchema.index({ 'realTimePersonalization.currentSession.sessionId': 1 });

@@ -383,8 +383,8 @@ const advancedReturnsManagementSchema = new mongoose.Schema({
 });
 
 // Indexes
-advancedReturnsManagementSchema.index({ user: 1, status: 1 });
-advancedReturnsManagementSchema.index({ order: 1 });
+// advancedReturnsManagementSchema.index({ user: 1, status: 1 }); // Removed: both user and status already have index:true
+// advancedReturnsManagementSchema.index({ order: 1 }); // Removed: order field already has index:true
 
 // Methods
 advancedReturnsManagementSchema.methods.generateQRCode = function () {

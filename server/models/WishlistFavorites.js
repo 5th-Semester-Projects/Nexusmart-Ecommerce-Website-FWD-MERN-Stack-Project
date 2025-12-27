@@ -346,7 +346,7 @@ const wishlistFavoritesSchema = new mongoose.Schema({
 });
 
 // Indexes
-wishlistFavoritesSchema.index({ 'wishlists.wishlistId': 1 }, { unique: true, sparse: true });
+// wishlistFavoritesSchema.index({ 'wishlists.wishlistId': 1 }, { unique: true, sparse: true }); // Removed: wishlistId already has unique:true
 wishlistFavoritesSchema.index({ 'wishlists.items.product': 1 });
 wishlistFavoritesSchema.index({ 'wishlists.sharing.shareCode': 1 });
 wishlistFavoritesSchema.index({ 'quickFavorites.product': 1 });

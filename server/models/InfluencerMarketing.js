@@ -445,7 +445,7 @@ const influencerMarketingSchema = new mongoose.Schema({
 
 // Indexes
 influencerMarketingSchema.index({ 'influencer.user': 1, seller: 1 });
-influencerMarketingSchema.index({ 'discountCodes.code': 1 });
+// influencerMarketingSchema.index({ 'discountCodes.code': 1 }); // Removed: code already has unique:true
 
 // Methods
 influencerMarketingSchema.methods.generateDiscountCode = function (codeData) {

@@ -48,7 +48,7 @@ const voiceConversationSchema = new mongoose.Schema({
     enum: ['active', 'completed', 'abandoned'],
     default: 'active',
   },
-}, { timestamps: true });
+}, { timestamps: true, suppressReservedKeysWarning: true });
 
 export const VoiceConversation = mongoose.models.VoiceConversation || mongoose.model('VoiceConversation', voiceConversationSchema);
 

@@ -192,16 +192,16 @@ const ProductCard = ({ product, onQuickView, eager = false }) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 20 }}
             transition={{ duration: 0.3 }}
-            className="absolute bottom-4 left-0 right-0 flex justify-center gap-3 px-4"
+            className="absolute bottom-4 left-0 right-0 flex justify-center gap-3 px-4 pointer-events-none"
           >
             <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={handleQuickView}
-              className="p-3 bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl rounded-full text-purple-600 dark:text-purple-400 hover:bg-white dark:hover:bg-gray-900 transition-all shadow-lg"
+              className="p-3 bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl rounded-full text-purple-600 dark:text-purple-400 hover:bg-white dark:hover:bg-gray-800 hover:text-purple-700 dark:hover:text-purple-300 transition-all shadow-lg pointer-events-auto"
               title="Quick View"
             >
-              <FiEye className="text-lg" />
+              <FiEye className="text-xl" />
             </motion.button>
             
             {/* Compare Button */}
@@ -209,24 +209,24 @@ const ProductCard = ({ product, onQuickView, eager = false }) => {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={handleCompareToggle}
-              className={`p-3 backdrop-blur-xl rounded-full transition-all shadow-lg
+              className={`p-3 backdrop-blur-xl rounded-full transition-all shadow-lg pointer-events-auto
                 ${inComparison 
-                  ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white' 
-                  : 'bg-white/90 dark:bg-gray-900/90 text-purple-600 dark:text-purple-400 hover:bg-white dark:hover:bg-gray-900'
+                  ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-700 hover:to-blue-700' 
+                  : 'bg-white/95 dark:bg-gray-800/95 text-purple-600 dark:text-purple-400 hover:bg-white dark:hover:bg-gray-800 hover:text-purple-700 dark:hover:text-purple-300'
                 }`}
               title={inComparison ? 'Remove from Compare' : 'Add to Compare'}
             >
-              <HiOutlineScale className="text-lg" />
+              <HiOutlineScale className="text-xl" />
             </motion.button>
             
             <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={handleAddToCart}
-              className="px-6 py-3 bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600 text-white rounded-full font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all flex items-center gap-2"
+              className="px-6 py-3 bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600 text-white rounded-full font-semibold hover:shadow-xl hover:shadow-purple-500/50 transition-all flex items-center gap-2 pointer-events-auto hover:from-purple-700 hover:via-blue-700 hover:to-cyan-700"
             >
-              <FiShoppingCart />
-              <span>Add to Cart</span>
+              <FiShoppingCart className="text-lg" />
+              <span className="text-sm font-bold">Add to Cart</span>
             </motion.button>
           </motion.div>
         </Link>
